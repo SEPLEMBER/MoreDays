@@ -1,30 +1,62 @@
 # moreDays
 
+## ToDos
+- genau prüfen, welche Daten beobachtet werden müssen: https://developer.android.com/codelabs/android-room-with-a-view-kotlin#6
+- Tests hinzufügen https://developer.android.com/codelabs/advanced-android-kotlin-training-testing-basics#0
 ## Vision
 
-## ToDos
-- https://github.com/KeepSafe/TapTargetView -- onboarding/help 
-  - über help in Einstellungen können alle preferences, die onbaording als absolviert speichern zurückgesetzt werden? oder tatsächlich ?-Button, der das im jeweiligen Screen macht
-- Fotos auswählen
-  - https://github.com/ChiliLabs/ChiliPhotoPicker
-  - https://github.com/esafirm/android-image-picker
-- newtongradleloading beim Laden der Charts und Laden der App
-  - https://github.com/yankai-victor/Loading -- evtl. veraltet?
-- eigene circle-view überarbeiten, vgl.
-  - https://github.com/GIGAMOLE/ArcProgressStackView
-- Pokale verschönern
-  - https://github.com/DanielMartinus/konfetti +???
-- icons direkt material icons verwenden und nicht font awesome?
-  - https://google.github.io/material-design-icons/#icons-for-android
-- font
-- alle RecyclerViews mit drag&drop
-  - https://github.com/ernestoyaquello/DragDropSwipeRecyclerview
-- saved state
-  - https://developer.android.com/topic/libraries/architecture/viewmodel-savedstate
-
 ## Walkthrough
-- new project based on bottom navigation
-- added fragments (with viewmodel) as needed
-- modified navigation graph
+- Neues Kotlin-Projekt auf Basis der Bottom-Navigation angelegt
+- Folgende Fragments auf Basis des Templates Fragment mit ViewModel hinzugefügt: Activity, Challenge, Goal, Journal, Trophy; und ActivityList, TrophyList... und die zugehörigen Adapterklassen und Layouts
+- mit https://try.kotlinlang.org/ die DB-Java-Dateien nach Kotlin konvertiert
+- einige Anpassungen analog zu https://github.com/android/sunflower vorgenommen
+- Navigationsgraph über GUI erstellt und Bottom-Navigation (Menu und Binding in MainActivity) angepasst
+
+## Kotlin
+- it : bei Lambdas mit nur einem Parameter kann dieser weggelassen werden und heißt it
+- ? : darf null sein
+- damit von einer Klasse geerbt werden kann braucht es als erstes Schlüsselwort open
+- Code-Beispiele mit Besonderheiten der Sprache
+  - Referenz https://kotlinlang.org/docs/reference
+```
+fun getStringLength(obj: Any): Int? {
+    if (obj !is String) return null
+
+    // `obj` is automatically cast to `String` in this branch
+    return obj.length
+}
+```
+```
+fun describe(obj: Any): String =
+    when (obj) {
+        1          -> "One"
+        "Hello"    -> "Greeting"
+        is Long    -> "Long"
+        !is String -> "Not a string"
+        else       -> "Unknown"
+    }
+```
+```
+for (x in 1..10 step 2) {
+    print(x)
+for (item in items) {
+    println(item)
+}
+```
+
+## Architektur-Komponenten
+- https://developer.android.com/jetpack/guide
+- https://developer.android.com/topic/libraries/architecture/index.html
+- https://github.com/android/architecture-components-samples
+### Fragments
+- getSupportFragmentManager is associated with an activity. Consider it as a FragmentManager for your activity.
+- getChildFragmentManager is associated with fragments
+```
+getSupportFragmentManager().beginTransaction()
+                           .add(detailFragment, "detail")
+                           // Add this transaction to the back stack
+                           .addToBackStack(null)
+                           .commit();
+```
 
 ## Thanks 

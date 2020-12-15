@@ -1,0 +1,66 @@
+package de.wuapps.moredays.database.converter
+
+import android.util.Log
+import androidx.room.TypeConverter
+import de.wuapps.moredays.database.entity.Goal
+
+
+class ListGoalTypeConverter {
+
+  companion object {
+
+    const val DELIMITER_GOAL:String = ";"
+    const val DELIMITER_FIELD:String = ","
+
+    @TypeConverter
+    fun convertListGoalToString(goals: List<Goal>): String {
+      val sb = StringBuilder()
+      for (goal in goals) {
+        sb.append(goal.uid)
+        sb.append(ListGoalTypeConverter.DELIMITER_FIELD)
+        sb.append(goal.name)
+        sb.append(DELIMITER_FIELD)
+        sb.append(goal.color)
+        sb.append(DELIMITER_FIELD)
+        sb.append(goal.points)
+        sb.append(DELIMITER_FIELD)
+        sb.append(goal.symbol)
+        sb.append(DELIMITER_FIELD)
+        sb.append(goal.orderNumber)
+        sb.append(DELIMITER_FIELD)
+        if (goal.isActive)
+          sb.append(1)
+        else
+          sb.append(0)
+        sb.append(DELIMITER_GOAL)
+      }
+      return sb.toString()
+    }
+
+    @TypeConverter
+    fun convertStringToGoalList(data: String): List<Goal> {
+      val goals = ArrayList<Goal>()
+      val rows =
+        data.split((DELIMITER_GOAL).toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+      try {
+        for (row in rows) {
+          val fields =
+            row.split((DELIMITER_FIELD).toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+          val goal = Goal()
+          goal.uid = Integer.parseInt(fields[0])
+          goal.name = fields[1]
+          goal.color = Integer.parseInt(fields[2])
+          goal.points = Integer.parseInt(fields[3])
+          goal.symbol = Integer.parseInt(fields[4])
+          goal.orderNumber = Integer.parseInt(fields[5])
+          goal.isActive = Integer.parseInt(fields[6]) > 0
+          goals.add(goal)
+        }
+      } catch (exception: Exception) {
+        Log.e("ListGoalTypeConverter", exception.message.toString())
+      }
+      return goals
+    }
+
+  }
+}
