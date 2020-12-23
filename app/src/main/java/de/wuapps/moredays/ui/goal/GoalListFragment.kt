@@ -7,12 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import de.wuapps.moredays.R
+import de.wuapps.moredays.data.repository.GoalRepository
+import de.wuapps.moredays.database.MoreDaysDatabase
+import de.wuapps.moredays.database.dao.GoalDao
+import de.wuapps.moredays.database.entity.Goal
+import de.wuapps.moredays.databinding.GoalFragmentBinding
+import de.wuapps.moredays.databinding.GoalListFragmentBinding
+import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
 
 class GoalListFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = GoalListFragment()
-    }
+    lateinit var binding: GoalListFragmentBinding
 
     private lateinit var viewModel: GoalListViewModel
 
@@ -20,13 +25,34 @@ class GoalListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.goal_list_fragment, container, false)
+        val application = requireNotNull(this.activity).application
+        val goalRepository = GoalRepository(MoreDaysDatabase.getInstance(application).goalDao)
+        viewModel = GoalListViewModel(goalRepository, application)
+        binding = GoalListFragmentBinding.inflate(inflater, container, false)
+        binding.recyclerviewGoals.layoutManager = ResponsiveGridLayoutManager(requireNotNull(this.activity), resources.getDimension(R.dimen.goal_item_width).toInt())
+        val adapter = GoalAdapter()
+        binding.recyclerviewGoals.adapter = adapter
+
+        subscribeUi(adapter, binding)
+
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(GoalListViewModel::class.java)
-        // TODO: Use the ViewModel
+
+
     }
 
+    private fun subscribeUi(adapter: GoalAdapter, binding: GoalListFragmentBinding) {
+        viewModel.goals.observe(viewLifecycleOwner, {
+            it?.let {
+                adapter.submitList(it as MutableList<Goal>)
+
+            }
+        })
+//        viewModel.goals.observe(viewLifecycleOwner) { result ->
+//            adapter.notifyDataSetChanged()
+//        }
+    }
 }

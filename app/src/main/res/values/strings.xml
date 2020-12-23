@@ -5,6 +5,7 @@
     <string name="title_trophy">Trophies</string>
     <string name="title_journal">Journal</string>
     <string name="title_settings">Settings</string>
+    <string name="title_tools">Tools</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
@@ -21,4 +22,15 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lbl_choose_goal">lbl_choose_goal</string>
+    <string name="lbl_question_activity_to_goal">lbl_question_activity_to_goal</string>
+    <string name="hint_update_points_activity">hint_update_points_activity</string>
+    <string name="lbl_name">lbl_name</string>
+    <string name="lbl_points">lbl_points</string>
+    <string name="lbl_inactive">lbl_inactive</string>
+    <string name="lbl_add_activity">lbl_add_activity</string>
+    <string name="lbl_categories_question">lbl_categories_question</string>
+    <string name="lbl_add_goal">lbl_add_goal</string>
+    <string name="lbl_is_not_old">lbl_is_not_old</string>
+    <string name="warning_field_is_required">field is required</string>
 </resources>

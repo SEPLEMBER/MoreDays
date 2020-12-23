@@ -1,13 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.goal.GoalFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <data>
+
+        <variable
+            name="goalViewModel"
+            type="de.wuapps.moredays.ui.goal.GoalViewModel" />
+        </data>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_margin="@dimen/layout_margin"
+        tools:context=".ui.goal.GoalFragment">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/min_accesible_size"
+                android:inputType="text"
+                android:text="@{goalViewModel.goal.name}"
+                app:layout_constraintBottom_toTopOf="@id/lblPoints"
+                app:layout_constraintEnd_toEndOf="@id/guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewGoal" />
+
+            <EditText
+                android:id="@+id/editTextPoints"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/min_accesible_size"
+                android:digits="0123456789"
+                android:text="@={`` + goalViewModel.goal.points}"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="@id/guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lblPoints" />
+
+            <ImageButton
+                android:id="@+id/imageButtonColor"
+                android:layout_width="@dimen/min_accesible_size"
+                android:layout_height="@dimen/min_accesible_size"
+                android:background="@drawable/circle_in_secondary"
+                android:importantForAccessibility="no"
+                app:layout_constraintBottom_toBottomOf="@id/editTextName"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageButton
+                android:id="@+id/imageButtonIcon"
+                android:layout_width="@dimen/min_accesible_size"
+                android:layout_height="@dimen/min_accesible_size"
+                android:background="@drawable/circle_in_secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:importantForAccessibility="no"
+                app:layout_constraintTop_toTopOf="@id/editTextPoints" />
+
+            <TextView
+                android:id="@+id/textViewGoal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_name"
+                android:labelFor="@id/editTextName"
+                app:layout_constraintBottom_toTopOf="@id/editTextName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/lblPoints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="@string/lbl_points"
+                android:labelFor="@id/editTextPoints"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextName" />
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="0dp"
+                app:layout_constraintGuide_end="0dp"
+                app:layout_constraintGuide_percent="0.8" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSave"
+                style="@style/Widget.MoreDays.ButtonSave"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageButtonAddActivity" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonDelete"
+                style="@style/Widget.MoreDays.ButtonDelete"
+                app:layout_constraintBottom_toBottomOf="@id/buttonSave"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/checkboxIsNotOld"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_is_not_old"
+                android:checked="@{goalViewModel.goal.isNotOld}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageButtonIcon" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewActivities"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/checkboxIsNotOld" />
+
+            <ImageButton
+                android:id="@+id/imageButtonAddActivity"
+                android:layout_width="@dimen/min_accesible_size"
+                android:layout_height="@dimen/min_accesible_size"
+                android:background="@drawable/circle_in_secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/lbl_add_activity"
+                app:layout_constraintBottom_toBottomOf="@id/textViewActivities" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

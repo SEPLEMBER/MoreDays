@@ -47,13 +47,13 @@ class ListGoalTypeConverter {
           val fields =
             row.split((DELIMITER_FIELD).toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
           val goal = Goal()
-          goal.uid = Integer.parseInt(fields[0])
+          goal.uid = fields[0].toLong()
           goal.name = fields[1]
-          goal.color = Integer.parseInt(fields[2])
-          goal.points = Integer.parseInt(fields[3])
-          goal.symbol = Integer.parseInt(fields[4])
-          goal.orderNumber = Integer.parseInt(fields[5])
-          goal.isActive = Integer.parseInt(fields[6]) > 0
+          goal.color = fields[2].toInt()
+          goal.points = fields[3].toInt()
+          goal.symbol = fields[4].toInt()
+          goal.orderNumber = fields[5].toInt()
+          goal.isActive = fields[6].toInt() > 0
           goals.add(goal)
         }
       } catch (exception: Exception) {

@@ -26,7 +26,7 @@ class Journal
     this.date = DateTypeConverter.convertDateToString(Date())
   }
   @Ignore
-  constructor(date:String, grateful:String, great:String, affirmation:String, reflection:String, improvement:String, imageFilename:String) {
+  constructor(date:String, affirmation:String, imageFilename:String) {
     this.affirmation = affirmation
     this.imageFilename = imageFilename
     this.date = date

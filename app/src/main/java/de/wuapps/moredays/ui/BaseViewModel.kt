@@ -1,4 +1,11 @@
 package de.wuapps.moredays.ui
 
-class BaseViewModel {
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import java.util.*
+
+open class BaseViewModel(application: Application) : AndroidViewModel(application) {
+    val currentDate: Date = Date()
+    init {}
+
 }

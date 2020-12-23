@@ -9,24 +9,24 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import de.wuapps.moredays.database.converter.DateTypeConverter
 import de.wuapps.moredays.database.converter.ListGoalTypeConverter
 import de.wuapps.moredays.database.dao.ChallengeDao
+import de.wuapps.moredays.database.dao.GoalDao
 import de.wuapps.moredays.database.entity.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Activity::class, ActivityEntry::class, Goal::class, Challenge::class, Scale::class, Trophy::class ], version = 1)
+@Database(entities = [Activity::class, ActivityEntry::class, Goal::class, Challenge::class, Scale::class, Trophy::class ], version = 3)
 @TypeConverters(DateTypeConverter::class)
 abstract class MoreDaysDatabase : RoomDatabase() {
 
-    abstract fun challengeDao(): ChallengeDao
+    abstract val goalDao: GoalDao
 
     companion object {
         @Volatile
         private var INSTANCE: MoreDaysDatabase? = null
 
-        fun getDatabase(
+        fun getInstance(
             context: Context,
-            scope: CoroutineScope
         ): MoreDaysDatabase {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database
@@ -39,22 +39,11 @@ abstract class MoreDaysDatabase : RoomDatabase() {
                     // Wipes and rebuilds instead of migrating if no Migration object.
                     // Migration is not part of this codelab.
                     .fallbackToDestructiveMigration()
-                    .addCallback(MoreDaysDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance
                 // return instance
                 instance
             }
         }
-
-        private class MoreDaysDatabaseCallback(
-            private val scope: CoroutineScope
-        ) : RoomDatabase.Callback() {
-            override fun onCreate(db: SupportSQLiteDatabase) {
-                super.onCreate(db)
-                
-            }
-        }
-
     }
 }

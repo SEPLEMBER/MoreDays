@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- mix of https://www.colourlovers.com/palette/373610/Melon_Ball_Surprise and https://material.io/resources/color/#!/?view.left=0&view.right=0&secondary.color=ffc48c&primary.color=D1F2A5
+    <color name="primaryColor">#cff09e</color>
+    <color name="primaryVariantColor">#EFFAB4</color>
+    <color name="primaryDarkColor">#9dbd6f</color>
+    <color name="secondaryColor">#3b8686</color>
+    <color name="secondaryVariantColor">#FF9F80</color>
+    <color name="secondaryDarkColor">#005959</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#f9f9f9</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>-->
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <!-- mix of https://www.colourlovers.com/palette/373610/Melon_Ball_Surprise and https://material.io/resources/color/#!/?view.left=0&view.right=1&secondary.color=ffc48c&primary.color=D1F2A5 -->
+    <color name="primaryColor">#d1f2a5</color>
+    <color name="primaryVariantColor">#ffffd7</color>
+    <color name="primaryDarkColor">#9fbf75</color>
+    <color name="secondaryColor">#ffc48c</color>
+    <color name="secondaryVariantColor">#fff7bd</color>
+    <color name="secondaryDarkColor">#ca945e</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>
+    <color name="hintTextColor">#777777</color>
+    <color name="accentColor">#ff0000</color>
+    <color name="accentTextColor">#000000</color>
 </resources>

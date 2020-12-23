@@ -11,9 +11,19 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/navigation_settings"
-        android:name="de.wuapps.moredays.ui.settings.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:id="@+id/navigation_tools"
+        android:name="de.wuapps.moredays.ui.tools.ToolsFragment"
+        android:label="ToolsFragment" >
+        <action
+            android:id="@+id/navigation_tools_goals"
+            app:destination="@id/goalListFragment" />
+        <action
+            android:id="@+id/navigation_tools_activities"
+            app:destination="@id/activityListFragment" />
+        <action
+            android:id="@+id/navigation_tools_goal"
+            app:destination="@id/goalFragment" />
+    </fragment>
     <fragment
         android:id="@+id/activityFragment"
         android:name="de.wuapps.moredays.ui.activity.ActivityFragment"
@@ -28,7 +38,11 @@
         android:id="@+id/goalFragment"
         android:name="de.wuapps.moredays.ui.goal.GoalFragment"
         android:label="goal_fragment"
-        tools:layout="@layout/goal_fragment" />
+        tools:layout="@layout/goal_fragment" >
+        <action
+            android:id="@+id/navigation_goal_activity"
+            app:destination="@id/activityFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_charts"
         android:name="de.wuapps.moredays.ui.charts.ChartsFragment"
@@ -44,4 +58,22 @@
         android:name="de.wuapps.moredays.ui.trophy.TrophyListFragment"
         android:label="trophy"
         tools:layout="@layout/trophy_list_fragment" />
+    <fragment
+        android:id="@+id/activityListFragment"
+        android:name="de.wuapps.moredays.ui.activity.ActivityListFragment"
+        android:label="activity_list_fragment"
+        tools:layout="@layout/activity_list_fragment" >
+        <action
+            android:id="@+id/navigation_activities_activity"
+            app:destination="@id/activityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/goalListFragment"
+        android:name="de.wuapps.moredays.ui.goal.GoalListFragment"
+        android:label="goal_list_fragment"
+        tools:layout="@layout/goal_list_fragment" >
+        <action
+            android:id="@+id/navigation_goals_goal"
+            app:destination="@id/goalFragment" />
+    </fragment>
 </navigation>

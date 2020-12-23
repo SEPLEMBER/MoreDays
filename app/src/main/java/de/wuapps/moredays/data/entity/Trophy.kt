@@ -39,6 +39,7 @@ class Trophy {
     this.text = text
     this.type = type
     this.goalId = goalId
+    this.value = value
     this.activityEntryId = activityEntryId
   }
 }

@@ -1,32 +1,28 @@
 package de.wuapps.moredays.database.entity
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import kotlinx.coroutines.flow.Flow
+import kotlinx.parcelize.Parcelize
 
 
 @Entity
-class Goal {
+@Parcelize
+data class Goal (
   @PrimaryKey(autoGenerate = true)
-  var uid:Int = 0
-  var name:String = ""
-  var color:Int = 0
-  var points:Int = 0
-  var symbol:Int = 0
+  var uid:Long,
+  var name:String,
+  var color:Int,
+  var points:Int,
+  var symbol:Int,
   @ColumnInfo(name = "order_number")
-  var orderNumber:Int = 0
+  var orderNumber:Int,
   @ColumnInfo(name = "is_active")
-  var isActive:Boolean = false
-  constructor() {}
-  @Ignore
-  @JvmOverloads constructor(name:String, color:Int, points:Int, symbol:Int, orderNumber:Int = 100) {
-    this.uid = 0 //trigger autoincrement
-    this.name = name
-    this.color = color
-    this.points = points
-    this.symbol = symbol
-    this.orderNumber = orderNumber
-    this.isActive = true
-  }
+  var isActive:Boolean,
+  @ColumnInfo(name = "is_not_old") //old = formerly used, should not be able to be selected, but keep associated data and show it in bar chart
+  var isNotOld:Boolean) : Parcelable {
+  constructor():this(0, "", 0, 0, 0, 0, true, true) {}
 }

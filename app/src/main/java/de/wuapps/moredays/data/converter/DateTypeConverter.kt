@@ -7,12 +7,12 @@ import java.util.*
 
 class DateTypeConverter {
     @TypeConverter
-    fun convertDateToLong(date: Date): Long {
+	fun convertDateToLong(date: Date): Long {
         return date.getTime()
     }
 
     @TypeConverter
-    fun convertLongToDate(time: Long): Date {
+	fun convertLongToDate(time: Long): Date {
         return Date(time)
     }
 
