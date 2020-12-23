@@ -8,6 +8,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.maltaisn.icondialog.IconDialog
+import com.maltaisn.icondialog.IconDialogSettings
+import com.maltaisn.icondialog.data.Icon
+import com.maltaisn.icondialog.pack.IconPack
 
 import de.wuapps.moredays.R
 import de.wuapps.moredays.data.repository.GoalRepository
@@ -15,15 +19,19 @@ import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.GoalFragmentBinding
 import de.wuapps.moredays.ui.activity.ActivityListViewModel
+import de.wuapps.moredays.ui.icons.IconViewModel
 import java.lang.Integer.parseInt
 
-class GoalFragment : Fragment() {
+class GoalFragment : Fragment(), IconDialog.Callback {
     private val TAG = "GoalFragment"
     private var _binding: GoalFragmentBinding? = null
+    private var selectedIconId:Int=-1
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var viewModel: GoalViewModel
+    private lateinit var iconViewModel: IconViewModel
     //private val viewModel: GoalViewModel by viewModels()
     //val vm: GoalViewModel by lazy { ViewModelProviders.of(this).get(GoalViewModel::class.java) }
     companion object {
@@ -44,6 +52,14 @@ class GoalFragment : Fragment() {
         binding.setLifecycleOwner(this)
         binding.buttonSave.setOnClickListener({save()})
         binding.buttonDelete.setOnClickListener({delete()})
+        val iconDialog = childFragmentManager.findFragmentByTag(viewModel.ICON_DIALOG_TAG) as IconDialog?
+            ?: IconDialog.newInstance(IconDialogSettings())
+
+    //iconDialog.show(requireActivity().supportFragmentManager
+        binding.imageButtonIcon.setOnClickListener({iconDialog.show(childFragmentManager, viewModel.ICON_DIALOG_TAG)})
+
+        iconViewModel = IconViewModel(application)
+        selectedIconId = viewModel.goal.value?.symbol ?: -1
         return view
 
     }
@@ -107,4 +123,18 @@ class GoalFragment : Fragment() {
         _binding = null
     }
 
+    override val iconDialogIconPack: IconPack?
+        get() = iconViewModel.iconPack
+
+    override fun onIconDialogIconsSelected(dialog: IconDialog, icons: List<Icon>) {
+        if (icons.size > 0) {
+            selectedIconId = icons.get(0).id
+            setIcon()
+        }
+    }
+
+    private fun setIcon(){
+        if (selectedIconId > 0)
+            binding.imageButtonIcon.setImageDrawable(iconViewModel.iconPack.getIcon(selectedIconId)?.drawable)
+    }
 }

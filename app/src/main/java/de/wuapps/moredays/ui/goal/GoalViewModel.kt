@@ -1,6 +1,7 @@
 package de.wuapps.moredays.ui.goal
 
 import android.app.Application
+import android.graphics.drawable.Drawable
 import androidx.lifecycle.*
 import de.wuapps.moredays.data.repository.GoalRepository
 import de.wuapps.moredays.database.dao.GoalDao

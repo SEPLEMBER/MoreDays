@@ -57,8 +57,9 @@
                 android:layout_width="@dimen/min_accesible_size"
                 android:layout_height="@dimen/min_accesible_size"
                 android:background="@drawable/circle_in_secondary"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:importantForAccessibility="no"
+                android:src="@drawable/ic_home"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/editTextPoints" />
 
             <TextView
