@@ -1,20 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.tools.ToolsFragment">
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/btnAddGoal"
-    android:text="add goal"
-    />
+    <TextView
+        android:id="@+id/textViewBaseData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:text="@string/base_data"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnGoals"
-        android:text="goals"
+        android:layout_margin="@dimen/layout_margin"
+        android:text="@string/goals"
+        app:layout_constraintTop_toBottomOf="@id/textViewBaseData"
         />
-</LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnActivities"
+        android:layout_margin="@dimen/layout_margin"
+        android:text="@string/activites"
+        app:layout_constraintTop_toTopOf="@id/btnGoals"
+        app:layout_constraintLeft_toRightOf="@id/btnGoals"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnChallenges"
+        android:layout_margin="@dimen/layout_margin"
+        android:text="@string/challenges"
+        app:layout_constraintTop_toBottomOf="@id/btnGoals"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnScales"
+        android:layout_margin="@dimen/layout_margin"
+        android:text="@string/scales"
+        app:layout_constraintTop_toBottomOf="@id/btnGoals"
+        app:layout_constraintLeft_toRightOf="@id/btnChallenges"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

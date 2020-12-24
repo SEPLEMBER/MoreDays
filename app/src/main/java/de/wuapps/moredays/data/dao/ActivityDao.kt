@@ -2,17 +2,18 @@ package de.wuapps.moredays.database.dao
 
 import androidx.room.*
 import de.wuapps.moredays.database.entity.Activity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ActivityDao {
-  @get:Query("SELECT activity.uid, activity.goal_id, activity.points, activity.name, activity.is_active FROM Activity order by goal_id asc, activity.points desc")
-  val all:List<Activity>
+  @Query("SELECT activity.uid, activity.goal_id, activity.points, activity.name, activity.is_active FROM Activity order by goal_id asc, activity.points desc")
+  fun getAll(): Flow<List<Activity>>
   @get:Query("SELECT activity.uid, activity.goal_id, activity.points, activity.name, activity.is_active FROM Activity inner join goal on goal.uid=activity.goal_id and activity.is_active = 1 order by goal.order_number asc, goal.uid asc, activity.points desc")
   val active:List<Activity>
   @Query("SELECT * FROM Activity WHERE uid = :id")
-  fun loadActivityById(id:Int):Activity
+  suspend fun getActivityById(id:Long):Activity?
   @Query("Select count(*) from Activity where activity.uid = :activityId")
-  fun isUsed(activityId:Int):Int
+  suspend fun isUsed(activityId:Long):Int
   @Insert
   fun insert(activity:Activity):Long
   @Delete

@@ -9,7 +9,7 @@ import java.util.*
 @Entity
 class Challenge { //serializable: damit kann es als Parameter zwischen Intents Ã¼bergeben werden
   @PrimaryKey(autoGenerate = true)
-  var uid:Int = 0
+  var uid:Long = 0
   var title:String=""
   var deadline:Date= Date()
   set(deadline) {
@@ -30,7 +30,7 @@ class Challenge { //serializable: damit kann es als Parameter zwischen Intents Ã
   @ColumnInfo(name = "current_value")
   var currentValue:Float = 0.toFloat()
   @ColumnInfo(name = "id")
-  var id:Int = 0
+  var id:Long = 0
   @ColumnInfo(name = "symbol")
   var symbol:Int = 0
   @ColumnInfo(name = "status")
@@ -58,7 +58,7 @@ class Challenge { //serializable: damit kann es als Parameter zwischen Intents Ã
   }
   constructor() {}
   @Ignore
-  constructor(title:String, startDate:Date, deadline:Date, challengeType:Int, valueType:Int, desiredValue:Float, id:Int, symbol:Int) {
+  constructor(title:String, startDate:Date, deadline:Date, challengeType:Int, valueType:Int, desiredValue:Float, id:Long, symbol:Int) {
     this.uid = 0 //trigger autoincrement
     this.title = title
     this.deadline = deadline

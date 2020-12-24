@@ -13,12 +13,12 @@ import androidx.room.ForeignKey.CASCADE
     indices = [Index(value = ["goal_id"])])
 class Activity {
   @PrimaryKey(autoGenerate = true)
-  var uid:Int = 0
+  var uid:Long = 0
 
   var name:String=""
 
   @ColumnInfo(name = "goal_id")
-  var goalId:Int = 0
+  var goalId:Long = 0
 
   var points:Int = 0
 
@@ -28,7 +28,7 @@ class Activity {
   constructor(){}
 
   @Ignore
-  constructor(name: String, goalId: Int, points: Int) : this() {
+  constructor(name: String, goalId: Long, points: Int) : this() {
     this.uid = 0 //trigger autoincrement
     this.name = name
     this.goalId = goalId

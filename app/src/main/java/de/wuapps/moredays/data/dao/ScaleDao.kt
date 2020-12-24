@@ -3,13 +3,16 @@ package de.wuapps.moredays.database.dao
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import de.wuapps.moredays.database.entity.Scale
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ScaleDao {
-  @get:Query("SELECT * FROM scale order by name")
-  val all:List<Scale>
+  @Query("SELECT * FROM scale order by name")
+  fun getAll(): Flow<List<Scale>>
   @Query("SELECT * FROM scale WHERE uid = :scaleId")
-  fun getScaleById(scaleId:Int):Scale
+  suspend fun getScaleById(scaleId:Long):Scale?
+  @Query("SELECT count(*) from ScaleEntry where scale_id =:scaleId")
+  suspend fun isUsed(scaleId:Long):Int
   @Insert(onConflict = REPLACE)
   fun insert(scale:Scale):Long
   @Insert

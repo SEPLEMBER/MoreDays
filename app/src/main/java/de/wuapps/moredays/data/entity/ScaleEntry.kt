@@ -12,9 +12,9 @@ import java.util.*
   indices = [Index(value = ["scale_id"])])
 class ScaleEntry {
   @PrimaryKey(autoGenerate = true)
-  var uid:Int = 0
+  var uid:Long = 0
   @ColumnInfo(name = "scale_id")
-  var scaleId:Int = 0
+  var scaleId:Long = 0
   @ColumnInfo(name = "timestamp")
   var timestamp: Date = Date()
 
@@ -23,13 +23,13 @@ class ScaleEntry {
   constructor() {}
 
   @Ignore
-  constructor(scaleId:Int, value:Float) {
+  constructor(scaleId:Long, value:Float) {
     this.scaleId = scaleId
     this.value = value
     this.timestamp = Date()
   }
   @Ignore
-  constructor(scaleId:Int, value:Float, date:Date) {
+  constructor(scaleId:Long, value:Float, date:Date) {
     this.scaleId = scaleId
     this.value = value
     this.timestamp = date

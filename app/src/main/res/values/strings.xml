@@ -6,6 +6,12 @@
     <string name="title_journal">Journal</string>
     <string name="title_settings">Settings</string>
     <string name="title_tools">Tools</string>
+    <!-- strings of tools fragment -->
+    <string name="base_data">Base Data</string>
+    <string name="goals">Goals</string>
+    <string name="activites">Activities</string>
+    <string name="scales">Scales</string>
+    <string name="challenges">Challenges</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>

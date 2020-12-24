@@ -15,10 +15,10 @@ import java.util.*
     indices = [Index(value =  ["activity_id" ])])
 class ActivityEntry {
     @PrimaryKey(autoGenerate = true)
-    var uid: Int = 0
+    var uid: Long = 0
 
     @ColumnInfo(name = "activity_id")
-    var activityId: Int = 0
+    var activityId: Long = 0
 
     @ColumnInfo(name = "timestamp")
     var timestamp: Date = Date()
@@ -26,7 +26,7 @@ class ActivityEntry {
     constructor() {}
 
     @Ignore
-    constructor(activityId: Int, date: Date) {
+    constructor(activityId: Long, date: Date) {
         this.activityId = activityId
         this.timestamp = date
     }

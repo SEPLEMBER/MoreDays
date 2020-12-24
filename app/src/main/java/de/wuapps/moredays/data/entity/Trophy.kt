@@ -15,18 +15,18 @@ import java.util.*
     indices = [Index(value = ["activity_entry_id"])])
 class Trophy {
   @PrimaryKey(autoGenerate = true)
-  var uid:Int = 0
+  var uid:Long = 0
   var text:String=""
   var type:Int = 0
   @ColumnInfo(name = "goal_id")
-  var goalId:Int = 0
+  var goalId:Long = 0
   var timestamp:Date= Date()
   var value:Int = 0
   @ColumnInfo(name = "activity_entry_id")
-  var activityEntryId:Int = 0
+  var activityEntryId:Long = 0
   constructor() {}
   @Ignore
-  constructor(type:Int, goalId:Int, activityEntryId:Int) {
+  constructor(type:Int, goalId:Long, activityEntryId:Long) {
     this.type = type
     this.goalId = goalId
     this.timestamp = Date()
@@ -34,7 +34,7 @@ class Trophy {
     this.activityEntryId = activityEntryId
   }
   @Ignore
-  constructor(text:String, type:Int, goalId:Int, value:Int, activityEntryId:Int) {
+  constructor(text:String, type:Int, goalId:Long, value:Int, activityEntryId:Long) {
     this.timestamp = Date()
     this.text = text
     this.type = type

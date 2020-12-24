@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 @Entity
 class Scale {
   @PrimaryKey(autoGenerate = true)
-  var uid:Int = 0
+  var uid:Long = 0
 
   var name:String= ""
 
