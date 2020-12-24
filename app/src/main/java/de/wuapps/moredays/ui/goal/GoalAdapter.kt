@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +23,8 @@ class GoalAdapter() :
 
         init {
             itemView.setOnClickListener {
+                val goalId = currentGoal!!.uid
+                it.findNavController().navigate(GoalListFragmentDirections.navigationGoalsGoal(goalId.toInt()))
 
             }
         }

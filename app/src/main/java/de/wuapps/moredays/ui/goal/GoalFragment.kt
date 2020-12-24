@@ -1,31 +1,35 @@
 package de.wuapps.moredays.ui.goal
 
 import android.app.AlertDialog
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.maltaisn.icondialog.IconDialog
 import com.maltaisn.icondialog.IconDialogSettings
 import com.maltaisn.icondialog.data.Icon
 import com.maltaisn.icondialog.pack.IconPack
-
+import com.skydoves.colorpickerview.ColorPickerDialog
+import com.skydoves.colorpickerview.flag.BubbleFlag
+import com.skydoves.colorpickerview.flag.FlagMode
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import de.wuapps.moredays.R
 import de.wuapps.moredays.data.repository.GoalRepository
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.GoalFragmentBinding
-import de.wuapps.moredays.ui.activity.ActivityListViewModel
 import de.wuapps.moredays.ui.icons.IconViewModel
 import java.lang.Integer.parseInt
 
+
 class GoalFragment : Fragment(), IconDialog.Callback {
     private val TAG = "GoalFragment"
+    private val SELECT_COLOR_ICON_ID = 502
     private var _binding: GoalFragmentBinding? = null
-    private var selectedIconId:Int=-1
+    private var selectedIconId:Int=41
+    private var selectedColor: Int = -37722
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -45,46 +49,83 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         _binding = GoalFragmentBinding.inflate(inflater, container, false)
         var view = binding.root
 
+        val arguments = GoalFragmentArgs.fromBundle(requireArguments())
+
         val application = requireNotNull(this.activity).application
         val goalRepository = GoalRepository(MoreDaysDatabase.getInstance(application).goalDao)
-        viewModel = GoalViewModel(goalRepository, -1, application)
+        viewModel = GoalViewModel(goalRepository, arguments.goalId.toLong(), application)
         binding.goalViewModel = viewModel
         binding.setLifecycleOwner(this)
-        binding.buttonSave.setOnClickListener({save()})
-        binding.buttonDelete.setOnClickListener({delete()})
+        binding.buttonSave.setOnClickListener({ save() })
+        binding.buttonDelete.setOnClickListener({ delete() })
         val iconDialog = childFragmentManager.findFragmentByTag(viewModel.ICON_DIALOG_TAG) as IconDialog?
             ?: IconDialog.newInstance(IconDialogSettings())
-
-    //iconDialog.show(requireActivity().supportFragmentManager
-        binding.imageButtonIcon.setOnClickListener({iconDialog.show(childFragmentManager, viewModel.ICON_DIALOG_TAG)})
-
+        binding.imageButtonIcon.setOnClickListener({
+            iconDialog.show(
+                childFragmentManager,
+                viewModel.ICON_DIALOG_TAG
+            )
+        })
         iconViewModel = IconViewModel(application)
         selectedIconId = viewModel.goal.value?.symbol ?: -1
+        selectedColor = viewModel.goal.value?.color ?: -1
+        setIcon()
+        setColor()
+        binding.imageButtonColor.setImageDrawable(
+            iconViewModel.iconPack.getIcon(
+                SELECT_COLOR_ICON_ID
+            )?.drawable
+        )
+        binding.imageButtonColor.setOnClickListener {
+            colorPickerDialog()
+        }
+
         return view
 
     }
 
+    private fun colorPickerDialog(){
+        val builder  = ColorPickerDialog.Builder(this.activity)
+            .setTitle(getString(R.string.title_color_picker_dialog))
+            .setPositiveButton(getString(R.string.ok),
+                ColorEnvelopeListener { envelope, fromUser ->
+                    selectedColor = envelope.color
+                    setColor()
+                })
+            .setNegativeButton(
+                getString(R.string.cancel)
+            ) { dialogInterface, i -> dialogInterface.dismiss() }
+            .setBottomSpace(12)
+            .attachAlphaSlideBar(false) // the default value is true.
+            .attachBrightnessSlideBar(false)
+        val colorPickerView = builder.colorPickerView
+        val bubbleFlag = BubbleFlag(this.activity)
+        bubbleFlag.flagMode = FlagMode.ALWAYS
+        colorPickerView.setFlagView(bubbleFlag)
+        colorPickerView.setInitialColor(selectedColor)
+        builder.show()
+    }
     private fun delete(){
-        //if (!viewModel.isNew) {
-//            if (!viewModel.isUsed){
-//                viewModel.delete()
-//                return
-//            }
+        if (!viewModel.isNew) {
+            if (!viewModel.isUsed){
+                viewModel.delete()
+                return
+            }
             val alertDialog: AlertDialog.Builder = AlertDialog.Builder(requireNotNull(this.activity))
-            alertDialog.setTitle("AlertDialog")
-            alertDialog.setMessage("delete ...")
+            alertDialog.setTitle(getString(R.string.title_delete))
+            alertDialog.setMessage(getString(R.string.question_delete_goal))
             alertDialog.setPositiveButton(
-                "yes"
+                getString(R.string.yes)
             ) { _, _ ->
                 viewModel.delete()
             }
             alertDialog.setNegativeButton(
-                "No"
+                getString(R.string.no)
             ) { _, _ -> }
             val alert: AlertDialog = alertDialog.create()
             alert.setCanceledOnTouchOutside(false)
             alert.show()
-       // }
+        }
     }
     private fun save(){
         val name = binding.editTextName.text.toString().trim()
@@ -105,10 +146,14 @@ class GoalFragment : Fragment(), IconDialog.Callback {
             goal.name = name
             goal.points = points
             goal.isNotOld = isNotOld
+            goal.color = selectedColor
+            goal.symbol = selectedIconId
             viewModel.insert(goal)
         }
         else {
             viewModel.goal.value!!.points = points //trick supports only one way binding!!!
+            viewModel.goal.value!!.color = selectedColor
+            viewModel.goal.value!!.symbol = selectedIconId
             viewModel.update()
         }
     }
@@ -123,6 +168,18 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         _binding = null
     }
 
+    private fun setIcon(){
+        if (selectedIconId > 0)
+            binding.imageButtonIcon.setImageDrawable(iconViewModel.iconPack.getIcon(selectedIconId)?.drawable)
+    }
+
+    private fun setColor(){
+        binding.editTextName.setBackgroundColor(selectedColor)
+    }
+
+    /**
+     * IconDialog.Callback
+     */
     override val iconDialogIconPack: IconPack?
         get() = iconViewModel.iconPack
 
@@ -133,8 +190,5 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         }
     }
 
-    private fun setIcon(){
-        if (selectedIconId > 0)
-            binding.imageButtonIcon.setImageDrawable(iconViewModel.iconPack.getIcon(selectedIconId)?.drawable)
-    }
+
 }

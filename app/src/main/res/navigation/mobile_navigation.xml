@@ -39,6 +39,10 @@
         android:name="de.wuapps.moredays.ui.goal.GoalFragment"
         android:label="goal_fragment"
         tools:layout="@layout/goal_fragment" >
+        <argument
+            android:name="goalId"
+            app:argType="integer"
+            android:defaultValue="-1"/>
         <action
             android:id="@+id/navigation_goal_activity"
             app:destination="@id/activityFragment" />

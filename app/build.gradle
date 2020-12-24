@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -94,5 +95,6 @@ dependencies {
 
     implementation "com.maltaisn:icondialog:$iconPickerVersion"
     implementation "com.maltaisn:iconpack-default:1.0.0"
+    implementation "com.github.skydoves:colorpickerview:$colorPickerVersion"
 
 }

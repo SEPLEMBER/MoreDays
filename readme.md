@@ -1,7 +1,7 @@
 # moreDays
 
 ## Decisions
-- room without repositories, because the data ist stored on the mobile only
+
 
 ## ToDos
 - genau prüfen, welche Daten beobachtet werden müssen: https://developer.android.com/codelabs/android-room-with-a-view-kotlin#6
@@ -23,6 +23,10 @@
 - in case push notifications are wanted https://github.com/OneSignal/OneSignal-Android-SDK
 - add credentials with https://github.com/AllanWang/KAU/tree/dev/about#readme
 - journal image picker https://android-arsenal.com/details/1/8021 or https://android-arsenal.com/details/1/8208 (with crop) or https://android-arsenal.com/details/1/7697
+- use https://github.com/DanielMartinus/Konfetti to show trophy
+- onboarding see https://thesimplycoder.com/346/android-intro-slider-and-splash-screen-tutorial/
+- tutorial date picker https://thesimplycoder.com/226/android-date-picker-kotlin-tutorial/
+- glide with circle crop and recycler view (-->journal) https://thesimplycoder.com/114/android-recyclerview-tutorial-using-kotlin/
 ## Vision
 
 ## naming convention
@@ -127,6 +131,11 @@ getSupportFragmentManager().beginTransaction()
 ### Binding
 - https://developer.android.com/topic/libraries/view-binding
 - needs a generic layout tag in layout files, see https://developer.android.com/topic/libraries/data-binding/expressions
+- binding of edittext to number is a bit tricky, workaround use one way binding, see https://stackoverflow.com/questions/38982604/two-way-databinding-in-edittext
+  - `` android:text="@={`` + goalViewModel.goal.points}" `
+  - do not forget to fetch the value before saving
+  - better use number picker, as it is supported for two way binding, see https://developer.android.com/topic/libraries/data-binding/two-way#java
+  - be careful with checkboxes -- better do not invert them
 ### Navigation
 - up button https://developer.android.com/codelabs/kotlin-android-training-add-navigation/index.html#7
 - conditional https://developer.android.com/codelabs/kotlin-android-training-add-navigation/index.html#5

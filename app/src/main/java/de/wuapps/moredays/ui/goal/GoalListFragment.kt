@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
 import de.wuapps.moredays.data.repository.GoalRepository
 import de.wuapps.moredays.database.MoreDaysDatabase
@@ -32,9 +33,9 @@ class GoalListFragment : Fragment() {
         binding.recyclerviewGoals.layoutManager = ResponsiveGridLayoutManager(requireNotNull(this.activity), resources.getDimension(R.dimen.goal_item_width).toInt())
         val adapter = GoalAdapter()
         binding.recyclerviewGoals.adapter = adapter
-
         subscribeUi(adapter, binding)
 
+        binding.fabAdd.setOnClickListener({findNavController().navigate(R.id.navigation_goals_goal)})
         return binding.root
     }
 
