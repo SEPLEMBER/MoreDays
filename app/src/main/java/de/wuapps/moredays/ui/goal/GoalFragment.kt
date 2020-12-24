@@ -6,7 +6,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.maltaisn.icondialog.IconDialog
 import com.maltaisn.icondialog.IconDialogSettings
 import com.maltaisn.icondialog.data.Icon
@@ -60,12 +62,12 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         binding.buttonDelete.setOnClickListener({ delete() })
         val iconDialog = childFragmentManager.findFragmentByTag(viewModel.ICON_DIALOG_TAG) as IconDialog?
             ?: IconDialog.newInstance(IconDialogSettings())
-        binding.imageButtonIcon.setOnClickListener({
+        binding.imageButtonIcon.setOnClickListener {
             iconDialog.show(
                 childFragmentManager,
                 viewModel.ICON_DIALOG_TAG
             )
-        })
+        }
         iconViewModel = IconViewModel(application)
         selectedIconId = viewModel.goal.value?.symbol ?: -1
         selectedColor = viewModel.goal.value?.color ?: -1
@@ -118,6 +120,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
                 getString(R.string.yes)
             ) { _, _ ->
                 viewModel.delete()
+                findNavController().popBackStack()
             }
             alertDialog.setNegativeButton(
                 getString(R.string.no)
@@ -131,7 +134,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         val name = binding.editTextName.text.toString().trim()
         val pointsAsString = binding.editTextPoints.text.toString().trim()
         var points = 0
-        val isNotOld = binding.checkboxIsNotOld.isChecked
+        val isOld = binding.checkboxIsOld.isChecked
         if (name.isNullOrBlank())
             binding.editTextName.setError(getString(R.string.warning_field_is_required))
         if (pointsAsString.isNullOrBlank())
@@ -145,7 +148,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
             var goal = Goal()
             goal.name = name
             goal.points = points
-            goal.isNotOld = isNotOld
+            goal.isOld = isOld
             goal.color = selectedColor
             goal.symbol = selectedIconId
             viewModel.insert(goal)
@@ -156,6 +159,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
             viewModel.goal.value!!.symbol = selectedIconId
             viewModel.update()
         }
+        findNavController().popBackStack()
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

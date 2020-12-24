@@ -15,7 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Activity::class, ActivityEntry::class, Goal::class, Challenge::class, Scale::class, Trophy::class ], version = 3)
+@Database(entities = [Activity::class, ActivityEntry::class, Goal::class, Challenge::class, Scale::class, Trophy::class ], version = 4)
 @TypeConverters(DateTypeConverter::class)
 abstract class MoreDaysDatabase : RoomDatabase() {
 

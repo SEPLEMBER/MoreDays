@@ -136,6 +136,7 @@ getSupportFragmentManager().beginTransaction()
   - do not forget to fetch the value before saving
   - better use number picker, as it is supported for two way binding, see https://developer.android.com/topic/libraries/data-binding/two-way#java
   - be careful with checkboxes -- better do not invert them
+  - do not forget the = for two way binding, e.g. ```android:text="@={goalViewModel.goal.name}" ```
 ### Navigation
 - up button https://developer.android.com/codelabs/kotlin-android-training-add-navigation/index.html#7
 - conditional https://developer.android.com/codelabs/kotlin-android-training-add-navigation/index.html#5

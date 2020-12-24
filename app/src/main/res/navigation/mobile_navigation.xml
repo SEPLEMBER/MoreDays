@@ -46,6 +46,10 @@
         <action
             android:id="@+id/navigation_goal_activity"
             app:destination="@id/activityFragment" />
+        <action
+            android:id="@+id/navigation_goal_goals"
+            app:destination="@id/goalListFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/navigation_charts"

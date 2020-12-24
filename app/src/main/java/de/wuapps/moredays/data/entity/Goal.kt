@@ -22,7 +22,7 @@ data class Goal (
   var orderNumber:Int,
   @ColumnInfo(name = "is_active")
   var isActive:Boolean,
-  @ColumnInfo(name = "is_not_old") //old = formerly used, should not be able to be selected, but keep associated data and show it in bar chart
-  var isNotOld:Boolean) : Parcelable {
-  constructor():this(0, "", 0, 0, 0, 0, true, true) {}
+  @ColumnInfo(name = "is_old") //old = formerly used, should not be able to be selected, but keep associated data and show it in bar chart
+  var isOld:Boolean) : Parcelable {
+  constructor():this(0, "", 0, 0, 0, 0, true, false) {}
 }

@@ -26,7 +26,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/min_accesible_size"
                 android:inputType="text"
-                android:text="@{goalViewModel.goal.name}"
+                android:text="@={goalViewModel.goal.name}"
                 app:layout_constraintBottom_toTopOf="@id/lblPoints"
                 app:layout_constraintEnd_toEndOf="@id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +56,6 @@
                 android:layout_height="@dimen/min_accesible_size"
                 android:background="@drawable/circle_in_secondary"
                 android:importantForAccessibility="no"
-                android:src="@drawable/ic_home"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/editTextPoints" />
 
@@ -105,11 +104,11 @@
 
 
             <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/checkboxIsNotOld"
+                android:id="@+id/checkboxIsOld"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lbl_is_not_old"
-                android:checked="@{goalViewModel.goal.isNotOld}"
+                android:text="@string/lbl_is_old"
+                android:checked="@={!goalViewModel.goal.old}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageButtonIcon" />
 
@@ -120,7 +119,7 @@
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/checkboxIsNotOld" />
+                app:layout_constraintTop_toBottomOf="@id/checkboxIsOld" />
 
             <ImageButton
                 android:id="@+id/imageButtonAddActivity"

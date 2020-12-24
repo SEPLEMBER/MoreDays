@@ -20,7 +20,7 @@ class GoalListFragment : Fragment() {
 
     lateinit var binding: GoalListFragmentBinding
 
-    private lateinit var viewModel: GoalListViewModel
+    private lateinit var viewModel: GoalViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +28,7 @@ class GoalListFragment : Fragment() {
     ): View? {
         val application = requireNotNull(this.activity).application
         val goalRepository = GoalRepository(MoreDaysDatabase.getInstance(application).goalDao)
-        viewModel = GoalListViewModel(goalRepository, application)
+        viewModel = GoalViewModel(goalRepository, -1, application)
         binding = GoalListFragmentBinding.inflate(inflater, container, false)
         binding.recyclerviewGoals.layoutManager = ResponsiveGridLayoutManager(requireNotNull(this.activity), resources.getDimension(R.dimen.goal_item_width).toInt())
         val adapter = GoalAdapter()
