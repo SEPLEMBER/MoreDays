@@ -23,10 +23,12 @@ import java.lang.Integer.parseInt
 class ActivityFragment : Fragment() {
     private val TAG = "ActivityFragment"
     private var _binding: ActivityFragmentBinding? = null
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var viewModel: ActivityViewModel
+
     companion object {
         fun newInstance() = ActivityFragment()
     }
@@ -41,52 +43,67 @@ class ActivityFragment : Fragment() {
         val arguments = ActivityFragmentArgs.fromBundle(requireArguments())
 
         val application = requireNotNull(this.activity).application
-//        viewModel = ActivityViewModel(
-//            ActivityRepository(MoreDaysDatabase.getInstance(application).activityDao),
-//            GoalRepository(
-//                MoreDaysDatabase.getInstance(
-//                    application
-//                ).goalDao
-//            ),
-//            arguments.activityId
-//        )
-
-
         viewModel = ViewModelProvider(
-            this, ActivityViewModelFactory(ActivityRepository(MoreDaysDatabase.getInstance(application).activityDao),
+            this, ActivityViewModelFactory(
+                ActivityRepository(MoreDaysDatabase.getInstance(application).activityDao),
                 GoalRepository(
                     MoreDaysDatabase.getInstance(
                         application
                     ).goalDao
                 ),
-                arguments.activityId)).get(ActivityViewModel::class.java)
+                arguments.activityId
+            )
+        ).get(ActivityViewModel::class.java)
         binding.activityViewModel = viewModel
-        binding.setLifecycleOwner(this)
+
         binding.buttonSave.setOnClickListener({ save() })
         binding.buttonDelete.setOnClickListener({ delete() })
         var adapter = ArrayAdapter<Goal>(
             requireNotNull(this.activity),
-            android.R.layout.simple_spinner_item)
+            android.R.layout.simple_spinner_dropdown_item
+        )
 
         viewModel.goals.observe(requireNotNull(this.activity), Observer { goals ->
+            adapter.clear()
             adapter.addAll(goals)
-//            goals?.forEach {
-//                adapter.add(it)
-//            }
         })
         binding.spinnerGoal.adapter = adapter
+//        binding.spinnerGoal.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newText ->
+//            Log.w("spinner", "onspinner $oldIndex $newIndex")
+//            viewModel.goalSpinnerPosition.value = newIndex
+//        }
+//        val items = ArrayList<IconSpinnerItem>()
+//        val context = this.activity
+//        viewModel.goals.observe(requireNotNull(this.activity), Observer { goals ->
+//            items.clear()
+//            for(goal in goals)
+//                items.add(IconSpinnerItem(text=goal.name, iconRes=R.drawable.ic_home))
+//            binding.spinnerGoal.apply {
+//                setSpinnerAdapter(IconSpinnerAdapter(this))
+//                setItems(items)
+//                getSpinnerRecyclerView().layoutManager = GridLayoutManager(context, 1)
+//                //selectItemByIndex(0) // select an item initially.
+//                lifecycleOwner = context
+//            }
+//        })
 
+
+        //binding.spinnerGoal.setOnItemSelectedListener()
+        // Specify the current activity as the lifecycle owner of the binding.
+        // This is necessary so that the binding can observe LiveData updates.
+        binding.setLifecycleOwner(this)
         return view
 
     }
 
-    private fun delete(){
+    private fun delete() {
         if (!viewModel.isNew) {
-            if (!viewModel.isUsed){
+            if (!viewModel.isUsed) {
                 viewModel.delete()
                 return
             }
-            val alertDialog: AlertDialog.Builder = AlertDialog.Builder(requireNotNull(this.activity))
+            val alertDialog: AlertDialog.Builder =
+                AlertDialog.Builder(requireNotNull(this.activity))
             alertDialog.setTitle(getString(R.string.title_delete))
             alertDialog.setMessage(getString(R.string.question_delete_activity))
             alertDialog.setPositiveButton(
@@ -103,7 +120,8 @@ class ActivityFragment : Fragment() {
             alert.show()
         }
     }
-    private fun save(){
+
+    private fun save() {
         val name = binding.editTextName.text.toString().trim()
         val pointsAsString = binding.editTextPoints.text.toString().trim()
         var points = 0
@@ -124,8 +142,7 @@ class ActivityFragment : Fragment() {
             activity.points = points
             activity.isOld = isOld
             viewModel.insert(activity)
-        }
-        else {
+        } else {
             viewModel.activity.value!!.points = points //trick supports only one way binding!!!
             viewModel.activity.value!!.goalId = viewModel.goal!!.uid
             viewModel.update()

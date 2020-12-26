@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+>
 
     <data>
 
@@ -33,10 +34,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/min_accesible_size"
+                android:onItemSelected="@{(parent,view,pos,id)->activityViewModel.onSelectItem(parent,view,pos,id)}"
                 android:selectedItemPosition="@={activityViewModel.goalSpinnerPosition}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewSpinner" />
 
+<!--            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/spinnerGoal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/min_accesible_size"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSpinner"
+                />-->
             <TextView
                 android:id="@+id/textViewQuestion"
                 android:layout_width="wrap_content"

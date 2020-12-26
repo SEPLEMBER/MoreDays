@@ -18,14 +18,14 @@ class ActivityListFragment : Fragment() {
 
     lateinit var binding: ActivityListFragmentBinding
 
-    private lateinit var viewModel: ActivityViewModel
+    private lateinit var viewModel: ActivityListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val application = requireNotNull(this.activity).application
-        viewModel = ActivityViewModel( ActivityRepository(MoreDaysDatabase.getInstance(application).activityDao),  GoalRepository(MoreDaysDatabase.getInstance(application).goalDao), -1)
+        viewModel = ActivityListViewModel( ActivityRepository(MoreDaysDatabase.getInstance(application).activityDao))
         binding = ActivityListFragmentBinding.inflate(inflater, container, false)
         binding.recyclerviewActivities.layoutManager = ResponsiveGridLayoutManager(requireNotNull(this.activity), resources.getDimension(R.dimen.activity_item_width).toInt())
         val adapter = ActivityAdapter()

@@ -1,7 +1,8 @@
 package de.wuapps.moredays.ui.activity
 
-import android.app.Application
-import androidx.databinding.BaseObservable
+import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
@@ -12,6 +13,7 @@ import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.ui.BaseViewModel
 import kotlinx.coroutines.launch
+
 
 class ActivityViewModel(
     private val activityRepository: ActivityRepository,
@@ -26,31 +28,63 @@ class ActivityViewModel(
     val activity: LiveData<Activity?>
         get() = _activity
     val goal: Goal?
-        get() = goalSpinnerPosition.value?.let { goals?.value?.get(it) }
+        get() {
+            return goalSpinnerPosition.value?.let { goals.value?.get(it) }
+        }
     var isUsed = false
     val goalSpinnerPosition = MutableLiveData<Int>()
-//    var goalSpinnerPosition: Int
-//        get() = _goalSpinnerPosition.value ?: 0
-//        set(value) {
-//            _goalSpinnerPosition.value = value
-//            //_goal.value = goals?.value?.get(value)
-//            //_activity.value?.goalId = _goal.value?.uid!!
+    var initalSpinnerPosition = 0
+
+    fun onSelectItem(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
+        //pos                                 get selected item position
+        //view.getText()                      get lable of selected item
+        //parent.getAdapter().getItem(pos)    get item by pos
+        //parent.getAdapter().getCount()      get item count
+        //parent.getCount()                   get item count
+        //parent.getSelectedItem()            get selected item
+        //and other...
+        Log.w("spinner", "onSelectItem $pos $id")
+        if (initialized) {
+            Log.w("spinner", "use given value $pos")
+            goalSpinnerPosition.postValue(pos)
+        }
+//        else {
+//            Log.w("spinner", "use initial value $initalSpinnerPosition")
+//            goalSpinnerPosition.postValue(initalSpinnerPosition)
+//            //parent?.run { setSelection(initalSpinnerPosition) }
 //        }
+        if (pos == 0)
+            initialized = true //current implementation of spinner initializes it to first element after binding the view, hence this happens most likely after init here, hence ignore the first call
+    }
+
+    var initialized = false
+    val goalId
+        get() =
+            goalSpinnerPosition.value?.let {
+                goals?.value?.get(it)?.uid
+            }
+
 
     init {
-        viewModelScope.launch {
-            _activity.value = activityRepository.getActivityById(id)
+        Log.w("spinner","init vm")
+            viewModelScope.launch {
+            val activity = activityRepository.getActivityById(id)
+            _activity.postValue(activity)
             //_activity.value = activityRepository.getActivityByName("abc")
             isUsed = activityRepository.isUsed(id)
-            if (!isNew) {
-                val goalId = _activity.value?.goalId
+            if (!isNew && activity != null) {
+                Log.w("spinner", "goal id set in init")
                 val position = goals?.value?.indexOfFirst {
-                    it.uid == goalId
+                    it.uid == activity?.goalId
                 } ?: -1
                 if (position != -1) {
-                    goalSpinnerPosition.value = position
+                    Log.w("spinner", "set in init to $position")
+                    //goalSpinnerPosition.postValue(position)
+                    goalSpinnerPosition.postValue(position)
+                    initalSpinnerPosition = position
                 }
             }
+            else goalSpinnerPosition.value = 0
         }
     }
 
