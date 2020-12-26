@@ -8,6 +8,7 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import de.wuapps.moredays.database.converter.DateTypeConverter
 import de.wuapps.moredays.database.converter.ListGoalTypeConverter
+import de.wuapps.moredays.database.dao.ActivityDao
 import de.wuapps.moredays.database.dao.ChallengeDao
 import de.wuapps.moredays.database.dao.GoalDao
 import de.wuapps.moredays.database.entity.*
@@ -20,6 +21,7 @@ import kotlinx.coroutines.launch
 abstract class MoreDaysDatabase : RoomDatabase() {
 
     abstract val goalDao: GoalDao
+    abstract val activityDao: ActivityDao
 
     companion object {
         @Volatile

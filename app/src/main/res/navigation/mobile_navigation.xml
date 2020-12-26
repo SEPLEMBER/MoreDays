@@ -69,11 +69,6 @@
         android:label="charts_fragment"
         tools:layout="@layout/charts_fragment" />
     <fragment
-        android:id="@+id/navigation_journal"
-        android:name="de.wuapps.moredays.ui.journal.JournalFragment"
-        android:label="journal_fragment"
-        tools:layout="@layout/journal_fragment" />
-    <fragment
         android:id="@+id/navigation_trophies"
         android:name="de.wuapps.moredays.ui.trophy.TrophyListFragment"
         android:label="trophy"
@@ -123,5 +118,24 @@
         android:name="scaleId"
         app:argType="long"
         android:defaultValue="-1L"/>
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_journal"
+        android:name="de.wuapps.moredays.ui.journal.JournalListFragment"
+        android:label="journal_list_fragment"
+        tools:layout="@layout/journal_list_fragment" >
+        <action
+            android:id="@+id/navigation_journal_day"
+            app:destination="@id/journalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/journalFragment"
+        android:name="de.wuapps.moredays.ui.journal.JournalFragment"
+        android:label="journal_fragment"
+        tools:layout="@layout/journal_fragment">
+        <argument
+            android:name="journalDay"
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
 </navigation>

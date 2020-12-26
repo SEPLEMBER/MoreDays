@@ -1,4 +1,8 @@
 <resources>
+    <plurals name="name_points_format">
+        <item quantity="one">%2$s (%1$d point)</item>
+        <item quantity="other">%2$s (%1$d points)</item>
+    </plurals>
     <string name="app_name">moreDays</string>
     <string name="title_home">Home</string>
     <string name="title_chart">Charts</string>
@@ -41,9 +45,11 @@
     <string name="warning_field_is_required">field is required</string>
     <string name="title_delete">Delete</string>
     <string name="question_delete_goal">Do you really want to delete this goal and all data linked to it? Remember you may set it to old.</string>
+    <string name="question_delete_activity">Do you really want to delete this activity and all data linked to it? Remember you may set it to old.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="title_color_picker_dialog">Color Picker Dialog</string>
+    <string name="inactive">inaktiv</string>
 </resources>

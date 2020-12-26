@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="activityViewModel"
+            type="de.wuapps.moredays.ui.activity.ActivityViewModel" />
+        </data>
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/layout_margin"
@@ -13,7 +21,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/lblSpinner"
+                android:id="@+id/textViewSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lbl_choose_goal"
@@ -25,8 +33,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/min_accesible_size"
+                android:selectedItemPosition="@={activityViewModel.goalSpinnerPosition}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lblSpinner" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewSpinner" />
 
             <TextView
                 android:id="@+id/textViewQuestion"
@@ -42,17 +51,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/min_accesible_size"
                 android:inputType="text"
+                android:text="@={activityViewModel.activity.name}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lblName" />
+                app:layout_constraintTop_toBottomOf="@id/textViewName" />
 
             <EditText
                 android:id="@+id/editTextPoints"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/min_accesible_size"
                 android:digits="0123456789"
+                android:text="@={`` + activityViewModel.activity.points}"
                 android:inputType="numberSigned|numberDecimal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lblPoints" />
+                app:layout_constraintTop_toBottomOf="@id/textViewPoints" />
 
             <TextView
                 android:id="@+id/hintEditTextPoints"
@@ -64,7 +75,7 @@
                 app:layout_constraintTop_toBottomOf="@id/editTextPoints" />
 
             <TextView
-                android:id="@+id/lblName"
+                android:id="@+id/textViewName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -74,7 +85,7 @@
                 app:layout_constraintTop_toBottomOf="@id/textViewQuestion" />
 
             <TextView
-                android:id="@+id/lblPoints"
+                android:id="@+id/textViewPoints"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -84,33 +95,35 @@
                 app:layout_constraintTop_toBottomOf="@id/editTextName" />
 
             <TextView
-                android:id="@+id/lblActive"
+                android:id="@+id/textViewActive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:labelFor="@id/checkboxInActive"
-                android:text="inaktiv"
-                app:layout_constraintEnd_toStartOf="@id/checkboxInActive"
+                android:labelFor="@id/checkboxIsOld"
+                android:text="@string/inactive"
+                app:layout_constraintEnd_toStartOf="@id/checkboxIsOld"
                 app:layout_constraintTop_toBottomOf="@id/hintEditTextPoints" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_update"
+                android:id="@+id/buttonSave"
                 style="@style/Widget.MoreDays.ButtonSave"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/checkboxInActive" />
+                app:layout_constraintTop_toBottomOf="@id/checkboxIsOld" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonDelete"
                 style="@style/Widget.MoreDays.ButtonDelete"
-                app:layout_constraintBottom_toBottomOf="@id/button_update"
+                app:layout_constraintBottom_toBottomOf="@id/buttonSave"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/checkboxInActive"
+                android:id="@+id/checkboxIsOld"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:checked="@={activityViewModel.activity.old}"
                 app:layout_constraintTop_toBottomOf="@id/hintEditTextPoints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+</layout>

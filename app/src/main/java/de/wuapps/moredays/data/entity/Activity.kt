@@ -22,8 +22,8 @@ class Activity {
 
   var points:Int = 0
 
-  @ColumnInfo(name = "is_active")
-  var isActive:Boolean = false
+  @ColumnInfo(name = "is_old") //old = formerly used, should not be able to be selected, but keep associated data and show it in bar chart
+  var isOld:Boolean = false
 
   constructor(){}
 
@@ -33,7 +33,7 @@ class Activity {
     this.name = name
     this.goalId = goalId
     this.points = points
-    this.isActive = true
+    this.isOld = false
   }
 
   @Override

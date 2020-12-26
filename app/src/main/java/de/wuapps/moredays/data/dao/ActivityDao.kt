@@ -6,16 +6,16 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ActivityDao {
-  @Query("SELECT activity.uid, activity.goal_id, activity.points, activity.name, activity.is_active FROM Activity order by goal_id asc, activity.points desc")
+  @Query("SELECT activity.uid, activity.goal_id, activity.points, activity.name, activity.is_old FROM Activity order by goal_id asc, activity.points desc")
   fun getAll(): Flow<List<Activity>>
-  @get:Query("SELECT activity.uid, activity.goal_id, activity.points, activity.name, activity.is_active FROM Activity inner join goal on goal.uid=activity.goal_id and activity.is_active = 1 order by goal.order_number asc, goal.uid asc, activity.points desc")
-  val active:List<Activity>
+//  @get:Query("SELECT activity.uid, activity.goal_id, activity.points, activity.name, activity.is_active FROM Activity inner join goal on goal.uid=activity.goal_id and activity.is_active = 1 order by goal.order_number asc, goal.uid asc, activity.points desc")
+//  val active:List<Activity>
   @Query("SELECT * FROM Activity WHERE uid = :id")
   suspend fun getActivityById(id:Long):Activity?
   @Query("Select count(*) from Activity where activity.uid = :activityId")
   suspend fun isUsed(activityId:Long):Int
   @Insert
-  fun insert(activity:Activity):Long
+  suspend fun insert(activity:Activity):Long
   @Delete
   fun delete(activity:Activity)
   @Insert
@@ -23,5 +23,5 @@ interface ActivityDao {
   @Query("Delete from Activity")
   fun deleteAll()
   @Update
-  fun update(entryType:Activity)
+  suspend fun update(entryType:Activity)
 }

@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.Flow
 interface GoalDao {
   @Query("SELECT * FROM goal order by order_number asc")
   fun getAll():Flow<List<Goal>>
+  @Query("SELECT * FROM goal order by order_number asc")
+  fun getAllSnapshot():List<Goal>
   @get:Query("SELECT count(*) FROM goal")
   val countGoals:Int
   @get:Query("SELECT * FROM goal where is_active>0 order by order_number asc")

@@ -16,7 +16,7 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_journal"
+        android:id="@+id/ccc"
         android:icon="@drawable/ic_journal"
         android:title="@string/title_journal" />
 

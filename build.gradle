@@ -12,6 +12,7 @@ buildscript {
         roomVersion = '2.2.5'
         iconPickerVersion = '3.3.0'
         colorPickerVersion = '2.2.2'
+        flexBoxVersion = '2.0.1'
         //coreTestingVersion = '2.1.0'
         coroutinesVersion = '1.3.9'
         archLifecycleVersion = '2.2.0'

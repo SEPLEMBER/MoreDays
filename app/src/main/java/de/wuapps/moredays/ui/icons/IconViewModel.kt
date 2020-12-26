@@ -7,7 +7,7 @@ import com.maltaisn.icondialog.pack.IconPackLoader
 import com.maltaisn.iconpack.defaultpack.createDefaultIconPack
 import de.wuapps.moredays.ui.BaseViewModel
 
-class IconViewModel(application: Application) : BaseViewModel(application) {
+class IconViewModel(application: Application) : BaseViewModel() {
     var iconPack: IconPack
 
     init {

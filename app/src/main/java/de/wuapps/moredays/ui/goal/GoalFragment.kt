@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.maltaisn.icondialog.IconDialog
@@ -24,7 +23,6 @@ import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.GoalFragmentBinding
 import de.wuapps.moredays.ui.icons.IconViewModel
 import java.lang.Integer.parseInt
-
 
 class GoalFragment : Fragment(), IconDialog.Callback {
     private val TAG = "GoalFragment"
@@ -55,7 +53,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
 
         val application = requireNotNull(this.activity).application
         val goalRepository = GoalRepository(MoreDaysDatabase.getInstance(application).goalDao)
-        viewModel = GoalViewModel(goalRepository, arguments.goalId.toLong(), application)
+        viewModel = GoalViewModel(goalRepository, arguments.goalId)
         binding.goalViewModel = viewModel
         binding.setLifecycleOwner(this)
         binding.buttonSave.setOnClickListener({ save() })
