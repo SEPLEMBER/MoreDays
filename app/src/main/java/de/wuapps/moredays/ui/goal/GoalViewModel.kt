@@ -10,7 +10,7 @@ import de.wuapps.moredays.ui.BaseViewModel
 import kotlinx.coroutines.launch
 
 class GoalViewModel(private val goalRepository: GoalRepository, id: Long) : BaseViewModel() {
-    val isNew = id < 0
+    var isNew = id < 0
     private val _goal = MutableLiveData<Goal?>()
     val goal: LiveData<Goal?>
         get() = _goal
@@ -28,7 +28,9 @@ class GoalViewModel(private val goalRepository: GoalRepository, id: Long) : Base
      * Launching a new coroutine to insert the data in a non-blocking way
      */
     fun insert(goal: Goal) = viewModelScope.launch {
-        goalRepository.insert(goal)
+        goal.uid = goalRepository.insert(goal)
+        _goal.value = goal
+        isNew = false
     }
 
     fun update() = viewModelScope.launch {

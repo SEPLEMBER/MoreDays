@@ -30,9 +30,15 @@ class GoalListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val application = requireNotNull(this.activity).application
-        val goalRepository = GoalRepository(MoreDaysDatabase.getInstance(application).goalDao)
+        val db = MoreDaysDatabase.getInstance(application)
         viewModel = ViewModelProvider(
-            requireActivity(), SharedViewModelFactory(ActivityRepository(MoreDaysDatabase.getInstance(application).activityDao), GoalRepository(MoreDaysDatabase.getInstance(application).goalDao), ChallengeRepository(MoreDaysDatabase.getInstance(application).challengeDao))
+            requireActivity(),
+            SharedViewModelFactory(
+                ActivityRepository(db.activityDao),
+                GoalRepository(db.goalDao),
+                ChallengeRepository(db.challengeDao),
+                application
+            )
         ).get(SharedViewModel::class.java)
 
         binding = GoalListFragmentBinding.inflate(inflater, container, false)

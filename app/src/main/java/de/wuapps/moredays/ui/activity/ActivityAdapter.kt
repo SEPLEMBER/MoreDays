@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Activity
-import de.wuapps.moredays.ui.activity.ActivityAdapter
-import de.wuapps.moredays.ui.activity.ActivityListFragmentDirections
+
 
 class ActivityAdapter :
     ListAdapter<Activity, ActivityAdapter.ActivityViewHolder>(ActivityDiffCallback) {
@@ -24,7 +23,7 @@ class ActivityAdapter :
         init {
             itemView.setOnClickListener {
                 val activityId = currentActivity!!.uid
-                it.findNavController().navigate(ActivityListFragmentDirections.navigationActivitiesActivity(currentActivity))
+                //it.findNavController().navigate(ActivityListFragmentDirections.navigationActivitiesActivity(currentActivity))
 
             }
         }

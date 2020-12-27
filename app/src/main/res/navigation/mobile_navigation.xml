@@ -18,12 +18,6 @@
             android:id="@+id/navigation_tools_goals"
             app:destination="@id/goalListFragment" />
         <action
-            android:id="@+id/navigation_tools_activities"
-            app:destination="@id/activityListFragment" />
-        <action
-            android:id="@+id/navigation_tools_goal"
-            app:destination="@id/goalFragment" />
-        <action
             android:id="@+id/navigation_tools_challenges"
             app:destination="@id/challengeListFragment" />
         <action
@@ -40,6 +34,11 @@
             app:nullable="true"
             app:argType="de.wuapps.moredays.database.entity.Activity"
             android:defaultValue="@null" />
+        <argument
+            android:name="goal"
+            app:nullable="false"
+            app:argType="de.wuapps.moredays.database.entity.Goal"
+             />
     </fragment>
     <fragment
         android:id="@+id/challengeFragment"
@@ -74,15 +73,6 @@
         android:name="de.wuapps.moredays.ui.trophy.TrophyListFragment"
         android:label="trophy"
         tools:layout="@layout/trophy_list_fragment" />
-    <fragment
-        android:id="@+id/activityListFragment"
-        android:name="de.wuapps.moredays.ui.activity.ActivityListFragment"
-        android:label="activity_list_fragment"
-        tools:layout="@layout/activity_list_fragment" >
-        <action
-            android:id="@+id/navigation_activities_activity"
-            app:destination="@id/activityFragment" />
-    </fragment>
     <fragment
         android:id="@+id/goalListFragment"
         android:name="de.wuapps.moredays.ui.goal.GoalListFragment"

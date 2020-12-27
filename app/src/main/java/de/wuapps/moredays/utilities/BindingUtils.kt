@@ -1,5 +1,8 @@
 package de.wuapps.moredays.utilities
 
+import android.widget.Spinner
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseMethod
 import de.wuapps.moredays.database.entity.Goal
 
@@ -27,4 +30,21 @@ import de.wuapps.moredays.database.entity.Goal
 //
 //fun positionToGoalId(position: Int, goals: List<Goal>): Goal {
 //    return goals.get(position)
+//}
+
+//@BindingAdapter("tag", "entries")
+//fun setGoal(view: Spinner, goal: Goal, goals: List<Goal>) {
+//    // Important to break potential infinite loops.
+//    if (view.selectedItem != goal) {
+//        val position = goals.indexOfFirst {
+//            it.uid == goal.uid
+//        }
+//        //view.tag = goal
+//        view.setSelection(position)
+//    }
+//}
+//
+//@InverseBindingAdapter(attribute = "tag")
+//fun getSelectedGoalPosition(view: Spinner) : Goal {
+//    return view.tag as Goal
 //}

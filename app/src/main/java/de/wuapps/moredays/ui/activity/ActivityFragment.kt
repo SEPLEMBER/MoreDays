@@ -6,10 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
@@ -18,7 +15,6 @@ import de.wuapps.moredays.data.repository.ChallengeRepository
 import de.wuapps.moredays.data.repository.GoalRepository
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Activity
-import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.ActivityFragmentBinding
 import de.wuapps.moredays.ui.SharedViewModel
 import de.wuapps.moredays.ui.SharedViewModelFactory
@@ -26,13 +22,8 @@ import java.lang.Integer.parseInt
 
 class ActivityFragment : Fragment() {
     private val TAG = "ActivityFragment"
-    private lateinit var sharedViewModel: SharedViewModel
-    private lateinit var binding: ActivityFragmentBinding
-
-//    // This property is only valid between onCreateView and
-//    // onDestroyView.
-//    private val binding get() = _binding!!
     private lateinit var viewModel: ActivityViewModel
+    private lateinit var binding: ActivityFragmentBinding
 
     companion object {
         fun newInstance() = ActivityFragment()
@@ -47,34 +38,21 @@ class ActivityFragment : Fragment() {
         val arguments = ActivityFragmentArgs.fromBundle(requireArguments())
 
         val application = requireNotNull(this.activity).application
-        sharedViewModel = ViewModelProvider(
-            requireActivity(), SharedViewModelFactory(ActivityRepository(MoreDaysDatabase.getInstance(application).activityDao), GoalRepository(MoreDaysDatabase.getInstance(application).goalDao), ChallengeRepository(MoreDaysDatabase.getInstance(application).challengeDao))
-        ).get(SharedViewModel::class.java)
         viewModel = ViewModelProvider(
             this, ActivityViewModelFactory(
                 ActivityRepository(MoreDaysDatabase.getInstance(application).activityDao),
-                sharedViewModel.goals,
+                arguments.goal,
                 arguments.activity
             )
         ).get(ActivityViewModel::class.java)
         binding.activityViewModel = viewModel
 
-
-        // Specify the current activity as the lifecycle owner of the binding.
-        // This is necessary so that the binding can observe LiveData updates.
-        binding.setLifecycleOwner(this)
-
-        Log.w("spinner", "end fragment oncreate")
-        return view
-
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
         binding.buttonSave.setOnClickListener({ save() })
         binding.buttonDelete.setOnClickListener({ delete() })
-        Log.w("spinner", "end fragment oncreated")
+        binding.setLifecycleOwner(this.viewLifecycleOwner)
+
+        return view
+
     }
 
     private fun delete() {
@@ -105,6 +83,7 @@ class ActivityFragment : Fragment() {
     private fun save() {
         val name = binding.editTextName.text.toString().trim()
         val pointsAsString = binding.editTextPoints.text.toString().trim()
+        //val goal = binding.spinnerGoal.tag
         var points = 0
         val isOld = binding.checkboxIsOld.isChecked
         if (name.isNullOrBlank())
@@ -118,22 +97,16 @@ class ActivityFragment : Fragment() {
         }
         if (viewModel.isNew) {
             var activity = Activity()
-            activity.goalId = viewModel.goal?.uid ?: -1
+            activity.goalId = viewModel.goal.uid
             activity.name = name
             activity.points = points
             activity.isOld = isOld
             viewModel.insert(activity)
         } else {
             viewModel.activity!!.points = points //trick supports only one way binding!!!
-            viewModel.activity!!.goalId = viewModel.goal!!.uid
+            viewModel.activity!!.goalId = viewModel.goal.uid
             viewModel.update()
         }
         findNavController().popBackStack()
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        //_binding = null
-    }
-
 }

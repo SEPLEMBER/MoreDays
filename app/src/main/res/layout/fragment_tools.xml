@@ -24,13 +24,6 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnActivities"
-        android:layout_margin="@dimen/min_margin"
-        android:text="@string/activites"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/btnChallenges"
         android:layout_margin="@dimen/min_margin"
         android:text="@string/challenges"

@@ -35,7 +35,6 @@ class ToolsFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_tools, container, false)
         view.findViewById<Button>(R.id.btnGoals).setOnClickListener({findNavController().navigate(R.id.navigation_tools_goals)})
-        view.findViewById<Button>(R.id.btnActivities).setOnClickListener({findNavController().navigate(R.id.navigation_tools_activities)})
         view.findViewById<Button>(R.id.btnChallenges).setOnClickListener({findNavController().navigate(R.id.navigation_tools_challenges)})
         return view
     }
