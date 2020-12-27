@@ -10,7 +10,6 @@ import de.wuapps.moredays.ui.BaseViewModel
 import kotlinx.coroutines.launch
 
 class GoalViewModel(private val goalRepository: GoalRepository, id: Long) : BaseViewModel() {
-    val goals: LiveData<List<Goal>> = goalRepository.allGoals.asLiveData()
     val isNew = id < 0
     private val _goal = MutableLiveData<Goal?>()
     val goal: LiveData<Goal?>

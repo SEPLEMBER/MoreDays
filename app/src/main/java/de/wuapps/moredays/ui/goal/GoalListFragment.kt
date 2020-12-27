@@ -5,20 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
+import de.wuapps.moredays.data.repository.ActivityRepository
+import de.wuapps.moredays.data.repository.ChallengeRepository
 import de.wuapps.moredays.data.repository.GoalRepository
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.GoalListFragmentBinding
 import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
+import de.wuapps.moredays.ui.SharedViewModel
+import de.wuapps.moredays.ui.SharedViewModelFactory
 
 
 class GoalListFragment : Fragment() {
 
     lateinit var binding: GoalListFragmentBinding
 
-    private lateinit var viewModel: GoalViewModel
+    private lateinit var viewModel: SharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +31,10 @@ class GoalListFragment : Fragment() {
     ): View? {
         val application = requireNotNull(this.activity).application
         val goalRepository = GoalRepository(MoreDaysDatabase.getInstance(application).goalDao)
-        viewModel = GoalViewModel(goalRepository, -1)
+        viewModel = ViewModelProvider(
+            requireActivity(), SharedViewModelFactory(ActivityRepository(MoreDaysDatabase.getInstance(application).activityDao), GoalRepository(MoreDaysDatabase.getInstance(application).goalDao), ChallengeRepository(MoreDaysDatabase.getInstance(application).challengeDao))
+        ).get(SharedViewModel::class.java)
+
         binding = GoalListFragmentBinding.inflate(inflater, container, false)
         binding.recyclerviewGoals.layoutManager = ResponsiveGridLayoutManager(
             requireNotNull(this.activity),

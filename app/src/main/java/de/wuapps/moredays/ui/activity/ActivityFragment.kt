@@ -8,25 +8,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
 import de.wuapps.moredays.data.repository.ActivityRepository
+import de.wuapps.moredays.data.repository.ChallengeRepository
 import de.wuapps.moredays.data.repository.GoalRepository
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.ActivityFragmentBinding
+import de.wuapps.moredays.ui.SharedViewModel
+import de.wuapps.moredays.ui.SharedViewModelFactory
 import java.lang.Integer.parseInt
 
 class ActivityFragment : Fragment() {
     private val TAG = "ActivityFragment"
-    private var _binding: ActivityFragmentBinding? = null
+    private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var binding: ActivityFragmentBinding
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+//    // This property is only valid between onCreateView and
+//    // onDestroyView.
+//    private val binding get() = _binding!!
     private lateinit var viewModel: ActivityViewModel
 
     companion object {
@@ -37,63 +42,39 @@ class ActivityFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ActivityFragmentBinding.inflate(inflater, container, false)
+        binding = ActivityFragmentBinding.inflate(inflater, container, false)
         var view = binding.root
-
         val arguments = ActivityFragmentArgs.fromBundle(requireArguments())
 
         val application = requireNotNull(this.activity).application
+        sharedViewModel = ViewModelProvider(
+            requireActivity(), SharedViewModelFactory(ActivityRepository(MoreDaysDatabase.getInstance(application).activityDao), GoalRepository(MoreDaysDatabase.getInstance(application).goalDao), ChallengeRepository(MoreDaysDatabase.getInstance(application).challengeDao))
+        ).get(SharedViewModel::class.java)
         viewModel = ViewModelProvider(
             this, ActivityViewModelFactory(
                 ActivityRepository(MoreDaysDatabase.getInstance(application).activityDao),
-                GoalRepository(
-                    MoreDaysDatabase.getInstance(
-                        application
-                    ).goalDao
-                ),
-                arguments.activityId
+                sharedViewModel.goals,
+                arguments.activity
             )
         ).get(ActivityViewModel::class.java)
         binding.activityViewModel = viewModel
 
-        binding.buttonSave.setOnClickListener({ save() })
-        binding.buttonDelete.setOnClickListener({ delete() })
-        var adapter = ArrayAdapter<Goal>(
-            requireNotNull(this.activity),
-            android.R.layout.simple_spinner_dropdown_item
-        )
 
-        viewModel.goals.observe(requireNotNull(this.activity), Observer { goals ->
-            adapter.clear()
-            adapter.addAll(goals)
-        })
-        binding.spinnerGoal.adapter = adapter
-//        binding.spinnerGoal.setOnSpinnerItemSelectedListener<String> { oldIndex, oldItem, newIndex, newText ->
-//            Log.w("spinner", "onspinner $oldIndex $newIndex")
-//            viewModel.goalSpinnerPosition.value = newIndex
-//        }
-//        val items = ArrayList<IconSpinnerItem>()
-//        val context = this.activity
-//        viewModel.goals.observe(requireNotNull(this.activity), Observer { goals ->
-//            items.clear()
-//            for(goal in goals)
-//                items.add(IconSpinnerItem(text=goal.name, iconRes=R.drawable.ic_home))
-//            binding.spinnerGoal.apply {
-//                setSpinnerAdapter(IconSpinnerAdapter(this))
-//                setItems(items)
-//                getSpinnerRecyclerView().layoutManager = GridLayoutManager(context, 1)
-//                //selectItemByIndex(0) // select an item initially.
-//                lifecycleOwner = context
-//            }
-//        })
-
-
-        //binding.spinnerGoal.setOnItemSelectedListener()
         // Specify the current activity as the lifecycle owner of the binding.
         // This is necessary so that the binding can observe LiveData updates.
         binding.setLifecycleOwner(this)
+
+        Log.w("spinner", "end fragment oncreate")
         return view
 
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        binding.buttonSave.setOnClickListener({ save() })
+        binding.buttonDelete.setOnClickListener({ delete() })
+        Log.w("spinner", "end fragment oncreated")
     }
 
     private fun delete() {
@@ -143,8 +124,8 @@ class ActivityFragment : Fragment() {
             activity.isOld = isOld
             viewModel.insert(activity)
         } else {
-            viewModel.activity.value!!.points = points //trick supports only one way binding!!!
-            viewModel.activity.value!!.goalId = viewModel.goal!!.uid
+            viewModel.activity!!.points = points //trick supports only one way binding!!!
+            viewModel.activity!!.goalId = viewModel.goal!!.uid
             viewModel.update()
         }
         findNavController().popBackStack()
@@ -152,7 +133,7 @@ class ActivityFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        //_binding = null
     }
 
 }

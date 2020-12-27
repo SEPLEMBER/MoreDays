@@ -28,5 +28,4 @@ class ActivityRepository(private val activityDao: ActivityDao) {
     suspend fun getActivityById(id: Long): Activity? {
         return activityDao.getActivityById(id)
     }
-
 }

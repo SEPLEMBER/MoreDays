@@ -1,8 +1,11 @@
 package de.wuapps.moredays.database.entity
 
+import android.os.Parcelable
 import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(
   foreignKeys = [
     ForeignKey(entity = Goal::class,
@@ -11,21 +14,20 @@ import androidx.room.ForeignKey.CASCADE
       onDelete = CASCADE
     )],
     indices = [Index(value = ["goal_id"])])
-class Activity {
+class Activity(
   @PrimaryKey(autoGenerate = true)
-  var uid:Long = 0
+  var uid:Long,
 
-  var name:String=""
+  var name:String,
 
   @ColumnInfo(name = "goal_id")
-  var goalId:Long = 0
+  var goalId:Long,
 
-  var points:Int = 0
+  var points:Int,
 
   @ColumnInfo(name = "is_old") //old = formerly used, should not be able to be selected, but keep associated data and show it in bar chart
-  var isOld:Boolean = false
-
-  constructor(){}
+  var isOld:Boolean) : Parcelable {
+  constructor():this(0, "", 0, 0, false) {}
 
   @Ignore
   constructor(name: String, goalId: Long, points: Int) : this() {

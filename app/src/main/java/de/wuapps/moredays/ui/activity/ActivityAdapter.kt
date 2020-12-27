@@ -24,7 +24,7 @@ class ActivityAdapter :
         init {
             itemView.setOnClickListener {
                 val activityId = currentActivity!!.uid
-                it.findNavController().navigate(ActivityListFragmentDirections.navigationActivitiesActivity(activityId))
+                it.findNavController().navigate(ActivityListFragmentDirections.navigationActivitiesActivity(currentActivity))
 
             }
         }
