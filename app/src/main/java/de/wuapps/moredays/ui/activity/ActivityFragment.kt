@@ -59,7 +59,7 @@ class ActivityFragment : Fragment() {
         if (!viewModel.isNew) {
             if (!viewModel.isUsed) {
                 viewModel.delete()
-                return
+                findNavController().popBackStack()
             }
             val alertDialog: AlertDialog.Builder =
                 AlertDialog.Builder(requireNotNull(this.activity))

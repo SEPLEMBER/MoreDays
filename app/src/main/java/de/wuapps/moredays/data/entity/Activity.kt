@@ -40,6 +40,6 @@ class Activity(
 
   @Override
   public override fun toString(): String {
-    return String.format("id: %d, name: %s, points: %s", uid, name, points)
+    return "$name ($points P.)"
   }
 }

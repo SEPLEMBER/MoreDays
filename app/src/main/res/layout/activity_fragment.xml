@@ -98,6 +98,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonDelete"
                 style="@style/Widget.MoreDays.ButtonDelete"
+                app:isGone="@{activityViewModel.new}"
                 app:layout_constraintBottom_toBottomOf="@id/buttonSave"
                 app:layout_constraintStart_toStartOf="parent" />
 

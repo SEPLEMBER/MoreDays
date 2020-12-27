@@ -89,18 +89,7 @@
                 app:layout_constraintGuide_end="0dp"
                 app:layout_constraintGuide_percent="0.8" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonSave"
-                style="@style/Widget.MoreDays.ButtonSave"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageButtonAddActivity" />
 
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonDelete"
-                style="@style/Widget.MoreDays.ButtonDelete"
-                app:layout_constraintBottom_toBottomOf="@id/buttonSave"
-                app:layout_constraintStart_toStartOf="parent" />
 
 
             <com.google.android.material.checkbox.MaterialCheckBox
@@ -131,11 +120,25 @@
                 android:id="@+id/imageButtonAddActivity"
                 android:layout_width="@dimen/min_accesible_size"
                 android:layout_height="@dimen/min_accesible_size"
-                android:background="@drawable/plus"
+                android:src="@drawable/plus"
+                android:background="@drawable/circle_in_secondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:contentDescription="@string/lbl_add_activity"
-                app:layout_constraintBottom_toBottomOf="@id/textViewActivities" />
+                app:layout_constraintBottom_toBottomOf="@id/recyclerViewActivities" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSave"
+                style="@style/Widget.MoreDays.ButtonSave"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewActivities" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonDelete"
+                style="@style/Widget.MoreDays.ButtonDelete"
+                app:isGone="@{goalViewModel.new}"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewActivities"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

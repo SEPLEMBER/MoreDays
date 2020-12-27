@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.maltaisn.icondialog.IconDialog
 import com.maltaisn.icondialog.IconDialogSettings
 import com.maltaisn.icondialog.data.Icon
@@ -26,12 +29,10 @@ import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.GoalFragmentBinding
-import de.wuapps.moredays.databinding.GoalListFragmentBinding
 import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
 import de.wuapps.moredays.ui.SharedViewModel
 import de.wuapps.moredays.ui.SharedViewModelFactory
 import de.wuapps.moredays.ui.activity.ActivityAdapter
-import de.wuapps.moredays.ui.icons.IconViewModel
 import java.lang.Integer.parseInt
 
 
@@ -74,7 +75,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
                 application
             )
         ).get(SharedViewModel::class.java)
-        viewModel = GoalViewModel(GoalRepository(db.goalDao), arguments.goalId)
+        viewModel = GoalViewModel(GoalRepository(db.goalDao), arguments.goal)
         binding.goalViewModel = viewModel
         binding.setLifecycleOwner(this)
         binding.buttonSave.setOnClickListener({
@@ -91,8 +92,8 @@ class GoalFragment : Fragment(), IconDialog.Callback {
                 viewModel.ICON_DIALOG_TAG
             )
         }
-        selectedIconId = viewModel.goal.value?.symbol ?: -1
-        selectedColor = viewModel.goal.value?.color ?: -1
+        selectedIconId = viewModel.goal?.symbol ?: -1
+        selectedColor = viewModel.goal?.color ?: -1
         setIcon()
         setColor()
         binding.imageButtonColor.setImageDrawable(
@@ -107,18 +108,22 @@ class GoalFragment : Fragment(), IconDialog.Callback {
             save()
             it.findNavController()
                 .navigate(GoalFragmentDirections.navigationGoalActivity(null,
-                    viewModel.goal.value!!
+                    viewModel.goal!!
                 ))
         }
 
-        binding.recyclerViewActivities.layoutManager = ResponsiveGridLayoutManager(
-            requireNotNull(this.activity),
-            resources.getDimension(R.dimen.activity_item_width).toInt()
-        )
-        val adapter = ActivityAdapter()
-        binding.recyclerViewActivities.adapter = adapter
-        subscribeUi(adapter, binding)
+        if (arguments.goal != null) {
+            val layoutManager= FlexboxLayoutManager(
+                requireNotNull(this.activity),
+                FlexDirection.ROW
+            )
+            layoutManager.flexWrap = FlexWrap.WRAP
+            binding.recyclerViewActivities.layoutManager = layoutManager
 
+            val adapter = ActivityAdapter(arguments.goal)
+            binding.recyclerViewActivities.adapter = adapter
+            subscribeUi(adapter, binding)
+        }
         return view
 
     }
@@ -126,7 +131,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     private fun subscribeUi(adapter: ActivityAdapter, binding: GoalFragmentBinding) {
         sharedViewModel.activities.observe(viewLifecycleOwner, {
             it?.let {
-                adapter.submitList(it as MutableList<Activity>)
+                adapter.submitList(viewModel.filterLinkedActivites(it) as MutableList<Activity>)
 
             }
         })
@@ -158,7 +163,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         if (!viewModel.isNew) {
             if (!viewModel.isUsed) {
                 viewModel.delete()
-                return
+                findNavController().popBackStack()
             }
             val alertDialog: AlertDialog.Builder =
                 AlertDialog.Builder(requireNotNull(this.activity))
@@ -202,9 +207,9 @@ class GoalFragment : Fragment(), IconDialog.Callback {
             goal.symbol = selectedIconId
             viewModel.insert(goal)
         } else {
-            viewModel.goal.value!!.points = points //trick supports only one way binding!!!
-            viewModel.goal.value!!.color = selectedColor
-            viewModel.goal.value!!.symbol = selectedIconId
+            viewModel.goal!!.points = points //trick supports only one way binding!!!
+            viewModel.goal!!.color = selectedColor
+            viewModel.goal!!.symbol = selectedIconId
             viewModel.update()
         }
     }

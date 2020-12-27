@@ -1,5 +1,6 @@
 package de.wuapps.moredays.ui.activity
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,30 +9,35 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Activity
+import de.wuapps.moredays.database.entity.Goal
+import de.wuapps.moredays.ui.goal.GoalFragmentDirections
 
 
-class ActivityAdapter :
+class ActivityAdapter(private val _goal: Goal) :
     ListAdapter<Activity, ActivityAdapter.ActivityViewHolder>(ActivityDiffCallback) {
-
+    val goal = _goal
     class ActivityViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-        private val textViewName: TextView = itemView.findViewById(R.id.textViewName)
+        private val chipEditActivity: Chip = itemView.findViewById(R.id.chipEditActivity)
         private var currentActivity: Activity? = null
+        private var currentGoal: Goal? = null
+
 
         init {
-            itemView.setOnClickListener {
-                val activityId = currentActivity!!.uid
-                //it.findNavController().navigate(ActivityListFragmentDirections.navigationActivitiesActivity(currentActivity))
+            chipEditActivity.setOnClickListener {
+                Log.w("activity", "clicked")
+                it.findNavController().navigate(GoalFragmentDirections.navigationGoalActivity(currentActivity, currentGoal!!))
 
             }
         }
 
-        fun bind(activity: Activity) {
+        fun bind(activity: Activity, goal: Goal) {
             currentActivity = activity
-
-            textViewName.text = activity.name
+            currentGoal = goal
+            chipEditActivity.text = activity.toString()
         }
     }
 
@@ -42,7 +48,7 @@ class ActivityAdapter :
     }
 
     override fun onBindViewHolder(holder: ActivityViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), goal)
     }
 }
 

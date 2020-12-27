@@ -17,15 +17,12 @@ interface ChallengeDao {
   @Query("SELECT * FROM challenge WHERE id = :id and challenge_type = :type")
   suspend fun getChallengesByIdAndType(id:Long, type:Int):Challenge?
   @Insert(onConflict = REPLACE)
-  fun insert(challenge:Challenge):Long
-  @Insert
-  fun insertData(data:List<Challenge>)
+  suspend fun insert(challenge:Challenge):Long
   @Query("Delete from challenge")
-  fun deleteAll()
+  suspend fun deleteAll()
   @Delete
-  fun delete(challenge:Challenge)
+  suspend fun delete(challenge:Challenge)
   @Update
-  fun update(challenge:Challenge)
-  @Update
-  fun update(challenges:List<Challenge>)
+  suspend fun update(challenge:Challenge)
+
 }

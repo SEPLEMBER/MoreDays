@@ -20,6 +20,13 @@ class ActivityViewModel(
     val isNew = activity==null
     var isUsed = false
 
+    init {
+        viewModelScope.launch {
+            if (activity != null)
+                isUsed = activityRepository.isUsed(activity!!.uid)
+        }
+    }
+
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */

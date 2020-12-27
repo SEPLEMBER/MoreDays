@@ -17,11 +17,9 @@ interface ActivityDao {
   @Insert
   suspend fun insert(activity:Activity):Long
   @Delete
-  fun delete(activity:Activity)
-  @Insert
-  fun insertData(data:List<Activity>)
+  suspend fun delete(activity:Activity)
   @Query("Delete from Activity")
-  fun deleteAll()
+  suspend fun deleteAll()
   @Update
   suspend fun update(entryType:Activity)
 }

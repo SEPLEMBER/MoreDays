@@ -23,8 +23,7 @@ class GoalAdapter() :
 
         init {
             itemView.setOnClickListener {
-                val goalId = currentGoal!!.uid
-                it.findNavController().navigate(GoalListFragmentDirections.navigationGoalsGoal(goalId))
+                it.findNavController().navigate(GoalListFragmentDirections.navigationGoalsGoal(currentGoal!!))
 
             }
         }
