@@ -13,7 +13,7 @@ import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Goal
 
 
-class GoalAdapter() :
+class GoalAdapter :
     ListAdapter<Goal, GoalAdapter.GoalViewHolder>(GoalDiffCallback) {
 
     class GoalViewHolder(itemView: View) :

@@ -41,7 +41,7 @@
     <string name="lbl_add_activity">lbl_add_activity</string>
     <string name="lbl_categories_question">lbl_categories_question</string>
     <string name="lbl_add_goal">lbl_add_goal</string>
-    <string name="lbl_is_old">lbl_is_not_old</string>
+    <string name="lbl_is_old">lbl_is_old</string>
     <string name="warning_field_is_required">field is required</string>
     <string name="title_delete">Delete</string>
     <string name="question_delete_goal">Do you really want to delete this goal and all data linked to it? Remember you may set it to old.</string>

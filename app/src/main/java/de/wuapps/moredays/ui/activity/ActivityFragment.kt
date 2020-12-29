@@ -52,7 +52,7 @@ class ActivityFragment : Fragment() {
 
         binding.buttonSave.setOnClickListener({ save() })
         binding.buttonDelete.setOnClickListener({ delete() })
-        binding.setLifecycleOwner(this.viewLifecycleOwner)
+        binding.lifecycleOwner = this.viewLifecycleOwner
 
         return view
 
@@ -91,18 +91,18 @@ class ActivityFragment : Fragment() {
         //val goal = binding.spinnerGoal.tag
         var points = 0
         val isOld = binding.checkboxIsOld.isChecked
-        if (name.isNullOrBlank()) {
-            binding.editTextName.setError(getString(R.string.warning_field_is_required))
+        if (name.isBlank()) {
+            binding.editTextName.error = getString(R.string.warning_field_is_required)
             isValid = false
         }
-        if (pointsAsString.isNullOrBlank()) {
-            binding.editTextName.setError(getString(R.string.warning_field_is_required))
+        if (pointsAsString.isBlank()) {
+            binding.editTextName.error = getString(R.string.warning_field_is_required)
             isValid = false
         }
         try {
             points = parseInt(pointsAsString)
         } catch (e: NumberFormatException) {
-            binding.editTextName.setError(getString(R.string.warning_not_an_int))
+            binding.editTextName.error = getString(R.string.warning_not_an_int)
             isValid = false
         }
         if (!isValid)

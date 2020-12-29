@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 
 class ActivityViewModel(
     private val activityRepository: ActivityRepository,
-    private val _goal: Goal,
-    private val _activity: Activity?
+    _goal: Goal,
+    _activity: Activity?
 ) : BaseViewModel() {
     val activity = _activity
     val goal = _goal
@@ -23,7 +23,7 @@ class ActivityViewModel(
     init {
         viewModelScope.launch {
             if (activity != null)
-                isUsed = activityRepository.isUsed(activity!!.uid)
+                isUsed = activityRepository.isUsed(activity.uid)
         }
     }
 

@@ -16,7 +16,7 @@ import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.ui.goal.GoalFragmentDirections
 
 
-class ActivityAdapter(private val _goal: Goal) :
+class ActivityAdapter(_goal: Goal) :
     ListAdapter<Activity, ActivityAdapter.ActivityViewHolder>(ActivityDiffCallback) {
     val goal = _goal
     class ActivityViewHolder(itemView: View) :

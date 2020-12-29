@@ -10,7 +10,7 @@ import de.wuapps.moredays.database.entity.Goal
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class GoalEntry(val goal: Goal, val allActivities: List<Activity>, val currentValue: Int, val entryDao: ActivityEntryDao):EntryType {
+class GoalEntry(val goal: Goal, allActivities: List<Activity>, val currentValue: Int, val entryDao: ActivityEntryDao):EntryType {
     private val activities:List<Activity> = allActivities.filter { activity -> activity.goalId == goal.uid }
 
     override fun getName(): String {

@@ -43,11 +43,9 @@ import kotlinx.coroutines.InternalCoroutinesApi
 class GoalFragment : Fragment(), IconDialog.Callback {
     private val TAG = "GoalFragment"
     private val SELECT_COLOR_ICON_ID = 502
-    private val DEFAULLT_ICON_ID = 41
-    private val DEFAULT_COLOR = -37722
     private var _binding: GoalFragmentBinding? = null
-    private var selectedIconId: Int = DEFAULLT_ICON_ID
-    private var selectedColor: Int = DEFAULT_COLOR
+    private var selectedIconId: Int = 0
+    private var selectedColor: Int = 0
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -69,7 +67,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     ): View? {
         application = requireNotNull(this.activity).application
         _binding = GoalFragmentBinding.inflate(inflater, container, false)
-        var view = binding.root
+        val view = binding.root
 
         val arguments = GoalFragmentArgs.fromBundle(requireArguments())
 
@@ -86,10 +84,10 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         viewModel = GoalViewModel(GoalRepository(db.goalDao), arguments.goal)
         binding.goalViewModel = viewModel
         binding.setLifecycleOwner(this)
-        binding.buttonSave.setOnClickListener({
+        binding.buttonSave.setOnClickListener {
             save()
             it.findNavController().popBackStack()
-        })
+        }
         binding.buttonDelete.setOnClickListener({ delete() })
         val iconDialog =
             childFragmentManager.findFragmentByTag(viewModel.ICON_DIALOG_TAG) as IconDialog?
@@ -100,8 +98,8 @@ class GoalFragment : Fragment(), IconDialog.Callback {
                 viewModel.ICON_DIALOG_TAG
             )
         }
-        selectedIconId = viewModel.goal?.symbol ?: DEFAULLT_ICON_ID
-        selectedColor = viewModel.goal?.color ?: DEFAULT_COLOR
+        selectedIconId = viewModel.goal.symbol
+        selectedColor = viewModel.goal.color
         setIcon()
         setColor()
 
@@ -117,7 +115,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
             save()
             it.findNavController()
                 .navigate(GoalFragmentDirections.navigationGoalActivity(null,
-                    viewModel.goal!!
+                    viewModel.goal
                 ))
         }
 
@@ -173,7 +171,9 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         if (!viewModel.isNew) {
             if (!viewModel.isUsed) {
                 viewModel.delete()
-                findNavController().popBackStack()
+                view?.post {
+                    findNavController().popBackStack()
+                }
             }
             val alertDialog: AlertDialog.Builder =
                 AlertDialog.Builder(requireNotNull(this.activity))
@@ -183,7 +183,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
                 getString(R.string.yes)
             ) { _, _ ->
                 viewModel.delete()
-                binding.root.post {
+                view?.post {
                     findNavController().popBackStack()
                 }
 
@@ -203,11 +203,11 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         val pointsAsString = binding.editTextPoints.text.toString().trim()
         var points = 0
         val isOld = binding.checkboxIsOld.isChecked
-        if (name.isNullOrBlank()) {
+        if (name.isBlank()) {
             binding.editTextName.setError(getString(R.string.warning_field_is_required))
             isValid = false
         }
-        if (pointsAsString.isNullOrBlank()) {
+        if (pointsAsString.isBlank()) {
             binding.editTextName.setError(getString(R.string.warning_field_is_required))
             isValid = false
         }
@@ -219,20 +219,10 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         }
         if (!isValid)
             return
-        if (viewModel.isNew) {
-            var goal = Goal()
-            goal.name = name
-            goal.points = points
-            goal.isOld = isOld
-            goal.color = selectedColor
-            goal.symbol = selectedIconId
-            viewModel.insert(goal)
-        } else {
-            viewModel.goal!!.points = points //trick supports only one way binding!!!
-            viewModel.goal!!.color = selectedColor
-            viewModel.goal!!.symbol = selectedIconId
-            viewModel.update()
-        }
+        viewModel.goal.points = points //trick supports only one way binding!!!
+        viewModel.goal.color = selectedColor
+        viewModel.goal.symbol = selectedIconId
+        viewModel.save()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -262,7 +252,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         get() = IconManager.getInstance(application).iconPack
 
     override fun onIconDialogIconsSelected(dialog: IconDialog, icons: List<Icon>) {
-        if (icons.size > 0) {
+        if (icons.isNotEmpty()) {
             selectedIconId = icons.get(0).id
             setIcon()
         }
