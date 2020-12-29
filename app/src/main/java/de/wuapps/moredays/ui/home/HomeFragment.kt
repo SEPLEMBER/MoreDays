@@ -2,7 +2,6 @@ package de.wuapps.moredays.ui.home
 
 import android.app.Application
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,25 +9,26 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import de.wuapps.moredays.R
+import de.wuapps.moredays.data.entity.GoalAndRelatedData
 import de.wuapps.moredays.data.repository.ActivityRepository
 import de.wuapps.moredays.data.repository.ChallengeRepository
 import de.wuapps.moredays.data.repository.GoalRepository
 import de.wuapps.moredays.data.repository.ScaleRepository
 import de.wuapps.moredays.database.MoreDaysDatabase
-import de.wuapps.moredays.database.entity.Activity
-import de.wuapps.moredays.database.entity.Challenge
-import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.databinding.FragmentHomeBinding
 import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
 import de.wuapps.moredays.ui.SharedViewModel
 import de.wuapps.moredays.ui.SharedViewModelFactory
-import kotlinx.coroutines.*
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.launch
+import java.util.*
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
+
     @InternalCoroutinesApi
     private lateinit var sharedViewModel: SharedViewModel
     lateinit var binding: FragmentHomeBinding
@@ -36,6 +36,7 @@ class HomeFragment : Fragment() {
     private lateinit var db: MoreDaysDatabase
     private val adapter = EntryTypeAdapter()
     private var isLoading: Boolean = false
+    private var date = Calendar.getInstance()
 
     @InternalCoroutinesApi
     override fun onCreateView(
@@ -68,54 +69,52 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-@InternalCoroutinesApi
-suspend fun getAllData() {
-        val listGoals: MutableList<Goal> = mutableListOf()
-        val listActivities: MutableList<de.wuapps.moredays.database.entity.Activity> = mutableListOf()
+    @InternalCoroutinesApi
+    suspend fun getAllData() {
         val listScales: MutableList<Scale> = mutableListOf()
-        val listChallenges: MutableList<Challenge> = mutableListOf()
-        lifecycleScope.launch{
-            val rg = sharedViewModel._goals.firstOrNull()
-            if (rg != null)
-                listGoals.addAll(rg)
-            val ra = sharedViewModel._activities.firstOrNull()
-            if (ra != null)
-                listActivities.addAll(ra)
+        lifecycleScope.launch {
             val rs = sharedViewModel._scales.firstOrNull()
-            if (rs != null)
+            if (rs != null) {
                 listScales.addAll(rs)
-            updateHomeUI(AllData(listGoals, listActivities, listScales, listChallenges))
+            }
+            val data = GoalRepository(db.goalDao).allData.firstOrNull()
+            if (data != null)
+                updateUI(data, listScales)
+            //setObservers()
         }
+
     }
 
     @InternalCoroutinesApi
-    private fun updateHomeUI(allData: AllData) {
+    private fun setObservers() {
+        sharedViewModel.homeData.observe(viewLifecycleOwner, {
+            lifecycleScope.launch {
+                getAllData()
+            }
+        }
+        )
+    }
+
+    private fun updateUI(goalsData: List<GoalAndRelatedData>, scales: List<Scale>) {
         val entryTypes = mutableListOf<EntryType>()
-        allData.goals.forEach {
+        goalsData.forEach {
             entryTypes += GoalEntry(
                 it,
-                allData.activities,
-                1,
+                date,
                 db.activityEntryDao
             )
         }
-        allData.scales.forEach {
+        scales.forEach {
             entryTypes += ScaleEntry(
                 it,
                 1F,
                 db.scaleEntryDao
             )
         }
-        if (entryTypes.size > 0){
+        if (entryTypes.isNotEmpty()) {
             adapter.submitList(entryTypes)
         }
+
     }
 
 }
-
-data class AllData(
-    var goals: List<Goal>,
-    val activities: List<Activity>,
-    val scales: List<Scale>,
-    val challenges: List<Challenge>
-)

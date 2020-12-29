@@ -22,6 +22,7 @@ class SharedViewModel(
     challengeRepository: ChallengeRepository,
     scaleRepository: ScaleRepository
 ) : BaseViewModel() {
+    val homeData = goalRepository.allData.asLiveData()
     val _goals = goalRepository.allGoals
     val goals = _goals.asLiveData()
     val _activities = activityRepository.allActivities

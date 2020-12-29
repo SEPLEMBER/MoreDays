@@ -2,7 +2,6 @@ package de.wuapps.moredays.ui.home
 
 import android.app.AlertDialog
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.widget.NumberPicker
 import de.wuapps.moredays.R
@@ -29,6 +28,14 @@ class ScaleEntry(
 
     override fun getSymbol(): Int {
         return SYMBOL
+    }
+
+    override fun getDesiredValue(): Int {
+        return 0
+    }
+
+    override fun getCurrentValue(): Int {
+        return 0
     }
 
     override fun getId(): String {

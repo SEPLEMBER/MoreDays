@@ -1,10 +1,10 @@
 package de.wuapps.moredays.ui.home
 
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.view.LayoutInflater
 
 interface EntryType {
+    fun getDesiredValue(): Int
+    fun getCurrentValue(): Int
     fun getId(): String
     fun getName(): String
     fun getInfo(): String

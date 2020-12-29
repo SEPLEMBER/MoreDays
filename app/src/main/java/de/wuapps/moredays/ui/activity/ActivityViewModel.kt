@@ -1,9 +1,7 @@
 package de.wuapps.moredays.ui.activity
 
-import android.util.Log
 import androidx.lifecycle.*
 import de.wuapps.moredays.data.repository.ActivityRepository
-import de.wuapps.moredays.data.repository.GoalRepository
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.ui.BaseViewModel

@@ -6,13 +6,18 @@ import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.ActivityEntry
 import de.wuapps.moredays.database.entity.Goal
 
-class GoalAndRelatedData {
+data class GoalAndRelatedData(
     @Embedded
-    var goal: Goal? = null
-    @Relation(parentColumn = "uid",
-    entityColumn = "goal_id")
-    var activities: List<Activity> = ArrayList<Activity>()
-    @Relation(parentColumn = "uid",
-        entityColumn = "goal_id")
+    var goal: Goal? = null,
+    @Relation(
+        parentColumn = "uid",
+        entityColumn = "goal_id"
+    )
+    var activities: List<Activity> = ArrayList<Activity>(),
+    @Relation(
+        parentColumn = "uid",
+        entityColumn = "goal_id"
+    )
     var entries: List<ActivityEntry> = ArrayList<ActivityEntry>()
+) {
 }
