@@ -20,18 +20,23 @@ class ActivityEntry {
     @ColumnInfo(name = "activity_id")
     var activityId: Long = 0
 
+    @ColumnInfo(name = "goal_id")
+    var goalId: Long = 0 //redundant but makes things easier :)
+
     @ColumnInfo(name = "timestamp")
     var timestamp: Calendar = Calendar.getInstance()
 
     constructor() {}
 
     @Ignore
-    constructor(activityId: Long, date: Calendar) {
+    constructor(activityId: Long, goalId: Long, date: Calendar) {
         this.activityId = activityId
         this.timestamp = date
+        this.goalId = goalId
     }
     @Ignore
-    constructor(activityId: Long) {
+    constructor(activityId: Long, goalId: Long) {
         this.activityId = activityId
+        this.goalId = goalId
     }
 }

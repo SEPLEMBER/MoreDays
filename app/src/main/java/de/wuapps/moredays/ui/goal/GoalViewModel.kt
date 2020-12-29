@@ -1,6 +1,10 @@
 package de.wuapps.moredays.ui.goal
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import de.wuapps.moredays.data.entity.GoalAndRelatedActivities
 import de.wuapps.moredays.data.repository.GoalRepository
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
@@ -10,31 +14,30 @@ import kotlinx.coroutines.launch
 class GoalViewModel(private val goalRepository: GoalRepository, _goal: Goal?) :
     BaseViewModel() {
     var isNew = _goal == null
-    lateinit var goal:Goal
+    lateinit var goal: Goal
     var isUsed = false
+    lateinit var goalAndRelatedActivities: LiveData<GoalAndRelatedActivities?>
 
     init {
-        if (_goal == null){
-            isNew = true
+        if (isNew) {
             goal = Goal()
-        }
-        else {
-            goal = _goal
+        } else {
+            goal = _goal!!
         }
         viewModelScope.launch {
-            if (!isNew)
-                isUsed = goalRepository.isUsed(goal!!.uid)
+            goalAndRelatedActivities = goalRepository.getGoalAndRelatedActivities(goal.uid).asLiveData()
+            if (goalAndRelatedActivities.value != null )
+                isUsed == goalAndRelatedActivities.value!!.activities.isNotEmpty()
         }
     }
 
-    fun save(){
-        if (isNew){
+    fun save() {
+        if (isNew) {
             isNew = false
             viewModelScope.launch {
                 goal!!.uid = goalRepository.insert(goal!!)
             }
-        }
-        else {
+        } else {
             viewModelScope.launch {
                 goalRepository.update(goal!!)
             }

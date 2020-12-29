@@ -1,5 +1,7 @@
 package de.wuapps.moredays.data.repository
 
+import de.wuapps.moredays.data.entity.GoalAndRelatedActivities
+import de.wuapps.moredays.data.entity.GoalAndRelatedData
 import de.wuapps.moredays.database.dao.GoalDao
 import de.wuapps.moredays.database.entity.Goal
 import kotlinx.coroutines.flow.Flow
@@ -8,6 +10,12 @@ class GoalRepository(private val goalDao: GoalDao) {
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
     val allGoals: Flow<List<Goal>> = goalDao.getAll()
+
+    //val allGoalAndRelatedData: Flow<List<GoalAndRelatedData>> = goalDao.getAllData()
+
+    suspend fun getGoalAndRelatedActivities(id:Long): Flow<GoalAndRelatedActivities?> {
+        return goalDao.getGoalAndRelatedActivities(id)
+    }
 
     suspend fun insert(goal: Goal):Long {
         return goalDao.insert(goal)

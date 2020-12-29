@@ -2,15 +2,25 @@ package de.wuapps.moredays.database.dao
 
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
+import de.wuapps.moredays.data.entity.GoalAndRelatedActivities
+import de.wuapps.moredays.data.entity.GoalAndRelatedData
 import de.wuapps.moredays.database.entity.Goal
 import kotlinx.coroutines.flow.Flow
+import java.util.*
 
 @Dao
 interface GoalDao {
   @Query("SELECT * FROM goal order by order_number asc")
   fun getAll():Flow<List<Goal>>
-  @Query("SELECT * FROM goal order by order_number asc")
-  fun getAllSnapshot():List<Goal>
+
+  @Query("SELECT * FROM goal where uid = :goalId")
+  fun getGoalAndRelatedActivities(goalId: Long):Flow<GoalAndRelatedActivities?>
+
+//  @Query("SELECT * FROM goal order by order_number asc")
+//  fun getAllDataForToday(date: Calendar):Flow<List<GoalAndRelatedData>>
+
+
+
   @get:Query("SELECT count(*) FROM goal")
   val countGoals:Int
   @get:Query("SELECT * FROM goal where is_active>0 order by order_number asc")

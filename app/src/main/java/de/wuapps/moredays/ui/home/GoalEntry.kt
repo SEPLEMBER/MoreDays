@@ -35,7 +35,7 @@ class GoalEntry(val goal: Goal, allActivities: List<Activity>, val currentValue:
         activities.forEach{activity -> stringList.add(activity.toString())}
         val values : Array<String> = stringList.toTypedArray()
         dialogBuilder.setTitle(goal.name).setItems(values) { _, position -> GlobalScope.launch{entryDao.insert(
-            ActivityEntry(activities.get(position).uid))}
+            ActivityEntry(activities.get(position).uid, activities.get(position).goalId))}
         }
         val alertDialog = dialogBuilder.create()
         alertDialog.show()

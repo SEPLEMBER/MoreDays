@@ -52,7 +52,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     private val binding get() = _binding!!
     private lateinit var viewModel: GoalViewModel
     @InternalCoroutinesApi
-    private lateinit var sharedViewModel: SharedViewModel
+    //private lateinit var sharedViewModel: SharedViewModel
     private lateinit var application: Application
     //private val viewModel: GoalViewModel by viewModels()
     //val vm: GoalViewModel by lazy { ViewModelProviders.of(this).get(GoalViewModel::class.java) }
@@ -72,15 +72,15 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         val arguments = GoalFragmentArgs.fromBundle(requireArguments())
 
         val db = MoreDaysDatabase.getInstance(application)
-        sharedViewModel = ViewModelProvider(
-            requireActivity(),
-            SharedViewModelFactory(
-                ActivityRepository(db.activityDao),
-                GoalRepository(db.goalDao),
-                ChallengeRepository(db.challengeDao),
-                ScaleRepository(db.scaleDao)
-            )
-        ).get(SharedViewModel::class.java)
+//        sharedViewModel = ViewModelProvider(
+//            requireActivity(),
+//            SharedViewModelFactory(
+//                ActivityRepository(db.activityDao),
+//                GoalRepository(db.goalDao),
+//                ChallengeRepository(db.challengeDao),
+//                ScaleRepository(db.scaleDao)
+//            )
+//        ).get(SharedViewModel::class.java)
         viewModel = GoalViewModel(GoalRepository(db.goalDao), arguments.goal)
         binding.goalViewModel = viewModel
         binding.setLifecycleOwner(this)
@@ -137,9 +137,10 @@ class GoalFragment : Fragment(), IconDialog.Callback {
 
     @InternalCoroutinesApi
     private fun subscribeUi(adapter: ActivityAdapter, binding: GoalFragmentBinding) {
-        sharedViewModel.activities.observe(viewLifecycleOwner, {
+        viewModel.goalAndRelatedActivities.observe(viewLifecycleOwner, {
             it?.let {
-                adapter.submitList(viewModel.filterLinkedActivites(it) as MutableList<Activity>)
+                if (it != null && it.activities.size >0)
+                adapter.submitList(it.activities)
 
             }
         })
@@ -236,6 +237,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         _binding = null
     }
 
+    @InternalCoroutinesApi
     private fun setIcon() {
         if (selectedIconId > 0)
             binding.imageButtonIcon.setImageDrawable(IconManager.getInstance(application).iconPack.getIcon(selectedIconId)?.drawable)
@@ -248,9 +250,11 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     /**
      * IconDialog.Callback
      */
+    @InternalCoroutinesApi
     override val iconDialogIconPack: IconPack?
         get() = IconManager.getInstance(application).iconPack
 
+    @InternalCoroutinesApi
     override fun onIconDialogIconsSelected(dialog: IconDialog, icons: List<Icon>) {
         if (icons.isNotEmpty()) {
             selectedIconId = icons.get(0).id
