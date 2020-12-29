@@ -16,7 +16,7 @@ class ScaleEntry {
   @ColumnInfo(name = "scale_id")
   var scaleId:Long = 0
   @ColumnInfo(name = "timestamp")
-  var timestamp: Date = Date()
+  var timestamp: Calendar = Calendar.getInstance()
 
   var value:Float = 0.toFloat()
 
@@ -26,10 +26,10 @@ class ScaleEntry {
   constructor(scaleId:Long, value:Float) {
     this.scaleId = scaleId
     this.value = value
-    this.timestamp = Date()
+    this.timestamp = Calendar.getInstance()
   }
   @Ignore
-  constructor(scaleId:Long, value:Float, date:Date) {
+  constructor(scaleId:Long, value:Float, date:Calendar) {
     this.scaleId = scaleId
     this.value = value
     this.timestamp = date

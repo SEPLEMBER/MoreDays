@@ -33,12 +33,12 @@ interface TrophyDao {
   fun getCountByGoalIdAndTypeAndTimespan(
     goalId: Int,
     type: Int,
-    from: Date?,
-    to: Date?
+    from: Calendar?,
+    to: Calendar?
   ): Int
 
   @Query("SELECT count(*) from trophy where goal_id = :goalId and datetime(trophy.timestamp / 1000 , 'unixepoch') between datetime(:from / 1000 , 'unixepoch') and datetime(:to / 1000 , 'unixepoch')")
-  fun getCountByGoalIdAndTimespan(goalId: Int, from: Date?, to: Date?): Int
+  fun getCountByGoalIdAndTimespan(goalId: Int, from: Calendar?, to: Calendar?): Int
 
   @Query("SELECT count(*) from trophy where activity_entry_id = :activityEntryId")
   fun getCountByEntryId(activityEntryId: Int): Int
@@ -47,17 +47,17 @@ interface TrophyDao {
   fun getCountToGoalAndType(goalId: Int, type: Int): Int
 
   @Query("SELECT count(*) FROM Trophy where trophy.goal_id = :goalId and trophy.type = :type and date(datetime(:since / 1000 , 'unixepoch')) <= date(datetime(trophy.timestamp / 1000 , 'unixepoch')) ")
-  fun getCountToGoalAndTypeSince(goalId: Int, type: Int, since: Date?): Int
+  fun getCountToGoalAndTypeSince(goalId: Int, type: Int, since: Calendar?): Int
 
   @Query("SELECT count(*) FROM Trophy where trophy.goal_id = :goalId and trophy.type = :type and date(datetime(trophy.timestamp / 1000 , 'unixepoch')) = date(datetime(:date / 1000 , 'unixepoch'))")
-  fun getCountToGoalAndTypeForGivenDate(goalId: Int, type: Int, date: Date?): Int
+  fun getCountToGoalAndTypeForGivenDate(goalId: Int, type: Int, date: Calendar?): Int
 
 
   @Query("SELECT max(trophy.value) FROM Trophy where trophy.goal_id = :goalId and trophy.type = :type")
   fun getMaxValueToGoalAndType(goalId: Int, type: Int): Int
 
   @Query("SELECT count(*) FROM trophy where type= :trophyType and goal_id=:goalId and datetime(timestamp / 1000 , 'unixepoch') between datetime(:from / 1000 , 'unixepoch') and datetime(:to / 1000 , 'unixepoch')")
-  fun getCountToTimeSpan(goalId: Int, trophyType: Int, from: Date?, to: Date?): Int
+  fun getCountToTimeSpan(goalId: Int, trophyType: Int, from: Calendar?, to: Calendar?): Int
 
   @Insert(onConflict = REPLACE)
   fun insert(item: Trophy?): Long

@@ -16,7 +16,7 @@ interface ActivityEntryDao {
   @get:Query("SELECT count(*) FROM ActivityEntry ")
   val countActivityEntries:Int
   @get:Query("SELECT timestamp from ActivityEntry order by timestamp asc limit 1")
-  val dateOfFirstActivityEntry: Date
+  val dateOfFirstActivityEntry: Calendar
   /*@get:Query("SELECT ActivityEntry.timestamp as date, Activity.name, ActivityEntry.uid as uid, Activity.goal_id as goalId, activity.points as points FROM ActivityEntry, Activity where ActivityEntry.uid=activity.uid order by ActivityEntry.timestamp DESC")
   val allAsSimple:List<SimpleActivity>
   @get:Query("SELECT ActivityEntry.timestamp as date, Activity.name, ActivityEntry.uid as uid, Activity.goal_id as goalId, Activity.points as points FROM ActivityEntry, Activity where ActivityEntry.uid=activity.uid and date(datetime(ActivityEntry.timestamp / 1000 , 'unixepoch')) = date('now') order by ActivityEntry.timestamp DESC")
@@ -47,15 +47,15 @@ interface ActivityEntryDao {
   fun getAsSimpleByActivityForThisWeek(ActivityId:Int):List<SimpleActivity>
   */
   @Query("SELECT sum(Activity.points) as sum FROM ActivityEntry left join Activity on ActivityEntry.uid = Activity.uid where Activity.goal_id = :goalId and date(datetime(ActivityEntry.timestamp / 1000 , 'unixepoch')) = date(datetime(:date / 1000 , 'unixepoch'))")
-  fun getSumBygoalIdForGivenDate(goalId:Int, date:Date):Int
+  fun getSumBygoalIdForGivenDate(goalId:Int, date:Calendar):Int
   @Query("SELECT sum(Activity.points) as sum FROM ActivityEntry left join Activity on ActivityEntry.uid = Activity.uid where date(datetime(ActivityEntry.timestamp / 1000 , 'unixepoch')) = date(datetime(:date / 1000 , 'unixepoch'))")
-  fun getSumForGivenDate(date:Date):Int
+  fun getSumForGivenDate(date:Calendar):Int
   //@Query("SELECT sum(Activity.points) as sum, strftime('%d.%m.%Y', date(datetime(ActivityEntry.timestamp / 1000 , 'unixepoch'))) as date, Activity.goal_id as goalId FROM ActivityEntry left join Activity on ActivityEntry.uid = Activity.uid where Activity.goal_id = :goalId group by strftime('%d.%m.%Y', date(datetime(ActivityEntry.timestamp / 1000 , 'unixepoch'))) order by ActivityEntry.timestamp ASC")
   //fun getSumBygoalIdGroupByDay(goalId:Int):List<SumDate>
   @Query("SELECT count(*) FROM ActivityEntry where ActivityEntry.uid = :ActivityId and datetime(ActivityEntry.timestamp / 1000 , 'unixepoch') between datetime(:from / 1000 , 'unixepoch') and datetime(:to / 1000 , 'unixepoch')")
-  fun getCountToActivityInTimeSpan(ActivityId:Int, from:Date, to:Date):Int
+  fun getCountToActivityInTimeSpan(ActivityId:Int, from:Calendar, to:Calendar):Int
   @Query("SELECT sum(Activity.points) as sum FROM ActivityEntry left join Activity on ActivityEntry.uid = Activity.uid where Activity.goal_id = :goalId and datetime(ActivityEntry.timestamp / 1000 , 'unixepoch') between datetime(:from / 1000 , 'unixepoch') and datetime(:to / 1000 , 'unixepoch')")
-  fun getSumToGoalInTimeSpan(goalId:Int, from:Date, to:Date):Int
+  fun getSumToGoalInTimeSpan(goalId:Int, from:Calendar, to:Calendar):Int
   @Insert(onConflict = REPLACE)
   suspend fun insert(ActivityEntry:ActivityEntry):Long
   @Delete

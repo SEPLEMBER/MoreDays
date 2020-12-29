@@ -20,7 +20,7 @@ class Trophy {
   var type:Int = 0
   @ColumnInfo(name = "goal_id")
   var goalId:Long = 0
-  var timestamp:Date= Date()
+  var timestamp:Calendar = Calendar.getInstance()
   var value:Int = 0
   @ColumnInfo(name = "activity_entry_id")
   var activityEntryId:Long = 0
@@ -29,13 +29,13 @@ class Trophy {
   constructor(type:Int, goalId:Long, activityEntryId:Long) {
     this.type = type
     this.goalId = goalId
-    this.timestamp = Date()
+    this.timestamp = Calendar.getInstance()
     this.value = -1
     this.activityEntryId = activityEntryId
   }
   @Ignore
   constructor(text:String, type:Int, goalId:Long, value:Int, activityEntryId:Long) {
-    this.timestamp = Date()
+    this.timestamp = Calendar.getInstance()
     this.text = text
     this.type = type
     this.goalId = goalId

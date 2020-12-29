@@ -6,15 +6,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class DateTypeConverter {
-    @TypeConverter
-	fun convertDateToLong(date: Date): Long {
-        return date.getTime()
-    }
-
-    @TypeConverter
-	fun convertLongToDate(time: Long): Date {
-        return Date(time)
-    }
+    @TypeConverter fun calendarToDatestamp(calendar: Calendar): Long = calendar.timeInMillis
 
     companion object {
 
@@ -34,4 +26,6 @@ class DateTypeConverter {
             return date
         }
     }
+    @TypeConverter fun datestampToCalendar(value: Long): Calendar =
+        Calendar.getInstance().apply { timeInMillis = value }
 }

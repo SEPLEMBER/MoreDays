@@ -1,6 +1,7 @@
 package de.wuapps.moredays.ui.goal
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,7 @@ class GoalListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.w("home", "onCreateView GoalListFragment")
         val application = requireNotNull(this.activity).application
         val db = MoreDaysDatabase.getInstance(application)
         viewModel = ViewModelProvider(
@@ -66,10 +68,11 @@ class GoalListFragment : Fragment() {
 
     @InternalCoroutinesApi
     private fun subscribeUi(adapter: GoalAdapter, binding: GoalListFragmentBinding) {
+        Log.w("home", "subscribeUi GoalListFragment")
         viewModel.goals.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it as MutableList<Goal>)
-
+                Log.w("home", "subscribeUi: set adapterlist GoalListFragment")
             }
         })
     }

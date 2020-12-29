@@ -53,10 +53,10 @@ class EntryTypeAdapter() :
 
 object EntryTypeDiffCallback : DiffUtil.ItemCallback<EntryType>() {
     override fun areItemsTheSame(oldItem: EntryType, newItem: EntryType): Boolean {
-        return false //return oldItem == newItem
+        return oldItem == newItem
     }
 
     override fun areContentsTheSame(oldItem: EntryType, newItem: EntryType): Boolean {
-        return false //return oldItem.getId().equals(newItem.getId())
+        return oldItem.getId().equals(newItem.getId())
     }
 }

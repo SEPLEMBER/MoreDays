@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
 import de.wuapps.moredays.data.repository.ActivityRepository
 import de.wuapps.moredays.data.repository.ChallengeRepository
 import de.wuapps.moredays.data.repository.GoalRepository
@@ -14,10 +13,6 @@ import de.wuapps.moredays.database.entity.Challenge
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Scale
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import java.util.*
 
 @InternalCoroutinesApi
@@ -38,13 +33,8 @@ class SharedViewModel(
     val date: LiveData<Date> = liveData {
         Date()
     }
-
-
 }
 
-data class AllData(
-    var goals: List<Goal>,
-    val activities: List<Activity>,
-    val scales: List<Scale>,
-    val challenges: List<Challenge>
-)
+
+
+

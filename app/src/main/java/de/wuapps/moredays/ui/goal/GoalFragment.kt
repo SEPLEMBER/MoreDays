@@ -183,7 +183,10 @@ class GoalFragment : Fragment(), IconDialog.Callback {
                 getString(R.string.yes)
             ) { _, _ ->
                 viewModel.delete()
-                findNavController().popBackStack()
+                binding.root.post {
+                    findNavController().popBackStack()
+                }
+
             }
             alertDialog.setNegativeButton(
                 getString(R.string.no)

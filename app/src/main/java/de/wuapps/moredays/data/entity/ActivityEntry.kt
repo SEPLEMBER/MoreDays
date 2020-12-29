@@ -21,12 +21,12 @@ class ActivityEntry {
     var activityId: Long = 0
 
     @ColumnInfo(name = "timestamp")
-    var timestamp: Date = Date()
+    var timestamp: Calendar = Calendar.getInstance()
 
     constructor() {}
 
     @Ignore
-    constructor(activityId: Long, date: Date) {
+    constructor(activityId: Long, date: Calendar) {
         this.activityId = activityId
         this.timestamp = date
     }
