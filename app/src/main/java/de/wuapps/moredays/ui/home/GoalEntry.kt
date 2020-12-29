@@ -12,15 +12,22 @@ import java.util.*
 import java.util.Calendar.DAY_OF_YEAR
 import java.util.Calendar.YEAR
 
-class GoalEntry(private val goalData: GoalAndRelatedData, private val date: Calendar, private val entryDao: ActivityEntryDao):EntryType {
+class GoalEntry(
+    private val goalData: GoalAndRelatedData,
+    private val date: Calendar,
+    private val entryDao: ActivityEntryDao,
+    private val updateFunction: (id: Long) -> (Unit)
+) : EntryType {
     private var currentValue = -1
-    private val goal:Goal = goalData.goal!!
+    private val goal: Goal = goalData.goal!!
 
     override fun getCurrentValue(): Int {
-        if (currentValue < 0 ){
+        if (currentValue < 0) {
             val year = date.get(YEAR)
             val day = date.get(DAY_OF_YEAR)
-           currentValue = goalData.entries.filter { entry -> entry.timestamp.get(YEAR) == year && entry.timestamp.get(DAY_OF_YEAR) == day }.sumBy { entry -> entry.points }
+            currentValue = goalData.entries.filter { entry ->
+                entry.timestamp.get(YEAR) == year && entry.timestamp.get(DAY_OF_YEAR) == day
+            }.sumBy { entry -> entry.points }
         }
         return currentValue
     }
@@ -34,7 +41,7 @@ class GoalEntry(private val goalData: GoalAndRelatedData, private val date: Cale
     }
 
     override fun getInfo(): String {
-        return "${getCurrentValue()} / ${ goal.points}"
+        return "${getCurrentValue()} / ${goal.points}"
     }
 
     override fun getSymbol(): Int {
@@ -48,10 +55,15 @@ class GoalEntry(private val goalData: GoalAndRelatedData, private val date: Cale
     override fun offerInput(context: Context) {
         val dialogBuilder = AlertDialog.Builder(context)
         val stringList: MutableList<String> = mutableListOf()
-        goalData.activities.forEach{activity -> stringList.add(activity.toString())}
-        val values : Array<String> = stringList.toTypedArray()
-        dialogBuilder.setTitle(goal.name).setItems(values) { _, position -> GlobalScope.launch{entryDao.insert(
-            ActivityEntry(goalData.activities.get(position)))}
+        goalData.activities.forEach { activity -> stringList.add(activity.toString()) }
+        val values: Array<String> = stringList.toTypedArray()
+        dialogBuilder.setTitle(goal.name).setItems(values) { _, position ->
+            GlobalScope.launch {
+                entryDao.insert(
+                    ActivityEntry(goalData.activities.get(position))
+                )
+            }
+            updateFunction(goal.uid)
         }
         val alertDialog = dialogBuilder.create()
         alertDialog.show()

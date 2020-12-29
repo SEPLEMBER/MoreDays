@@ -37,6 +37,8 @@ class HomeFragment : Fragment() {
     private val adapter = EntryTypeAdapter()
     private var isLoading: Boolean = false
     private var date = Calendar.getInstance()
+    private var goalsData: List<GoalAndRelatedData>? = null
+    private  var scales: MutableList<Scale> = mutableListOf()
 
     @InternalCoroutinesApi
     override fun onCreateView(
@@ -63,23 +65,27 @@ class HomeFragment : Fragment() {
             resources.getDimension(R.dimen.goal_item_width).toInt()
         )
         binding.recyclerViewEntryTypes.adapter = adapter
-        lifecycleScope.launch {
-            getAllData()
-        }
+        update(0L)
         return binding.root
     }
 
     @InternalCoroutinesApi
+    fun update(id: Long){
+        lifecycleScope.launch {
+            getAllData()
+        }
+    }
+    @InternalCoroutinesApi
     suspend fun getAllData() {
-        val listScales: MutableList<Scale> = mutableListOf()
+        scales.clear()
         lifecycleScope.launch {
             val rs = sharedViewModel._scales.firstOrNull()
             if (rs != null) {
-                listScales.addAll(rs)
+                scales.addAll(rs)
             }
-            val data = GoalRepository(db.goalDao).allData.firstOrNull()
-            if (data != null)
-                updateUI(data, listScales)
+            goalsData = GoalRepository(db.goalDao).allData.firstOrNull()
+            if (goalsData != null)
+                updateUI()
             //setObservers()
         }
 
@@ -95,13 +101,17 @@ class HomeFragment : Fragment() {
         )
     }
 
-    private fun updateUI(goalsData: List<GoalAndRelatedData>, scales: List<Scale>) {
+    @InternalCoroutinesApi
+    private fun updateUI() {
         val entryTypes = mutableListOf<EntryType>()
-        goalsData.forEach {
+        if (goalsData == null)
+            return
+        goalsData!!.forEach {
             entryTypes += GoalEntry(
                 it,
                 date,
-                db.activityEntryDao
+                db.activityEntryDao,
+                ::update
             )
         }
         scales.forEach {
