@@ -11,20 +11,24 @@ import de.wuapps.moredays.R
 import de.wuapps.moredays.data.repository.ActivityRepository
 import de.wuapps.moredays.data.repository.ChallengeRepository
 import de.wuapps.moredays.data.repository.GoalRepository
+import de.wuapps.moredays.data.repository.ScaleRepository
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.GoalListFragmentBinding
 import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
 import de.wuapps.moredays.ui.SharedViewModel
 import de.wuapps.moredays.ui.SharedViewModelFactory
+import kotlinx.coroutines.InternalCoroutinesApi
 
 
 class GoalListFragment : Fragment() {
 
     lateinit var binding: GoalListFragmentBinding
 
+    @InternalCoroutinesApi
     private lateinit var viewModel: SharedViewModel
 
+    @InternalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,7 +41,7 @@ class GoalListFragment : Fragment() {
                 ActivityRepository(db.activityDao),
                 GoalRepository(db.goalDao),
                 ChallengeRepository(db.challengeDao),
-                application
+                ScaleRepository(db.scaleDao)
             )
         ).get(SharedViewModel::class.java)
 
@@ -60,6 +64,7 @@ class GoalListFragment : Fragment() {
 
     }
 
+    @InternalCoroutinesApi
     private fun subscribeUi(adapter: GoalAdapter, binding: GoalListFragmentBinding) {
         viewModel.goals.observe(viewLifecycleOwner, {
             it?.let {

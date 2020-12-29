@@ -24,10 +24,12 @@ class GoalViewModel(private val goalRepository: GoalRepository, private val _goa
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
-    fun insert(pGoal: Goal) = viewModelScope.launch {
-        pGoal.uid = goalRepository.insert(pGoal)
+    fun insert(pGoal: Goal) {
         goal = pGoal
         isNew = false
+        viewModelScope.launch {
+            goal!!.uid = goalRepository.insert(pGoal)
+        }
     }
 
     fun update() = viewModelScope.launch {

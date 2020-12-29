@@ -14,13 +14,11 @@ interface ScaleDao {
   @Query("SELECT count(*) from ScaleEntry where scale_id =:scaleId")
   suspend fun isUsed(scaleId:Long):Int
   @Insert(onConflict = REPLACE)
-  fun insert(scale:Scale):Long
-  @Insert
-  fun insertData(data:List<Scale>)
+  suspend fun insert(scale:Scale):Long
   @Query("Delete from scale")
-  fun deleteAll()
+  suspend fun deleteAll()
   @Delete
-  fun delete(scale:Scale)
+  suspend fun delete(scale:Scale)
   @Update
-  fun update(scale:Scale)
+  suspend fun update(scale:Scale)
 }

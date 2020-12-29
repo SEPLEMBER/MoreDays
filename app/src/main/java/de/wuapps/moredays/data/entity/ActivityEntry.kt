@@ -30,4 +30,8 @@ class ActivityEntry {
         this.activityId = activityId
         this.timestamp = date
     }
+    @Ignore
+    constructor(activityId: Long) {
+        this.activityId = activityId
+    }
 }

@@ -1,5 +1,6 @@
 package de.wuapps.moredays.ui.activity
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
 import de.wuapps.moredays.data.repository.ActivityRepository
@@ -18,6 +20,7 @@ import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.databinding.ActivityFragmentBinding
 import de.wuapps.moredays.ui.SharedViewModel
 import de.wuapps.moredays.ui.SharedViewModelFactory
+import de.wuapps.moredays.ui.goal.GoalListFragmentDirections
 import java.lang.Integer.parseInt
 
 class ActivityFragment : Fragment() {
@@ -59,7 +62,7 @@ class ActivityFragment : Fragment() {
         if (!viewModel.isNew) {
             if (!viewModel.isUsed) {
                 viewModel.delete()
-                findNavController().popBackStack()
+                findNavController().navigate(ActivityFragmentDirections.navigationActivityGoal(viewModel.goal))
             }
             val alertDialog: AlertDialog.Builder =
                 AlertDialog.Builder(requireNotNull(this.activity))
@@ -69,7 +72,7 @@ class ActivityFragment : Fragment() {
                 getString(R.string.yes)
             ) { _, _ ->
                 viewModel.delete()
-                findNavController().popBackStack()
+                findNavController().navigate(ActivityFragmentDirections.navigationActivityGoal(viewModel.goal))
             }
             alertDialog.setNegativeButton(
                 getString(R.string.no)
@@ -80,21 +83,30 @@ class ActivityFragment : Fragment() {
         }
     }
 
+    @SuppressLint("RestrictedApi")
     private fun save() {
+        var isValid = true
         val name = binding.editTextName.text.toString().trim()
         val pointsAsString = binding.editTextPoints.text.toString().trim()
         //val goal = binding.spinnerGoal.tag
         var points = 0
         val isOld = binding.checkboxIsOld.isChecked
-        if (name.isNullOrBlank())
+        if (name.isNullOrBlank()) {
             binding.editTextName.setError(getString(R.string.warning_field_is_required))
-        if (pointsAsString.isNullOrBlank())
+            isValid = false
+        }
+        if (pointsAsString.isNullOrBlank()) {
             binding.editTextName.setError(getString(R.string.warning_field_is_required))
+            isValid = false
+        }
         try {
             points = parseInt(pointsAsString)
         } catch (e: NumberFormatException) {
-            Log.e(TAG, e.message.toString())
+            binding.editTextName.setError(getString(R.string.warning_not_an_int))
+            isValid = false
         }
+        if (!isValid)
+            return
         if (viewModel.isNew) {
             var activity = Activity()
             activity.goalId = viewModel.goal.uid
@@ -107,6 +119,6 @@ class ActivityFragment : Fragment() {
             viewModel.activity!!.goalId = viewModel.goal.uid
             viewModel.update()
         }
-        findNavController().popBackStack()
+        findNavController().navigate(ActivityFragmentDirections.navigationActivityGoal(viewModel.goal))
     }
 }

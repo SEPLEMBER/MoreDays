@@ -1,6 +1,7 @@
 package de.wuapps.moredays.ui.goal
 
 import android.app.AlertDialog
+import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,6 +26,7 @@ import de.wuapps.moredays.R
 import de.wuapps.moredays.data.repository.ActivityRepository
 import de.wuapps.moredays.data.repository.ChallengeRepository
 import de.wuapps.moredays.data.repository.GoalRepository
+import de.wuapps.moredays.data.repository.ScaleRepository
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
@@ -34,37 +36,43 @@ import de.wuapps.moredays.ui.SharedViewModel
 import de.wuapps.moredays.ui.SharedViewModelFactory
 import de.wuapps.moredays.ui.activity.ActivityAdapter
 import java.lang.Integer.parseInt
+import de.wuapps.moredays.ui.icons.IconManager
+import kotlinx.coroutines.InternalCoroutinesApi
 
 
 class GoalFragment : Fragment(), IconDialog.Callback {
     private val TAG = "GoalFragment"
     private val SELECT_COLOR_ICON_ID = 502
+    private val DEFAULLT_ICON_ID = 41
+    private val DEFAULT_COLOR = -37722
     private var _binding: GoalFragmentBinding? = null
-    private var selectedIconId: Int = 41
-    private var selectedColor: Int = -37722
+    private var selectedIconId: Int = DEFAULLT_ICON_ID
+    private var selectedColor: Int = DEFAULT_COLOR
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var viewModel: GoalViewModel
+    @InternalCoroutinesApi
     private lateinit var sharedViewModel: SharedViewModel
-
+    private lateinit var application: Application
     //private val viewModel: GoalViewModel by viewModels()
     //val vm: GoalViewModel by lazy { ViewModelProviders.of(this).get(GoalViewModel::class.java) }
     companion object {
         fun newInstance() = GoalFragment()
     }
 
+    @InternalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        application = requireNotNull(this.activity).application
         _binding = GoalFragmentBinding.inflate(inflater, container, false)
         var view = binding.root
 
         val arguments = GoalFragmentArgs.fromBundle(requireArguments())
 
-        val application = requireNotNull(this.activity).application
         val db = MoreDaysDatabase.getInstance(application)
         sharedViewModel = ViewModelProvider(
             requireActivity(),
@@ -72,7 +80,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
                 ActivityRepository(db.activityDao),
                 GoalRepository(db.goalDao),
                 ChallengeRepository(db.challengeDao),
-                application
+                ScaleRepository(db.scaleDao)
             )
         ).get(SharedViewModel::class.java)
         viewModel = GoalViewModel(GoalRepository(db.goalDao), arguments.goal)
@@ -92,12 +100,13 @@ class GoalFragment : Fragment(), IconDialog.Callback {
                 viewModel.ICON_DIALOG_TAG
             )
         }
-        selectedIconId = viewModel.goal?.symbol ?: -1
-        selectedColor = viewModel.goal?.color ?: -1
+        selectedIconId = viewModel.goal?.symbol ?: DEFAULLT_ICON_ID
+        selectedColor = viewModel.goal?.color ?: DEFAULT_COLOR
         setIcon()
         setColor()
+
         binding.imageButtonColor.setImageDrawable(
-            sharedViewModel.iconPack.getIcon(
+            IconManager.getInstance(application).iconPack.getIcon(
                 SELECT_COLOR_ICON_ID
             )?.drawable
         )
@@ -128,6 +137,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
 
     }
 
+    @InternalCoroutinesApi
     private fun subscribeUi(adapter: ActivityAdapter, binding: GoalFragmentBinding) {
         sharedViewModel.activities.observe(viewLifecycleOwner, {
             it?.let {
@@ -185,19 +195,27 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     }
 
     private fun save() {
+        var isValid = true
         val name = binding.editTextName.text.toString().trim()
         val pointsAsString = binding.editTextPoints.text.toString().trim()
         var points = 0
         val isOld = binding.checkboxIsOld.isChecked
-        if (name.isNullOrBlank())
+        if (name.isNullOrBlank()) {
             binding.editTextName.setError(getString(R.string.warning_field_is_required))
-        if (pointsAsString.isNullOrBlank())
+            isValid = false
+        }
+        if (pointsAsString.isNullOrBlank()) {
             binding.editTextName.setError(getString(R.string.warning_field_is_required))
+            isValid = false
+        }
         try {
             points = parseInt(pointsAsString)
         } catch (e: NumberFormatException) {
-            Log.e(TAG, e.message.toString())
+            binding.editTextName.setError(getString(R.string.warning_not_an_int))
+            isValid = false
         }
+        if (!isValid)
+            return
         if (viewModel.isNew) {
             var goal = Goal()
             goal.name = name
@@ -227,7 +245,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
 
     private fun setIcon() {
         if (selectedIconId > 0)
-            binding.imageButtonIcon.setImageDrawable(sharedViewModel.iconPack.getIcon(selectedIconId)?.drawable)
+            binding.imageButtonIcon.setImageDrawable(IconManager.getInstance(application).iconPack.getIcon(selectedIconId)?.drawable)
     }
 
     private fun setColor() {
@@ -238,7 +256,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
      * IconDialog.Callback
      */
     override val iconDialogIconPack: IconPack?
-        get() = sharedViewModel.iconPack
+        get() = IconManager.getInstance(application).iconPack
 
     override fun onIconDialogIconsSelected(dialog: IconDialog, icons: List<Icon>) {
         if (icons.size > 0) {

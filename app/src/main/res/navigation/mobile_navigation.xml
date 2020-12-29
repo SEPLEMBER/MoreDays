@@ -39,6 +39,17 @@
             app:nullable="false"
             app:argType="de.wuapps.moredays.database.entity.Goal"
              />
+        <action
+            android:id="@+id/navigation_activity_goal"
+            app:destination="@id/goalFragment"
+            app:popUpTo="@id/goalFragment"
+            app:popUpToInclusive="true">
+        <argument
+            android:name="goal"
+            app:nullable="false"
+            app:argType="de.wuapps.moredays.database.entity.Goal"
+            />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/challengeFragment"

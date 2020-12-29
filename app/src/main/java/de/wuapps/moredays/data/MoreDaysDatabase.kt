@@ -8,21 +8,24 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import de.wuapps.moredays.database.converter.DateTypeConverter
 import de.wuapps.moredays.database.converter.ListGoalTypeConverter
-import de.wuapps.moredays.database.dao.ActivityDao
-import de.wuapps.moredays.database.dao.ChallengeDao
-import de.wuapps.moredays.database.dao.GoalDao
+import de.wuapps.moredays.database.dao.*
 import de.wuapps.moredays.database.entity.*
+import de.wuapps.moredays.utilities.DATABASE_NAME
+import de.wuapps.moredays.utilities.DATABASE_VERSION
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Activity::class, ActivityEntry::class, Goal::class, Challenge::class, Scale::class, Trophy::class ], version = 5)
+@Database(entities = [Activity::class, ActivityEntry::class, Goal::class, Challenge::class, Scale::class, ScaleEntry::class, Trophy::class, Journal::class, HundredPercentValue::class], version = DATABASE_VERSION)
 @TypeConverters(DateTypeConverter::class)
 abstract class MoreDaysDatabase : RoomDatabase() {
 
     abstract val goalDao: GoalDao
     abstract val activityDao: ActivityDao
     abstract val challengeDao: ChallengeDao
+    abstract val activityEntryDao: ActivityEntryDao
+    abstract val scaleEntryDao: ScaleEntryDao
+    abstract val scaleDao:ScaleDao
 
     companion object {
         @Volatile
@@ -37,7 +40,7 @@ abstract class MoreDaysDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     MoreDaysDatabase::class.java,
-                    "moredays_database"
+                    DATABASE_NAME
                 )
                     // Wipes and rebuilds instead of migrating if no Migration object.
                     // Migration is not part of this codelab.

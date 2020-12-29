@@ -1,36 +1,50 @@
 package de.wuapps.moredays.ui
 
-import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
-import com.maltaisn.icondialog.pack.IconPack
-import com.maltaisn.icondialog.pack.IconPackLoader
-import com.maltaisn.iconpack.defaultpack.createDefaultIconPack
+import androidx.lifecycle.viewModelScope
 import de.wuapps.moredays.data.repository.ActivityRepository
 import de.wuapps.moredays.data.repository.ChallengeRepository
 import de.wuapps.moredays.data.repository.GoalRepository
+import de.wuapps.moredays.data.repository.ScaleRepository
+import de.wuapps.moredays.database.entity.Activity
+import de.wuapps.moredays.database.entity.Challenge
+import de.wuapps.moredays.database.entity.Goal
+import de.wuapps.moredays.database.entity.Scale
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.util.*
 
+@InternalCoroutinesApi
 class SharedViewModel(
     activityRepository: ActivityRepository,
     goalRepository: GoalRepository,
     challengeRepository: ChallengeRepository,
-    application: Application
-) : BaseViewModel(){
-    val goals = goalRepository.allGoals.asLiveData()
-    val activities = activityRepository.allActivitys.asLiveData()
-    val challenges = challengeRepository.allChallenges.asLiveData()
+    scaleRepository: ScaleRepository
+) : BaseViewModel() {
+    val _goals = goalRepository.allGoals
+    val goals = _goals.asLiveData()
+    val _activities = activityRepository.allActivities
+    val activities = _activities.asLiveData()
+    val _challenges = challengeRepository.allChallenges
+    val challenges = _challenges.asLiveData()
+    val _scales = scaleRepository.allScales
+    val scales = _scales.asLiveData()
     val date: LiveData<Date> = liveData {
         Date()
     }
-    var iconPack: IconPack
-    init {
-        // Create an icon pack loader with application context.
-        val loader = IconPackLoader(application)
-        // Create an icon pack and load all drawables.
-        iconPack = createDefaultIconPack(loader)
-        iconPack.loadDrawables(loader.drawableLoader)
 
-    }
+
 }
+
+data class AllData(
+    var goals: List<Goal>,
+    val activities: List<Activity>,
+    val scales: List<Scale>,
+    val challenges: List<Challenge>
+)

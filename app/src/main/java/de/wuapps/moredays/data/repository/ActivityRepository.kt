@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 class ActivityRepository(private val activityDao: ActivityDao) {
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
-    val allActivitys: Flow<List<Activity>> = activityDao.getAll()
+    val allActivities: Flow<List<Activity>> = activityDao.getAll()
 
     suspend fun insert(activity: Activity):Long {
         return activityDao.insert(activity)
