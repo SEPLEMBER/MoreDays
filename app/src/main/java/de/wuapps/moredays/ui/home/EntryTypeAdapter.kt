@@ -23,7 +23,7 @@ class EntryTypeAdapter :
 
         init {
             itemView.setOnClickListener {
-                currentEntryType!!.offerInput(itemView.context)
+                currentEntryType!!.showInputDialog(itemView.context)
             }
         }
 

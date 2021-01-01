@@ -9,5 +9,5 @@ interface EntryType {
     fun getName(): String
     fun getInfo(): String
     fun getSymbol(): Int
-    fun offerInput(context: Context)
+    fun showInputDialog(context: Context)
 }

@@ -42,7 +42,7 @@ class ScaleEntry(
         return "scale-${scale.uid}"
     }
 
-    override fun offerInput(context: Context) {
+    override fun showInputDialog(context: Context) {
         val layout = LayoutInflater.from(context).inflate(R.layout.float_picker_layout, null)
         val decimalView = layout.findViewById<NumberPicker>(R.id.numberPickerDecimal)
         decimalView.value

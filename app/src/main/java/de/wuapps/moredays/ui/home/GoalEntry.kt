@@ -15,8 +15,7 @@ import java.util.Calendar.YEAR
 class GoalEntry(
     private val goalData: GoalAndRelatedData,
     private val date: Calendar,
-    private val entryDao: ActivityEntryDao,
-    private val updateFunction: (id: Long) -> (Unit)
+    private val entryDao: ActivityEntryDao
 ) : EntryType {
     private var currentValue = -1
     private val goal: Goal = goalData.goal!!
@@ -52,18 +51,18 @@ class GoalEntry(
         return "goal-${goal.uid}"
     }
 
-    override fun offerInput(context: Context) {
+    override fun showInputDialog(context: Context) {
         val dialogBuilder = AlertDialog.Builder(context)
         val stringList: MutableList<String> = mutableListOf()
         goalData.activities.forEach { activity -> stringList.add(activity.toString()) }
         val values: Array<String> = stringList.toTypedArray()
         dialogBuilder.setTitle(goal.name).setItems(values) { _, position ->
+            val activity = goalData.activities.get(position)
             GlobalScope.launch {
                 entryDao.insert(
-                    ActivityEntry(goalData.activities.get(position))
+                    ActivityEntry(activity)
                 )
             }
-            updateFunction(goal.uid)
         }
         val alertDialog = dialogBuilder.create()
         alertDialog.show()

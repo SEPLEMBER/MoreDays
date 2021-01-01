@@ -57,7 +57,6 @@ class GoalListFragment : Fragment() {
         viewModel.goals.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it as MutableList<Goal>)
-                Log.w("home", "subscribeUi: set adapterlist GoalListFragment")
             }
         })
     }

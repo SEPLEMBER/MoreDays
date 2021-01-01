@@ -1,16 +1,71 @@
 package de.wuapps.moredays.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import de.wuapps.moredays.database.dao.ChallengeDao
-import de.wuapps.moredays.database.dao.GoalDao
-import de.wuapps.moredays.database.dao.ScaleDao
-import kotlinx.coroutines.flow.firstOrNull
+import androidx.lifecycle.map
+import de.wuapps.moredays.data.entity.GoalAndRelatedData
+import de.wuapps.moredays.database.dao.*
+import de.wuapps.moredays.database.entity.Scale
+import java.util.*
 
-class HomeViewModel(private val goalDao: GoalDao, private val scaleDao: ScaleDao, private val challengeDao: ChallengeDao) : ViewModel() {
+class HomeViewModel(
+    goalDao: GoalDao,
+    scaleDao: ScaleDao,
+    private val challengeDao: ChallengeDao,
+    private val activityEntryDao: ActivityEntryDao,
+    private val scaleEntryDao: ScaleEntryDao
+) : ViewModel() {
 
-    val scales = scaleDao.getAll().asLiveData()
-    fun allGoalsData() = goalDao.getAllDataForGivenDate()
+    val date = Calendar.getInstance()
+    private val scales =
+        scaleDao.getAll().asLiveData().map { scales -> mapScalesToEntryTypes(scales) }
+    private val goalData = goalDao.getAllDataForGivenDate().asLiveData()
+        .map { goalData -> mapGoalDataToEntryTypes(goalData) }
+    val entryTypes = MediatorLiveData<List<EntryType>>()
+
+    private fun mapScalesToEntryTypes(scales: List<Scale>): List<EntryType> {
+        val result = mutableListOf<EntryType>()
+        for (scale in scales) {
+            result += ScaleEntry(
+                scale,
+                1F,
+                scaleEntryDao
+            )
+        }
+        return result
+    }
+
+    private fun mapGoalDataToEntryTypes(goalData: List<GoalAndRelatedData>): List<EntryType> {
+        val result = mutableListOf<EntryType>()
+        for (item in goalData) {
+            result += GoalEntry(
+                item,
+                date,
+                activityEntryDao
+            )
+        }
+        return result
+
+    }
+
+    init {
+        entryTypes.addSource(scales)
+        {
+            if (it != null) {
+                entryTypes.postValue(it)
+
+            }
+        }
+        entryTypes.addSource(goalData)
+        {
+            if (it != null) {
+                entryTypes.postValue(it)
+            }
+        }
+
+    }
+
 }
+

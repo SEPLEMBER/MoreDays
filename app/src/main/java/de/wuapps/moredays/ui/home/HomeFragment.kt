@@ -2,13 +2,11 @@ package de.wuapps.moredays.ui.home
 
 import android.app.Application
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import de.wuapps.moredays.R
 import de.wuapps.moredays.data.entity.GoalAndRelatedData
 import de.wuapps.moredays.database.MoreDaysDatabase
@@ -16,8 +14,6 @@ import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.databinding.FragmentHomeBinding
 import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.launch
 import java.util.*
 
 class HomeFragment : Fragment() {
@@ -46,7 +42,9 @@ class HomeFragment : Fragment() {
             HomeViewModelFactory(
                 db.goalDao,
                 db.scaleDao,
-                db.challengeDao
+                db.challengeDao,
+                db.activityEntryDao,
+                db.scaleEntryDao
             )
         ).get(HomeViewModel::class.java)
         binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -55,51 +53,15 @@ class HomeFragment : Fragment() {
             resources.getDimension(R.dimen.goal_item_width).toInt()
         )
         binding.recyclerViewEntryTypes.adapter = adapter
-        update(0L)
+        subscribeUi()
         return binding.root
     }
 
-    fun update(id: Long) {
-        homeViewModel.scales.observe(viewLifecycleOwner, {
-            scales.clear()
+    fun subscribeUi() {
+        homeViewModel.entryTypes.observe(viewLifecycleOwner, {
             it?.let {
-                scales.addAll(it) //we are not showing the current value, as it might be frustrating, hence we can observe the scales itself, in general there should not happen much
+                adapter.submitList(it as MutableList<EntryType>)
             }
         })
-        lifecycleScope.launch {
-            goalsData = homeViewModel.allGoalsData().firstOrNull()
-            if (goalsData != null || scales.size > 0)
-                updateUI()
-        }
-        updateChallenges(id)
-    }
-
-    private fun updateChallenges(id: Long){
-
-    }
-
-    private fun updateUI() {
-        val entryTypes = mutableListOf<EntryType>()
-        if (goalsData == null)
-            return
-        goalsData!!.forEach {
-            entryTypes += GoalEntry(
-                it,
-                date,
-                db.activityEntryDao,
-                ::update
-            )
-        }
-        scales.forEach {
-            entryTypes += ScaleEntry(
-                it,
-                1F,
-                db.scaleEntryDao
-            )
-        }
-        if (entryTypes.isNotEmpty()) {
-            adapter.submitList(entryTypes)
-        }
-
     }
 }
