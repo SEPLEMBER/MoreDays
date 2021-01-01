@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.R
 
 
-class EntryTypeAdapter() :
+class EntryTypeAdapter :
     ListAdapter<EntryType, EntryTypeAdapter.EntryTypeViewHolder>(EntryTypeDiffCallback) {
 
     class EntryTypeViewHolder(itemView: View) :

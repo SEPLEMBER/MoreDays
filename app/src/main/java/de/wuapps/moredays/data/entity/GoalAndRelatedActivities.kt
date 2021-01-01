@@ -13,4 +13,4 @@ data class GoalAndRelatedActivities(
         entityColumn = "goal_id"
     )
     var activities: List<Activity> = ArrayList<Activity>()
-) {}
+)

@@ -48,7 +48,7 @@ class ScaleEntry(
         decimalView.value
         val fractionView = layout.findViewById<NumberPicker>(R.id.numberPickerFraction)
         var fractionValues= Array<String>(100) {i -> i.toString()}
-        fractionView.setDisplayedValues(fractionValues)
+        fractionView.displayedValues = fractionValues
         val dialogBuilder = AlertDialog.Builder(context)
         dialogBuilder
             .setView(layout)

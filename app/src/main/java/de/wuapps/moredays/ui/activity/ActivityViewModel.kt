@@ -1,7 +1,7 @@
 package de.wuapps.moredays.ui.activity
 
 import androidx.lifecycle.*
-import de.wuapps.moredays.data.repository.ActivityRepository
+import de.wuapps.moredays.database.dao.ActivityDao
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.ui.BaseViewModel
@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 
 class ActivityViewModel(
-    private val activityRepository: ActivityRepository,
+    private val activityDao: ActivityDao,
     _goal: Goal,
     _activity: Activity?
 ) : BaseViewModel() {
@@ -21,7 +21,7 @@ class ActivityViewModel(
     init {
         viewModelScope.launch {
             if (activity != null)
-                isUsed = activityRepository.isUsed(activity.uid)
+                isUsed = activityDao.isUsed(activity.uid) > 0
         }
     }
 
@@ -29,17 +29,15 @@ class ActivityViewModel(
      * Launching a new coroutine to insert the data in a non-blocking way
      */
     fun insert(activity: Activity) = viewModelScope.launch {
-        activityRepository.insert(activity)
+        activityDao.insert(activity)
     }
 
     fun update() = viewModelScope.launch {
-
-            activityRepository.update(activity!!)
-
+        activityDao.update(activity!!)
     }
 
     fun delete() = viewModelScope.launch {
-        activityRepository.delete(activity!!)
+        activityDao.delete(activity!!)
     }
 
 }

@@ -1,21 +1,22 @@
 # moreDays
 
 ## Decisions
+After playing with flows, repositories, livedata and reading about viewmodel life cycles, the following architecture seems to be the best for this app:
+- daos return flows for lists and simple objects for one shot read 
+- as daos are interfaces already and the data will be stored on the phone only, there is no need for repository classes -- they are useful, if the data comes from an api AND room
+- even if a device is rotated and ondestroy of an activity/fragment is called, a viewmodel remains, hence use livedata in viewmodels, let them be updated
+- most viewmodels of this app will need constructor parameters, therefore we need a viewmodel factory
 
 
 ## ToDos
-- genau prüfen, welche Daten beobachtet werden müssen: https://developer.android.com/codelabs/android-room-with-a-view-kotlin#6
 - Tests hinzufügen https://developer.android.com/codelabs/advanced-android-kotlin-training-testing-basics#0 und https://speakerdeck.com/alexzhukovich/writing-robust-android-ui-tests 
 - DB-Tests
   - https://speakerdeck.com/alexzhukovich/let-us-play-in-room-with-kotlin?slide=49
 - Hilfe mit https://github.com/KeepSafe/TapTargetView
 - für Onboarding auswählen: https://undraw.co/illustrations oder https://www.drawkit.io/
-- Montessori-Zahlen erstellen aus https://www.svgrepo.com/vectors/1/
 - Hintergrund vl. von https://www.svgbackgrounds.com/#flat-mountains
 - instead of preferences use https://developer.android.com/jetpack/androidx/releases/datastore#version_100_2 see https://developer.android.com/codelabs/android-preferences-datastore?hl=zh-cn#0
-- maybe integrate https://github.com/jaredrummler/Cyanea to let the user define the colors by themselves
 - https://github.com/googlesamples/easypermissions
-- https://github.com/johncarl81/parceler
 - permission to export pictures ... see https://github.com/TeamAmaze/AmazeFileManager
 - implement trophy made using https://github.com/gabriel-TheCode/AestheticDialogs
 - lock & export/import see https://github.com/hanjoongcho/aaf-easydiary
@@ -27,6 +28,8 @@
 - onboarding see https://thesimplycoder.com/346/android-intro-slider-and-splash-screen-tutorial/
 - tutorial date picker https://thesimplycoder.com/226/android-date-picker-kotlin-tutorial/
 - glide with circle crop and recycler view (-->journal) https://thesimplycoder.com/114/android-recyclerview-tutorial-using-kotlin/
+- biometrics https://developer.android.com/jetpack/androidx/releases/biometric#1.0.1
+
 ## Vision
 
 ## naming convention
@@ -61,6 +64,10 @@ class RecipeDayPair {
 - implement adapters https://developer.android.com/guide/topics/ui/layout/recyclerview, drag&drop: 
 - added BaseViewModel and let all view models extend this model
 
+## Lessons learned
+- Dependency Injection (DI): a class should not create the dependencies, it needs, those dependencies should be provided through the constructor
+- ViewModelProviders.Factory: gives a new instance if it is needed and only if it is needed, hence use it; if the ViewModel has a parameter in the constructor (see DI above), implement your own factory
+
 ## Kotlin
 - https://kotlinlang.org/docs/reference
 - Java to Kotlin converter: https://try.kotlinlang.org/ 
@@ -69,6 +76,10 @@ class RecipeDayPair {
 - Any : datatype
 - open class : may be extended
 - data class : simple data class
+- scope functions let, run, with, apply, and also: https://kotlinlang.org/docs/reference/scope-functions.html  
+  - apply and also return the context object.
+  - let, run, and with return the lambda result.
+
 - code examples
 - The primary constructor cannot contain any code. Initialization code can be placed in initializer blocks, which are prefixed with the init keyword.
 - companion object : equivalent of static methods 
@@ -135,20 +146,34 @@ getSupportFragmentManager().beginTransaction()
   - `` android:text="@={`` + goalViewModel.goal.points}" `
   - do not forget to fetch the value before saving
   - better use number picker, as it is supported for two way binding, see https://developer.android.com/topic/libraries/data-binding/two-way#java
-  - be careful with checkboxes -- better do not invert them
   - do not forget the = for two way binding, e.g. ```android:text="@={goalViewModel.goal.name}" ```
+  - Buttons/Events: ```android:onClick="@{() -> viewModel.onCounterButtonPressed()}"```
+  - spinner is just a hassle to bind to: after binding there is an autoselection of the first item in the list, hence any preselection needs a hack
+    - https://code.luasoftware.com/tutorials/android/android-two-way-data-binding-with-spinner/ 
+    - https://wamae.medium.com/using-android-livedata-in-spinners-room-428de4238847 
+    - https://stackoverflow.com/questions/2562248/how-to-keep-onitemselected-from-firing-off-on-a-newly-instantiated-spinner
+
 ### Navigation
 - up button https://developer.android.com/codelabs/kotlin-android-training-add-navigation/index.html#7
 - conditional https://developer.android.com/codelabs/kotlin-android-training-add-navigation/index.html#5
+- handle back button in MainActivity
+- advanced navigation see https://github.com/android/architecture-components-samples/tree/main/NavigationAdvancedSample/app/src/main/java/com/example/android/navigationadvancedsample
 
 ### Room & coroutines
 You can use the suspend keyword to make your DAO queries asynchronous using Kotlin coroutines. Suspend function is a function that could be started, paused, and resume. One of the most important points to remember about the suspend functions is that they are only allowed to be called from a coroutine or another suspend function. The official documentation says that coroutines are lightweight threads. By lightweight, it means that creating coroutines doesn’t allocate new threads. Instead, they use predefined thread pools and smart scheduling. Use launch to start a new coroutine as fire & forget; use async to return -- see https://developer.android.com/kotlin/coroutines-adv
 - use flow at repository and dao level for observable lists, use simple nullable data (Type?) for one shot async read (suspend), e.g. `suspend fun getById(id: Long): Goal?`
 - use LieveData or MutableLiveData at viewmodel level
+Prepopulate Room Database: https://developer.android.com/training/data-storage/room/prepopulate
 #### Live Data vs. Flow
 - see article https://medium.com/android-dev-hacks/exploring-livedata-and-kotlin-flow-7c8d8e706324
   - Livedata is used to observe data without having any hazel to handle lifecycle problems. Whereas Kotlin flow is used for continuous data integration and it also simplified the asynchronous programming.
   - Live data is an observable data holder class, Live data is lifecycle aware
+  - use setvalue/postvalue to notify observers of changed value
+
+### Dagger & Hilt -- Dependency injection -- not used in this app
+Less boiler plate code, better testing.
+- https://developer.android.com/training/dependency-injection
+- 
 
 ## Links
 - list of libraries

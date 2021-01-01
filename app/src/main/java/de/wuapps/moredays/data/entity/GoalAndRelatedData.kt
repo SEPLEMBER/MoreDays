@@ -19,5 +19,4 @@ data class GoalAndRelatedData(
         entityColumn = "goal_id"
     )
     var entries: List<ActivityEntry> = ArrayList<ActivityEntry>()
-) {
-}
+)

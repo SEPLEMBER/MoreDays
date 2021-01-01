@@ -2,6 +2,7 @@ package de.wuapps.moredays.ui.home
 
 import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import de.wuapps.moredays.R
 import de.wuapps.moredays.data.entity.GoalAndRelatedData
-import de.wuapps.moredays.data.repository.ActivityRepository
-import de.wuapps.moredays.data.repository.ChallengeRepository
-import de.wuapps.moredays.data.repository.GoalRepository
-import de.wuapps.moredays.data.repository.ScaleRepository
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.databinding.FragmentHomeBinding
 import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
-import de.wuapps.moredays.ui.SharedViewModel
-import de.wuapps.moredays.ui.SharedViewModelFactory
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
@@ -30,15 +25,13 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
 
     @InternalCoroutinesApi
-    private lateinit var sharedViewModel: SharedViewModel
     lateinit var binding: FragmentHomeBinding
     private lateinit var application: Application
     private lateinit var db: MoreDaysDatabase
     private val adapter = EntryTypeAdapter()
-    private var isLoading: Boolean = false
     private var date = Calendar.getInstance()
     private var goalsData: List<GoalAndRelatedData>? = null
-    private  var scales: MutableList<Scale> = mutableListOf()
+    private var scales: MutableList<Scale> = mutableListOf()
 
     @InternalCoroutinesApi
     override fun onCreateView(
@@ -48,17 +41,14 @@ class HomeFragment : Fragment() {
     ): View? {
         application = requireNotNull(this.activity).application
         db = MoreDaysDatabase.getInstance(application)
-        sharedViewModel = ViewModelProvider(
-            requireActivity(),
-            SharedViewModelFactory(
-                ActivityRepository(db.activityDao),
-                GoalRepository(db.goalDao),
-                ChallengeRepository(db.challengeDao),
-                ScaleRepository(db.scaleDao)
+        homeViewModel = ViewModelProvider(
+            this,
+            HomeViewModelFactory(
+                db.goalDao,
+                db.scaleDao,
+                db.challengeDao
             )
-        ).get(SharedViewModel::class.java)
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        ).get(HomeViewModel::class.java)
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.recyclerViewEntryTypes.layoutManager = ResponsiveGridLayoutManager(
             requireNotNull(this.activity),
@@ -69,39 +59,25 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    @InternalCoroutinesApi
-    fun update(id: Long){
-        lifecycleScope.launch {
-            getAllData()
-        }
-    }
-    @InternalCoroutinesApi
-    suspend fun getAllData() {
-        scales.clear()
-        lifecycleScope.launch {
-            val rs = sharedViewModel._scales.firstOrNull()
-            if (rs != null) {
-                scales.addAll(rs)
+    fun update(id: Long) {
+        homeViewModel.scales.observe(viewLifecycleOwner, {
+            scales.clear()
+            it?.let {
+                scales.addAll(it) //we are not showing the current value, as it might be frustrating, hence we can observe the scales itself, in general there should not happen much
             }
-            goalsData = GoalRepository(db.goalDao).allData.firstOrNull()
-            if (goalsData != null)
+        })
+        lifecycleScope.launch {
+            goalsData = homeViewModel.allGoalsData().firstOrNull()
+            if (goalsData != null || scales.size > 0)
                 updateUI()
-            //setObservers()
         }
+        updateChallenges(id)
+    }
+
+    private fun updateChallenges(id: Long){
 
     }
 
-    @InternalCoroutinesApi
-    private fun setObservers() {
-        sharedViewModel.homeData.observe(viewLifecycleOwner, {
-            lifecycleScope.launch {
-                getAllData()
-            }
-        }
-        )
-    }
-
-    @InternalCoroutinesApi
     private fun updateUI() {
         val entryTypes = mutableListOf<EntryType>()
         if (goalsData == null)
@@ -126,5 +102,4 @@ class HomeFragment : Fragment() {
         }
 
     }
-
 }

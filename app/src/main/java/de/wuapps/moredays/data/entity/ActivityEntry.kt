@@ -28,7 +28,7 @@ class ActivityEntry {
     @ColumnInfo(name = "timestamp")
     var timestamp: Calendar = Calendar.getInstance()
 
-    constructor() {}
+    constructor()
 
     @Ignore
     constructor(activity:Activity, date: Calendar) {

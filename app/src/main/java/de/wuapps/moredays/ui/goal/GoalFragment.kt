@@ -3,7 +3,6 @@ package de.wuapps.moredays.ui.goal
 import android.app.AlertDialog
 import android.app.Application
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,21 +22,12 @@ import com.skydoves.colorpickerview.flag.BubbleFlag
 import com.skydoves.colorpickerview.flag.FlagMode
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import de.wuapps.moredays.R
-import de.wuapps.moredays.data.repository.ActivityRepository
-import de.wuapps.moredays.data.repository.ChallengeRepository
-import de.wuapps.moredays.data.repository.GoalRepository
-import de.wuapps.moredays.data.repository.ScaleRepository
 import de.wuapps.moredays.database.MoreDaysDatabase
-import de.wuapps.moredays.database.entity.Activity
-import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.GoalFragmentBinding
-import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
-import de.wuapps.moredays.ui.SharedViewModel
-import de.wuapps.moredays.ui.SharedViewModelFactory
 import de.wuapps.moredays.ui.activity.ActivityAdapter
-import java.lang.Integer.parseInt
 import de.wuapps.moredays.ui.icons.IconManager
 import kotlinx.coroutines.InternalCoroutinesApi
+import java.lang.Integer.parseInt
 
 
 class GoalFragment : Fragment(), IconDialog.Callback {
@@ -51,9 +41,11 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var viewModel: GoalViewModel
+
     @InternalCoroutinesApi
     //private lateinit var sharedViewModel: SharedViewModel
     private lateinit var application: Application
+
     //private val viewModel: GoalViewModel by viewModels()
     //val vm: GoalViewModel by lazy { ViewModelProviders.of(this).get(GoalViewModel::class.java) }
     companion object {
@@ -72,18 +64,15 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         val arguments = GoalFragmentArgs.fromBundle(requireArguments())
 
         val db = MoreDaysDatabase.getInstance(application)
-//        sharedViewModel = ViewModelProvider(
-//            requireActivity(),
-//            SharedViewModelFactory(
-//                ActivityRepository(db.activityDao),
-//                GoalRepository(db.goalDao),
-//                ChallengeRepository(db.challengeDao),
-//                ScaleRepository(db.scaleDao)
-//            )
-//        ).get(SharedViewModel::class.java)
-        viewModel = GoalViewModel(GoalRepository(db.goalDao), arguments.goal)
+        viewModel = ViewModelProvider(
+            this,
+            GoalViewModelFactory(
+                db.goalDao,
+                arguments.goal
+            )
+        ).get(GoalViewModel::class.java)
         binding.goalViewModel = viewModel
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
         binding.buttonSave.setOnClickListener {
             save()
             it.findNavController().popBackStack()
@@ -114,13 +103,16 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         binding.imageButtonAddActivity.setOnClickListener {
             save()
             it.findNavController()
-                .navigate(GoalFragmentDirections.navigationGoalActivity(null,
-                    viewModel.goal
-                ))
+                .navigate(
+                    GoalFragmentDirections.navigationGoalActivity(
+                        null,
+                        viewModel.goal
+                    )
+                )
         }
 
         if (arguments.goal != null) {
-            val layoutManager= FlexboxLayoutManager(
+            val layoutManager = FlexboxLayoutManager(
                 requireNotNull(this.activity),
                 FlexDirection.ROW
             )
@@ -129,18 +121,18 @@ class GoalFragment : Fragment(), IconDialog.Callback {
 
             val adapter = ActivityAdapter(arguments.goal)
             binding.recyclerViewActivities.adapter = adapter
-            subscribeUi(adapter, binding)
+            subscribeUi(adapter)
         }
         return view
 
     }
 
     @InternalCoroutinesApi
-    private fun subscribeUi(adapter: ActivityAdapter, binding: GoalFragmentBinding) {
+    private fun subscribeUi(adapter: ActivityAdapter) {
         viewModel.goalAndRelatedActivities.observe(viewLifecycleOwner, {
             it?.let {
-                if (it != null && it.activities.size >0)
-                adapter.submitList(it.activities)
+                if (it.activities.isNotEmpty())
+                    adapter.submitList(it.activities)
 
             }
         })
@@ -150,20 +142,20 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         val builder = ColorPickerDialog.Builder(this.activity)
             .setTitle(getString(R.string.title_color_picker_dialog))
             .setPositiveButton(getString(R.string.ok),
-                ColorEnvelopeListener { envelope, fromUser ->
+                ColorEnvelopeListener { envelope, _ ->
                     selectedColor = envelope.color
                     setColor()
                 })
             .setNegativeButton(
                 getString(R.string.cancel)
-            ) { dialogInterface, i -> dialogInterface.dismiss() }
+            ) { dialogInterface, _ -> dialogInterface.dismiss() }
             .setBottomSpace(12)
             .attachAlphaSlideBar(false) // the default value is true.
             .attachBrightnessSlideBar(false)
         val colorPickerView = builder.colorPickerView
         val bubbleFlag = BubbleFlag(this.activity)
         bubbleFlag.flagMode = FlagMode.ALWAYS
-        colorPickerView.setFlagView(bubbleFlag)
+        colorPickerView.flagView = bubbleFlag
         colorPickerView.setInitialColor(selectedColor)
         builder.show()
     }
@@ -203,19 +195,18 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         val name = binding.editTextName.text.toString().trim()
         val pointsAsString = binding.editTextPoints.text.toString().trim()
         var points = 0
-        val isOld = binding.checkboxIsOld.isChecked
         if (name.isBlank()) {
-            binding.editTextName.setError(getString(R.string.warning_field_is_required))
+            binding.editTextName.error = getString(R.string.warning_field_is_required)
             isValid = false
         }
         if (pointsAsString.isBlank()) {
-            binding.editTextName.setError(getString(R.string.warning_field_is_required))
+            binding.editTextName.error = getString(R.string.warning_field_is_required)
             isValid = false
         }
         try {
             points = parseInt(pointsAsString)
         } catch (e: NumberFormatException) {
-            binding.editTextName.setError(getString(R.string.warning_not_an_int))
+            binding.editTextName.error = getString(R.string.warning_not_an_int)
             isValid = false
         }
         if (!isValid)
@@ -226,12 +217,6 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         viewModel.save()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(GoalViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -240,7 +225,11 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     @InternalCoroutinesApi
     private fun setIcon() {
         if (selectedIconId > 0)
-            binding.imageButtonIcon.setImageDrawable(IconManager.getInstance(application).iconPack.getIcon(selectedIconId)?.drawable)
+            binding.imageButtonIcon.setImageDrawable(
+                IconManager.getInstance(application).iconPack.getIcon(
+                    selectedIconId
+                )?.drawable
+            )
     }
 
     private fun setColor() {

@@ -20,9 +20,9 @@ class ScaleEntry {
 
   var value:Float = 0.toFloat()
 
-  constructor() {}
+  constructor()
 
-  @Ignore
+    @Ignore
   constructor(scaleId:Long, value:Float) {
     this.scaleId = scaleId
     this.value = value

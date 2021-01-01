@@ -13,7 +13,7 @@ import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Trophy
 
 
-class TrophyAdapter() :
+class TrophyAdapter :
     ListAdapter<Trophy, TrophyAdapter.TrophyViewHolder>(TrophyDiffCallback) {
 
     class TrophyViewHolder(itemView: View) :

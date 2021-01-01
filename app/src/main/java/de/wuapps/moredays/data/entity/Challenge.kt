@@ -49,10 +49,10 @@ class Challenge { //serializable: damit kann es als Parameter zwischen Intents Ã
             value.set(Calendar.SECOND, 0)
             value.set(Calendar.MILLISECOND, 1)
             val today = Calendar.getInstance()
-            if (this.deadline != null && (this.deadline.getTime() < value.getTime()))
+            if (this.deadline.time < value.time)
                 this.status = CHALLENGE_FAILED
             else if (status < 0) {
-                if (value.getTime() <= today.getTime())
+                if (value.time <= today.time)
                     status = CHALLENGE_RUNNING
                 else
                     status = CHALLENGE_NOT_STARTED
@@ -60,7 +60,7 @@ class Challenge { //serializable: damit kann es als Parameter zwischen Intents Ã
             field = value
         }
 
-    constructor() {}
+    constructor()
 
     @Ignore
     constructor(

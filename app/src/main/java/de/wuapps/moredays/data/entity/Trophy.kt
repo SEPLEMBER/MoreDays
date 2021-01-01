@@ -24,8 +24,9 @@ class Trophy {
   var value:Int = 0
   @ColumnInfo(name = "activity_entry_id")
   var activityEntryId:Long = 0
-  constructor() {}
-  @Ignore
+  constructor()
+
+    @Ignore
   constructor(type:Int, goalId:Long, activityEntryId:Long) {
     this.type = type
     this.goalId = goalId

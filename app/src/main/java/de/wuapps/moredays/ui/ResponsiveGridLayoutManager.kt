@@ -15,11 +15,11 @@ class ResponsiveGridLayoutManager (context: Context, minItemWidth:Int): GridLayo
         super.onLayoutChildren(recycler, state)
     }
     private fun updateSpanCount() {
-        var spanCount = getWidth() / minItemWidth
+        var spanCount = width / minItemWidth
         if (spanCount < 1)
         {
             spanCount = 1
         }
-        this.setSpanCount(spanCount)
+        this.spanCount = spanCount
     }
 }

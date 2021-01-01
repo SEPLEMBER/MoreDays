@@ -8,7 +8,6 @@ interface EntryType {
     fun getId(): String
     fun getName(): String
     fun getInfo(): String
-    //fun getDrawing(): Drawable
     fun getSymbol(): Int
     fun offerInput(context: Context)
 }

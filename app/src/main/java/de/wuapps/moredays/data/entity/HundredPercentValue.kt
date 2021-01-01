@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import de.wuapps.moredays.database.converter.ListGoalTypeConverter;
+import de.wuapps.moredays.database.converter.ListGoalTypeConverter
 import org.jetbrains.annotations.NotNull
 import java.text.SimpleDateFormat
 import java.util.*

@@ -19,7 +19,7 @@ class DateTypeConverter {
         fun convertStringToDate(strDate: String): Date {
             var date = Date()
             try {
-                date = (SimpleDateFormat("yyMMdd").parse(strDate))
+                (SimpleDateFormat("yyMMdd").parse(strDate)).also { if (it!= null) date = it }
             } catch (ex: ParseException) {
                 //@todo log
             }

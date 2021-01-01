@@ -13,7 +13,7 @@ import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Journal
 
 
-class JournalAdapter() :
+class JournalAdapter :
     ListAdapter<Journal, JournalAdapter.JournalViewHolder>(JournalDiffCallback) {
 
     class JournalViewHolder(itemView: View) :

@@ -3,24 +3,16 @@ package de.wuapps.moredays.ui.activity
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
-import de.wuapps.moredays.data.repository.ActivityRepository
-import de.wuapps.moredays.data.repository.ChallengeRepository
-import de.wuapps.moredays.data.repository.GoalRepository
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.databinding.ActivityFragmentBinding
-import de.wuapps.moredays.ui.SharedViewModel
-import de.wuapps.moredays.ui.SharedViewModelFactory
-import de.wuapps.moredays.ui.goal.GoalListFragmentDirections
 import java.lang.Integer.parseInt
 
 class ActivityFragment : Fragment() {
@@ -43,7 +35,7 @@ class ActivityFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         viewModel = ViewModelProvider(
             this, ActivityViewModelFactory(
-                ActivityRepository(MoreDaysDatabase.getInstance(application).activityDao),
+                MoreDaysDatabase.getInstance(application).activityDao,
                 arguments.goal,
                 arguments.activity
             )

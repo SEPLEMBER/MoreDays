@@ -13,8 +13,9 @@ class Scale {
 
   var name:String= ""
 
-  constructor(){}
-  @Ignore
+  constructor()
+
+    @Ignore
   constructor(name:String) {
     this.uid = 0 //trigger autoincrement
     this.name = name

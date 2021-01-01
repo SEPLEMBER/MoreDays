@@ -13,4 +13,4 @@ data class ScaleAndEntries(
         entityColumn = "scale_id"
     )
     var entries: List<ScaleEntry> = ArrayList<ScaleEntry>()
-) {}
+)
