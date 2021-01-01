@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
->
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="activityViewModel"
             type="de.wuapps.moredays.ui.activity.ActivityViewModel" />
-        </data>
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,7 +29,7 @@
                 android:layout_marginVertical="8dp"
                 android:text="@{@string/lbl_question_activity_to_goal + activityViewModel.goal.toString()}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/editTextName"
@@ -45,8 +45,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/min_accesible_size"
                 android:digits="0123456789"
-                android:text="@={`` + activityViewModel.activity.points}"
                 android:inputType="numberSigned|numberDecimal"
+                android:text="@={`` + activityViewModel.activity.points}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewPoints" />
 
@@ -106,8 +106,8 @@
                 android:id="@+id/checkboxIsOld"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:checked="@={activityViewModel.activity.old}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/hintEditTextPoints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

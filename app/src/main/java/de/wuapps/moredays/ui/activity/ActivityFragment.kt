@@ -16,7 +16,6 @@ import de.wuapps.moredays.databinding.ActivityFragmentBinding
 import java.lang.Integer.parseInt
 
 class ActivityFragment : Fragment() {
-    private val TAG = "ActivityFragment"
     private lateinit var viewModel: ActivityViewModel
     private lateinit var binding: ActivityFragmentBinding
 

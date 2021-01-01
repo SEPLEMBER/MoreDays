@@ -117,10 +117,11 @@
         android:name="de.wuapps.moredays.ui.scale.ScaleFragment"
         android:label="scale_fragment"
         tools:layout="@layout/scale_fragment">
-    <argument
-        android:name="scaleId"
-        app:argType="long"
-        android:defaultValue="-1L"/>
+        <argument
+            android:name="scale"
+            app:nullable="true"
+            app:argType="de.wuapps.moredays.database.entity.Scale"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/navigation_journal"

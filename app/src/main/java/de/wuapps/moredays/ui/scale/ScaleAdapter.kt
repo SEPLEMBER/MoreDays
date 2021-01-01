@@ -22,15 +22,13 @@ class ScaleAdapter :
 
         init {
             itemView.setOnClickListener {
-                val scaleId = currentScale!!.uid
-                it.findNavController().navigate(ScaleListFragmentDirections.navigationScalesScale(scaleId))
+                it.findNavController().navigate(ScaleListFragmentDirections.navigationScalesScale(currentScale))
 
             }
         }
 
         fun bind(scale: Scale) {
             currentScale = scale
-
             textViewName.text = scale.name
         }
     }

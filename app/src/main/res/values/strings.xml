@@ -54,4 +54,8 @@
     <string name="inactive">inaktiv</string>
     <string name="decimal_symbol">,</string>
     <string name="warning_not_an_int">not an int</string>
+    <string name="question_delete_scale" />
+    <string name="lbl_add_scale" />
+    <string name="hint_min_value">hint_min_value</string>
+    <string name="hint_max_value">hint_max_value</string>
 </resources>

@@ -18,6 +18,7 @@ class HomeViewModel(
     private val scaleEntryDao: ScaleEntryDao
 ) : ViewModel() {
 
+    private val scalesGoals = Pair<MutableList<EntryType>, MutableList<EntryType>>(mutableListOf(), mutableListOf()) //scales, goalData
     val date = Calendar.getInstance()
     private val scales =
         scaleDao.getAll().asLiveData().map { scales -> mapScalesToEntryTypes(scales) }
@@ -30,7 +31,6 @@ class HomeViewModel(
         for (scale in scales) {
             result += ScaleEntry(
                 scale,
-                1F,
                 scaleEntryDao
             )
         }
@@ -54,18 +54,27 @@ class HomeViewModel(
         entryTypes.addSource(scales)
         {
             if (it != null) {
-                entryTypes.postValue(it)
-
+                updateScales(it)
             }
         }
         entryTypes.addSource(goalData)
         {
             if (it != null) {
-                entryTypes.postValue(it)
+                updateGoalData(it)
             }
         }
 
     }
 
+    private fun updateScales(scales: List<EntryType>){
+        scalesGoals.first.clear()
+        scalesGoals.first.addAll(scales)
+        entryTypes.value = scalesGoals.second + scalesGoals.first
+    }
+    private fun updateGoalData(goalData: List<EntryType>){
+        scalesGoals.second.clear()
+        scalesGoals.second.addAll(goalData)
+        entryTypes.value = scalesGoals.second + scalesGoals.first
+    }
 }
 

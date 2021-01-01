@@ -10,11 +10,6 @@ import kotlinx.coroutines.flow.Flow
 interface ScaleDao {
   @Query("SELECT * FROM scale order by name")
   fun getAll(): Flow<List<Scale>>
-  
-//  @Transaction
-//  @Query("SELECT * FROM scale left join scaleentry on scale.uid = scaleentry.scale_id order by scale.uid, scaleentry.timestamp desc")
-//  fun getAllData(): Flow<List<ScaleAndEntries>>
-
   @Query("SELECT * FROM scale WHERE uid = :scaleId")
   suspend fun getScaleById(scaleId:Long):Scale?
   @Query("SELECT count(*) from ScaleEntry where scale_id =:scaleId")

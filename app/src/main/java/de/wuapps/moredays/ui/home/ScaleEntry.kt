@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 
 class ScaleEntry(
     val scale: Scale,
-    val currentValue: Float,
     val entryDao: ScaleEntryDao
 ):EntryType {
     val SYMBOL = 771
@@ -23,7 +22,7 @@ class ScaleEntry(
     }
 
     override fun getInfo(): String {
-        return currentValue.toString()
+        return ""
     }
 
     override fun getSymbol(): Int {
@@ -48,6 +47,10 @@ class ScaleEntry(
         decimalView.value
         val fractionView = layout.findViewById<NumberPicker>(R.id.numberPickerFraction)
         var fractionValues= Array<String>(100) {i -> i.toString()}
+        fractionView.minValue = 0
+        fractionView.maxValue = 99
+        decimalView.minValue = scale.minValue
+        decimalView.maxValue = scale.maxValue
         fractionView.displayedValues = fractionValues
         val dialogBuilder = AlertDialog.Builder(context)
         dialogBuilder
