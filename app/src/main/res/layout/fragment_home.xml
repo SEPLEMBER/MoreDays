@@ -6,12 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+   <de.wuapps.moredays.ui.customviews.CirclesView
+       android:id="@+id/circlesView"
+       android:layout_width="match_parent"
+       android:layout_height="240dp"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toTopOf="parent"/>
+
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/recyclerViewEntryTypes"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        app:layout_constraintLeft_toLeftOf="parent"
-       app:layout_constraintTop_toTopOf="parent"/>
+       app:layout_constraintTop_toBottomOf="@id/circlesView"/>
    <TextView
        android:id="@+id/textView"
        android:layout_width="wrap_content"

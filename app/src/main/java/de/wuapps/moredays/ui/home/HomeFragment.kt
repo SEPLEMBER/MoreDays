@@ -16,11 +16,10 @@ import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
 import kotlinx.coroutines.InternalCoroutinesApi
 import java.util.*
 
+@InternalCoroutinesApi
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
-
-    @InternalCoroutinesApi
     lateinit var binding: FragmentHomeBinding
     private lateinit var application: Application
     private lateinit var db: MoreDaysDatabase
@@ -29,7 +28,6 @@ class HomeFragment : Fragment() {
     private var goalsData: List<GoalAndRelatedData>? = null
     private var scales: MutableList<Scale> = mutableListOf()
 
-    @InternalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -57,12 +55,17 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    fun subscribeUi() {
+    private fun subscribeUi() {
         homeViewModel.entryTypes.observe(viewLifecycleOwner, {
             val x = homeViewModel.entryTypes.value
             it?.let {
                 adapter.submitList(it as MutableList<EntryType>)
+                updateCircles()
             }
         })
+    }
+
+    private fun updateCircles(){
+        binding.circlesView.setCirclesData(homeViewModel.scalesGoals.second)
     }
 }

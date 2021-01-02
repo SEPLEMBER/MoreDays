@@ -68,5 +68,7 @@ class GoalEntry(
         alertDialog.show()
     }
 
-
+    fun getColor(): Int{
+        return goal.color
+    }
 }

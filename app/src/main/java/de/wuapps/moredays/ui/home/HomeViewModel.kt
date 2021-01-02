@@ -1,6 +1,5 @@
 package de.wuapps.moredays.ui.home
 
-import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -18,16 +17,16 @@ class HomeViewModel(
     private val scaleEntryDao: ScaleEntryDao
 ) : ViewModel() {
 
-    private val scalesGoals = Pair<MutableList<EntryType>, MutableList<EntryType>>(mutableListOf(), mutableListOf()) //scales, goalData
+    val scalesGoals = Pair<MutableList<ScaleEntry>, MutableList<GoalEntry>>(mutableListOf(), mutableListOf()) //scales, goalData
     val date = Calendar.getInstance()
     private val scales =
-        scaleDao.getAll().asLiveData().map { scales -> mapScalesToEntryTypes(scales) }
+        scaleDao.getAll().asLiveData().map { scales -> mapScalesToScaleEntries(scales) }
     private val goalData = goalDao.getAllDataForGivenDate().asLiveData()
-        .map { goalData -> mapGoalDataToEntryTypes(goalData) }
+        .map { goalData -> mapGoalDataToGoalEntries(goalData) }
     val entryTypes = MediatorLiveData<List<EntryType>>()
 
-    private fun mapScalesToEntryTypes(scales: List<Scale>): List<EntryType> {
-        val result = mutableListOf<EntryType>()
+    private fun mapScalesToScaleEntries(scales: List<Scale>): List<ScaleEntry> {
+        val result = mutableListOf<ScaleEntry>()
         for (scale in scales) {
             result += ScaleEntry(
                 scale,
@@ -37,8 +36,8 @@ class HomeViewModel(
         return result
     }
 
-    private fun mapGoalDataToEntryTypes(goalData: List<GoalAndRelatedData>): List<EntryType> {
-        val result = mutableListOf<EntryType>()
+    private fun mapGoalDataToGoalEntries(goalData: List<GoalAndRelatedData>): List<GoalEntry> {
+        val result = mutableListOf<GoalEntry>()
         for (item in goalData) {
             result += GoalEntry(
                 item,
@@ -66,12 +65,12 @@ class HomeViewModel(
 
     }
 
-    private fun updateScales(scales: List<EntryType>){
+    private fun updateScales(scales: List<ScaleEntry>){
         scalesGoals.first.clear()
         scalesGoals.first.addAll(scales)
         entryTypes.value = scalesGoals.second + scalesGoals.first
     }
-    private fun updateGoalData(goalData: List<EntryType>){
+    private fun updateGoalData(goalData: List<GoalEntry>){
         scalesGoals.second.clear()
         scalesGoals.second.addAll(goalData)
         entryTypes.value = scalesGoals.second + scalesGoals.first
