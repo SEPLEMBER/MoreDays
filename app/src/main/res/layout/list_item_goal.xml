@@ -8,7 +8,6 @@
     android:clickable="true"
     android:elevation="6dp"
     android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
     app:cardCornerRadius="8dp">
 
     <LinearLayout
@@ -19,7 +18,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:id="@+id/ivIcon"
+            android:id="@+id/imageViewIcon"
             android:layout_width="30dp"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"

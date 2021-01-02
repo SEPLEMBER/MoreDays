@@ -68,7 +68,9 @@ class GoalEntry(
         alertDialog.show()
     }
 
-    fun getColor(): Int{
+    override fun getColor(): Int {
         return goal.color
     }
+
+
 }

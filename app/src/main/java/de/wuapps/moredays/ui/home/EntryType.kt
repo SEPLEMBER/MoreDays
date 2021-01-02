@@ -10,4 +10,5 @@ interface EntryType {
     fun getInfo(): String
     fun getSymbol(): Int
     fun showInputDialog(context: Context)
+    fun getColor(): Int
 }

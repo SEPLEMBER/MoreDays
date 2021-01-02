@@ -1,5 +1,6 @@
 package de.wuapps.moredays.ui.goal
 
+import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -43,7 +44,7 @@ class GoalListFragment : Fragment() {
             requireNotNull(this.activity),
             resources.getDimension(R.dimen.goal_item_width).toInt()
         )
-        val adapter = GoalAdapter()
+        val adapter = GoalAdapter(application)
         binding.recyclerviewGoals.adapter = adapter
         subscribeUi(adapter)
 

@@ -3,9 +3,10 @@
 ## Decisions
 After playing with flows, repositories, livedata and reading about viewmodel life cycles, the following architecture seems to be the best for this app:
 - daos return flows for lists and simple objects for one shot read 
+  - an observer attached to such a flow, will listen to all changes of all involved tables of the corresponding query, hence observers will be attached to queries adressing one table only
 - as daos are interfaces already and the data will be stored on the phone only, there is no need for repository classes -- they are useful, if the data comes from an api AND room
 - even if a device is rotated and ondestroy of an activity/fragment is called, a viewmodel remains, hence use livedata in viewmodels, let them be updated
-- most viewmodels of this app will need constructor parameters, therefore we need a viewmodel factory
+- most viewmodels of this app will need constructor parameters, therefore we need  viewmodel factory classes
 
 
 ## ToDos
@@ -29,6 +30,9 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 - tutorial date picker https://thesimplycoder.com/226/android-date-picker-kotlin-tutorial/
 - glide with circle crop and recycler view (-->journal) https://thesimplycoder.com/114/android-recyclerview-tutorial-using-kotlin/
 - biometrics https://developer.android.com/jetpack/androidx/releases/biometric#1.0.1
+- scaleentry with latest value (entries as live data in viewmodel and observer -> set currentvalue in viewmodel)
+- select nice layout of https://codecanyon.net
+- maybe circle animation similar to https://github.com/GIGAMOLE/ArcProgressStackView/blob/master/arcprogressstackview/src/main/java/devlight/io/library/ArcProgressStackView.java
 
 ## Vision
 
@@ -43,30 +47,24 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 - new kotlin project based on template bottom navigation
 - added fragments (template with ViewModel): Activity, Challenge, Goal, Journal, Trophy; und ActivityList, TrophyList... and adapter classes and packages (organize by feature)
 - added dependencies
-- added view binding https://developer.android.com/topic/libraries/view-binding
-- added dao/entity classes similar to 
+- code is similar to 
   - https://github.com/google-developer-training/android-kotlin-fundamentals-apps/tree/master/TrackMySleepQualityFinal
   - https://github.com/android/sunflower 
-- einige Datenverbindungsklassen (z.B.) erstellt, vgl. https://itnext.io/how-to-create-m-n-relationship-with-room-and-kotlin-ddbdebf0ee38
-```
-class RecipeDayPair {
-        @Embedded(prefix = "recipe_")
-        lateinit var recipe : Recipe
-
-        @Embedded
-        var day : Day? = null
-    }
-```
+- added view binding https://developer.android.com/topic/libraries/view-binding
+- added dao/entity classes
 - added components to navigation graph
 - adapted bottom navigation (menu and mainactivity) 
 - added libraries
 - downloaded fonts from https://fonts.google.com/
 - implement adapters https://developer.android.com/guide/topics/ui/layout/recyclerview, drag&drop: 
-- added BaseViewModel and let all view models extend this model
+
 
 ## Lessons learned
 - Dependency Injection (DI): a class should not create the dependencies, it needs, those dependencies should be provided through the constructor
+  - a more generic approach should use dagger and hilt, see https://blog.mindorks.com/dagger-hilt-tutorial
 - ViewModelProviders.Factory: gives a new instance if it is needed and only if it is needed, hence use it; if the ViewModel has a parameter in the constructor (see DI above), implement your own factory
+- to handle drawables use ImageDecoder
+- custom views see https://developer.android.com/codelabs/advanced-andoid-kotlin-training-custom-views and https://developer.android.com/training/custom-views/create-view
 
 ## Kotlin
 - https://kotlinlang.org/docs/reference

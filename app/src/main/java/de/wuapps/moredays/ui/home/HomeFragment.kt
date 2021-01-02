@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
     private lateinit var application: Application
     private lateinit var db: MoreDaysDatabase
-    private val adapter = EntryTypeAdapter()
+    private lateinit var adapter: EntryTypeAdapter
     private var date = Calendar.getInstance()
     private var goalsData: List<GoalAndRelatedData>? = null
     private var scales: MutableList<Scale> = mutableListOf()
@@ -48,8 +48,9 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.recyclerViewEntryTypes.layoutManager = ResponsiveGridLayoutManager(
             requireNotNull(this.activity),
-            resources.getDimension(R.dimen.goal_item_width).toInt()
+            resources.getDimension(R.dimen.entry_type_item_width).toInt()
         )
+        adapter = EntryTypeAdapter(application)
         binding.recyclerViewEntryTypes.adapter = adapter
         subscribeUi()
         return binding.root

@@ -8,6 +8,7 @@ import de.wuapps.moredays.R
 import de.wuapps.moredays.database.dao.ScaleEntryDao
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.database.entity.ScaleEntry
+import de.wuapps.moredays.utilities.SCALE_COLOR
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -76,5 +77,9 @@ class ScaleEntry(
     fun getFloat(decimal: Int, fraction: Int): Float
     {
         return decimal.toFloat() + fraction/100F
+    }
+
+    override fun getColor(): Int {
+        return SCALE_COLOR
     }
 }
