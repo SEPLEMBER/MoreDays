@@ -92,7 +92,7 @@
 
 
 
-            <com.google.android.material.checkbox.MaterialCheckBox
+            <CheckBox
                 android:id="@+id/checkboxIsOld"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,14 +126,14 @@
                 android:contentDescription="@string/lbl_add_activity"
                 app:layout_constraintBottom_toBottomOf="@id/recyclerViewActivities" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/buttonSave"
                 style="@style/Widget.MoreDays.ButtonSave"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recyclerViewActivities" />
 
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/buttonDelete"
                 style="@style/Widget.MoreDays.ButtonDelete"
                 app:isGone="@{goalViewModel.new}"

@@ -58,7 +58,6 @@ class HomeFragment : Fragment() {
 
     private fun subscribeUi() {
         homeViewModel.entryTypes.observe(viewLifecycleOwner, {
-            val x = homeViewModel.entryTypes.value
             it?.let {
                 adapter.submitList(it as MutableList<EntryType>)
                 updateCircles()

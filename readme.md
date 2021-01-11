@@ -33,6 +33,7 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 - scaleentry with latest value (entries as live data in viewmodel and observer -> set currentvalue in viewmodel)
 - select nice layout of https://codecanyon.net
 - maybe circle animation similar to https://github.com/GIGAMOLE/ArcProgressStackView/blob/master/arcprogressstackview/src/main/java/devlight/io/library/ArcProgressStackView.java
+- where to store current date and similar data: activity scope? or nav as in https://developer.android.com/guide/navigation/navigation-programmatic#share_ui-related_data_between_destinations_with_viewmodel
 
 ## Vision
 

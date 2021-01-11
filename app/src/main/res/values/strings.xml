@@ -58,4 +58,7 @@
     <string name="lbl_add_scale" />
     <string name="hint_min_value">hint_min_value</string>
     <string name="hint_max_value">hint_max_value</string>
+
+    <string name="save">save</string>
+    <string name="delete">delete</string>
 </resources>

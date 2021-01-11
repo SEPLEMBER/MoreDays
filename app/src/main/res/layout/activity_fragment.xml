@@ -89,20 +89,20 @@
                 app:layout_constraintEnd_toStartOf="@id/checkboxIsOld"
                 app:layout_constraintTop_toBottomOf="@id/hintEditTextPoints" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/buttonSave"
                 style="@style/Widget.MoreDays.ButtonSave"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/checkboxIsOld" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/buttonDelete"
                 style="@style/Widget.MoreDays.ButtonDelete"
                 app:isGone="@{activityViewModel.new}"
                 app:layout_constraintBottom_toBottomOf="@id/buttonSave"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <com.google.android.material.checkbox.MaterialCheckBox
+            <CheckBox
                 android:id="@+id/checkboxIsOld"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
