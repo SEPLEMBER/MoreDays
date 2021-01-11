@@ -33,4 +33,13 @@ class Scale(
         this.minValue = minValue
         this.maxValue = maxValue
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (other == null)
+            return false
+        if (!(other is Scale))
+            return false
+        val otherScale = other as Scale
+        return otherScale.uid == uid && otherScale.name.equals(name) && otherScale.minValue == minValue && otherScale.maxValue == maxValue
+    }
 }

@@ -57,7 +57,7 @@ class EntryTypeAdapter(private val application: Application) :
 
 object EntryTypeDiffCallback : DiffUtil.ItemCallback<EntryType>() {
     override fun areItemsTheSame(oldItem: EntryType, newItem: EntryType): Boolean {
-        return oldItem == newItem
+        return oldItem.equals(newItem)
     }
 
     override fun areContentsTheSame(oldItem: EntryType, newItem: EntryType): Boolean {

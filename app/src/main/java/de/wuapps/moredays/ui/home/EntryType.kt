@@ -11,4 +11,5 @@ interface EntryType {
     fun getSymbol(): Int
     fun showInputDialog(context: Context)
     fun getColor(): Int
+    override operator fun equals(other: Any?): Boolean
 }

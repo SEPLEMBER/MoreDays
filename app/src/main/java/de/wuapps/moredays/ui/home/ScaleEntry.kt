@@ -82,4 +82,13 @@ class ScaleEntry(
     override fun getColor(): Int {
         return SCALE_COLOR
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (other == null)
+            return false
+        if (!(other is de.wuapps.moredays.ui.home.ScaleEntry))
+            return false
+        val otherScaleEntry = other as de.wuapps.moredays.ui.home.ScaleEntry
+        return otherScaleEntry.scale.equals(scale) && otherScaleEntry.getCurrentValue() == getCurrentValue()
+    }
 }

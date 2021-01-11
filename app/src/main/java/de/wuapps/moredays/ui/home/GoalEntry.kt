@@ -72,5 +72,14 @@ class GoalEntry(
         return goal.color
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (other == null)
+            return false
+        if (!(other is GoalEntry))
+            return false
+        val otherGoalEntry = other as GoalEntry
+        return otherGoalEntry.goal.equals(goal) && otherGoalEntry.currentValue == currentValue
+    }
+
 
 }

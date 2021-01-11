@@ -13,7 +13,7 @@ import kotlinx.parcelize.Parcelize
 
 @Entity
 @Parcelize
-data class Goal (
+class Goal (
   @PrimaryKey(autoGenerate = true)
   var uid:Long,
   var name:String,
@@ -31,5 +31,14 @@ data class Goal (
     //needed for spinner
   override fun toString(): String {
     return "$name ($points P.)"
+  }
+
+  override fun equals(other: Any?): Boolean{
+    if (other == null)
+      return false
+    if (!(other is Goal))
+      return false
+    val otherGoal = other as Goal
+    return otherGoal.uid == uid && otherGoal.color == color && otherGoal.points == points && otherGoal.isActive == isActive && otherGoal.isOld == isOld
   }
 }
