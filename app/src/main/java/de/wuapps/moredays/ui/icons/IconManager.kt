@@ -8,6 +8,7 @@ import de.wuapps.moredays.utilities.SingletonHolder
 
 class IconManager private constructor(application: Application) {
     var iconPack: IconPack
+
     init {
         // Create an icon pack loader with application context.
         val loader = IconPackLoader(application)

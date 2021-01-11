@@ -28,7 +28,7 @@ class ActivityFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = ActivityFragmentBinding.inflate(inflater, container, false)
-        var view = binding.root
+        val view = binding.root
         val arguments = ActivityFragmentArgs.fromBundle(requireArguments())
 
         val application = requireNotNull(this.activity).application
@@ -41,8 +41,8 @@ class ActivityFragment : Fragment() {
         ).get(ActivityViewModel::class.java)
         binding.activityViewModel = viewModel
 
-        binding.buttonSave.setOnClickListener({ save() })
-        binding.buttonDelete.setOnClickListener({ delete() })
+        binding.buttonSave.setOnClickListener { save() }
+        binding.buttonDelete.setOnClickListener { delete() }
         binding.lifecycleOwner = this.viewLifecycleOwner
 
         return view
@@ -53,7 +53,11 @@ class ActivityFragment : Fragment() {
         if (!viewModel.isNew) {
             if (!viewModel.isUsed) {
                 viewModel.delete()
-                findNavController().navigate(ActivityFragmentDirections.navigationActivityGoal(viewModel.goal))
+                findNavController().navigate(
+                    ActivityFragmentDirections.navigationActivityGoal(
+                        viewModel.goal
+                    )
+                )
             }
             val alertDialog: AlertDialog.Builder =
                 AlertDialog.Builder(requireNotNull(this.activity))
@@ -63,7 +67,11 @@ class ActivityFragment : Fragment() {
                 getString(R.string.yes)
             ) { _, _ ->
                 viewModel.delete()
-                findNavController().navigate(ActivityFragmentDirections.navigationActivityGoal(viewModel.goal))
+                findNavController().navigate(
+                    ActivityFragmentDirections.navigationActivityGoal(
+                        viewModel.goal
+                    )
+                )
             }
             alertDialog.setNegativeButton(
                 getString(R.string.no)
@@ -99,7 +107,7 @@ class ActivityFragment : Fragment() {
         if (!isValid)
             return
         if (viewModel.isNew) {
-            var activity = Activity()
+            val activity = Activity()
             activity.goalId = viewModel.goal.uid
             activity.name = name
             activity.points = points

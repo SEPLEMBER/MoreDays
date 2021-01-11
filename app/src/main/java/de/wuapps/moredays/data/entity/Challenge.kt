@@ -52,10 +52,10 @@ class Challenge { //serializable: damit kann es als Parameter zwischen Intents Ã
             if (this.deadline.time < value.time)
                 this.status = CHALLENGE_FAILED
             else if (status < 0) {
-                if (value.time <= today.time)
-                    status = CHALLENGE_RUNNING
+                status = if (value.time <= today.time)
+                    CHALLENGE_RUNNING
                 else
-                    status = CHALLENGE_NOT_STARTED
+                    CHALLENGE_NOT_STARTED
             }
             field = value
         }
@@ -64,14 +64,14 @@ class Challenge { //serializable: damit kann es als Parameter zwischen Intents Ã
 
     @Ignore
     constructor(
-      title: String,
-      startDate: Calendar,
-      deadline: Calendar,
-      challengeType: Int,
-      valueType: Int,
-      desiredValue: Float,
-      id: Long,
-      symbol: Int
+        title: String,
+        startDate: Calendar,
+        deadline: Calendar,
+        challengeType: Int,
+        valueType: Int,
+        desiredValue: Float,
+        id: Long,
+        symbol: Int
     ) {
         this.uid = 0 //trigger autoincrement
         this.title = title

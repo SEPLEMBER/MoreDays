@@ -20,7 +20,7 @@ import java.util.*
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
-    lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: FragmentHomeBinding
     private lateinit var application: Application
     private lateinit var db: MoreDaysDatabase
     private lateinit var adapter: EntryTypeAdapter
@@ -65,7 +65,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun updateCircles(){
+    private fun updateCircles() {
         binding.circlesView.setCirclesData(homeViewModel.scalesGoals.second)
     }
 }

@@ -18,7 +18,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 class ScaleListFragment : Fragment() {
 
-    lateinit var binding: ScaleListFragmentBinding
+    private lateinit var binding: ScaleListFragmentBinding
 
     @InternalCoroutinesApi
     private lateinit var viewModel: ScaleListViewModel
@@ -47,7 +47,7 @@ class ScaleListFragment : Fragment() {
         binding.recyclerviewScales.adapter = adapter
         subscribeUi(adapter)
 
-        binding.fabAdd.setOnClickListener({ findNavController().navigate(R.id.navigation_scales_scale) })
+        binding.fabAdd.setOnClickListener { findNavController().navigate(R.id.navigation_scales_scale) }
         return binding.root
     }
 

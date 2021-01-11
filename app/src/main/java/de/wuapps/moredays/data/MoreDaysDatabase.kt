@@ -5,18 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.sqlite.db.SupportSQLiteDatabase
 import de.wuapps.moredays.database.converter.DateTypeConverter
-import de.wuapps.moredays.database.converter.ListGoalTypeConverter
 import de.wuapps.moredays.database.dao.*
 import de.wuapps.moredays.database.entity.*
 import de.wuapps.moredays.utilities.DATABASE_NAME
 import de.wuapps.moredays.utilities.DATABASE_VERSION
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-@Database(entities = [Activity::class, ActivityEntry::class, Goal::class, Challenge::class, Scale::class, ScaleEntry::class, Trophy::class, Journal::class, HundredPercentValue::class], version = DATABASE_VERSION)
+@Database(
+    entities = [Activity::class, ActivityEntry::class, Goal::class, Challenge::class, Scale::class, ScaleEntry::class, Trophy::class, Journal::class, HundredPercentValue::class],
+    version = DATABASE_VERSION
+)
 @TypeConverters(DateTypeConverter::class)
 abstract class MoreDaysDatabase : RoomDatabase() {
 
@@ -25,7 +23,7 @@ abstract class MoreDaysDatabase : RoomDatabase() {
     abstract val challengeDao: ChallengeDao
     abstract val activityEntryDao: ActivityEntryDao
     abstract val scaleEntryDao: ScaleEntryDao
-    abstract val scaleDao:ScaleDao
+    abstract val scaleDao: ScaleDao
 
     companion object {
         @Volatile

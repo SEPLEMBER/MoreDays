@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -24,7 +23,8 @@ class JournalAdapter :
         init {
             itemView.setOnClickListener {
                 val journalDate = currentJournal!!.date
-                it.findNavController().navigate(JournalListFragmentDirections.navigationJournalDay(journalDate))
+                it.findNavController()
+                    .navigate(JournalListFragmentDirections.navigationJournalDay(journalDate))
 
             }
         }

@@ -8,21 +8,28 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ChallengeDao {
-  @Query("SELECT * FROM challenge order by deadline desc")
-  fun getAll(): Flow<List<Challenge>>
-  @Query("SELECT * FROM challenge WHERE status = :status and date('now') <= date(datetime(deadline / 1000 , 'unixepoch')) order by deadline asc")
-  fun getDueByStatus(status:Int):LiveData<List<Challenge>>
-  @Query("SELECT * FROM challenge WHERE id = :id")
-  suspend fun getChallengesById(id:Long):Challenge?
-  @Query("SELECT * FROM challenge WHERE id = :id and challenge_type = :type")
-  suspend fun getChallengesByIdAndType(id:Long, type:Int):Challenge?
-  @Insert(onConflict = REPLACE)
-  suspend fun insert(challenge:Challenge):Long
-  @Query("Delete from challenge")
-  suspend fun deleteAll()
-  @Delete
-  suspend fun delete(challenge:Challenge)
-  @Update
-  suspend fun update(challenge:Challenge)
+    @Query("SELECT * FROM challenge order by deadline desc")
+    fun getAll(): Flow<List<Challenge>>
+
+    @Query("SELECT * FROM challenge WHERE status = :status and date('now') <= date(datetime(deadline / 1000 , 'unixepoch')) order by deadline asc")
+    fun getDueByStatus(status: Int): LiveData<List<Challenge>>
+
+    @Query("SELECT * FROM challenge WHERE id = :id")
+    suspend fun getChallengesById(id: Long): Challenge?
+
+    @Query("SELECT * FROM challenge WHERE id = :id and challenge_type = :type")
+    suspend fun getChallengesByIdAndType(id: Long, type: Int): Challenge?
+
+    @Insert(onConflict = REPLACE)
+    suspend fun insert(challenge: Challenge): Long
+
+    @Query("Delete from challenge")
+    suspend fun deleteAll()
+
+    @Delete
+    suspend fun delete(challenge: Challenge)
+
+    @Update
+    suspend fun update(challenge: Challenge)
 
 }

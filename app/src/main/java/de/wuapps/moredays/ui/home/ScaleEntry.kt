@@ -15,9 +15,9 @@ import kotlinx.coroutines.launch
 
 class ScaleEntry(
     val scale: Scale,
-    val entryDao: ScaleEntryDao
-):EntryType {
-    val SYMBOL = 771
+    private val entryDao: ScaleEntryDao
+) : EntryType {
+    private val SYMBOL = 771
     override fun getName(): String {
         return scale.name
     }
@@ -47,7 +47,7 @@ class ScaleEntry(
         val decimalView = layout.findViewById<NumberPicker>(R.id.numberPickerDecimal)
         decimalView.value
         val fractionView = layout.findViewById<NumberPicker>(R.id.numberPickerFraction)
-        var fractionValues= Array<String>(100) {i -> i.toString()}
+        val fractionValues = Array(100) { i -> i.toString() }
         fractionView.minValue = 0
         fractionView.maxValue = 99
         decimalView.minValue = scale.minValue
@@ -74,9 +74,8 @@ class ScaleEntry(
         alertDialog.show()
     }
 
-    fun getFloat(decimal: Int, fraction: Int): Float
-    {
-        return decimal.toFloat() + fraction/100F
+    private fun getFloat(decimal: Int, fraction: Int): Float {
+        return decimal.toFloat() + fraction / 100F
     }
 
     override fun getColor(): Int {
@@ -86,9 +85,12 @@ class ScaleEntry(
     override fun equals(other: Any?): Boolean {
         if (other == null)
             return false
-        if (!(other is de.wuapps.moredays.ui.home.ScaleEntry))
+        if (other !is de.wuapps.moredays.ui.home.ScaleEntry)
             return false
-        val otherScaleEntry = other as de.wuapps.moredays.ui.home.ScaleEntry
-        return otherScaleEntry.scale.equals(scale) && otherScaleEntry.getCurrentValue() == getCurrentValue()
+        return other.scale == scale && other.getCurrentValue() == getCurrentValue()
+    }
+
+    override fun hashCode(): Int {
+        return scale.hashCode()
     }
 }

@@ -37,9 +37,16 @@ class Scale(
     override fun equals(other: Any?): Boolean {
         if (other == null)
             return false
-        if (!(other is Scale))
+        if (other !is Scale)
             return false
-        val otherScale = other as Scale
-        return otherScale.uid == uid && otherScale.name.equals(name) && otherScale.minValue == minValue && otherScale.maxValue == maxValue
+        return other.uid == uid && other.name == name && other.minValue == minValue && other.maxValue == maxValue
+    }
+
+    override fun hashCode(): Int {
+        var result = uid.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + minValue
+        result = 31 * result + maxValue
+        return result
     }
 }

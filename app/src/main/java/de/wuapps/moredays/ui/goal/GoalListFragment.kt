@@ -1,6 +1,5 @@
 package de.wuapps.moredays.ui.goal
 
-import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,7 +18,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 class GoalListFragment : Fragment() {
 
-    lateinit var binding: GoalListFragmentBinding
+    private lateinit var binding: GoalListFragmentBinding
 
     @InternalCoroutinesApi
     private lateinit var viewModel: GoalListViewModel
@@ -48,7 +47,7 @@ class GoalListFragment : Fragment() {
         binding.recyclerviewGoals.adapter = adapter
         subscribeUi(adapter)
 
-        binding.fabAdd.setOnClickListener({ findNavController().navigate(R.id.navigation_goals_goal) })
+        binding.fabAdd.setOnClickListener { findNavController().navigate(R.id.navigation_goals_goal) }
         return binding.root
     }
 

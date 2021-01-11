@@ -12,5 +12,5 @@ data class GoalAndRelatedActivities(
         parentColumn = "uid",
         entityColumn = "goal_id"
     )
-    var activities: List<Activity> = ArrayList<Activity>()
+    var activities: List<Activity> = ArrayList()
 )

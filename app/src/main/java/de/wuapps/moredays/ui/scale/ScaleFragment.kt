@@ -28,7 +28,7 @@ class ScaleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = ScaleFragmentBinding.inflate(inflater, container, false)
-        var view = binding.root
+        val view = binding.root
         val arguments = ScaleFragmentArgs.fromBundle(requireArguments())
 
         val application = requireNotNull(this.activity).application
@@ -40,8 +40,8 @@ class ScaleFragment : Fragment() {
         ).get(ScaleViewModel::class.java)
         binding.scaleViewModel = viewModel
 
-        binding.buttonSave.setOnClickListener({ save() })
-        binding.buttonDelete.setOnClickListener({ delete() })
+        binding.buttonSave.setOnClickListener { save() }
+        binding.buttonDelete.setOnClickListener { delete() }
         binding.lifecycleOwner = this.viewLifecycleOwner
 
         return view
@@ -116,7 +116,7 @@ class ScaleFragment : Fragment() {
         if (!isValid)
             return
         if (viewModel.isNew) {
-            var scale = Scale()
+            val scale = Scale()
             scale.name = name
             scale.minValue = minValue
             scale.maxValue = maxValue

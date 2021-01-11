@@ -39,7 +39,8 @@ class EntryTypeAdapter(private val application: Application) :
             imageViewSymbol.setImageDrawable(
                 IconManager.getInstance(application).iconPack.getIcon(
                     entryType.getSymbol()
-                )?.drawable)
+                )?.drawable
+            )
 
         }
     }
@@ -57,7 +58,7 @@ class EntryTypeAdapter(private val application: Application) :
 
 object EntryTypeDiffCallback : DiffUtil.ItemCallback<EntryType>() {
     override fun areItemsTheSame(oldItem: EntryType, newItem: EntryType): Boolean {
-        return oldItem.equals(newItem)
+        return oldItem == newItem
     }
 
     override fun areContentsTheSame(oldItem: EntryType, newItem: EntryType): Boolean {

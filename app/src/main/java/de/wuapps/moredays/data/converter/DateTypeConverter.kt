@@ -6,7 +6,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class DateTypeConverter {
-    @TypeConverter fun calendarToDatestamp(calendar: Calendar): Long = calendar.timeInMillis
+    @TypeConverter
+    fun calendarToDatestamp(calendar: Calendar): Long = calendar.timeInMillis
 
     companion object {
 
@@ -19,13 +20,15 @@ class DateTypeConverter {
         fun convertStringToDate(strDate: String): Date {
             var date = Date()
             try {
-                (SimpleDateFormat("yyMMdd").parse(strDate)).also { if (it!= null) date = it }
+                (SimpleDateFormat("yyMMdd").parse(strDate)).also { if (it != null) date = it }
             } catch (ex: ParseException) {
                 //@todo log
             }
             return date
         }
     }
-    @TypeConverter fun datestampToCalendar(value: Long): Calendar =
+
+    @TypeConverter
+    fun datestampToCalendar(value: Long): Calendar =
         Calendar.getInstance().apply { timeInMillis = value }
 }

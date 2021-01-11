@@ -17,14 +17,14 @@ class GoalViewModel(private val goalDao: GoalDao, _goal: Goal?) :
     lateinit var goalAndRelatedActivities: LiveData<GoalAndRelatedActivities?>
 
     init {
-        if (isNew) {
-            goal = Goal()
+        goal = if (isNew) {
+            Goal()
         } else {
-            goal = _goal!!
+            _goal!!
         }
         viewModelScope.launch {
             goalAndRelatedActivities = goalDao.getGoalAndRelatedActivities(goal.uid).asLiveData()
-            if (goalAndRelatedActivities.value != null )
+            if (goalAndRelatedActivities.value != null)
                 isUsed == goalAndRelatedActivities.value!!.activities.isNotEmpty()
         }
     }

@@ -36,7 +36,7 @@ class CirclesView @JvmOverloads constructor(
         strokeCap = Paint.Cap.BUTT
         style = Paint.Style.STROKE
     }
-    private var goalEntries: List<GoalEntry> = ArrayList<GoalEntry>()
+    private var goalEntries: List<GoalEntry> = ArrayList()
 
     private val margin = 2
     private val minRadius = 70
@@ -46,7 +46,7 @@ class CirclesView @JvmOverloads constructor(
     /**
      * The text to draw
      */
-    var circlesLabel: String?
+    private var circlesLabel: String?
         get() = _circlesLabel
         set(value) {
             _circlesLabel = value
@@ -102,19 +102,19 @@ class CirclesView @JvmOverloads constructor(
         invalidate()
     }
 
-    fun drawProgress(canvas: Canvas, color: Int, radius: Int, width: Int, angle: Int) {
+    private fun drawProgress(canvas: Canvas, color: Int, radius: Int, width: Int, angle: Int) {
         val size = viewSize
-        rect.left = canvas.getWidth() / 2F - radius - width
+        rect.left = canvas.width / 2F - radius - width
         rect.top = size - radius - width * 1F
-        rect.right = canvas.getWidth() / 2F + radius + width
+        rect.right = canvas.width / 2F + radius + width
         rect.bottom = size + radius + width * 1F
         paintCircle.color = color
         paintCircle.strokeWidth = width.toFloat()
         canvas.drawArc(rect, -90f, angle.toFloat(), false, paintCircle)
     }
 
-    fun drawLabel(canvas: Canvas) {
-        if (circlesLabel != null && circlesLabel!!.trim { it <= ' ' }.length > 0) {
+    private fun drawLabel(canvas: Canvas) {
+        if (circlesLabel != null && circlesLabel!!.trim { it <= ' ' }.isNotEmpty()) {
             val yPos = (canvas.height / 2 - (paintText.descent() + paintText.ascent()) / 2).toInt()
             val xPos = canvas.width / 2
             canvas.drawText(circlesLabel!!, xPos.toFloat(), yPos.toFloat(), paintText)
@@ -131,9 +131,9 @@ class CirclesView @JvmOverloads constructor(
         this.requestLayout() //recalculate needed width/height
     }
 
-    fun calcPercentage() {
-        var sum = goalEntries.sumBy { goalEntry -> goalEntry.getCurrentValue() }
-        var desired = goalEntries.sumBy { goalEntry -> goalEntry.getDesiredValue() }
+    private fun calcPercentage() {
+        val sum = goalEntries.sumBy { goalEntry -> goalEntry.getCurrentValue() }
+        val desired = goalEntries.sumBy { goalEntry -> goalEntry.getDesiredValue() }
         if (sum > 0)
             _circlesLabel = String.format("%.1f %%", sum * 100F /desired)
     }

@@ -7,39 +7,42 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(
-  foreignKeys = [
-    ForeignKey(entity = Goal::class,
-      parentColumns = ["uid"],
-      childColumns = ["goal_id"],
-      onDelete = CASCADE
-    )],
-    indices = [Index(value = ["goal_id"])])
+    foreignKeys = [
+        ForeignKey(
+            entity = Goal::class,
+            parentColumns = ["uid"],
+            childColumns = ["goal_id"],
+            onDelete = CASCADE
+        )],
+    indices = [Index(value = ["goal_id"])]
+)
 class Activity(
-  @PrimaryKey(autoGenerate = true)
-  var uid:Long,
+    @PrimaryKey(autoGenerate = true)
+    var uid: Long,
 
-  var name:String,
+    var name: String,
 
-  @ColumnInfo(name = "goal_id")
-  var goalId:Long,
+    @ColumnInfo(name = "goal_id")
+    var goalId: Long,
 
-  var points:Int,
+    var points: Int,
 
-  @ColumnInfo(name = "is_old") //old = formerly used, should not be able to be selected, but keep associated data and show it in bar chart
-  var isOld:Boolean) : Parcelable {
-  constructor():this(0, "", 0, 0, false)
+    @ColumnInfo(name = "is_old") //old = formerly used, should not be able to be selected, but keep associated data and show it in bar chart
+    var isOld: Boolean
+) : Parcelable {
+    constructor() : this(0, "", 0, 0, false)
 
-  @Ignore
-  constructor(name: String, goalId: Long, points: Int) : this() {
-    this.uid = 0 //trigger autoincrement
-    this.name = name
-    this.goalId = goalId
-    this.points = points
-    this.isOld = false
-  }
+    @Ignore
+    constructor(name: String, goalId: Long, points: Int) : this() {
+        this.uid = 0 //trigger autoincrement
+        this.name = name
+        this.goalId = goalId
+        this.points = points
+        this.isOld = false
+    }
 
-  @Override
-  override fun toString(): String {
-    return "$name ($points P.)"
-  }
+    @Override
+    override fun toString(): String {
+        return "$name ($points P.)"
+    }
 }

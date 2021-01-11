@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Challenge
-import de.wuapps.moredays.ui.challenge.ChallengeAdapter
-import de.wuapps.moredays.ui.challenge.ChallengeListFragmentDirections
 
 class ChallengeAdapter :
     ListAdapter<Challenge, ChallengeAdapter.ChallengeViewHolder>(ChallengeDiffCallback) {
@@ -24,7 +22,9 @@ class ChallengeAdapter :
         init {
             itemView.setOnClickListener {
                 val challengeId = currentChallenge!!.uid
-                it.findNavController().navigate(ChallengeListFragmentDirections.navgigationChallengesChallenge(challengeId))
+                it.findNavController().navigate(
+                    ChallengeListFragmentDirections.navgigationChallengesChallenge(challengeId)
+                )
 
             }
         }

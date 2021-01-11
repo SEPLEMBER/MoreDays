@@ -12,5 +12,5 @@ data class ScaleAndEntries(
         parentColumn = "uid",
         entityColumn = "scale_id"
     )
-    var entries: List<ScaleEntry> = ArrayList<ScaleEntry>()
+    var entries: List<ScaleEntry> = ArrayList()
 )

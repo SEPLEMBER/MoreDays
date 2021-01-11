@@ -12,30 +12,35 @@ import java.util.*
 
 @Entity
 class HundredPercentValue {
-  @PrimaryKey
-  @NotNull
-  var date:String
-  @NotNull
-  var points:Int = 0
-  @NotNull
-  @ColumnInfo(name = "active_goals")
-  var activeGoals:String=""
-  val activeGoalsAsList:List<Goal>
-  get() {
-    return ListGoalTypeConverter.convertStringToGoalList(activeGoals)
-  }
-  @Ignore
-  constructor(date:String, points:Int, activeGoals:List<Goal>) {
-    this.date = date
-    this.points = points
-    this.setActiveGoals(activeGoals)
-  }
-  constructor() {
-    this.date = (SimpleDateFormat("yyMMdd").format(Date()))
-    this.points = 0
-    this.activeGoals = ""
-  }
-  fun setActiveGoals(activeGoals:List<Goal>) {
-    this.activeGoals = ListGoalTypeConverter.convertListGoalToString(activeGoals)
-  }
+    @PrimaryKey
+    @NotNull
+    var date: String
+
+    @NotNull
+    var points: Int = 0
+
+    @NotNull
+    @ColumnInfo(name = "active_goals")
+    var activeGoals: String = ""
+    val activeGoalsAsList: List<Goal>
+        get() {
+            return ListGoalTypeConverter.convertStringToGoalList(activeGoals)
+        }
+
+    @Ignore
+    constructor(date: String, points: Int, activeGoals: List<Goal>) {
+        this.date = date
+        this.points = points
+        this.setActiveGoals(activeGoals)
+    }
+
+    constructor() {
+        this.date = (SimpleDateFormat("yyMMdd").format(Date()))
+        this.points = 0
+        this.activeGoals = ""
+    }
+
+    private fun setActiveGoals(activeGoals: List<Goal>) {
+        this.activeGoals = ListGoalTypeConverter.convertListGoalToString(activeGoals)
+    }
 }

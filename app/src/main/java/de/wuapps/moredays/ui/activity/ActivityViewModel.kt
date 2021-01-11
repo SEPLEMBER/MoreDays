@@ -1,6 +1,6 @@
 package de.wuapps.moredays.ui.activity
 
-import androidx.lifecycle.*
+import androidx.lifecycle.viewModelScope
 import de.wuapps.moredays.database.dao.ActivityDao
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
@@ -15,7 +15,7 @@ class ActivityViewModel(
 ) : BaseViewModel() {
     val activity = _activity
     val goal = _goal
-    val isNew = activity==null
+    val isNew = activity == null
     var isUsed = false
 
     init {

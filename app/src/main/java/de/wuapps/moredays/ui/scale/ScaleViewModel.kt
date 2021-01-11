@@ -6,11 +6,12 @@ import de.wuapps.moredays.database.dao.ScaleDao
 import de.wuapps.moredays.database.entity.Scale
 import kotlinx.coroutines.launch
 
-class ScaleViewModel(private val scaleDao: ScaleDao,
-_scale: Scale?
+class ScaleViewModel(
+    private val scaleDao: ScaleDao,
+    _scale: Scale?
 ) : ViewModel() {
     val scale = _scale
-    val isNew = scale==null
+    val isNew = scale == null
     var isUsed = false
 
     init {

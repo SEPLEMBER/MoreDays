@@ -1,48 +1,47 @@
 package de.wuapps.moredays.ui
 
-import android.app.Application
-import androidx.databinding.PropertyChangeRegistry
-import androidx.lifecycle.AndroidViewModel
-import java.util.*
 import androidx.databinding.Observable
-import androidx.lifecycle.LiveData
+import androidx.databinding.PropertyChangeRegistry
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import java.util.*
 
 open class BaseViewModel : ViewModel(), Observable {
     val currentDate: Date = Date()
-    val isLoading=MutableLiveData<Boolean>()
+    val isLoading = MutableLiveData<Boolean>()
     val ICON_DIALOG_TAG = "ICON_DIALOG_TAG"
-    init {}
+
+    init {
+    }
 
 
-        private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
+    private val callbacks: PropertyChangeRegistry by lazy { PropertyChangeRegistry() }
 
-        override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback) {
-            callbacks.add(callback)
-        }
+    override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback) {
+        callbacks.add(callback)
+    }
 
-        override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback) {
-            callbacks.remove(callback)
-        }
+    override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback) {
+        callbacks.remove(callback)
+    }
 
-        /**
-         * Notifies listeners that all properties of this instance have changed.
-         */
-        @Suppress("unused")
-        fun notifyChange() {
-            callbacks.notifyCallbacks(this, 0, null)
-        }
+    /**
+     * Notifies listeners that all properties of this instance have changed.
+     */
+    @Suppress("unused")
+    fun notifyChange() {
+        callbacks.notifyCallbacks(this, 0, null)
+    }
 
-        /**
-         * Notifies listeners that a specific property has changed. The getter for the property
-         * that changes should be marked with [Bindable] to generate a field in
-         * `BR` to be used as `fieldId`.
-         *
-         * @param fieldId The generated BR id for the Bindable field.
-         */
-        fun notifyPropertyChanged(fieldId: Int) {
-            callbacks.notifyCallbacks(this, fieldId, null)
-        }
+    /**
+     * Notifies listeners that a specific property has changed. The getter for the property
+     * that changes should be marked with [Bindable] to generate a field in
+     * `BR` to be used as `fieldId`.
+     *
+     * @param fieldId The generated BR id for the Bindable field.
+     */
+    fun notifyPropertyChanged(fieldId: Int) {
+        callbacks.notifyCallbacks(this, fieldId, null)
+    }
 
 }

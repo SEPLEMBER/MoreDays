@@ -18,6 +18,7 @@ import de.wuapps.moredays.ui.goal.GoalFragmentDirections
 class ActivityAdapter(_goal: Goal) :
     ListAdapter<Activity, ActivityAdapter.ActivityViewHolder>(ActivityDiffCallback) {
     val goal = _goal
+
     class ActivityViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         private val chipEditActivity: Chip = itemView.findViewById(R.id.chipEditActivity)
@@ -28,7 +29,12 @@ class ActivityAdapter(_goal: Goal) :
         init {
             chipEditActivity.setOnClickListener {
                 Log.w("activity", "clicked")
-                it.findNavController().navigate(GoalFragmentDirections.navigationGoalActivity(currentActivity, currentGoal!!))
+                it.findNavController().navigate(
+                    GoalFragmentDirections.navigationGoalActivity(
+                        currentActivity,
+                        currentGoal!!
+                    )
+                )
 
             }
         }

@@ -5,7 +5,6 @@ import androidx.room.Relation
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.ActivityEntry
 import de.wuapps.moredays.database.entity.Goal
-import de.wuapps.moredays.database.entity.Scale
 
 data class GoalAndRelatedData(
     //@Embedded
@@ -16,10 +15,10 @@ data class GoalAndRelatedData(
         parentColumn = "uid",
         entityColumn = "goal_id"
     )
-    var activities: List<Activity> = ArrayList<Activity>(),
+    var activities: List<Activity> = ArrayList(),
     @Relation(
         parentColumn = "uid",
         entityColumn = "goal_id"
     )
-    var entries: List<ActivityEntry> = ArrayList<ActivityEntry>()
+    var entries: List<ActivityEntry> = ArrayList()
 )

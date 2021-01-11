@@ -57,7 +57,7 @@ class GoalEntry(
         goalData.activities.forEach { activity -> stringList.add(activity.toString()) }
         val values: Array<String> = stringList.toTypedArray()
         dialogBuilder.setTitle(goal.name).setItems(values) { _, position ->
-            val activity = goalData.activities.get(position)
+            val activity = goalData.activities[position]
             GlobalScope.launch {
                 entryDao.insert(
                     ActivityEntry(activity)
@@ -75,10 +75,16 @@ class GoalEntry(
     override fun equals(other: Any?): Boolean {
         if (other == null)
             return false
-        if (!(other is GoalEntry))
+        if (other !is GoalEntry)
             return false
-        val otherGoalEntry = other as GoalEntry
-        return otherGoalEntry.goal.equals(goal) && otherGoalEntry.currentValue == currentValue
+        return other.goal == goal && other.currentValue == currentValue
+    }
+
+    override fun hashCode(): Int {
+        var result = date.hashCode()
+        result = 31 * result + currentValue
+        result = 31 * result + goal.hashCode()
+        return result
     }
 
 

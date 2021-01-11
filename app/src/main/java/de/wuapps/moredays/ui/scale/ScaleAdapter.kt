@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.R
-import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Scale
 
 class ScaleAdapter :
@@ -22,7 +21,8 @@ class ScaleAdapter :
 
         init {
             itemView.setOnClickListener {
-                it.findNavController().navigate(ScaleListFragmentDirections.navigationScalesScale(currentScale))
+                it.findNavController()
+                    .navigate(ScaleListFragmentDirections.navigationScalesScale(currentScale))
 
             }
         }

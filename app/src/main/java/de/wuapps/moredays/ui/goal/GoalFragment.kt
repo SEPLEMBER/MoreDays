@@ -31,7 +31,6 @@ import java.lang.Integer.parseInt
 
 
 class GoalFragment : Fragment(), IconDialog.Callback {
-    private val TAG = "GoalFragment"
     private val SELECT_COLOR_ICON_ID = 502
     private var _binding: GoalFragmentBinding? = null
     private var selectedIconId: Int = 0
@@ -77,7 +76,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
             save()
             it.findNavController().popBackStack()
         }
-        binding.buttonDelete.setOnClickListener({ delete() })
+        binding.buttonDelete.setOnClickListener { delete() }
         val iconDialog =
             childFragmentManager.findFragmentByTag(viewModel.ICON_DIALOG_TAG) as IconDialog?
                 ?: IconDialog.newInstance(IconDialogSettings())
@@ -246,7 +245,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     @InternalCoroutinesApi
     override fun onIconDialogIconsSelected(dialog: IconDialog, icons: List<Icon>) {
         if (icons.isNotEmpty()) {
-            selectedIconId = icons.get(0).id
+            selectedIconId = icons[0].id
             setIcon()
         }
     }

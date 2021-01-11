@@ -26,7 +26,8 @@ class GoalAdapter(private val application: Application) :
 
         init {
             itemView.setOnClickListener {
-                it.findNavController().navigate(GoalListFragmentDirections.navigationGoalsGoal(currentGoal!!))
+                it.findNavController()
+                    .navigate(GoalListFragmentDirections.navigationGoalsGoal(currentGoal!!))
 
             }
         }
@@ -35,8 +36,9 @@ class GoalAdapter(private val application: Application) :
             currentGoal = goal
             imageViewIcon.setImageDrawable(
                 IconManager.getInstance(application).iconPack.getIcon(
-                goal.symbol
-            )?.drawable)
+                    goal.symbol
+                )?.drawable
+            )
             textViewPoints.text = goal.points.toString()
             textViewName.text = goal.name
         }
