@@ -12,6 +12,7 @@ buildscript {
         roomVersion = '2.3.0-alpha04'
         iconPickerVersion = '3.3.0'
         colorPickerVersion = '2.2.2'
+        aboutVersion = '8.6.5'
         flexBoxVersion = '2.0.1'
         //coreTestingVersion = '2.1.0'
         coroutinesVersion = '1.4.2'
@@ -23,12 +24,16 @@ buildscript {
     repositories {
         google()
         jcenter()
+
+        //for aboutlibrary
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
-
+        classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:$aboutVersion"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

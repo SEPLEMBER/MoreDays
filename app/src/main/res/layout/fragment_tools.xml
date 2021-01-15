@@ -7,6 +7,7 @@
     app:flexWrap="wrap"
     android:padding="@dimen/layout_margin"
     tools:context=".ui.tools.ToolsFragment">
+
     <TextView
         android:id="@+id/textViewBaseData"
         android:layout_width="match_parent"
@@ -35,4 +36,45 @@
         android:text="@string/scales"
         android:id="@+id/buttonScales"
         />
+    <TextView
+        android:id="@+id/textViewLists"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:text="@string/lists"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/min_margin"
+        android:text="@string/activity_entries"
+        android:id="@+id/buttonActivityEntries"
+        />
+    <TextView
+        android:id="@+id/textViewTools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:text="@string/title_tools"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/min_margin"
+        android:text="@string/import_export"
+        android:id="@+id/buttonImportExport"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/min_margin"
+        android:text="@string/title_settings"
+        android:id="@+id/buttonSettings"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/min_margin"
+        android:text="@string/help"
+        android:id="@+id/buttonHelp"
+        />
+
 </com.google.android.flexbox.FlexboxLayout>

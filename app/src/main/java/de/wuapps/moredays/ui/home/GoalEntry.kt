@@ -2,15 +2,23 @@ package de.wuapps.moredays.ui.home
 
 import android.app.AlertDialog
 import android.content.Context
+import android.widget.Toast
+import de.wuapps.moredays.data.Analysis
 import de.wuapps.moredays.data.entity.GoalAndRelatedData
 import de.wuapps.moredays.database.dao.ActivityEntryDao
+import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.ActivityEntry
 import de.wuapps.moredays.database.entity.Goal
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 import java.util.Calendar.DAY_OF_YEAR
 import java.util.Calendar.YEAR
+import kotlinx.coroutines.*
+import kotlin.system.*
+
 
 class GoalEntry(
     private val goalData: GoalAndRelatedData,
@@ -47,23 +55,38 @@ class GoalEntry(
         return goal.symbol
     }
 
+    fun getActivities(): List<Activity>{
+        return goalData.activities
+    }
+
     override fun getId(): String {
         return "goal-${goal.uid}"
     }
 
     override fun showInputDialog(context: Context) {
         val dialogBuilder = AlertDialog.Builder(context)
+
         val stringList: MutableList<String> = mutableListOf()
         goalData.activities.forEach { activity -> stringList.add(activity.toString()) }
         val values: Array<String> = stringList.toTypedArray()
         dialogBuilder.setTitle(goal.name).setItems(values) { _, position ->
             val activity = goalData.activities[position]
+            val analysis = Analysis()
             GlobalScope.launch {
                 entryDao.insert(
                     ActivityEntry(activity)
                 )
+                val jobForLength1 = async {analysis.analyzeTrophies(uid = 1L)}
             }
-        }
+
+
+                Toast.makeText(
+                    context,
+                    "finished",
+                    Toast.LENGTH_SHORT
+                ).show();
+             }
+
         val alertDialog = dialogBuilder.create()
         alertDialog.show()
     }

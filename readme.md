@@ -10,6 +10,7 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 
 
 ## ToDos
+- maybe use https://github.com/greenrobot/EventBus
 - Tests hinzufügen https://developer.android.com/codelabs/advanced-android-kotlin-training-testing-basics#0 und https://speakerdeck.com/alexzhukovich/writing-robust-android-ui-tests 
 - DB-Tests
   - https://speakerdeck.com/alexzhukovich/let-us-play-in-room-with-kotlin?slide=49
@@ -34,6 +35,8 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 - select nice layout of https://codecanyon.net
 - maybe circle animation similar to https://github.com/GIGAMOLE/ArcProgressStackView/blob/master/arcprogressstackview/src/main/java/devlight/io/library/ArcProgressStackView.java
 - where to store current date and similar data: activity scope? or nav as in https://developer.android.com/guide/navigation/navigation-programmatic#share_ui-related_data_between_destinations_with_viewmodel
+- use curved bottom navigation https://github.com/oneHamidreza/MeowBottomNavigation
+- add animation see https://github.com/AllanWang/KAU/blob/master/core/src/main/kotlin/ca/allanwang/kau/utils/AnimUtils.kt
 
 ## Vision
 
@@ -140,13 +143,13 @@ getSupportFragmentManager().beginTransaction()
 ```
 ### Binding
 - https://developer.android.com/topic/libraries/view-binding
-- needs a generic layout tag in layout files, see https://developer.android.com/topic/libraries/data-binding/expressions
+- ***needs a generic layout tag in layout files***, see https://developer.android.com/topic/libraries/data-binding/expressions
 - binding of edittext to number is a bit tricky, workaround use one way binding, see https://stackoverflow.com/questions/38982604/two-way-databinding-in-edittext
   - `` android:text="@={`` + goalViewModel.goal.points}" `
   - do not forget to fetch the value before saving
   - better use number picker, as it is supported for two way binding, see https://developer.android.com/topic/libraries/data-binding/two-way#java
   - do not forget the = for two way binding, e.g. ```android:text="@={goalViewModel.goal.name}" ```
-  - Buttons/Events: ```android:onClick="@{() -> viewModel.onCounterButtonPressed()}"```
+  - buttons/events: ```android:onClick="@{() -> viewModel.onCounterButtonPressed()}"```
   - spinner is just a hassle to bind to: after binding there is an autoselection of the first item in the list, hence any preselection needs a hack
     - https://code.luasoftware.com/tutorials/android/android-two-way-data-binding-with-spinner/ 
     - https://wamae.medium.com/using-android-livedata-in-spinners-room-428de4238847 
@@ -163,16 +166,28 @@ You can use the suspend keyword to make your DAO queries asynchronous using Kotl
 - use flow at repository and dao level for observable lists, use simple nullable data (Type?) for one shot async read (suspend), e.g. `suspend fun getById(id: Long): Goal?`
 - use LieveData or MutableLiveData at viewmodel level
 Prepopulate Room Database: https://developer.android.com/training/data-storage/room/prepopulate
+- hint to implement runOnUIThread (see https://github.com/AllanWang/KAU/blob/master/core/src/main/kotlin/ca/allanwang/kau/utils/ContextUtils.kt)
+```
+/**
+ * Created by Allan Wang on 2017-06-03.
+ */
+fun Context.runOnUiThread(f: Context.() -> Unit) {
+    if (ContextHelper.looper === Looper.myLooper()) f() else ContextHelper.handler.post { f() }
+}
+```
+
 #### Live Data vs. Flow
 - see article https://medium.com/android-dev-hacks/exploring-livedata-and-kotlin-flow-7c8d8e706324
   - Livedata is used to observe data without having any hazel to handle lifecycle problems. Whereas Kotlin flow is used for continuous data integration and it also simplified the asynchronous programming.
   - Live data is an observable data holder class, Live data is lifecycle aware
   - use setvalue/postvalue to notify observers of changed value
 
-### Dagger & Hilt -- Dependency injection -- not used in this app
-Less boiler plate code, better testing.
+### Dagger & Hilt -- Dependency injection 
+Less boiler plate code, better testing, e.g. no ViewModelFactories only because there are additional parameters.
 - https://developer.android.com/training/dependency-injection
-- 
+- codelab https://developer.android.com/codelabs/android-hilt?hl=nb#1
+- from view model factories to di with hilt: https://medium.com/mobile-app-development-publication/injecting-viewmodel-with-dagger-hilt-54ca2e433865
+- very good summary of several features of hilt https://youtu.be/B56oV3IHMxg
 
 ## Links
 - list of libraries

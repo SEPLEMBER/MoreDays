@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.tools.HelpFragment"
+    android:orientation="vertical">
+
+    <com.github.florent37.expansionpanel.viewgroup.ExpansionsViewGroupLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:expansion_openOnlyOne="true"
+        android:orientation="vertical">
+
+        <include layout="@layout/help_introduction"  />
+
+        <include layout="@layout/help_privacy" />
+
+        <include layout="@layout/help_tips" />
+
+        <include layout="@layout/help_about" />
+
+        <include layout="@layout/help_version" />
+    </com.github.florent37.expansionpanel.viewgroup.ExpansionsViewGroupLinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonCredentials"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/help_copyright_title"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/test"
+        android:orientation="vertical"
+        />
+</LinearLayout>

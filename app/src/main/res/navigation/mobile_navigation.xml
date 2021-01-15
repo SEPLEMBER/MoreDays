@@ -23,6 +23,9 @@
         <action
             android:id="@+id/navigation_tools_scales"
             app:destination="@id/scaleListFragment" />
+        <action
+            android:id="@+id/navigation_tools_help"
+            app:destination="@id/helpFragment" />
     </fragment>
     <fragment
         android:id="@+id/activityFragment"
@@ -123,7 +126,7 @@
             app:argType="de.wuapps.moredays.database.entity.Scale"
             android:defaultValue="@null" />
     </fragment>
-    <fragment
+<!--    <fragment
         android:id="@+id/navigation_journal"
         android:name="de.wuapps.moredays.ui.journal.JournalListFragment"
         android:label="journal_list_fragment"
@@ -131,6 +134,13 @@
         <action
             android:id="@+id/navigation_journal_day"
             app:destination="@id/journalFragment" />
+    </fragment>-->
+    <fragment
+        android:id="@+id/navigation_journal"
+        android:name="de.wuapps.moredays.ui.journal.JournalFragment"
+        android:label="journal_fragment"
+        tools:layout="@layout/journal_fragment" >
+
     </fragment>
     <fragment
         android:id="@+id/journalFragment"
@@ -142,4 +152,36 @@
             app:argType="string"
             android:defaultValue="" />
     </fragment>
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="de.wuapps.moredays.ui.tools.HelpFragment"
+        android:label="fragment_help"
+        tools:layout="@layout/fragment_help" >
+        <action
+            android:id="@+id/navigation_help_about"
+            app:destination="@id/about_libraries_dest"
+             />
+    </fragment>
+    <fragment
+        android:id="@+id/about_libraries_dest"
+        android:name="com.mikepenz.aboutlibraries.ui.LibsSupportFragment">
+        <argument
+            android:name="data"
+            app:argType="java.io.Serializable"
+            app:nullable="true" />
+    </fragment>
+
+<!--
+    <include app:graph="@navigation/aboutlibs_navigation" />
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="de.wuapps.moredays.ui.tools.HelpFragment"
+        android:label="fragment_help"
+        tools:layout="@layout/fragment_help" >
+        <action
+            android:id="@+id/navigation_help_about"
+            app:destination="@id/about_libraries"
+            app:launchSingleTop="true" />
+    </fragment>
+    -->
 </navigation>

@@ -61,4 +61,58 @@
 
     <string name="save">save</string>
     <string name="delete">delete</string>
+    <string name="help">help</string>
+    <string name="lists">Lists</string>
+    <string name="activity_entries">Activity entries</string>
+    <string name="import_export">import/export</string>
+    <string name="help_introduction_content">
+        What makes a good day, a balanced day? Define different goals, such as fit, relaxed, slim. For every goal you define how difficult it is for you, start with a low number of points and increase over time. Choose a color and symbol as you like.
+
+        Activities are the options to reach a goal. Remember, there is always more than one way to do it. E.g. to become fit you could create activities like sports or yoga or walking. The points may mirror, how difficult it is for you or how much time it takes.
+        Take your time to define more than one option for your goals. Some great activities like a great hiking tour will fill the day and hence should get the sum of all goals as points.
+
+        Everything possible to measure with numbers could be a scale, e.g. weight, sleep quality or time, ... just give it a name and enter the values whenever you want and have a look at the charts.
+
+        With challenges you may focus a special goal or activity, e.g. you may define a challenge to reach your goal fit 5 times until ... or you want to loose weight or you want to do your activity sports 3 times in this week.
+    </string>
+    <string name="help_introduction_title">Introduction</string>
+
+    <string name="help_privacy_content">All data is stored in a local folder, were only this app may access it. The pictures taken are stored in the folder pictures. If you sync your data with google drive, it will be clear text within the database. Encryption comes with the next version.</string>
+    <string name="help_privacy_title">Privacy</string>
+    <string name="help_tips_content">
+        <![CDATA[
+        With MotiWeightMe you can track your moods, follow your goals, define challenges, everything is in your hand, just do it. Make every day a good day.
+        <h1>Goals</h1>
+        What makes a good day, a balanced day? Define different categories, such as fitness, awareness, nutrition. If a catgory is not relevant any longer or not relevant at the moment, because you are on holiday, set it to be inactive.
+        For every category you define how difficult it is for you, start with a low number of points and increase over time.
+        <h1>Activities</h1>
+        Activities are the options to fulfill a category. Remember, there is always more than one way to do it. E.g. for fitness you could create types like sports or yoga or walking. The points may mirror, how difficult it is for you or how much time it takes.
+        Take your time to define more than one option for your categories. That\'s one of the strength of MotiWeightMe, there is always more than one way to get closer to your goals. Think of strenuous days, what could you do on such a day? Maybe, sports is out of reach, but you
+        could go for a nice walk and sleep early.
+        <h1>Scales</h1>
+        With scales you could track your weight, muscles, time for 5 km or any other number based meassure.
+        <h1>Mood</h1>
+        How did you feel? Why did you feel better or less good than last time?
+        <h1>Challenges</h1>
+        What do you want to focus on, the next week, month, until X-mas? Define your challenges in a very flexibel manner.
+        <h1>Diagrams</h1>
+        You may enjoy looking at your last days and weeks. Did you reach 100%% mostly? Which category works well?
+        <h1>Import/Export</h1>
+        You may delete all your data or trophys or entries only. You may export your data to Excel (csv), import from csv and hence import categories or activities of
+        other people. You may analyse your exported data using Excel, to do so open Excel, select Data, call/import data from file, from text/csv file, select your file and press import,
+        select utf-8 in the box origin and semikolon in the box seperator. Now press load and you are done.
+        Pictures of the journal may not be exported or backed up otherwise.
+        <h1>Journal</h1>
+        The journal is part of the positive thinking psychology. Give it a try. You may define your own questions withing the settings.
+        Just search for 5 minute journal or read this article: https://www.intelligentchange.com/blogs/news/the-five-minute-journal-questions
+        For the moodboard and the start screen you may mark entries as important by adding a # as first letter, e.g. grateful: #friends, sleep, fitness.
+        ]]>
+    </string>
+    <string name="help_tips_title">Tips &amp; tricks</string>
+    <string name="help_about_content">To be able to teach app development with Android, I developed this app to experience all the difficulties.</string>
+    <string name="help_about_title">About Us</string>
+    <string name="help_version_pattern"></string>
+    <string name="help_version_title">Version</string>
+    <string name="help_copyright_content">Copyright and Credentials</string>
+    <string name="help_copyright_title">Copyright and Credentials</string>
 </resources>

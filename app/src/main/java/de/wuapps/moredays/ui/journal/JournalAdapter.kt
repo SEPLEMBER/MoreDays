@@ -23,8 +23,8 @@ class JournalAdapter :
         init {
             itemView.setOnClickListener {
                 val journalDate = currentJournal!!.date
-                it.findNavController()
-                    .navigate(JournalListFragmentDirections.navigationJournalDay(journalDate))
+                //it.findNavController()
+                //    .navigate(JournalListFragmentDirections.navigationJournalDay(journalDate))
 
             }
         }
