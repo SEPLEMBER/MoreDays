@@ -51,6 +51,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/layout_padding"
             android:text="@string/help_copyright_content" />
     </com.github.florent37.expansionpanel.ExpansionLayout>
 </LinearLayout>
