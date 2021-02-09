@@ -3,6 +3,7 @@
         <item quantity="one">%2$s (%1$d point)</item>
         <item quantity="other">%2$s (%1$d points)</item>
     </plurals>
+    <string name="date_ymd">yy-MM-dd</string>
     <string name="app_name">moreDays</string>
     <string name="title_home">Home</string>
     <string name="title_chart">Charts</string>
@@ -65,6 +66,10 @@
     <string name="lists">Lists</string>
     <string name="activity_entries">Activity entries</string>
     <string name="import_export">import/export</string>
+    <string name="trophy_type_title_row">row</string>
+    <string name="trophy_type_title_total">total</string>
+    <string name="trophy_type_title_times_per_week">in week</string>
+    <string name="trophy_type_title_made_goal">made it</string>
     <string name="help_introduction_content">
         What makes a good day, a balanced day? Define different goals, such as fit, relaxed, slim. For every goal you define how difficult it is for you, start with a low number of points and increase over time. Choose a color and symbol as you like.
 
@@ -111,8 +116,9 @@
     <string name="help_tips_title">Tips &amp; tricks</string>
     <string name="help_about_content">To be able to teach app development with Android, I developed this app to experience all the difficulties.</string>
     <string name="help_about_title">About Us</string>
-    <string name="help_version_pattern"></string>
-    <string name="help_version_title">Version</string>
-    <string name="help_copyright_content">Copyright and Credentials</string>
-    <string name="help_copyright_title">Copyright and Credentials</string>
+    <string name="help_version_pattern">%1$s.%2$d, schema %3$d -- feedback: info@wuapps.de</string>
+    <string name="help_version_title">Version \&amp; Feedback</string>
+    <string name="help_copyright_title">Copyright</string>
+    <string name="help_copyright_content">GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007</string>
+    <string name="help_credentials_title">Credentials</string>
 </resources>

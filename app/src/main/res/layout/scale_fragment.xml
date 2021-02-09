@@ -65,8 +65,8 @@
             android:id="@+id/buttonDelete"
             style="@style/Widget.MoreDays.ButtonDelete"
             app:isGone="@{scaleViewModel.new}"
-            app:layout_constraintBottom_toBottomOf="@id/buttonSave"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBaseline_toBaselineOf="@id/buttonSave"
+            app:layout_constraintEnd_toStartOf="@id/buttonSave" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

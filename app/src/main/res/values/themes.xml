@@ -73,20 +73,25 @@
 
     <style name="Widget.MoreDays.ButtonSave" parent="Widget.MaterialComponents.Button">
         <item name="android:textColor">@color/primaryTextColor</item>
-        <item name="android:backgroundTint">@color/primaryColor</item>
+        <item name="android:backgroundTint">@color/secondaryColor</item>
         <item name="android:text">@string/save</item>
         <item name="android:layout_marginTop">@dimen/activity_vertical_margin</item>
+
+
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="cornerRadius">16dp</item>
     </style>
 
     <style name="Widget.MoreDays.ButtonDelete" parent="Widget.MaterialComponents.Button">
-        <item name="android:textColor">@color/accentTextColor</item>
-        <item name="android:backgroundTint">@color/accentColor</item>
+        <item name="android:textColor">@color/deleteButtonTextColor</item>
+        <item name="android:backgroundTint">@color/deleteButtonColor</item>
         <item name="android:text">@string/delete</item>
-        <item name="android:layout_marginTop">@dimen/activity_vertical_margin</item>
+        <item name="android:layout_marginStart">@dimen/min_accesible_size</item>
+        <item name="android:layout_marginEnd">@dimen/min_accesible_size</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="cornerRadius">16dp</item>
     </style>
 
     <style name="Widget.MoreDays.JournalTextView" parent="Widget.MaterialComponents.TextView">

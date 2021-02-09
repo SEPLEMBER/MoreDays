@@ -1,42 +1,39 @@
 package de.wuapps.moredays.ui.home
 
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.map
+import androidx.lifecycle.*
+import de.wuapps.moredays.data.Analysis
 import de.wuapps.moredays.data.entity.GoalAndRelatedData
 import de.wuapps.moredays.database.dao.*
-import de.wuapps.moredays.database.entity.Scale
+import de.wuapps.moredays.database.entity.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeViewModel(
     goalDao: GoalDao,
     scaleDao: ScaleDao,
     private val challengeDao: ChallengeDao,
     private val activityEntryDao: ActivityEntryDao,
-    private val scaleEntryDao: ScaleEntryDao
+    private val scaleEntryDao: ScaleEntryDao,
+    private val trophyDao: TrophyDao
 ) : ViewModel() {
 
-    val scalesGoals = Pair<MutableList<ScaleEntry>, MutableList<GoalEntry>>(
-        mutableListOf(),
-        mutableListOf()
-    ) //scales, goalData
+    val trophies = MutableLiveData<MutableList<Trophy>>()
+    val justReached100Percent = MutableLiveData<Boolean>()
+    val percent = MutableLiveData<Float>()
     val date: Calendar = Calendar.getInstance()
-    private val scales =
-        scaleDao.getAll().asLiveData().map { scales -> mapScalesToScaleEntries(scales) }
-    private val goalData = goalDao.getAllDataForGivenDate().asLiveData()
+    val scales = scaleDao.getAll().asLiveData()
+    val goalData = goalDao.getAllDataForGivenDate().asLiveData()
         .map { goalData -> mapGoalDataToGoalEntries(goalData) }
-    val entryTypes = MediatorLiveData<List<EntryType>>()
+    private var was100Percent = false //before an activity is inserted this is set to true/false, hence with an update of goalData reached100Percent may be set accordingly
+    private val analysis = Analysis()
+    private var latestActivity: Activity? = null
 
-    private fun mapScalesToScaleEntries(scales: List<Scale>): List<ScaleEntry> {
-        val result = mutableListOf<ScaleEntry>()
-        for (scale in scales) {
-            result += ScaleEntry(
-                scale,
-                scaleEntryDao
-            )
-        }
-        return result
+    init {
+        trophies.value = ArrayList<Trophy>()
+        justReached100Percent.value = false
+        percent.value = 0F
     }
 
     private fun mapGoalDataToGoalEntries(goalData: List<GoalAndRelatedData>): List<GoalEntry> {
@@ -44,40 +41,55 @@ class HomeViewModel(
         for (item in goalData) {
             result += GoalEntry(
                 item,
-                date,
-                activityEntryDao
+                date
             )
         }
+        calcPercentage(result)
         return result
-
     }
 
-    init {
-        entryTypes.addSource(scales)
-        {
-            if (it != null) {
-                updateScales(it)
-            }
+    private suspend fun analyzeGoalTrophies(goal: Goal, activity: Activity) {
+        val newTrophies = analysis.checkForNewTrophies(goal, activity.uid, date, trophyDao, activityEntryDao)
+        if (newTrophies.size > 0) {
+            trophies.value!!.clear()
+            trophies.postValue(newTrophies as MutableList<Trophy>)
         }
-        entryTypes.addSource(goalData)
-        {
-            if (it != null) {
-                updateGoalData(it)
-            }
+    }
+
+    private fun analyzeScaleTrophies(scaleId: Long) {
+
+    }
+
+    fun addGoalEntry(goal: Goal, activity: Activity) {
+        val id = -1L
+        was100Percent = (percent.value!! >= 100F)
+        viewModelScope.launch(Dispatchers.IO) {
+            val id = activityEntryDao.insert(
+                ActivityEntry(activity)
+            )
+            activity.uid = id
+            analyzeGoalTrophies(goal, activity)
         }
-
+        latestActivity = activity
     }
 
-    private fun updateScales(scales: List<ScaleEntry>) {
-        scalesGoals.first.clear()
-        scalesGoals.first.addAll(scales)
-        entryTypes.value = scalesGoals.second + scalesGoals.first
+    fun addScaleEntry(scaleId: Long, value: Float) {
+        viewModelScope.launch(Dispatchers.IO) {
+            scaleEntryDao.insert(
+                ScaleEntry(scaleId, value)
+            )
+        }
+        analyzeScaleTrophies(scaleId)
     }
 
-    private fun updateGoalData(goalData: List<GoalEntry>) {
-        scalesGoals.second.clear()
-        scalesGoals.second.addAll(goalData)
-        entryTypes.value = scalesGoals.second + scalesGoals.first
+    private fun calcPercentage(goalEntries: List<GoalEntry>) {
+        val sum = goalEntries.sumBy { goalEntry -> goalEntry.getCurrentValue() }
+        val desired = goalEntries.sumBy { goalEntry -> goalEntry.getDesiredValue() }
+        if (sum > 0 && desired > 0) {
+            if (sum >= desired && !was100Percent && latestActivity!=null)
+                justReached100Percent.value = true
+            percent.value = sum * 100F / desired
+        }
     }
 }
 

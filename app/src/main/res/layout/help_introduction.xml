@@ -28,7 +28,7 @@
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="Trip name"
+                android:text="@string/help_introduction_title"
                 android:textAlignment="gravity"
                 android:textColor="@color/textOnCardColor" />
 
@@ -51,6 +51,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="content" />
+            android:padding="@dimen/layout_padding"
+            android:text="@string/help_introduction_content" />
     </com.github.florent37.expansionpanel.ExpansionLayout>
 </LinearLayout>

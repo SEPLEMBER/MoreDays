@@ -14,10 +14,10 @@ interface ScaleEntryDao {
     fun getAll(): Flow<ScaleEntry>
 
     @Query("SELECT value from scaleentry where scale_id = :id order by timestamp desc LIMIT 1")
-    suspend fun getLatestValue(id: Int): Float
+    suspend fun getLatestValue(id: Long): Float
 
     @Query("SELECT * FROM scaleentry where scale_id = :scaleId order by timestamp ASC ")
-    suspend fun getAllByScaleId(scaleId: Int): List<ScaleEntry>
+    suspend fun getAllByScaleId(scaleId: Long): List<ScaleEntry>
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(entry: ScaleEntry): Long
@@ -32,5 +32,5 @@ interface ScaleEntryDao {
     suspend fun deleteAll()
 
     @Query("Delete from scaleentry where uid = :entryId")
-    suspend fun delete(entryId: Int)
+    suspend fun delete(entryId: Long)
 }

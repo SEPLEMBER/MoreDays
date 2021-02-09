@@ -7,7 +7,11 @@ import java.util.*
 
 class DateTypeConverter {
     @TypeConverter
-    fun calendarToDatestamp(calendar: Calendar): Long = calendar.timeInMillis
+    fun calendarToTimestamp(calendar: Calendar): Long = calendar.timeInMillis
+
+    @TypeConverter
+    fun timestampToCalendar(value: Long): Calendar =
+        Calendar.getInstance().apply { timeInMillis = value }
 
     companion object {
 
@@ -27,8 +31,4 @@ class DateTypeConverter {
             return date
         }
     }
-
-    @TypeConverter
-    fun datestampToCalendar(value: Long): Calendar =
-        Calendar.getInstance().apply { timeInMillis = value }
 }

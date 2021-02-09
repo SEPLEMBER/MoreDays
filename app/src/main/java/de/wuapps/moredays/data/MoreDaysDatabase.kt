@@ -24,6 +24,7 @@ abstract class MoreDaysDatabase : RoomDatabase() {
     abstract val activityEntryDao: ActivityEntryDao
     abstract val scaleEntryDao: ScaleEntryDao
     abstract val scaleDao: ScaleDao
+    abstract val trophyDao: TrophyDao
 
     companion object {
         @Volatile

@@ -15,10 +15,10 @@ interface ChallengeDao {
     fun getDueByStatus(status: Int): LiveData<List<Challenge>>
 
     @Query("SELECT * FROM challenge WHERE id = :id")
-    suspend fun getChallengesById(id: Long): Challenge?
+    suspend fun getChallengesById(id: Long): List<Challenge>
 
     @Query("SELECT * FROM challenge WHERE id = :id and challenge_type = :type")
-    suspend fun getChallengesByIdAndType(id: Long, type: Int): Challenge?
+    suspend fun getChallengesByIdAndType(id: Long, type: Int): List<Challenge>
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(challenge: Challenge): Long

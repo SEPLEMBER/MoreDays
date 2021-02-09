@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 11,
-    "identityHash": "c5cf4be12f3d786deeb3af1aed30d4c2",
+    "identityHash": "b96b89092eb580bcb81cea576d3cb7ae",
     "entities": [
       {
         "tableName": "Activity",
@@ -375,18 +375,12 @@
       },
       {
         "tableName": "Trophy",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `text` TEXT NOT NULL, `type` INTEGER NOT NULL, `goal_id` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL, `value` INTEGER NOT NULL, `activity_entry_id` INTEGER NOT NULL, FOREIGN KEY(`activity_entry_id`) REFERENCES `ActivityEntry`(`uid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `type` INTEGER NOT NULL, `goal_id` INTEGER NOT NULL, `timestamp` INTEGER NOT NULL, `value` INTEGER NOT NULL, `activity_entry_id` INTEGER NOT NULL, FOREIGN KEY(`activity_entry_id`) REFERENCES `ActivityEntry`(`uid`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "uid",
             "columnName": "uid",
             "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "text",
-            "columnName": "text",
-            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -530,7 +524,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c5cf4be12f3d786deeb3af1aed30d4c2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b96b89092eb580bcb81cea576d3cb7ae')"
     ]
   }
 }

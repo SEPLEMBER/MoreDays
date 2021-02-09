@@ -41,9 +41,9 @@ class GoalListFragment : Fragment() {
         binding = GoalListFragmentBinding.inflate(inflater, container, false)
         binding.recyclerviewGoals.layoutManager = ResponsiveGridLayoutManager(
             requireNotNull(this.activity),
-            resources.getDimension(R.dimen.goal_item_width).toInt()
+            resources.getDimension(R.dimen.trophy_item_width).toInt()
         )
-        val adapter = GoalAdapter(application)
+        val adapter = GoalAdapter()
         binding.recyclerviewGoals.adapter = adapter
         subscribeUi(adapter)
 

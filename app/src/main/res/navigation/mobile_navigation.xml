@@ -11,6 +11,11 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
     <fragment
+        android:id="@+id/navigation_placeholder"
+        android:name="de.wuapps.moredays.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
         android:id="@+id/navigation_tools"
         android:name="de.wuapps.moredays.ui.tools.ToolsFragment"
         android:label="ToolsFragment" >
@@ -26,6 +31,12 @@
         <action
             android:id="@+id/navigation_tools_help"
             app:destination="@id/helpFragment" />
+        <action
+            android:id="@+id/navigation_tools_trophies"
+            app:destination="@id/trophyListFragment" />
+        <action
+            android:id="@+id/navigation_tools_history"
+            app:destination="@id/activityEntryListFragment" />
     </fragment>
     <fragment
         android:id="@+id/activityFragment"
@@ -83,11 +94,6 @@
         android:name="de.wuapps.moredays.ui.charts.ChartsFragment"
         android:label="charts_fragment"
         tools:layout="@layout/charts_fragment" />
-    <fragment
-        android:id="@+id/navigation_trophies"
-        android:name="de.wuapps.moredays.ui.trophy.TrophyListFragment"
-        android:label="trophy"
-        tools:layout="@layout/trophy_list_fragment" />
     <fragment
         android:id="@+id/goalListFragment"
         android:name="de.wuapps.moredays.ui.goal.GoalListFragment"
@@ -170,18 +176,28 @@
             app:argType="java.io.Serializable"
             app:nullable="true" />
     </fragment>
-
-<!--
-    <include app:graph="@navigation/aboutlibs_navigation" />
     <fragment
-        android:id="@+id/helpFragment"
-        android:name="de.wuapps.moredays.ui.tools.HelpFragment"
-        android:label="fragment_help"
-        tools:layout="@layout/fragment_help" >
-        <action
-            android:id="@+id/navigation_help_about"
-            app:destination="@id/about_libraries"
-            app:launchSingleTop="true" />
-    </fragment>
-    -->
+        android:id="@+id/trophyListFragment"
+        android:name="de.wuapps.moredays.ui.tools.trophy.TrophyListFragment"
+        android:label="trophy_list_fragment"
+        tools:layout="@layout/trophy_list_fragment" />
+    <fragment
+        android:id="@+id/activityEntryListFragment"
+        android:name="de.wuapps.moredays.ui.tools.history.ActivityEntryListFragment"
+        android:label="activity_entry_list_fragment"
+        tools:layout="@layout/activity_entry_list_fragment" />
+
+    <!--
+        <include app:graph="@navigation/aboutlibs_navigation" />
+        <fragment
+            android:id="@+id/helpFragment"
+            android:name="de.wuapps.moredays.ui.tools.HelpFragment"
+            android:label="fragment_help"
+            tools:layout="@layout/fragment_help" >
+            <action
+                android:id="@+id/navigation_help_about"
+                app:destination="@id/about_libraries"
+                app:launchSingleTop="true" />
+        </fragment>
+        -->
 </navigation>

@@ -1,6 +1,7 @@
 package de.wuapps.moredays.utilities
 
 // see https://blog.mindorks.com/how-to-create-a-singleton-class-in-kotlin
+// needed to create singletons with parameters in their constructor, see IconManager in MainActivity
 open class SingletonHolder<out T : Any, in A>(creator: (A) -> T) {
     private var creator: ((A) -> T)? = creator
     @Volatile

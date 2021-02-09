@@ -99,8 +99,8 @@
                 android:id="@+id/buttonDelete"
                 style="@style/Widget.MoreDays.ButtonDelete"
                 app:isGone="@{activityViewModel.new}"
-                app:layout_constraintBottom_toBottomOf="@id/buttonSave"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintBaseline_toBaselineOf="@id/buttonSave"
+                app:layout_constraintEnd_toStartOf="@id/buttonSave" />
 
             <CheckBox
                 android:id="@+id/checkboxIsOld"

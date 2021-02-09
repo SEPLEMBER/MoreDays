@@ -1,34 +1,22 @@
 package de.wuapps.moredays.ui.home
 
-import android.app.AlertDialog
-import android.content.Context
-import android.widget.Toast
-import de.wuapps.moredays.data.Analysis
 import de.wuapps.moredays.data.entity.GoalAndRelatedData
 import de.wuapps.moredays.database.dao.ActivityEntryDao
 import de.wuapps.moredays.database.entity.Activity
-import de.wuapps.moredays.database.entity.ActivityEntry
 import de.wuapps.moredays.database.entity.Goal
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.util.*
 import java.util.Calendar.DAY_OF_YEAR
 import java.util.Calendar.YEAR
-import kotlinx.coroutines.*
-import kotlin.system.*
 
 
 class GoalEntry(
     private val goalData: GoalAndRelatedData,
-    private val date: Calendar,
-    private val entryDao: ActivityEntryDao
-) : EntryType {
+    private val date: Calendar
+)  {
     private var currentValue = -1
     private val goal: Goal = goalData.goal!!
 
-    override fun getCurrentValue(): Int {
+    fun getCurrentValue(): Int {
         if (currentValue < 0) {
             val year = date.get(YEAR)
             val day = date.get(DAY_OF_YEAR)
@@ -39,19 +27,22 @@ class GoalEntry(
         return currentValue
     }
 
-    override fun getDesiredValue(): Int {
+    fun getGoal(): Goal {
+        return goal
+    }
+    fun getDesiredValue(): Int {
         return goal.points
     }
 
-    override fun getName(): String {
+    fun getName(): String {
         return goal.name
     }
 
-    override fun getInfo(): String {
+    fun getInfo(): String {
         return "${getCurrentValue()} / ${goal.points}"
     }
 
-    override fun getSymbol(): Int {
+    fun getSymbol(): Int {
         return goal.symbol
     }
 
@@ -59,39 +50,11 @@ class GoalEntry(
         return goalData.activities
     }
 
-    override fun getId(): String {
+    fun getId(): String {
         return "goal-${goal.uid}"
     }
 
-    override fun showInputDialog(context: Context) {
-        val dialogBuilder = AlertDialog.Builder(context)
-
-        val stringList: MutableList<String> = mutableListOf()
-        goalData.activities.forEach { activity -> stringList.add(activity.toString()) }
-        val values: Array<String> = stringList.toTypedArray()
-        dialogBuilder.setTitle(goal.name).setItems(values) { _, position ->
-            val activity = goalData.activities[position]
-            val analysis = Analysis()
-            GlobalScope.launch {
-                entryDao.insert(
-                    ActivityEntry(activity)
-                )
-                val jobForLength1 = async {analysis.analyzeTrophies(uid = 1L)}
-            }
-
-
-                Toast.makeText(
-                    context,
-                    "finished",
-                    Toast.LENGTH_SHORT
-                ).show();
-             }
-
-        val alertDialog = dialogBuilder.create()
-        alertDialog.show()
-    }
-
-    override fun getColor(): Int {
+    fun getColor(): Int {
         return goal.color
     }
 
@@ -109,6 +72,4 @@ class GoalEntry(
         result = 31 * result + goal.hashCode()
         return result
     }
-
-
 }

@@ -10,14 +10,14 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Goal
-import de.wuapps.moredays.ui.icons.IconManager
 
 
-class GoalAdapter(private val application: Application) :
+class GoalAdapter() :
     ListAdapter<Goal, GoalAdapter.GoalViewHolder>(GoalDiffCallback) {
-    class GoalViewHolder(itemView: View, private val application: Application) :
+    class GoalViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         private val textViewName: TextView = itemView.findViewById(R.id.textViewName)
         private val imageViewIcon: ImageView = itemView.findViewById(R.id.imageViewIcon)
@@ -35,9 +35,7 @@ class GoalAdapter(private val application: Application) :
         fun bind(goal: Goal) {
             currentGoal = goal
             imageViewIcon.setImageDrawable(
-                IconManager.getInstance(application).iconPack.getIcon(
-                    goal.symbol
-                )?.drawable
+                MainActivity.iconPack?.let {it.getIcon(goal.symbol)}?.drawable
             )
             textViewPoints.text = goal.points.toString()
             textViewName.text = goal.name
@@ -47,7 +45,7 @@ class GoalAdapter(private val application: Application) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoalViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_goal, parent, false)
-        return GoalViewHolder(view, application)
+        return GoalViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: GoalViewHolder, position: Int) {

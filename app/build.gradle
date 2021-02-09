@@ -4,7 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
-
+    id 'com.mikepenz.aboutlibraries.plugin'
 }
 
 android {
@@ -109,5 +109,6 @@ dependencies {
     implementation "com.mikepenz:aboutlibraries-core:$aboutVersion"
     implementation "com.mikepenz:aboutlibraries:$aboutVersion"
 
+    implementation 'nl.dionsegijn:konfetti:1.2.6'
 
 }

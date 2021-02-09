@@ -21,11 +21,11 @@ import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.flag.BubbleFlag
 import com.skydoves.colorpickerview.flag.FlagMode
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
+import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.databinding.GoalFragmentBinding
 import de.wuapps.moredays.ui.activity.ActivityAdapter
-import de.wuapps.moredays.ui.icons.IconManager
 import kotlinx.coroutines.InternalCoroutinesApi
 import java.lang.Integer.parseInt
 
@@ -92,9 +92,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         setColor()
 
         binding.imageButtonColor.setImageDrawable(
-            IconManager.getInstance(application).iconPack.getIcon(
-                SELECT_COLOR_ICON_ID
-            )?.drawable
+            MainActivity.iconPack?.let{it.getIcon(SELECT_COLOR_ICON_ID)}?.drawable
         )
         binding.imageButtonColor.setOnClickListener {
             colorPickerDialog()
@@ -225,9 +223,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     private fun setIcon() {
         if (selectedIconId > 0)
             binding.imageButtonIcon.setImageDrawable(
-                IconManager.getInstance(application).iconPack.getIcon(
-                    selectedIconId
-                )?.drawable
+                MainActivity.iconPack?.let{it.getIcon(selectedIconId)}?.drawable
             )
     }
 
@@ -240,7 +236,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
      */
     @InternalCoroutinesApi
     override val iconDialogIconPack: IconPack?
-        get() = IconManager.getInstance(application).iconPack
+        get() = MainActivity.iconPack
 
     @InternalCoroutinesApi
     override fun onIconDialogIconsSelected(dialog: IconDialog, icons: List<Icon>) {

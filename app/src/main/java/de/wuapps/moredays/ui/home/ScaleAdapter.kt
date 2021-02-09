@@ -1,67 +1,86 @@
 package de.wuapps.moredays.ui.home
 
-import android.app.Application
+import android.app.AlertDialog
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.NumberPicker
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.R
-import de.wuapps.moredays.ui.icons.IconManager
+import de.wuapps.moredays.database.entity.Scale
 
 
-class EntryTypeAdapter(private val application: Application) :
-    ListAdapter<EntryType, EntryTypeAdapter.EntryTypeViewHolder>(EntryTypeDiffCallback) {
+class ScaleAdapter(private val homeViewModel: HomeViewModel) :
+    ListAdapter<Scale, ScaleAdapter.ScaleViewHolder>(ScaleDiffCallback) {
 
-    class EntryTypeViewHolder(itemView: View, private val application: Application) :
+    class ScaleViewHolder(itemView: View, private val homeViewModel: HomeViewModel) :
         RecyclerView.ViewHolder(itemView) {
         private val textViewName: TextView = itemView.findViewById(R.id.textViewName)
-        private val textViewInfo: TextView = itemView.findViewById(R.id.textViewInfo)
-        private val imageViewSymbol: ImageView = itemView.findViewById(R.id.imageViewSymbol)
-        private val cardView: CardView = itemView.findViewById(R.id.layout)
-        private var currentEntryType: EntryType? = null
+        private var currentScale: Scale? = null
 
         init {
             itemView.setOnClickListener {
-                currentEntryType!!.showInputDialog(itemView.context)
+                showInputDialog(itemView.context)
             }
         }
 
-        fun bind(entryType: EntryType) {
-            currentEntryType = entryType
-            cardView.setCardBackgroundColor(entryType.getColor())
-            textViewName.text = entryType.getName()
-            textViewInfo.text = entryType.getInfo()
-            imageViewSymbol.setImageDrawable(
-                IconManager.getInstance(application).iconPack.getIcon(
-                    entryType.getSymbol()
-                )?.drawable
-            )
+        fun bind(scale: Scale) {
+            currentScale = scale
+            textViewName.text = scale.name
+        }
 
+        fun showInputDialog(context: Context) {
+            if (currentScale != null) {
+                val layout =
+                    LayoutInflater.from(context).inflate(R.layout.float_picker_layout, null)
+                val decimalView = layout.findViewById<NumberPicker>(R.id.numberPickerDecimal)
+                decimalView.value
+                val fractionView = layout.findViewById<NumberPicker>(R.id.numberPickerFraction)
+                val fractionValues = Array(100) { i -> i.toString() }
+                fractionView.minValue = 0
+                fractionView.maxValue = 99
+                decimalView.minValue = currentScale!!.minValue
+                decimalView.maxValue = currentScale!!.maxValue
+                fractionView.displayedValues = fractionValues
+                val dialogBuilder = AlertDialog.Builder(context)
+                dialogBuilder
+                    .setView(layout)
+                    .setTitle(currentScale!!.name)
+                    .setPositiveButton(R.string.ok) { _, _ ->
+                        homeViewModel.addScaleEntry(
+                            currentScale!!.uid,
+                            decimalView.value.toFloat() + fractionView.value / 100F
+                        )
+                    }
+                    .setNegativeButton(R.string.cancel, null)
+                val alertDialog = dialogBuilder.create()
+                alertDialog.show()
+            }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EntryTypeViewHolder {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScaleViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_entry_type, parent, false)
-        return EntryTypeViewHolder(view, application)
+        return ScaleViewHolder(view, homeViewModel)
     }
 
-    override fun onBindViewHolder(holder: EntryTypeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ScaleViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 }
 
-object EntryTypeDiffCallback : DiffUtil.ItemCallback<EntryType>() {
-    override fun areItemsTheSame(oldItem: EntryType, newItem: EntryType): Boolean {
+object ScaleDiffCallback : DiffUtil.ItemCallback<Scale>() {
+    override fun areItemsTheSame(oldItem: Scale, newItem: Scale): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: EntryType, newItem: EntryType): Boolean {
-        return oldItem.getId() == newItem.getId()
+    override fun areContentsTheSame(oldItem: Scale, newItem: Scale): Boolean {
+        return oldItem.uid == newItem.uid
     }
 }

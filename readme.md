@@ -6,37 +6,28 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
   - an observer attached to such a flow, will listen to all changes of all involved tables of the corresponding query, hence observers will be attached to queries adressing one table only
 - as daos are interfaces already and the data will be stored on the phone only, there is no need for repository classes -- they are useful, if the data comes from an api AND room
 - even if a device is rotated and ondestroy of an activity/fragment is called, a viewmodel remains, hence use livedata in viewmodels, let them be updated
-- most viewmodels of this app will need constructor parameters, therefore we need  viewmodel factory classes
+- most viewmodels of this app will need constructor parameters, therefore we need  viewmodel factory classes, alternatively we could use hilt (still thinking about it). However looking at the changes https://github.com/android/sunflower/commit/cd57be5ad686aaad30b3e560d9cd858c952ff5bf it seems much more to do than to gain ...
 
 
 ## ToDos
-- maybe use https://github.com/greenrobot/EventBus
+- check https://github.com/deano2390/MaterialShowcaseView
+- https://github.com/square/leakcanary
+- https://github.com/AnyChart/AnyChart-Android
 - Tests hinzufügen https://developer.android.com/codelabs/advanced-android-kotlin-training-testing-basics#0 und https://speakerdeck.com/alexzhukovich/writing-robust-android-ui-tests 
 - DB-Tests
   - https://speakerdeck.com/alexzhukovich/let-us-play-in-room-with-kotlin?slide=49
 - Hilfe mit https://github.com/KeepSafe/TapTargetView
 - für Onboarding auswählen: https://undraw.co/illustrations oder https://www.drawkit.io/
-- Hintergrund vl. von https://www.svgbackgrounds.com/#flat-mountains
-- instead of preferences use https://developer.android.com/jetpack/androidx/releases/datastore#version_100_2 see https://developer.android.com/codelabs/android-preferences-datastore?hl=zh-cn#0
 - https://github.com/googlesamples/easypermissions
 - permission to export pictures ... see https://github.com/TeamAmaze/AmazeFileManager
-- implement trophy made using https://github.com/gabriel-TheCode/AestheticDialogs
+- implement trophy made using https://github.com/gabriel-TheCode/AestheticDialogs or https://github.com/chnouman/AwesomeDialog
 - lock & export/import see https://github.com/hanjoongcho/aaf-easydiary
-- permissions: dexter https://github.com/karumi/dexter
-- in case push notifications are wanted https://github.com/OneSignal/OneSignal-Android-SDK
-- add credentials with https://github.com/AllanWang/KAU/tree/dev/about#readme
-- journal image picker https://android-arsenal.com/details/1/8021 or https://android-arsenal.com/details/1/8208 (with crop) or https://android-arsenal.com/details/1/7697
-- use https://github.com/DanielMartinus/Konfetti to show trophy
+- in case push notifications are wanted https://github.com/OneSignal/OneSignal-Android-SDK and https://github.com/Tapadoo/Alerter
 - onboarding see https://thesimplycoder.com/346/android-intro-slider-and-splash-screen-tutorial/
-- tutorial date picker https://thesimplycoder.com/226/android-date-picker-kotlin-tutorial/
 - glide with circle crop and recycler view (-->journal) https://thesimplycoder.com/114/android-recyclerview-tutorial-using-kotlin/
 - biometrics https://developer.android.com/jetpack/androidx/releases/biometric#1.0.1
-- scaleentry with latest value (entries as live data in viewmodel and observer -> set currentvalue in viewmodel)
-- select nice layout of https://codecanyon.net
-- maybe circle animation similar to https://github.com/GIGAMOLE/ArcProgressStackView/blob/master/arcprogressstackview/src/main/java/devlight/io/library/ArcProgressStackView.java
-- where to store current date and similar data: activity scope? or nav as in https://developer.android.com/guide/navigation/navigation-programmatic#share_ui-related_data_between_destinations_with_viewmodel
-- use curved bottom navigation https://github.com/oneHamidreza/MeowBottomNavigation
-- add animation see https://github.com/AllanWang/KAU/blob/master/core/src/main/kotlin/ca/allanwang/kau/utils/AnimUtils.kt
+- nice charts https://github.com/diogobernardino/WilliamChart
+- round bottom nav with fab https://www.geeksforgeeks.org/how-to-add-a-floating-action-button-to-bottom-navigation-bar-in-android/
 
 ## Vision
 
@@ -44,6 +35,7 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 - ids in layouts
   - typeName, e.g. textViewPoints, imageButtonColor
   - fab (floatingActionButton)
+  - better https://jeroenmols.com/blog/2016/03/07/resourcenaming/
 - strings
   - lbl_
   - 
@@ -60,14 +52,13 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 - adapted bottom navigation (menu and mainactivity) 
 - added libraries
 - downloaded fonts from https://fonts.google.com/
-- implement adapters https://developer.android.com/guide/topics/ui/layout/recyclerview, drag&drop: 
+- implement adapters https://developer.android.com/guide/topics/ui/layout/recyclerview
 
 
 ## Lessons learned
 - Dependency Injection (DI): a class should not create the dependencies, it needs, those dependencies should be provided through the constructor
   - a more generic approach should use dagger and hilt, see https://blog.mindorks.com/dagger-hilt-tutorial
 - ViewModelProviders.Factory: gives a new instance if it is needed and only if it is needed, hence use it; if the ViewModel has a parameter in the constructor (see DI above), implement your own factory
-- to handle drawables use ImageDecoder
 - custom views see https://developer.android.com/codelabs/advanced-andoid-kotlin-training-custom-views and https://developer.android.com/training/custom-views/create-view
 
 ## Kotlin
@@ -131,6 +122,7 @@ value?.let {
 - https://developer.android.com/jetpack/guide
 - https://developer.android.com/topic/libraries/architecture/index.html
 - https://github.com/android/architecture-components-samples
+
 ### Fragments
 - getSupportFragmentManager is associated with an activity. Consider it as a FragmentManager for your activity.
 - getChildFragmentManager is associated with fragments
@@ -188,6 +180,7 @@ Less boiler plate code, better testing, e.g. no ViewModelFactories only because 
 - codelab https://developer.android.com/codelabs/android-hilt?hl=nb#1
 - from view model factories to di with hilt: https://medium.com/mobile-app-development-publication/injecting-viewmodel-with-dagger-hilt-54ca2e433865
 - very good summary of several features of hilt https://youtu.be/B56oV3IHMxg
+- not used in this app, as we do not use any web services and hence do not need repositories for abstraction; dao and hilt do not work together right now
 
 ## Links
 - list of libraries

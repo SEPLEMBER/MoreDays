@@ -19,7 +19,6 @@ import java.util.*
 class Trophy {
     @PrimaryKey(autoGenerate = true)
     var uid: Long = 0
-    var text: String = ""
     var type: Int = 0
 
     @ColumnInfo(name = "goal_id")
@@ -42,12 +41,25 @@ class Trophy {
     }
 
     @Ignore
-    constructor(text: String, type: Int, goalId: Long, value: Int, activityEntryId: Long) {
+    constructor(type: Int, goalId: Long, value: Int, activityEntryId: Long) {
         this.timestamp = Calendar.getInstance()
-        this.text = text
         this.type = type
         this.goalId = goalId
         this.value = value
         this.activityEntryId = activityEntryId
     }
+
+    companion object {
+        var TROPHY_TYPE_GOAL_DAYS_IN_ROW = 0
+        var TROPHY_TYPE_GOAL_TOTAL = 1
+        var TROPHY_TYPE_MADE_GOAL = 3
+        var TROPHY_TYPE_MADE_GOAL_N_TIMES_IN_WEEK = 4
+
+    }
 }
+
+//var TROPHY_SYMBOL_ROW: Int = R.string.font_icon_link_solid
+//var TROPHY_SYMBOL_TOTAL: Int = R.string.font_icon_23trophy_solid
+//var TROPHY_SYMBOL_CATEGORY: Int = R.string.font_icon_28award_solid
+//var TROPHY_SYMBOL_ALL_CATEGORIES: Int = R.string.font_icon_29medal_solid
+//var TROPHY_SYMBOL_WEEK: Int = R.string.font_icon_23trophy_solid

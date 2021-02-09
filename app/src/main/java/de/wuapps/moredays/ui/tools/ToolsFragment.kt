@@ -25,6 +25,10 @@ class ToolsFragment : Fragment() {
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_scales) }
         view.findViewById<Button>(R.id.buttonHelp)
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_help) }
+        view.findViewById<Button>(R.id.buttonTrophies)
+            .setOnClickListener { findNavController().navigate(R.id.navigation_tools_trophies) }
+        view.findViewById<Button>(R.id.buttonActivityEntries)
+            .setOnClickListener { findNavController().navigate(R.id.navigation_tools_history) }
         return view
     }
 }

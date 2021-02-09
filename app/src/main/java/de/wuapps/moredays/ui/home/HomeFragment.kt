@@ -1,19 +1,22 @@
 package de.wuapps.moredays.ui.home
 
-import android.app.AlertDialog
 import android.app.Application
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import de.wuapps.moredays.R
-import de.wuapps.moredays.data.Analysis
 import de.wuapps.moredays.database.MoreDaysDatabase
+import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.databinding.FragmentHomeBinding
 import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
 import kotlinx.coroutines.InternalCoroutinesApi
+import nl.dionsegijn.konfetti.models.Shape
+import nl.dionsegijn.konfetti.models.Size
 import java.util.*
 
 @InternalCoroutinesApi
@@ -23,7 +26,8 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var application: Application
     private lateinit var db: MoreDaysDatabase
-    private lateinit var adapter: EntryTypeAdapter
+    private lateinit var goalAdapter: GoalAdapter
+    private lateinit var scaleAdapter: ScaleAdapter
     private var date = Calendar.getInstance()
 
 
@@ -41,75 +45,63 @@ class HomeFragment : Fragment() {
                 db.scaleDao,
                 db.challengeDao,
                 db.activityEntryDao,
-                db.scaleEntryDao
+                db.scaleEntryDao,
+                db.trophyDao
             )
         ).get(HomeViewModel::class.java)
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        binding.recyclerViewEntryTypes.layoutManager = ResponsiveGridLayoutManager(
+        binding.recyclerViewGoals.layoutManager = ResponsiveGridLayoutManager(
             requireNotNull(this.activity),
             resources.getDimension(R.dimen.entry_type_item_width).toInt()
         )
-        adapter = EntryTypeAdapter(application)
-        binding.recyclerViewEntryTypes.adapter = adapter
+        goalAdapter = GoalAdapter(homeViewModel)
+        binding.recyclerViewGoals.adapter = goalAdapter
+        binding.recyclerViewScales.layoutManager = ResponsiveGridLayoutManager(
+            requireNotNull(this.activity),
+            resources.getDimension(R.dimen.entry_type_item_width).toInt()
+        )
+        scaleAdapter = ScaleAdapter(homeViewModel)
+        binding.recyclerViewScales.adapter = scaleAdapter
         subscribeUi()
         return binding.root
     }
 
     private fun subscribeUi() {
-        homeViewModel.entryTypes.observe(viewLifecycleOwner, {
+        homeViewModel.scales.observe(viewLifecycleOwner, {
             it?.let {
-                adapter.submitList(it as MutableList<EntryType>)
-                updateCircles()
+                scaleAdapter.submitList(it as MutableList<Scale>)
             }
+        })
+        homeViewModel.goalData.observe(viewLifecycleOwner, {
+            it?.let {
+                val data = it as MutableList<GoalEntry>
+                goalAdapter.submitList(data)
+                binding.circlesView.setCirclesData(data)
+            }
+        })
+        homeViewModel.trophies.observe(viewLifecycleOwner, {
+            it?.let {
+                if (it.isNotEmpty()) {
+                    val trophy = it.last()
+                    Toast.makeText(application, "trophy", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+        homeViewModel.justReached100Percent.observe(viewLifecycleOwner, {
+            if (it){
+                binding.viewKonfetti.build()
+                    .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                    .setDirection(0.0, 359.0)
+                    .setSpeed(1f, 5f)
+                    .setFadeOutEnabled(true)
+                    .setTimeToLive(2000L)
+                    .addShapes(Shape.Square, Shape.Circle)
+                    .addSizes(Size(12))
+                    .setPosition(-50f, binding.viewKonfetti.width + 50f, -50f, -50f)
+                    .streamFor(300, 5000L)
+            }
+            homeViewModel.justReached100Percent.postValue(false)
         })
     }
 
-    private fun updateCircles() {
-        binding.circlesView.setCirclesData(homeViewModel.scalesGoals.second)
-    }
-
-    public fun showInputDialog(entryType: EntryType){
-        if (entryType is GoalEntry){
-
-        }
-        else if (entryType is ScaleEntry){
-
-        }
-    }
-
-    private fun showInputDialogForGoalEntry(goalEntry: GoalEntry){
-        val dialogBuilder = AlertDialog.Builder(context)
-        val stringList: MutableList<String> = mutableListOf()
-        val activities = goalEntry.getActivities().sortedBy { activity -> activity.points }
-        activities.forEach { activity -> stringList.add(activity.toString()) }
-        val values: Array<String> = stringList.toTypedArray()
-
-        dialogBuilder.setTitle(goalEntry.getName()).setItems(values) { _, position ->
-            val activity = activities[position]
-            val analysis = Analysis()
-//            GlobalScope.launch {
-//                db.activityEntryDao.insert(
-//                    ActivityEntry(activity)
-//                )
-//                CoroutineScope(Dispatchers.Main).launch {
-//                    val job = analysis.analyzeTrophies(uid = 1L)
-//                    if (job != null) {
-//                        //better: viewmodel observes trophies with flow and livedata and fragment observes the latest trophy and shows a toast
-//
-//                        Toast.makeText(
-//                            context,
-//                            job.text,
-//                            Toast.LENGTH_SHORT
-//                        ).show();
-//                    }
-//
-//            }
-
-
-
-        }
-
-        val alertDialog = dialogBuilder.create()
-        alertDialog.show()
-    }
 }
