@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
@@ -64,10 +65,14 @@ class HomeFragment : Fragment() {
         )
         scaleAdapter = ScaleAdapter(homeViewModel)
         binding.recyclerViewScales.adapter = scaleAdapter
+        (activity as MainActivity).let{it.getFab().setOnClickListener{showAddOptions()}}
         subscribeUi()
         return binding.root
     }
 
+    private fun showAddOptions(){
+
+    }
     private fun subscribeUi() {
         homeViewModel.scales.observe(viewLifecycleOwner, {
             it?.let {

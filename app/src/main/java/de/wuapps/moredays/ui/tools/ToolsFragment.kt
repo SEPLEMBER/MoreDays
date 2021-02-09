@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
 
 class ToolsFragment : Fragment() {
@@ -29,6 +30,7 @@ class ToolsFragment : Fragment() {
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_trophies) }
         view.findViewById<Button>(R.id.buttonActivityEntries)
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_history) }
+        (activity as MainActivity).let{it.hideFab()}
         return view
     }
 }

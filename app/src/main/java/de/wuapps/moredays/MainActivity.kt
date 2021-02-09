@@ -2,12 +2,14 @@ package de.wuapps.moredays
 
 import android.app.Application
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.maltaisn.icondialog.pack.IconPack
@@ -17,11 +19,15 @@ import de.wuapps.moredays.utilities.SingletonHolder
 
 class MainActivity : AppCompatActivity() {
     private lateinit var fab: FloatingActionButton
+    private lateinit var bottomAppBar: BottomAppBar
+    private var bottomAppBarVerticalOffsetOrg = 0F
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         fab = findViewById(R.id.fabMain)
+        bottomAppBar = findViewById(R.id.bottomAppBar)
+        bottomAppBarVerticalOffsetOrg = bottomAppBar.cradleVerticalOffset
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
@@ -41,7 +47,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getFab(): FloatingActionButton{
+        fab.visibility = View.VISIBLE
+        bottomAppBar.cradleVerticalOffset = bottomAppBarVerticalOffsetOrg
         return fab
+    }
+
+    fun hideFab() {
+        fab.visibility = View.GONE
+        bottomAppBar.cradleVerticalOffset = 0F
     }
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.nav_host_fragment).navigateUp()
