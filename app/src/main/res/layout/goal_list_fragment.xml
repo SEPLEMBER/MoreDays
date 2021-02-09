@@ -27,16 +27,4 @@
             app:layout_constraintTop_toBottomOf="@id/textViewQuestion"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAdd"
-            android:layout_width="@dimen/fab_size"
-            android:layout_height="@dimen/fab_size"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/plus"
-            android:contentDescription="@string/lbl_add_goal"
-            app:backgroundTint="@color/secondaryColor"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

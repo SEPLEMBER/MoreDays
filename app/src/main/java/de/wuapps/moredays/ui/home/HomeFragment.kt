@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Scale
@@ -49,6 +50,7 @@ class HomeFragment : Fragment() {
                 db.trophyDao
             )
         ).get(HomeViewModel::class.java)
+
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.recyclerViewGoals.layoutManager = ResponsiveGridLayoutManager(
             requireNotNull(this.activity),

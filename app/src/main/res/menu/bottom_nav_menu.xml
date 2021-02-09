@@ -9,9 +9,6 @@
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
         android:title="@string/title_home" />
-    <item
-        android:id="@+id/navigation_placeholder"
-        android:title="" />
 
     <item
         android:id="@+id/navigation_journal"
@@ -22,5 +19,7 @@
         android:id="@+id/navigation_charts"
         android:icon="@drawable/ic_chart"
         android:title="@string/title_chart" />
-
+    <item
+        android:id="@+id/navigation_placeholder"
+        android:title="" />
 </menu>

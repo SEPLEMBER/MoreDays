@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Goal
@@ -46,8 +47,7 @@ class GoalListFragment : Fragment() {
         val adapter = GoalAdapter()
         binding.recyclerviewGoals.adapter = adapter
         subscribeUi(adapter)
-
-        binding.fabAdd.setOnClickListener { findNavController().navigate(R.id.navigation_goals_goal) }
+        (activity as MainActivity).let{it.getFab().setOnClickListener{findNavController().navigate(R.id.navigation_goals_goal)}}
         return binding.root
     }
 

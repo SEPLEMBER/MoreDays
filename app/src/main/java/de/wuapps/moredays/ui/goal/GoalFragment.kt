@@ -73,8 +73,8 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         binding.goalViewModel = viewModel
         binding.lifecycleOwner = this
         binding.buttonSave.setOnClickListener {
-            save()
-            it.findNavController().popBackStack()
+            if (save())
+                it.findNavController().popBackStack()
         }
         binding.buttonDelete.setOnClickListener { delete() }
         val iconDialog =
@@ -98,14 +98,15 @@ class GoalFragment : Fragment(), IconDialog.Callback {
             colorPickerDialog()
         }
         binding.imageButtonAddActivity.setOnClickListener {
-            save()
-            it.findNavController()
-                .navigate(
-                    GoalFragmentDirections.navigationGoalActivity(
-                        null,
-                        viewModel.goal
+            if (save()) {
+                it.findNavController()
+                    .navigate(
+                        GoalFragmentDirections.navigationGoalActivity(
+                            null,
+                            viewModel.goal
+                        )
                     )
-                )
+            }
         }
 
         if (arguments.goal != null) {
@@ -187,7 +188,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         }
     }
 
-    private fun save() {
+    private fun save():Boolean {
         var isValid = true
         val name = binding.editTextName.text.toString().trim()
         val pointsAsString = binding.editTextPoints.text.toString().trim()
@@ -207,11 +208,12 @@ class GoalFragment : Fragment(), IconDialog.Callback {
             isValid = false
         }
         if (!isValid)
-            return
+            return false
         viewModel.goal.points = points //trick supports only one way binding!!!
         viewModel.goal.color = selectedColor
         viewModel.goal.symbol = selectedIconId
         viewModel.save()
+        return true
     }
 
     override fun onDestroyView() {
