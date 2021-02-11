@@ -1,7 +1,6 @@
 package de.wuapps.moredays.ui.home
 
 import android.app.AlertDialog
-import android.app.Application
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +12,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.MainActivity
+import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
-import de.wuapps.moredays.data.Analysis
-import de.wuapps.moredays.data.entity.GoalAndRelatedData
 
 
 class GoalAdapter(private val homeViewModel: HomeViewModel) :
@@ -41,7 +39,7 @@ class GoalAdapter(private val homeViewModel: HomeViewModel) :
             textViewName.text = goalEntry.getName()
             textViewInfo.text = goalEntry.getInfo()
             imageViewSymbol.setImageDrawable(
-                MainActivity.iconPack?.let{it.getIcon(goalEntry.getSymbol())}?.drawable
+                MoreDaysApplication.iconPack?.let{it.getIcon(goalEntry.getSymbol())}?.drawable
             )
 
         }

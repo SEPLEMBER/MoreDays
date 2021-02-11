@@ -8,6 +8,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="fab_size">56dp</dimen>
     <dimen name="goal_item_width">150dp</dimen>
+    <dimen name="icon_item_widht">20dp</dimen>
     <dimen name="entry_type_item_width">100dp</dimen>
     <dimen name="activity_item_width">165dp</dimen>
     <dimen name="scale_item_width">100dp</dimen>

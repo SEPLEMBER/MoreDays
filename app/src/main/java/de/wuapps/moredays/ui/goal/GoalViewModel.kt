@@ -1,19 +1,20 @@
 package de.wuapps.moredays.ui.goal
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import de.wuapps.moredays.data.entity.GoalAndRelatedActivities
 import de.wuapps.moredays.database.dao.GoalDao
 import de.wuapps.moredays.database.entity.Goal
-import de.wuapps.moredays.ui.BaseViewModel
 import kotlinx.coroutines.launch
 
 class GoalViewModel(private val goalDao: GoalDao, _goal: Goal?) :
-    BaseViewModel() {
+    ViewModel() {
     var isNew = _goal == null
     var goal: Goal
     var isUsed = false
+    val hasFab = false
     lateinit var goalAndRelatedActivities: LiveData<GoalAndRelatedActivities?>
 
     init {

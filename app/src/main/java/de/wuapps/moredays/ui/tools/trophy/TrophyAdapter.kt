@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.MainActivity
+import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.data.entity.TrophyAndRelatedGoal
 import de.wuapps.moredays.database.entity.Trophy
@@ -30,10 +31,10 @@ class TrophyAdapter :
         fun bind(trophy: TrophyAndRelatedGoal) {
             currentTrophy = trophy
             imageViewGoal.setImageDrawable(
-                MainActivity.iconPack?.let { it.getIcon(trophy.goal.symbol) }?.drawable
+                MoreDaysApplication.iconPack?.let { it.getIcon(trophy.goal.symbol) }?.drawable
             )
             imageViewTrophy.setImageDrawable(
-                MainActivity.iconPack?.let { it.getIcon(matchTrophyTypeToSymbol(currentTrophy!!.trophy.type)) }?.drawable
+                MoreDaysApplication.iconPack?.let { it.getIcon(matchTrophyTypeToSymbol(currentTrophy!!.trophy.type)) }?.drawable
             )
             textViewDate.text = dateFormatter.format(currentTrophy!!.trophy.timestamp.time)
             textViewTitle.text = matchTrophyTypeToText(currentTrophy!!.trophy.type)

@@ -22,10 +22,12 @@ import com.skydoves.colorpickerview.flag.BubbleFlag
 import com.skydoves.colorpickerview.flag.FlagMode
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import de.wuapps.moredays.MainActivity
+import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.databinding.GoalFragmentBinding
 import de.wuapps.moredays.ui.activity.ActivityAdapter
+import de.wuapps.moredays.ui.tools.handleFab
 import kotlinx.coroutines.InternalCoroutinesApi
 import java.lang.Integer.parseInt
 
@@ -35,6 +37,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     private var _binding: GoalFragmentBinding? = null
     private var selectedIconId: Int = 0
     private var selectedColor: Int = 0
+    private val ICON_DIALOG_TAG = "ICON_DIALOG_TAG"
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -78,12 +81,12 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         }
         binding.buttonDelete.setOnClickListener { delete() }
         val iconDialog =
-            childFragmentManager.findFragmentByTag(viewModel.ICON_DIALOG_TAG) as IconDialog?
+            childFragmentManager.findFragmentByTag(ICON_DIALOG_TAG) as IconDialog?
                 ?: IconDialog.newInstance(IconDialogSettings())
         binding.imageButtonIcon.setOnClickListener {
             iconDialog.show(
                 childFragmentManager,
-                viewModel.ICON_DIALOG_TAG
+                ICON_DIALOG_TAG
             )
         }
         selectedIconId = viewModel.goal.symbol
@@ -92,7 +95,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         setColor()
 
         binding.imageButtonColor.setImageDrawable(
-            MainActivity.iconPack?.let{it.getIcon(SELECT_COLOR_ICON_ID)}?.drawable
+            MoreDaysApplication.iconPack?.let{it.getIcon(SELECT_COLOR_ICON_ID)}?.drawable
         )
         binding.imageButtonColor.setOnClickListener {
             colorPickerDialog()
@@ -121,6 +124,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
             binding.recyclerViewActivities.adapter = adapter
             subscribeUi(adapter)
         }
+        handleFab(viewModel.hasFab)
         return view
 
     }
@@ -225,7 +229,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     private fun setIcon() {
         if (selectedIconId > 0)
             binding.imageButtonIcon.setImageDrawable(
-                MainActivity.iconPack?.let{it.getIcon(selectedIconId)}?.drawable
+                MoreDaysApplication.iconPack?.let{it.getIcon(selectedIconId)}?.drawable
             )
     }
 
@@ -238,7 +242,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
      */
     @InternalCoroutinesApi
     override val iconDialogIconPack: IconPack?
-        get() = MainActivity.iconPack
+        get() = MoreDaysApplication.iconPack
 
     @InternalCoroutinesApi
     override fun onIconDialogIconsSelected(dialog: IconDialog, icons: List<Icon>) {

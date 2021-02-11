@@ -132,21 +132,14 @@
             app:argType="de.wuapps.moredays.database.entity.Scale"
             android:defaultValue="@null" />
     </fragment>
-<!--    <fragment
-        android:id="@+id/navigation_journal"
+    <fragment
+        android:id="@+id/navigation_journalList"
         android:name="de.wuapps.moredays.ui.journal.JournalListFragment"
         android:label="journal_list_fragment"
         tools:layout="@layout/journal_list_fragment" >
         <action
-            android:id="@+id/navigation_journal_day"
+            android:id="@+id/navigation_journalList_journal"
             app:destination="@id/journalFragment" />
-    </fragment>-->
-    <fragment
-        android:id="@+id/navigation_journal"
-        android:name="de.wuapps.moredays.ui.journal.JournalFragment"
-        android:label="journal_fragment"
-        tools:layout="@layout/journal_fragment" >
-
     </fragment>
     <fragment
         android:id="@+id/journalFragment"
@@ -154,9 +147,10 @@
         android:label="journal_fragment"
         tools:layout="@layout/journal_fragment">
         <argument
-            android:name="journalDay"
-            app:argType="string"
-            android:defaultValue="" />
+            android:name="journal"
+            app:nullable="true"
+            app:argType="de.wuapps.moredays.database.entity.Journal"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/helpFragment"
@@ -186,18 +180,4 @@
         android:name="de.wuapps.moredays.ui.tools.history.ActivityEntryListFragment"
         android:label="activity_entry_list_fragment"
         tools:layout="@layout/activity_entry_list_fragment" />
-
-    <!--
-        <include app:graph="@navigation/aboutlibs_navigation" />
-        <fragment
-            android:id="@+id/helpFragment"
-            android:name="de.wuapps.moredays.ui.tools.HelpFragment"
-            android:label="fragment_help"
-            tools:layout="@layout/fragment_help" >
-            <action
-                android:id="@+id/navigation_help_about"
-                app:destination="@id/about_libraries"
-                app:launchSingleTop="true" />
-        </fragment>
-        -->
 </navigation>

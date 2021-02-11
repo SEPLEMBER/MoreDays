@@ -13,6 +13,8 @@ import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.databinding.ScaleListFragmentBinding
 import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
+import de.wuapps.moredays.ui.tools.setFabOnClickListener
+import de.wuapps.moredays.ui.tools.showFab
 import kotlinx.coroutines.InternalCoroutinesApi
 
 
@@ -47,8 +49,13 @@ class ScaleListFragment : Fragment() {
         binding.recyclerviewScales.adapter = adapter
         subscribeUi(adapter)
 
-        binding.fabAdd.setOnClickListener { findNavController().navigate(R.id.navigation_scales_scale) }
+        setFabOnClickListener{ findNavController().navigate(R.id.navigation_scales_scale) }
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showFab()
     }
 
     @InternalCoroutinesApi

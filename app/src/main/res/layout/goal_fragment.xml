@@ -42,12 +42,14 @@
                 app:layout_constraintEnd_toEndOf="@id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lblPoints" />
+
             <ImageButton
                 android:id="@+id/imageButtonColor"
                 android:layout_width="@dimen/min_accesible_size"
                 android:layout_height="@dimen/min_accesible_size"
                 android:background="@drawable/circle_in_secondary"
                 android:importantForAccessibility="no"
+                android:src="@drawable/ic_palette"
                 app:layout_constraintBottom_toBottomOf="@id/editTextName"
                 app:layout_constraintEnd_toEndOf="parent" />
             <ImageButton

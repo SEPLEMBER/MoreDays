@@ -1,6 +1,5 @@
 package de.wuapps.moredays.ui.goal
 
-import android.app.Application
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.MainActivity
+import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Goal
 
@@ -35,7 +35,7 @@ class GoalAdapter() :
         fun bind(goal: Goal) {
             currentGoal = goal
             imageViewIcon.setImageDrawable(
-                MainActivity.iconPack?.let {it.getIcon(goal.symbol)}?.drawable
+                MoreDaysApplication.iconPack?.let {it.getIcon(goal.symbol)}?.drawable
             )
             textViewPoints.text = goal.points.toString()
             textViewName.text = goal.name

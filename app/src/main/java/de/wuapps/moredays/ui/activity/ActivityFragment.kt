@@ -13,6 +13,7 @@ import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.databinding.ActivityFragmentBinding
+import de.wuapps.moredays.ui.tools.handleFab
 import java.lang.Integer.parseInt
 
 class ActivityFragment : Fragment() {
@@ -44,7 +45,7 @@ class ActivityFragment : Fragment() {
         binding.buttonSave.setOnClickListener { save() }
         binding.buttonDelete.setOnClickListener { delete() }
         binding.lifecycleOwner = this.viewLifecycleOwner
-
+        handleFab(viewModel.hasFab)
         return view
 
     }

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 12,
-    "identityHash": "b96b89092eb580bcb81cea576d3cb7ae",
+    "identityHash": "8f3a81256e83ef811870c5be2c711fde",
     "entities": [
       {
         "tableName": "Activity",
@@ -446,7 +446,7 @@
       },
       {
         "tableName": "Journal",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`date` TEXT NOT NULL, `note` TEXT NOT NULL, `affirmation` TEXT NOT NULL, `image_filename` TEXT NOT NULL, `mood` INTEGER NOT NULL, PRIMARY KEY(`date`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`date` TEXT NOT NULL, `affirmation` TEXT NOT NULL, `note` TEXT NOT NULL, `image_filename` TEXT NOT NULL, `symbols` TEXT NOT NULL, `color` INTEGER NOT NULL, PRIMARY KEY(`date`))",
         "fields": [
           {
             "fieldPath": "date",
@@ -456,13 +456,13 @@
           },
           {
             "fieldPath": "affirmation",
-            "columnName": "note",
+            "columnName": "affirmation",
             "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "note",
-            "columnName": "affirmation",
+            "columnName": "note",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -473,8 +473,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "mood",
-            "columnName": "mood",
+            "fieldPath": "icons",
+            "columnName": "symbols",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "color",
+            "columnName": "color",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -524,7 +530,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b96b89092eb580bcb81cea576d3cb7ae')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8f3a81256e83ef811870c5be2c711fde')"
     ]
   }
 }

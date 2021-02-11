@@ -19,6 +19,7 @@ class HomeViewModel(
     private val trophyDao: TrophyDao
 ) : ViewModel() {
 
+    val hasFab = true
     val trophies = MutableLiveData<MutableList<Trophy>>()
     val justReached100Percent = MutableLiveData<Boolean>()
     val percent = MutableLiveData<Float>()

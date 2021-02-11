@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.MainActivity
+import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.data.entity.ActivityEntryAndRelatedData
 import java.text.SimpleDateFormat
@@ -16,7 +17,6 @@ import java.text.SimpleDateFormat
 
 class ActivityEntryAdapter :
     ListAdapter<ActivityEntryAndRelatedData, ActivityEntryAdapter.ActivityEntryViewHolder>(ActivityEntryDiffCallback) {
-
     class ActivityEntryViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         private val textViewTitle: TextView = itemView.findViewById(R.id.textViewTitle)
@@ -29,7 +29,7 @@ class ActivityEntryAdapter :
         fun bind(activityEntry: ActivityEntryAndRelatedData) {
             currentActivityEntry = activityEntry
             imageViewGoal.setImageDrawable(
-                MainActivity.iconPack?.let { it.getIcon(currentActivityEntry!!.goal.symbol) }?.drawable
+                MoreDaysApplication.iconPack?.let { it.getIcon(currentActivityEntry!!.goal.symbol) }?.drawable
             )
             textViewDate.text = dateFormatter.format(currentActivityEntry!!.activityEntry.timestamp.time)
             textViewTitle.text = currentActivityEntry!!.activity.name

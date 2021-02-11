@@ -6,4 +6,5 @@ import de.wuapps.moredays.database.dao.ScaleDao
 
 class ScaleListViewModel(scaleDao: ScaleDao) : ViewModel() {
     val scales = scaleDao.getAll().asLiveData()
+    val hasFab = true
 }

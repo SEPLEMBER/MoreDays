@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.map
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.data.entity.ActivityEntryAndRelatedData
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.databinding.ActivityEntryListFragmentBinding
+import de.wuapps.moredays.ui.tools.handleFab
 import kotlinx.coroutines.InternalCoroutinesApi
 
 
@@ -46,6 +46,7 @@ class ActivityEntryListFragment : Fragment() {
         val touchHelper = getItemTouchHelper()
         touchHelper.attachToRecyclerView(binding.recyclerviewActivityEntries)
         subscribeUi(adapter)
+        handleFab(viewModel.hasFab)
         return binding.root
     }
 

@@ -16,91 +16,91 @@
         android:layout_margin="@dimen/layout_margin"
         tools:context=".ui.journal.JournalFragment">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewDate"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-    <ImageView
-        android:id="@+id/imageViewPictureOfTheDay"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:importantForAccessibility="no"
-        android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="3:2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewDate" />
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{journalViewModel.getFormattedDate(@string/date_ymd)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/imageButtonPickImage"
-        android:layout_width="@dimen/min_accesible_size"
-        android:layout_height="@dimen/min_accesible_size"
-        android:background="@drawable/circle_in_secondary"
-        android:importantForAccessibility="no"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewDate" />
+            <ImageView
+                android:id="@+id/imageViewPictureOfTheDay"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="3:2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewDate" />
 
-    <ImageButton
-        android:id="@+id/btnRemoveImage"
-        android:layout_width="@dimen/min_accesible_size"
-        android:layout_height="@dimen/min_accesible_size"
-        android:background="@drawable/circle_in_secondary"
-        android:importantForAccessibility="no"
-        app:layout_constraintEnd_toStartOf="@id/imageButtonPickImage"
-        app:layout_constraintTop_toBottomOf="@id/textViewDate" />
+            <ImageButton
+                android:id="@+id/imageButtonPickImage"
+                android:layout_width="@dimen/min_accesible_size"
+                android:layout_height="@dimen/min_accesible_size"
+                android:background="@drawable/circle_in_secondary"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_camera"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewDate" />
 
-    <EditText
-        android:id="@+id/editTextAffirmation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="12"
-        android:inputType="text"
-        android:hint="Title/Affirmation"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageViewPictureOfTheDay"/>
-    <EditText
-        android:id="@+id/editTextNote"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="12"
-        android:hint="Notes"
-        android:inputType="textMultiLine"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextAffirmation"/>
+            <ImageButton
+                android:id="@+id/btnRemoveImage"
+                android:layout_width="@dimen/min_accesible_size"
+                android:layout_height="@dimen/min_accesible_size"
+                android:background="@drawable/circle_in_secondary"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_delete"
+                app:layout_constraintEnd_toStartOf="@id/imageButtonPickImage"
+                app:layout_constraintTop_toBottomOf="@id/textViewDate" />
 
-    <SeekBar
-        android:id="@+id/seekBarMood"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:max="5"
-        android:progress="3"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextNote"/>
+            <EditText
+                android:id="@+id/editTextAffirmation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="12"
+                android:hint="Title/Affirmation"
+                android:inputType="text"
+                android:text="@={journalViewModel.journal.affirmation}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageViewPictureOfTheDay" />
 
-    <Button
-        android:id="@+id/buttonSave"
-        style="@style/Widget.MoreDays.ButtonSave"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextNote" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerviewIcons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:flow_horizontalAlign="center"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextAffirmation" />
 
+            <EditText
+                android:id="@+id/editTextNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="12"
+                android:hint="Notes"
+                android:inputType="textMultiLine"
+                android:text="@={journalViewModel.journal.note}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerviewIcons" />
 
-    <Button
-        android:id="@+id/buttonDelete"
-        style="@style/Widget.MoreDays.ButtonDelete"
-        app:isGone="@{journalViewModel.new}"
-        app:layout_constraintBaseline_toBaselineOf="@id/buttonSave"
-        app:layout_constraintEnd_toStartOf="@id/buttonSave"
-        />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/buttonSave"
+                style="@style/Widget.MoreDays.ButtonSave"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextNote" />
+
+            <Button
+                android:id="@+id/buttonDelete"
+                style="@style/Widget.MoreDays.ButtonDelete"
+                app:isGone="@{journalViewModel.new}"
+                app:layout_constraintBaseline_toBaselineOf="@id/buttonSave"
+                app:layout_constraintEnd_toStartOf="@id/buttonSave" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

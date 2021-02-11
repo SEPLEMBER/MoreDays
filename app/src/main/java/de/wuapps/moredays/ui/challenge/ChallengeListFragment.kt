@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import de.wuapps.moredays.R
+import de.wuapps.moredays.ui.tools.showFab
 
 class ChallengeListFragment : Fragment() {
 
@@ -27,6 +28,11 @@ class ChallengeListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ChallengeListViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showFab()
     }
 
 }

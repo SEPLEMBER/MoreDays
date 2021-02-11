@@ -10,6 +10,7 @@ class ScaleViewModel(
     private val scaleDao: ScaleDao,
     _scale: Scale?
 ) : ViewModel() {
+    val hasFab = false
     val scale = _scale
     val isNew = scale == null
     var isUsed = false

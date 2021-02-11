@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import de.wuapps.moredays.data.converter.IntListTypeConverter
 import de.wuapps.moredays.database.converter.DateTypeConverter
 import de.wuapps.moredays.database.dao.*
 import de.wuapps.moredays.database.entity.*
@@ -15,7 +16,7 @@ import de.wuapps.moredays.utilities.DATABASE_VERSION
     entities = [Activity::class, ActivityEntry::class, Goal::class, Challenge::class, Scale::class, ScaleEntry::class, Trophy::class, Journal::class, HundredPercentValue::class],
     version = DATABASE_VERSION
 )
-@TypeConverters(DateTypeConverter::class)
+@TypeConverters(DateTypeConverter::class, IntListTypeConverter::class)
 abstract class MoreDaysDatabase : RoomDatabase() {
 
     abstract val goalDao: GoalDao
@@ -25,6 +26,7 @@ abstract class MoreDaysDatabase : RoomDatabase() {
     abstract val scaleEntryDao: ScaleEntryDao
     abstract val scaleDao: ScaleDao
     abstract val trophyDao: TrophyDao
+    abstract val journalDao: JournalDao
 
     companion object {
         @Volatile

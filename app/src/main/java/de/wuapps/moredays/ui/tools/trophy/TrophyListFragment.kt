@@ -1,26 +1,17 @@
 package de.wuapps.moredays.ui.tools.trophy
 
-import android.icu.lang.UCharacter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import de.wuapps.moredays.R
 import de.wuapps.moredays.data.entity.TrophyAndRelatedGoal
 import de.wuapps.moredays.database.MoreDaysDatabase
-import de.wuapps.moredays.database.entity.Goal
-import de.wuapps.moredays.database.entity.Trophy
-import de.wuapps.moredays.databinding.GoalListFragmentBinding
 import de.wuapps.moredays.databinding.TrophyListFragmentBinding
 import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
-import de.wuapps.moredays.ui.goal.GoalAdapter
-import de.wuapps.moredays.ui.goal.GoalListViewModel
-import de.wuapps.moredays.ui.goal.GoalListViewModelFactory
+import de.wuapps.moredays.ui.tools.handleFab
 import kotlinx.coroutines.InternalCoroutinesApi
 
 class TrophyListFragment : Fragment() {
@@ -53,6 +44,7 @@ class TrophyListFragment : Fragment() {
         val adapter = TrophyAdapter()
         binding.recyclerviewTrophies.adapter = adapter
         subscribeUi(adapter)
+        handleFab(viewModel.hasFab)
         return binding.root
     }
 

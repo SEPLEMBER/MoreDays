@@ -1,7 +1,6 @@
 package de.wuapps.moredays.ui.home
 
 import de.wuapps.moredays.data.entity.GoalAndRelatedData
-import de.wuapps.moredays.database.dao.ActivityEntryDao
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
 import java.util.*
