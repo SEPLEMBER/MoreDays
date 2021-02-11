@@ -1,6 +1,8 @@
 package de.wuapps.moredays
 
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -79,6 +81,7 @@ class MainActivity : AppCompatActivity() {
             MoreDaysApplication.iconPack = withContext(Dispatchers.Default) {
                 val pack = createDefaultIconPack(iconPackLoader)
                 pack.loadDrawables(iconPackLoader.drawableLoader)
+                MoreDaysApplication.loaded.postValue(true)
                 pack
             }
         }

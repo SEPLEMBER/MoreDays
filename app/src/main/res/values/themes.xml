@@ -97,4 +97,8 @@
     <style name="Widget.MoreDays.JournalTextView" parent="Widget.MaterialComponents.TextView">
         <item name="fontFamily">@font/hachi_maru_pop_regular</item>
     </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
 </resources>

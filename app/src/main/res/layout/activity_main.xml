@@ -43,5 +43,4 @@
         app:layout_anchor="@id/bottomAppBar"
         android:src="@drawable/plus"
          />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,6 +2,8 @@ package de.wuapps.moredays.ui.journal
 
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
 import com.maltaisn.icondialog.IconDialog
@@ -25,7 +24,6 @@ import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.databinding.JournalFragmentBinding
-import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
@@ -41,6 +39,7 @@ class JournalFragment : Fragment(), IconDialog.Callback {
     private val REQUEST_IMAGE = 42
     private lateinit var adapter: IconAdapter
     private val maxIcons = 8
+    private lateinit var exampleAffirmations :List<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,6 +77,8 @@ class JournalFragment : Fragment(), IconDialog.Callback {
                 ICON_DIALOG_TAG
             )
         }
+        binding.imageButtonSuggestAffirmation.setOnClickListener{suggestAffirmation()}
+        exampleAffirmations = getString(R.string.affirmation_examples).split("\\.".toRegex())
         val layoutManager = LinearLayoutManager(application)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         binding.recyclerviewIcons.layoutManager = layoutManager
@@ -92,6 +93,16 @@ class JournalFragment : Fragment(), IconDialog.Callback {
     override fun onResume() {
         super.onResume()
         showFab()
+    }
+
+    private fun suggestAffirmation(){
+        val builder = AlertDialog.Builder(this.activity)
+        builder.setTitle(R.string.title_affirmation)
+            .setItems(exampleAffirmations.toTypedArray(),
+                DialogInterface.OnClickListener { dialog, which ->
+                   binding.editTextAffirmation.setText(exampleAffirmations.get(which))
+                })
+        builder.create().show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -136,7 +147,7 @@ class JournalFragment : Fragment(), IconDialog.Callback {
     private fun setIcons(icons: List<Icon>) {
         adapter.submitList(icons)
     }
-    
+
     /**
      * IconDialog.Callback
      */

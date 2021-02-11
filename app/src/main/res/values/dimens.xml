@@ -13,5 +13,6 @@
     <dimen name="activity_item_width">165dp</dimen>
     <dimen name="scale_item_width">100dp</dimen>
     <dimen name="trophy_item_width">150dp</dimen>
+    <dimen name="journal_item_width">150dp</dimen>
     <dimen name="min_margin">4dp</dimen>
 </resources>

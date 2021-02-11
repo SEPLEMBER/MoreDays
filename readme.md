@@ -52,7 +52,8 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 - adapted bottom navigation (menu and mainactivity) 
 - added libraries
 - downloaded fonts from https://fonts.google.com/
-- implement adapters https://developer.android.com/guide/topics/ui/layout/recyclerview
+- implemented features
+- added splash as described in https://www.bignerdranch.com/blog/splash-screens-the-right-way/
 
 
 ## Lessons learned
@@ -136,6 +137,10 @@ getSupportFragmentManager().beginTransaction()
 ### Binding
 - https://developer.android.com/topic/libraries/view-binding
 - ***needs a generic layout tag in layout files***, see https://developer.android.com/topic/libraries/data-binding/expressions
+- the viewModel should not know the context, hence it provides the data without internationalization, however this may be done in the view, e.g.
+```
+android:text="@{@plurals/watering_next(viewModel.wateringInterval, viewModel.wateringInterval)}"
+```
 - binding of edittext to number is a bit tricky, workaround use one way binding, see https://stackoverflow.com/questions/38982604/two-way-databinding-in-edittext
   - `` android:text="@={`` + goalViewModel.goal.points}" `
   - do not forget to fetch the value before saving

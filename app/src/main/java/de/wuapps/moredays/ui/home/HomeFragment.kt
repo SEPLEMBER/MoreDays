@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Scale
@@ -66,7 +67,7 @@ class HomeFragment : Fragment() {
         scaleAdapter = ScaleAdapter(homeViewModel)
         binding.recyclerViewScales.adapter = scaleAdapter
         setFabOnClickListener{showAddOptions()}
-        subscribeUi()
+        handleLoading()
         return binding.root
     }
 
@@ -78,7 +79,22 @@ class HomeFragment : Fragment() {
     private fun showAddOptions(){
 
     }
-    private fun subscribeUi() {
+    private fun handleLoading() {
+        if (MoreDaysApplication.loaded.value != null && MoreDaysApplication.loaded.value!!){
+            subscribeUI()
+        }
+        else {
+            binding.progressBarCyclic.visibility = View.VISIBLE
+            MoreDaysApplication.loaded.observe(viewLifecycleOwner, {
+                if (it) {
+                    subscribeUI()
+                }
+            })
+        }
+    }
+
+    private fun subscribeUI(){
+        binding.progressBarCyclic.visibility = View.GONE
         homeViewModel.scales.observe(viewLifecycleOwner, {
             it?.let {
                 scaleAdapter.submitList(it as MutableList<Scale>)

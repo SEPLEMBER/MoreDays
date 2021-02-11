@@ -35,6 +35,7 @@
                 android:importantForAccessibility="no"
                 android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="3:2"
+                android:layout_margin="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewDate" />
@@ -53,6 +54,7 @@
                 android:id="@+id/btnRemoveImage"
                 android:layout_width="@dimen/min_accesible_size"
                 android:layout_height="@dimen/min_accesible_size"
+                android:layout_marginEnd="4dp"
                 android:background="@drawable/circle_in_secondary"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_delete"
@@ -61,15 +63,26 @@
 
             <EditText
                 android:id="@+id/editTextAffirmation"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ems="12"
-                android:hint="Title/Affirmation"
+                android:layout_marginTop="8dp"
+                android:hint="@string/title_affirmation"
                 android:inputType="text"
                 android:text="@={journalViewModel.journal.affirmation}"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/imageButtonSuggestAffirmation"
                 app:layout_constraintTop_toBottomOf="@id/imageViewPictureOfTheDay" />
 
+            <ImageButton
+                android:id="@+id/imageButtonSuggestAffirmation"
+                android:layout_width="@dimen/min_accesible_size"
+                android:layout_height="@dimen/min_accesible_size"
+                android:background="@drawable/circle_in_secondary"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_lookup"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/editTextAffirmation" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerviewIcons"
                 android:layout_width="match_parent"
