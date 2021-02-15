@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
 
-class JournalViewModel(private val journalDao: JournalDao, private val _journal: Journal?) :
+class JournalViewModel(private val journalDao: JournalDao, _journal: Journal?) :
     ViewModel() {
     val hasFab = true
     var isNew = _journal == null

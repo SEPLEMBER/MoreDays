@@ -23,8 +23,8 @@ class HomeViewModel(
     val justReached100Percent = MutableLiveData<Boolean>()
     val percent = MutableLiveData<Float>()
     val date: Calendar = Calendar.getInstance()
-    val scales = scaleDao.getAll().asLiveData()
-    val goalData = goalDao.getAllDataForGivenDate().asLiveData()
+    val scales = scaleDao.getAll().asLiveData().map { scale -> scale}
+    val goalEntries = goalDao.getAllDataForGivenDate().asLiveData()
         .map { goalData -> mapGoalDataToGoalEntries(goalData) }
     private var was100Percent = false //before an activity is inserted this is set to true/false, hence with an update of goalData reached100Percent may be set accordingly
     private val analysis = Analysis()

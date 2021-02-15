@@ -4,6 +4,7 @@
         <item quantity="other">%2$s (%1$d points)</item>
     </plurals>
     <string name="date_ymd">yy-MM-dd</string>
+    <string name="date_time">yy-MM-dd HH:mm</string>
     <string name="app_name">moreDays</string>
     <string name="title_home">Home</string>
     <string name="title_chart">Charts</string>

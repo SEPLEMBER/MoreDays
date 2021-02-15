@@ -21,12 +21,13 @@ class ActivityEntryAdapter :
     ListAdapter<ActivityEntryAndRelatedData, ActivityEntryAdapter.ActivityEntryViewHolder>(ActivityEntryDiffCallback) {
     class ActivityEntryViewHolder(private val binding: ListItemActivityEntryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val dateFormatter = SimpleDateFormat(itemView.context.getString(R.string.date_ymd))
+        private val dateFormatter = SimpleDateFormat(itemView.context.getString(R.string.date_time))
 
         fun bind(item: ActivityEntryAndRelatedData) {
             binding.imageViewGoal.setImageDrawable(
                 MoreDaysApplication.iconPack?.let { it.getIcon(item.goal.symbol) }?.drawable
             )
+            binding.imageViewGoal.setColorFilter(item.goal.color)
             binding.textViewDate.text = dateFormatter.format(item.activityEntry.timestamp.time)
             binding.apply {
                 activityEntry = item
