@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import de.wuapps.moredays.R
-import de.wuapps.moredays.data.entity.TrophyAndRelatedGoal
+import de.wuapps.moredays.database.entity.TrophyAndRelatedGoal
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.databinding.TrophyListFragmentBinding
 import de.wuapps.moredays.ui.ResponsiveGridLayoutManager

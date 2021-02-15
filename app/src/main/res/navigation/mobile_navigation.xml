@@ -116,7 +116,7 @@
         android:id="@+id/scaleListFragment"
         android:name="de.wuapps.moredays.ui.scale.ScaleListFragment"
         android:label="fragment_scale_list"
-        tools:layout="@layout/fragment_scale_list" >
+        tools:layout="@layout/scale_list_fragment" >
         <action
             android:id="@+id/navigation_scales_scale"
             app:destination="@id/scaleFragment" />

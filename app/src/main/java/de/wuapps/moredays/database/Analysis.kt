@@ -1,4 +1,4 @@
-package de.wuapps.moredays.data
+package de.wuapps.moredays.database
 
 import de.wuapps.moredays.database.dao.ActivityEntryDao
 import de.wuapps.moredays.database.dao.ChallengeDao

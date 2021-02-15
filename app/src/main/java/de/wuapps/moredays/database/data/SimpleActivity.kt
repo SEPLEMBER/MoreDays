@@ -1,4 +1,4 @@
-package de.wuapps.moredays.data.data
+package de.wuapps.moredays.database.data
 
 import java.util.*
 

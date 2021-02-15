@@ -5,8 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import de.wuapps.moredays.data.converter.IntListTypeConverter
 import de.wuapps.moredays.database.converter.DateTypeConverter
+import de.wuapps.moredays.database.converter.IntListTypeConverter
 import de.wuapps.moredays.database.dao.*
 import de.wuapps.moredays.database.entity.*
 import de.wuapps.moredays.utilities.DATABASE_NAME

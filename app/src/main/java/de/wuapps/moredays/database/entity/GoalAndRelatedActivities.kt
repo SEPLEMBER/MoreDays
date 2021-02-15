@@ -1,9 +1,7 @@
-package de.wuapps.moredays.data.entity
+package de.wuapps.moredays.database.entity
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import de.wuapps.moredays.database.entity.Activity
-import de.wuapps.moredays.database.entity.Goal
 
 data class GoalAndRelatedActivities(
     @Embedded

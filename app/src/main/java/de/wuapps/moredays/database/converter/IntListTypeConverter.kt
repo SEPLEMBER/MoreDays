@@ -1,4 +1,4 @@
-package de.wuapps.moredays.data.converter
+package de.wuapps.moredays.database.converter
 
 import androidx.room.TypeConverter
 

@@ -66,7 +66,7 @@ class ScaleAdapter(private val homeViewModel: HomeViewModel) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScaleViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item_entry_type, parent, false)
+            .inflate(R.layout.list_item_goal_home, parent, false)
         return ScaleViewHolder(view, homeViewModel)
     }
 

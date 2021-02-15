@@ -3,7 +3,6 @@ package de.wuapps.moredays.ui.journal
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import de.wuapps.moredays.database.dao.JournalDao
-import de.wuapps.moredays.database.entity.Journal
 
 class JournalListViewModelFactory (private val journalDao: JournalDao) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")

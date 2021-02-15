@@ -21,7 +21,6 @@ import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.flag.BubbleFlag
 import com.skydoves.colorpickerview.flag.FlagMode
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
-import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase

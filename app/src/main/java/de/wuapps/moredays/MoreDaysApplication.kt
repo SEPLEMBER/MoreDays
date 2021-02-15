@@ -1,8 +1,6 @@
 package de.wuapps.moredays
 
 import android.app.Application
-import androidx.databinding.ObservableField
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.maltaisn.icondialog.pack.IconPack
 

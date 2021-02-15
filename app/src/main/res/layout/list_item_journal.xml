@@ -1,50 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/journal_item_width"
-    android:layout_height="150dp"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
-        android:padding="0dp">
+    <data>
 
-        <ImageView
-            android:id="@+id/imageViewPictureOfTheDay"
-            android:layout_width="150dp"
-            android:layout_height="80dp"
-            android:importantForAccessibility="no"
-            android:scaleType="centerCrop" />
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+        <variable
+            name="journal"
+            type="de.wuapps.moredays.database.entity.Journal" />
+    </data>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="@dimen/journal_item_width"
+        android:layout_height="160dp"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        android:onClick="@{clickListener}"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
 
-        <TextView
-            android:id="@+id/textViewDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="4dp"
-            android:textSize="12sp"
-            android:layout_marginVertical="1dp"
-            />
-
-        <TextView
-            android:id="@+id/textViewImportant"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="1dp"
-            android:layout_marginHorizontal="8dp"
-            android:textAlignment="center"
-            android:textSize="14sp" />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerviewIcons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            />
+            android:orientation="vertical"
+            android:padding="0dp">
 
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+            <ImageView
+                android:id="@+id/imageViewPictureOfTheDay"
+                android:layout_width="150dp"
+                android:layout_height="80dp"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginVertical="1dp"
+                android:layout_marginEnd="4dp"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textViewImportant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:text="@{journal.affirmation}"
+                android:layout_marginVertical="1dp"
+                android:textAlignment="center"
+                android:textSize="14sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerviewIcons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

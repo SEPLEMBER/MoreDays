@@ -8,36 +8,37 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
-import de.wuapps.moredays.data.entity.TrophyAndRelatedGoal
+import de.wuapps.moredays.database.entity.TrophyAndRelatedGoal
 import de.wuapps.moredays.database.entity.Trophy
+import de.wuapps.moredays.databinding.ListItemGoalBinding
+import de.wuapps.moredays.databinding.ListItemTrophyBinding
+import de.wuapps.moredays.ui.goal.GoalAdapter
 import java.text.SimpleDateFormat
 
 
 class TrophyAdapter :
     ListAdapter<TrophyAndRelatedGoal, TrophyAdapter.TrophyViewHolder>(TrophyDiffCallback) {
 
-    class TrophyViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        private val textViewTitle: TextView = itemView.findViewById(R.id.textViewTitle)
-        private val imageViewTrophy: ImageView = itemView.findViewById((R.id.imageViewTrophy))
-        private val imageViewGoal: ImageView = itemView.findViewById((R.id.imageViewGoal))
-        private val textViewDate: TextView = itemView.findViewById(R.id.textViewDate)
-        private val textViewText: TextView = itemView.findViewById(R.id.textViewText)
-        private var currentTrophy: TrophyAndRelatedGoal? = null
+    class TrophyViewHolder(private val binding: ListItemTrophyBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         private val dateFormatter = SimpleDateFormat(itemView.context.getString(R.string.date_ymd))
-        fun bind(trophy: TrophyAndRelatedGoal) {
-            currentTrophy = trophy
-            imageViewGoal.setImageDrawable(
-                MoreDaysApplication.iconPack?.let { it.getIcon(trophy.goal.symbol) }?.drawable
+
+        fun bind(item: TrophyAndRelatedGoal) {
+            binding.imageViewGoal.setImageDrawable(
+                MoreDaysApplication.iconPack?.let { it.getIcon(item.goal.symbol) }?.drawable
             )
-            imageViewTrophy.setImageDrawable(
-                MoreDaysApplication.iconPack?.let { it.getIcon(matchTrophyTypeToSymbol(currentTrophy!!.trophy.type)) }?.drawable
+            binding.imageViewGoal.setColorFilter(item.goal.color)
+            binding.imageViewTrophy.setImageDrawable(
+                MoreDaysApplication.iconPack?.let { it.getIcon(matchTrophyTypeToSymbol(item.trophy.type)) }?.drawable
             )
-            textViewDate.text = dateFormatter.format(currentTrophy!!.trophy.timestamp.time)
-            textViewTitle.text = matchTrophyTypeToText(currentTrophy!!.trophy.type)
+            binding.textViewDate.text = dateFormatter.format(item.trophy.timestamp.time)
+            binding.textViewTitle.text = matchTrophyTypeToText(item.trophy.type)
+            binding.apply {
+                trophyData = item
+                executePendingBindings()
+            }
         }
 
         private fun matchTrophyTypeToSymbol(trophyType: Int): Int {
@@ -61,9 +62,13 @@ class TrophyAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrophyViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item_trophy, parent, false)
-        return TrophyViewHolder(view)
+        return TrophyAdapter.TrophyViewHolder(
+            ListItemTrophyBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: TrophyViewHolder, position: Int) {

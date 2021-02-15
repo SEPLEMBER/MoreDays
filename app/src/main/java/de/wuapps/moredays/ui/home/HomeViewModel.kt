@@ -1,8 +1,7 @@
 package de.wuapps.moredays.ui.home
 
 import androidx.lifecycle.*
-import de.wuapps.moredays.data.Analysis
-import de.wuapps.moredays.data.entity.GoalAndRelatedData
+import de.wuapps.moredays.database.Analysis
 import de.wuapps.moredays.database.dao.*
 import de.wuapps.moredays.database.entity.*
 import kotlinx.coroutines.Dispatchers

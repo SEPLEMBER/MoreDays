@@ -16,62 +16,62 @@ import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.converter.DateTypeConverter
 import de.wuapps.moredays.database.entity.Journal
+import de.wuapps.moredays.databinding.ListItemGoalBinding
+import de.wuapps.moredays.databinding.ListItemJournalBinding
+import de.wuapps.moredays.ui.goal.GoalAdapter
 import java.text.SimpleDateFormat
 
 
 class JournalAdapter :
     ListAdapter<Journal, JournalAdapter.JournalViewHolder>(JournalDiffCallback) {
-    private val viewPool = RecycledViewPool()
 
-    class JournalViewHolder(private val itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        private val textViewImportant: TextView = itemView.findViewById(R.id.textViewImportant)
-        private val textViewDate: TextView = itemView.findViewById(R.id.textViewDate)
-        private val imageViewPictureOfTheDay: ImageView = itemView.findViewById(R.id.imageViewPictureOfTheDay)
-        private val recyclerViewIcons: RecyclerView = itemView.findViewById(R.id.recyclerviewIcons)
-        private var currentJournal: Journal? = null
-        private val formatter = SimpleDateFormat(itemView.context.getString(R.string.date_ymd))
+    class JournalViewHolder(private val binding: ListItemJournalBinding) :  RecyclerView.ViewHolder(binding.root) {
+        private val formatter = SimpleDateFormat(binding.root.context.getString(R.string.date_ymd))
 
         init {
-            itemView.setOnClickListener {
+            binding.setClickListener {
                 it.findNavController()
                     .navigate(
                         JournalListFragmentDirections.navigationJournalListJournal(
-                            currentJournal
+                            binding.journal!!
                         )
                     )
-
             }
         }
 
-        fun bind(journal: Journal) {
-            currentJournal = journal
-            textViewImportant.text = journal.affirmation
-            textViewDate.text = formatter.format(DateTypeConverter.convertStringToDate(journal.date).time)
-            if (!journal.imageFilename.isNullOrBlank())
+        fun bind(item: Journal) {
+            binding.textViewDate.text = formatter.format(DateTypeConverter.convertStringToDate(item.date).time)
+            if (!item.imageFilename.isNullOrBlank())
                 Glide.with(itemView.context)
-                    .load(journal.imageFilename)
-                    .into(imageViewPictureOfTheDay);
-            if (journal.icons.size > 0){
+                    .load(item.imageFilename)
+                    .into(binding.imageViewPictureOfTheDay);
+            if (item.icons.size > 0){
                 val layoutManager = LinearLayoutManager(
                     itemView.context,
                     LinearLayoutManager.HORIZONTAL,
                     false
                 )
-                layoutManager.initialPrefetchItemCount = journal.icons.size
+                layoutManager.initialPrefetchItemCount = item.icons.size
                 val iconAdapter = IconAdapter()
-                iconAdapter.submitList(journal.icons.map{ MoreDaysApplication.iconPack!!.getIcon(it)!! })
-                recyclerViewIcons.setLayoutManager(layoutManager)
-                recyclerViewIcons.adapter = iconAdapter
-                //recyclerViewIcons.setRecycledViewPool(viewPool)
+                iconAdapter.submitList(item.icons.map{ MoreDaysApplication.iconPack!!.getIcon(it)!! })
+                binding.recyclerviewIcons.setLayoutManager(layoutManager)
+                binding.recyclerviewIcons.adapter = iconAdapter
+            }
+            binding.apply {
+                journal = item
+                executePendingBindings()
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JournalViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item_journal, parent, false)
-        return JournalViewHolder(view)
+        return JournalAdapter.JournalViewHolder(
+            ListItemJournalBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: JournalViewHolder, position: Int) {

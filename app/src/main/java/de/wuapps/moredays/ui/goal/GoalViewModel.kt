@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import de.wuapps.moredays.data.entity.GoalAndRelatedActivities
+import de.wuapps.moredays.database.entity.GoalAndRelatedActivities
 import de.wuapps.moredays.database.dao.GoalDao
 import de.wuapps.moredays.database.entity.Goal
 import kotlinx.coroutines.launch

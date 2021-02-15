@@ -10,33 +10,40 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Scale
+import de.wuapps.moredays.databinding.ListItemGoalBinding
+import de.wuapps.moredays.databinding.ListItemScaleBinding
+import de.wuapps.moredays.ui.goal.GoalAdapter
 
 class ScaleAdapter :
     ListAdapter<Scale, ScaleAdapter.ScaleViewHolder>(ScaleDiffCallback) {
 
-    class ScaleViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        private val textViewName: TextView = itemView.findViewById(R.id.textViewName)
-        private var currentScale: Scale? = null
+    class ScaleViewHolder( private val binding: ListItemScaleBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         init {
-            itemView.setOnClickListener {
+            binding.setClickListener {
                 it.findNavController()
-                    .navigate(ScaleListFragmentDirections.navigationScalesScale(currentScale))
+                    .navigate(ScaleListFragmentDirections.navigationScalesScale(binding.scale))
 
             }
         }
 
-        fun bind(scale: Scale) {
-            currentScale = scale
-            textViewName.text = scale.name
+        fun bind(item: Scale) {
+            binding.apply {
+                scale = item
+                executePendingBindings()
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScaleViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item_scale, parent, false)
-        return ScaleViewHolder(view)
+        return ScaleAdapter.ScaleViewHolder(
+            ListItemScaleBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ScaleViewHolder, position: Int) {

@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import de.wuapps.moredays.data.entity.ActivityEntryAndRelatedData
+import de.wuapps.moredays.database.entity.ActivityEntryAndRelatedData
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.databinding.ActivityEntryListFragmentBinding
 import de.wuapps.moredays.ui.tools.handleFab

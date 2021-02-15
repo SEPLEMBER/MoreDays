@@ -4,18 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.maltaisn.icondialog.data.Icon
-import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
-import de.wuapps.moredays.database.converter.DateTypeConverter
-import de.wuapps.moredays.database.entity.Journal
-import java.text.SimpleDateFormat
 
 class IconAdapter :
     ListAdapter<Icon, IconAdapter.IconViewHolder>(IconDiffCallback) {

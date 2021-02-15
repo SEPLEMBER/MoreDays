@@ -11,14 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
-import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Journal
-import de.wuapps.moredays.databinding.GoalListFragmentBinding
 import de.wuapps.moredays.databinding.JournalListFragmentBinding
-import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
-import de.wuapps.moredays.ui.goal.GoalAdapter
-import de.wuapps.moredays.ui.goal.GoalListViewModel
-import de.wuapps.moredays.ui.goal.GoalListViewModelFactory
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import kotlinx.coroutines.InternalCoroutinesApi

@@ -1,8 +1,6 @@
 package de.wuapps.moredays
 
 import android.os.Bundle
-import android.view.View
-import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController

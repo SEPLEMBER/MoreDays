@@ -8,38 +8,41 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
-import de.wuapps.moredays.data.entity.ActivityEntryAndRelatedData
+import de.wuapps.moredays.database.entity.ActivityEntryAndRelatedData
+import de.wuapps.moredays.databinding.ListItemActivityEntryBinding
+import de.wuapps.moredays.databinding.ListItemGoalBinding
+import de.wuapps.moredays.ui.goal.GoalAdapter
 import java.text.SimpleDateFormat
 
 
 class ActivityEntryAdapter :
     ListAdapter<ActivityEntryAndRelatedData, ActivityEntryAdapter.ActivityEntryViewHolder>(ActivityEntryDiffCallback) {
-    class ActivityEntryViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        private val textViewTitle: TextView = itemView.findViewById(R.id.textViewTitle)
-        private val imageViewGoal: ImageView = itemView.findViewById((R.id.imageViewGoal))
-        private val textViewDate: TextView = itemView.findViewById(R.id.textViewDate)
-        private val textViewText: TextView = itemView.findViewById(R.id.textViewText)
-        private var currentActivityEntry: ActivityEntryAndRelatedData? = null
+    class ActivityEntryViewHolder(private val binding: ListItemActivityEntryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         private val dateFormatter = SimpleDateFormat(itemView.context.getString(R.string.date_ymd))
 
-        fun bind(activityEntry: ActivityEntryAndRelatedData) {
-            currentActivityEntry = activityEntry
-            imageViewGoal.setImageDrawable(
-                MoreDaysApplication.iconPack?.let { it.getIcon(currentActivityEntry!!.goal.symbol) }?.drawable
+        fun bind(item: ActivityEntryAndRelatedData) {
+            binding.imageViewGoal.setImageDrawable(
+                MoreDaysApplication.iconPack?.let { it.getIcon(item.goal.symbol) }?.drawable
             )
-            textViewDate.text = dateFormatter.format(currentActivityEntry!!.activityEntry.timestamp.time)
-            textViewTitle.text = currentActivityEntry!!.activity.name
+            binding.textViewDate.text = dateFormatter.format(item.activityEntry.timestamp.time)
+            binding.apply {
+                activityEntry = item
+                executePendingBindings()
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActivityEntryViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item_activity_entry, parent, false)
-        return ActivityEntryViewHolder(view)
+        return ActivityEntryAdapter.ActivityEntryViewHolder(
+            ListItemActivityEntryBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ActivityEntryViewHolder, position: Int) {

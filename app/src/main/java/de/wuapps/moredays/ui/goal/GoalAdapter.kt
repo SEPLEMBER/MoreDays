@@ -1,55 +1,51 @@
 package de.wuapps.moredays.ui.goal
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.MoreDaysApplication
-import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Goal
+import de.wuapps.moredays.databinding.ListItemGoalBinding
 
 
 class GoalAdapter() :
     ListAdapter<Goal, GoalAdapter.GoalViewHolder>(GoalDiffCallback) {
-    class GoalViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        private val textViewName: TextView = itemView.findViewById(R.id.textViewName)
-        private val imageViewIcon: ImageView = itemView.findViewById(R.id.imageViewIcon)
-        private val textViewPoints: TextView = itemView.findViewById(R.id.textViewPoints)
-        private var currentGoal: Goal? = null
+    class GoalViewHolder( private val binding: ListItemGoalBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         init {
-            itemView.setOnClickListener {
-                it.findNavController()
-                    .navigate(GoalListFragmentDirections.navigationGoalsGoal(currentGoal!!))
-
+            binding.setClickListener{ view ->
+                view.findNavController().navigate(GoalListFragmentDirections.navigationGoalsGoal(binding.goal))
             }
         }
 
-        fun bind(goal: Goal) {
-            currentGoal = goal
-            imageViewIcon.setImageDrawable(
-                MoreDaysApplication.iconPack?.let {it.getIcon(goal.symbol)}?.drawable
+        fun bind(item: Goal) {
+            binding.imageViewIcon.setImageDrawable(
+                MoreDaysApplication.iconPack?.let {it.getIcon(item.symbol)}?.drawable
             )
-            textViewPoints.text = goal.points.toString()
-            textViewName.text = goal.name
+            binding.imageViewIcon.setColorFilter(item.color)
+            binding.apply {
+                goal = item
+                executePendingBindings()
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GoalViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item_goal, parent, false)
-        return GoalViewHolder(view)
+        return GoalViewHolder(ListItemGoalBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        ))
     }
 
     override fun onBindViewHolder(holder: GoalViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val goal = getItem(position)
+        if (goal != null)
+            holder.bind(goal)
     }
 }
 
