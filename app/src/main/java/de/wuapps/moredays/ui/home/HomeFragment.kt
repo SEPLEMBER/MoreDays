@@ -14,9 +14,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
+import de.wuapps.moredays.database.entity.Challenge
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.databinding.FragmentHomeBinding
@@ -39,6 +41,7 @@ class HomeFragment : Fragment() {
     }
     private lateinit var binding: FragmentHomeBinding
     private lateinit var goalAdapter: GoalAdapter
+    private lateinit var challengeAdapter: ChallengeAdapter
     private val scales = ArrayList<Scale>()
     private val activityData = ArrayList<Pair<Goal, de.wuapps.moredays.database.entity.Activity>>()
     private var date = Calendar.getInstance()
@@ -56,6 +59,9 @@ class HomeFragment : Fragment() {
         )
         goalAdapter = GoalAdapter(viewModel)
         binding.recyclerViewGoals.adapter = goalAdapter
+        challengeAdapter = ChallengeAdapter()
+        binding.recyclerviewChallenges.adapter = challengeAdapter
+        binding.recyclerviewChallenges.layoutManager = LinearLayoutManager(this.context)
         setFabOnClickListener { showAddOptions() }
         handleLoading()
         return binding.root
@@ -152,6 +158,13 @@ class HomeFragment : Fragment() {
                 activityData.toList().sortedBy { (_, activity) -> activity.points }
             }
         })
+        viewModel.challenges.observe(viewLifecycleOwner, {
+            it?.let {
+                val data = it as MutableList<Challenge>
+                challengeAdapter.submitList(data)
+            }
+        })
+
         viewModel.trophies.observe(viewLifecycleOwner, {
             it?.let {
                 if (it.isNotEmpty()) {

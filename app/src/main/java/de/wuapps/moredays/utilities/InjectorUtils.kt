@@ -3,11 +3,10 @@ package de.wuapps.moredays.utilities
 import android.content.Context
 import androidx.fragment.app.Fragment
 import de.wuapps.moredays.database.MoreDaysDatabase
-import de.wuapps.moredays.database.entity.Activity
-import de.wuapps.moredays.database.entity.Goal
-import de.wuapps.moredays.database.entity.Journal
-import de.wuapps.moredays.database.entity.Scale
+import de.wuapps.moredays.database.entity.*
 import de.wuapps.moredays.ui.activity.ActivityViewModelFactory
+import de.wuapps.moredays.ui.challenge.ChallengeListViewModelFactory
+import de.wuapps.moredays.ui.challenge.ChallengeViewModelFactory
 import de.wuapps.moredays.ui.goal.GoalListViewModelFactory
 import de.wuapps.moredays.ui.goal.GoalViewModelFactory
 import de.wuapps.moredays.ui.home.HomeViewModelFactory
@@ -88,4 +87,19 @@ object InjectorUtils {
     ): TrophyListViewModelFactory {
         return TrophyListViewModelFactory(MoreDaysDatabase.getInstance(context.applicationContext).trophyDao)
     }
+
+    fun provideChallengeListViewModelFactory(
+        context: Context
+    ): ChallengeListViewModelFactory {
+        return ChallengeListViewModelFactory(MoreDaysDatabase.getInstance(context.applicationContext).challengeDao)
+    }
+
+    fun provideChallengeViewModelFactory(
+        context: Context,
+        challenge: Challenge?
+    ): ChallengeViewModelFactory {
+        val db = MoreDaysDatabase.getInstance(context.applicationContext)
+        return ChallengeViewModelFactory(db.challengeDao, db.goalDao, db.activityDao, db.scaleDao, challenge)
+    }
+
 }

@@ -6,9 +6,11 @@
     android:paddingBottom="@dimen/min_accesible_size"
     tools:context=".ui.challenge.ChallengeListFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewChallenges"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layout_margin"
+        />
 
 </FrameLayout>

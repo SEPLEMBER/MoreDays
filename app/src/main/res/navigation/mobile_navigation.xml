@@ -72,9 +72,10 @@
         android:label="challenge_fragment"
         tools:layout="@layout/challenge_fragment">
     <argument
-        android:name="challengeId"
-        app:argType="long"
-        android:defaultValue="-1L"/>
+        android:name="challenge"
+        app:argType="de.wuapps.moredays.database.entity.Challenge"
+        app:nullable="true"
+        android:defaultValue="@null"/>
     </fragment>
     <fragment
         android:id="@+id/goalFragment"

@@ -49,4 +49,9 @@ class Scale(
         result = 31 * result + maxValue
         return result
     }
+
+    //needed for spinner
+    override fun toString(): String {
+        return name
+    }
 }

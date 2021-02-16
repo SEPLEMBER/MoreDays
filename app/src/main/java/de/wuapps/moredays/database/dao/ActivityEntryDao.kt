@@ -66,7 +66,7 @@ interface ActivityEntryDao {
     suspend fun getCountToActivityInTimeSpan(activityId: Long, from: Calendar, to: Calendar): Int
 
     @Query("SELECT sum(Activity.points) as sum FROM ActivityEntry left join Activity on ActivityEntry.activity_id = Activity.uid where Activity.goal_id = :goalId and datetime(ActivityEntry.timestamp / 1000 , 'unixepoch') between datetime(:from / 1000 , 'unixepoch') and datetime(:to / 1000 , 'unixepoch')")
-    suspend fun getSumToGoalInTimeSpan(goalId: Long, from: Calendar, to: Calendar): Int
+    suspend fun getSumToGoalInTimeSpan(goalId: Long, from: Calendar, to: Calendar): Int?
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(activityEntry: ActivityEntry): Long

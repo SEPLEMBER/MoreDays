@@ -3,9 +3,7 @@ package de.wuapps.moredays.ui.activity
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -26,10 +24,6 @@ class ActivityFragment : Fragment() {
     }
     private lateinit var binding: ActivityFragmentBinding
 
-    companion object {
-        fun newInstance() = ActivityFragment()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,10 +31,9 @@ class ActivityFragment : Fragment() {
         binding = ActivityFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.activityViewModel = viewModel
-        binding.buttonSave.setOnClickListener { save() }
-        binding.buttonDelete.setOnClickListener { delete() }
         binding.lifecycleOwner = this.viewLifecycleOwner
         handleFab(viewModel.hasFab)
+        setHasOptionsMenu(true)
         return view
 
     }
@@ -115,5 +108,25 @@ class ActivityFragment : Fragment() {
             viewModel.update()
         }
         findNavController().navigate(ActivityFragmentDirections.navigationActivityGoal(viewModel.goal))
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_delete -> {
+                delete()
+                true
+            }
+            R.id.menu_save -> {
+                save()
+                return true
+            }
+            else -> false
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.delete_save_menu, menu)
+        if (viewModel.isNew)
+            menu.findItem(R.id.menu_delete).isVisible = false
     }
 }

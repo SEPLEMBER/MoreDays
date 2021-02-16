@@ -102,18 +102,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recyclerviewIcons" />
 
-            <Button
-                android:id="@+id/buttonSave"
-                style="@style/Widget.MoreDays.ButtonSave"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editTextNote" />
-
-            <Button
-                android:id="@+id/buttonDelete"
-                style="@style/Widget.MoreDays.ButtonDelete"
-                app:isGone="@{journalViewModel.new}"
-                app:layout_constraintBaseline_toBaselineOf="@id/buttonSave"
-                app:layout_constraintEnd_toStartOf="@id/buttonSave" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

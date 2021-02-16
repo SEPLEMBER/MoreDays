@@ -6,4 +6,5 @@ import de.wuapps.moredays.database.dao.ChallengeDao
 
 class ChallengeListViewModel(challengeDao: ChallengeDao) : ViewModel() {
     val challenges = challengeDao.getAll().asLiveData()
+    val hasFab = true
 }

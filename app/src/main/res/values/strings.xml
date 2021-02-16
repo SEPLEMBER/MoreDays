@@ -137,5 +137,14 @@
         Good enough is good enough.Feelings are not facts.I have abundant energy.My child is happy and healthy.Let go of \'what if\'.
     </string>
     <string name="title_affirmation">Title/Affirmation</string>
+    <string name="title_challenge">Challenge</string>
+    <string name="title_scale">Scale</string>
+    <string name="title_goal">Goal</string>
+    <string name="title_activity">Activity</string>
+    <string name="start_date">start date</string>
+    <string name="date_deadline">deadline</string>
+    <string name="error">Error</string>
+    <string name="challenge_count_made">count made</string>
+    <string name="challenge_count_points">Points made</string>
 
 </resources>

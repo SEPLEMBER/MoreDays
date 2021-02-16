@@ -1,53 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout"
-    android:layout_width="140dp"
-    android:layout_height="140dp"
-    android:layout_margin="5dp"
-    android:orientation="vertical"
-    android:paddingLeft="5dp"
-    android:paddingTop="15dp"
-    android:paddingRight="5dp"
-    android:paddingBottom="15dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
 
-    <ImageView
-        android:id="@+id/ivIcon"
-        android:layout_width="25dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="2" />
+        <variable
+            name="challenge"
+            type="de.wuapps.moredays.database.entity.Challenge" />
+    </data>
 
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/textViewDueDate"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textAlignment="center"
-        android:textSize="12sp" />
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:onClick="@{clickListener}"
+        android:paddingTop="15dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="15dp">
 
-    <TextView
-        android:id="@+id/textViewCurrent"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textAlignment="center"
-        android:textSize="12sp" />
+        <ImageView
+            android:id="@+id/imageViewIcon"
+            android:layout_width="25dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="2" />
 
-    <ImageView
-        android:id="@+id/ivTrophy"
-        android:layout_width="25dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:importantForAccessibility="no"
-        android:layout_weight="2" />
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:textAlignment="center"
+            android:text="@{challenge.title}"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/textViewDueDate"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="12sp" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textViewCurrent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="@={`` + challenge.currentValue}"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/imageViewTrophy"
+            android:layout_width="25dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="2"
+            android:src="@drawable/ic_trophy"
+            android:importantForAccessibility="no" />
+    </LinearLayout>
+</layout>

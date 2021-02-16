@@ -6,9 +6,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -57,8 +55,6 @@ class JournalFragment : Fragment(), IconDialog.Callback {
             GligarPicker().requestCode(REQUEST_IMAGE).withFragment(this).show()
         }
         handleFab(viewModel.hasFab)
-        binding.buttonSave.setOnClickListener { save() }
-        if (!viewModel.isNew) binding.buttonDelete.setOnClickListener { delete() }
         setImage()
         val iconDialog =
             childFragmentManager.findFragmentByTag(ICON_DIALOG_TAG) as IconDialog?
@@ -83,6 +79,7 @@ class JournalFragment : Fragment(), IconDialog.Callback {
         val icons = viewModel.journal.icons.map { MoreDaysApplication.iconPack!!.getIcon(it)!! }
         setIcons(icons)
         binding.journalViewModel = viewModel
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -156,5 +153,25 @@ class JournalFragment : Fragment(), IconDialog.Callback {
         viewModel.journal.icons.clear()
         viewModel.journal.icons.addAll(icons.map { it.id })
         setIcons(icons)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_delete -> {
+                delete()
+                true
+            }
+            R.id.menu_save -> {
+                save()
+                return true
+            }
+            else -> false
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.delete_save_menu, menu)
+        if (viewModel.isNew)
+            menu.findItem(R.id.menu_delete).isVisible = false
     }
 }

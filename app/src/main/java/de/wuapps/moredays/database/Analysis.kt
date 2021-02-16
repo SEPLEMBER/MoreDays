@@ -1,5 +1,6 @@
 package de.wuapps.moredays.database
 
+import android.util.Log
 import de.wuapps.moredays.database.dao.ActivityEntryDao
 import de.wuapps.moredays.database.dao.ChallengeDao
 import de.wuapps.moredays.database.dao.ScaleEntryDao
@@ -20,8 +21,7 @@ class Analysis {
     suspend fun updateChallenges(dao: ChallengeDao, scaleEntryDao: ScaleEntryDao,
                                  entryDao: ActivityEntryDao,
                                  trophyDao: TrophyDao) {
-        val allChallenges: ArrayList<Challenge> = ArrayList<Challenge>()
-        dao.getAll().collectLatest { allChallenges.addAll(it) }
+        val allChallenges = dao.getAllOnce()
 
         val now = Calendar.getInstance()
         for (c in allChallenges) {
@@ -42,7 +42,7 @@ class Analysis {
                             c.status = Challenge.CHALLENGE_SUCCEEDED
                         }
                     } else {
-                        if (c.currentValue >= c.desiredValue) {
+                        if (c.currentValue > c.desiredValue) {
                             c.status = Challenge.CHALLENGE_SUCCEEDED
                         }
                     }
@@ -57,37 +57,38 @@ class Analysis {
      * Get the current value of a given challenge, i.e. calculate it according to the challenge
      * type and the data in the database.
      */
-    suspend fun calculateCurrentValueForChallenge(
+     private suspend fun calculateCurrentValueForChallenge(
         challenge: Challenge,
         scaleEntryDao: ScaleEntryDao,
         entryDao: ActivityEntryDao,
         trophyDao: TrophyDao
-    ): Float {
-        var currentValue = -1f
+    ): Int {
+        var currentValue = -1
         if (challenge.challengeType == Challenge.CHALLENGE_TYPE_SCALE) {
-            currentValue = scaleEntryDao.getLatestValue(challenge.uid)
-        } else if (challenge.challengeType == Challenge.CHALLENGE_TYPE_ENTRY_TYPE) {
+            currentValue = scaleEntryDao.getLatestValue(challenge.uid).toInt()
+        } else if (challenge.challengeType == Challenge.CHALLENGE_TYPE_ACTIVITY) {
             currentValue = entryDao.getCountToActivityInTimeSpan(
                 challenge.uid,
                 challenge.startDate,
                 challenge.deadline
-            ).toFloat()
-        } else if (challenge.challengeType == Challenge.CHALLENGE_TYPE_CATEGORY) {
+            )
+        } else if (challenge.challengeType == Challenge.CHALLENGE_TYPE_GOAL) {
             if (challenge.valueType == Challenge.CHALLENGE_VALUE_TIMES) {
                 currentValue = trophyDao.getCountToTimeSpan(
                     challenge.uid,
                     Trophy.TROPHY_TYPE_MADE_GOAL,
                     challenge.startDate,
                     challenge.deadline
-                ).toFloat()
+                )
             } else if (challenge.valueType == Challenge.CHALLENGE_VALUE_POINTS) {
                 currentValue = entryDao.getSumToGoalInTimeSpan(
                     challenge.uid,
                     challenge.startDate,
                     challenge.deadline
-                ).toFloat()
+                ) ?: 0
             }
         }
+        Log.w("calccurrent", currentValue.toString())
         return currentValue
     }
 

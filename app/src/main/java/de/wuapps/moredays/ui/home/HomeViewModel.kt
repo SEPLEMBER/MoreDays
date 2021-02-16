@@ -24,7 +24,8 @@ class HomeViewModel(
     val justReached100Percent = MutableLiveData<Boolean>()
     val percent = MutableLiveData<Float>()
     val date: Calendar = Calendar.getInstance()
-    val scales = scaleDao.getAll().asLiveData().map { scale -> scale}
+    val scales = scaleDao.getAll().asLiveData()
+    val challenges = challengeDao.getAll().asLiveData()
     val goalEntries = goalDao.getAllDataForGivenDate().asLiveData()
         .map { goalData -> mapGoalDataToGoalEntries(goalData) }
     private var was100Percent = false //before an activity is inserted this is set to true/false, hence with an update of goalData reached100Percent may be set accordingly
@@ -36,6 +37,9 @@ class HomeViewModel(
         trophies.value = ArrayList<Trophy>()
         justReached100Percent.value = false
         percent.value = 0F
+        viewModelScope.launch(Dispatchers.IO) {
+            analysis.updateChallenges(challengeDao, scaleEntryDao, activityEntryDao, trophyDao)
+        }
     }
 
     private fun mapGoalDataToGoalEntries(goalData: List<GoalAndRelatedData>): List<GoalEntry> {
@@ -58,10 +62,6 @@ class HomeViewModel(
         }
     }
 
-    private fun analyzeScaleTrophies(scaleId: Long) {
-
-    }
-
     fun addGoalEntry(goal: Goal, activity: Activity) {
         val id = -1L
         was100Percent = (percent.value!! >= 100F)
@@ -71,6 +71,7 @@ class HomeViewModel(
             )
             activity.uid = id
             analyzeGoalTrophies(goal, activity)
+            analysis.updateChallenges(challengeDao, scaleEntryDao, activityEntryDao, trophyDao)
         }
         latestActivity = activity
     }
@@ -80,8 +81,8 @@ class HomeViewModel(
             scaleEntryDao.insert(
                 ScaleEntry(scaleId, value)
             )
+            analysis.updateChallenges(challengeDao, scaleEntryDao, activityEntryDao, trophyDao)
         }
-        analyzeScaleTrophies(scaleId)
     }
 
     private fun calcPercentage(goalEntries: List<GoalEntry>) {

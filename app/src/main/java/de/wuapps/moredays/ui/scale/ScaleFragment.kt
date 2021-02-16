@@ -3,9 +3,7 @@ package de.wuapps.moredays.ui.scale
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -36,10 +34,9 @@ class ScaleFragment : Fragment() {
         val view = binding.root
         binding.scaleViewModel = viewModel
 
-        binding.buttonSave.setOnClickListener { save() }
-        binding.buttonDelete.setOnClickListener { delete() }
         binding.lifecycleOwner = this.viewLifecycleOwner
         handleFab(viewModel.hasFab)
+        setHasOptionsMenu(true)
         return view
 
     }
@@ -125,5 +122,25 @@ class ScaleFragment : Fragment() {
         view?.post {
             findNavController().popBackStack()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_delete -> {
+                delete()
+                true
+            }
+            R.id.menu_save -> {
+                save()
+                return true
+            }
+            else -> false
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.delete_save_menu, menu)
+        if (viewModel.isNew)
+            menu.findItem(R.id.menu_delete).isVisible = false
     }
 }

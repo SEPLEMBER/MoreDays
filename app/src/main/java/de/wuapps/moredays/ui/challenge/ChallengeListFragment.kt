@@ -1,33 +1,47 @@
 package de.wuapps.moredays.ui.challenge
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
+import de.wuapps.moredays.database.entity.Challenge
+import de.wuapps.moredays.database.entity.Goal
+import de.wuapps.moredays.databinding.ChallengeListFragmentBinding
+import de.wuapps.moredays.databinding.GoalListFragmentBinding
+import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
+import de.wuapps.moredays.ui.goal.GoalAdapter
+import de.wuapps.moredays.ui.goal.GoalListViewModel
+import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
+import de.wuapps.moredays.utilities.InjectorUtils
 
 class ChallengeListFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ChallengeListFragment()
+    private lateinit var binding: ChallengeListFragmentBinding
+
+    private val viewModel: ChallengeListViewModel by viewModels {
+        InjectorUtils.provideChallengeListViewModelFactory(requireActivity())
     }
-
-    private lateinit var viewModel: ChallengeListViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.challenge_list_fragment, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ChallengeListViewModel::class.java)
-        // TODO: Use the ViewModel
+        binding = ChallengeListFragmentBinding.inflate(inflater, container, false)
+        binding.recyclerviewChallenges.layoutManager = ResponsiveGridLayoutManager(
+            requireNotNull(this.activity),
+            resources.getDimension(R.dimen.challenge_item_width).toInt()
+        )
+        val adapter = ChallengeAdapter()
+        binding.recyclerviewChallenges.adapter = adapter
+        subscribeUi(adapter)
+        setFabOnClickListener{findNavController().navigate(R.id.navgigation_challenges_challenge)}
+        return binding.root
     }
 
     override fun onResume() {
@@ -35,4 +49,11 @@ class ChallengeListFragment : Fragment() {
         showFab()
     }
 
+    private fun subscribeUi(adapter: ChallengeAdapter) {
+        viewModel.challenges.observe(viewLifecycleOwner, {
+            it?.let {
+                adapter.submitList(it as MutableList<Challenge>)
+            }
+        })
+    }
 }
