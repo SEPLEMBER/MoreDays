@@ -7,17 +7,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.databinding.ActivityFragmentBinding
 import de.wuapps.moredays.ui.tools.handleFab
+import de.wuapps.moredays.utilities.InjectorUtils
 import java.lang.Integer.parseInt
 
 class ActivityFragment : Fragment() {
-    private lateinit var viewModel: ActivityViewModel
+    private val args: ActivityFragmentArgs by navArgs()
+    private val viewModel: ActivityViewModel  by viewModels {
+        InjectorUtils.provideActivityViewModelFactory(requireActivity(), args.goal, args.activity)
+    }
     private lateinit var binding: ActivityFragmentBinding
 
     companion object {
@@ -30,18 +36,7 @@ class ActivityFragment : Fragment() {
     ): View? {
         binding = ActivityFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
-        val arguments = ActivityFragmentArgs.fromBundle(requireArguments())
-
-        val application = requireNotNull(this.activity).application
-        viewModel = ViewModelProvider(
-            this, ActivityViewModelFactory(
-                MoreDaysDatabase.getInstance(application).activityDao,
-                arguments.goal,
-                arguments.activity
-            )
-        ).get(ActivityViewModel::class.java)
         binding.activityViewModel = viewModel
-
         binding.buttonSave.setOnClickListener { save() }
         binding.buttonDelete.setOnClickListener { delete() }
         binding.lifecycleOwner = this.viewLifecycleOwner

@@ -10,14 +10,11 @@ import de.wuapps.moredays.database.entity.Goal
 class ActivityViewModelFactory
     (
     private val activityDao: ActivityDao,
-    private val goal: Goal,
+    private val goal: Goal?,
     private val activity: Activity?
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ActivityViewModel::class.java)) {
-            return ActivityViewModel(activityDao, goal, activity) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return ActivityViewModel(activityDao, goal, activity) as T
     }
 }

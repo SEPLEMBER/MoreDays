@@ -10,10 +10,7 @@ class ScaleViewModelFactory(
     private val scale: Scale?
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ScaleViewModel::class.java)) {
-            return ScaleViewModel(scaleDao, scale) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return ScaleViewModel(scaleDao, scale) as T
     }
 }

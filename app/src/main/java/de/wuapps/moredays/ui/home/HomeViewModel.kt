@@ -1,5 +1,6 @@
 package de.wuapps.moredays.ui.home
 
+import android.util.Log
 import androidx.lifecycle.*
 import de.wuapps.moredays.database.Analysis
 import de.wuapps.moredays.database.dao.*
@@ -31,6 +32,7 @@ class HomeViewModel(
     private var latestActivity: Activity? = null
 
     init {
+        Log.w("homeviewmodel", "init homeviewmodel")
         trophies.value = ArrayList<Trophy>()
         justReached100Percent.value = false
         percent.value = 0F

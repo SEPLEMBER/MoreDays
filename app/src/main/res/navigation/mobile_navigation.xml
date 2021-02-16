@@ -50,8 +50,9 @@
             android:defaultValue="@null" />
         <argument
             android:name="goal"
-            app:nullable="false"
+            app:nullable="true"
             app:argType="de.wuapps.moredays.database.entity.Goal"
+            android:defaultValue="@null"
              />
         <action
             android:id="@+id/navigation_activity_goal"

@@ -6,15 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.GoalListFragmentBinding
 import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
+import de.wuapps.moredays.ui.activity.ActivityFragmentArgs
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
+import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
 
 
@@ -22,23 +26,15 @@ class GoalListFragment : Fragment() {
 
     private lateinit var binding: GoalListFragmentBinding
 
-    @InternalCoroutinesApi
-    private lateinit var viewModel: GoalListViewModel
+    private val viewModel: GoalListViewModel by viewModels {
+        InjectorUtils.provideGoalListViewModelFactory(requireActivity())
+    }
 
     @InternalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val application = requireNotNull(this.activity).application
-        val db = MoreDaysDatabase.getInstance(application)
-        viewModel = ViewModelProvider(
-            this,
-            GoalListViewModelFactory(
-                db.goalDao
-            )
-        ).get(GoalListViewModel::class.java)
-
         binding = GoalListFragmentBinding.inflate(inflater, container, false)
         binding.recyclerviewGoals.layoutManager = ResponsiveGridLayoutManager(
             requireNotNull(this.activity),

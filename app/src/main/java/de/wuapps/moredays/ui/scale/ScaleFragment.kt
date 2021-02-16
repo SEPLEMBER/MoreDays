@@ -7,22 +7,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.databinding.ScaleFragmentBinding
+import de.wuapps.moredays.ui.journal.JournalFragmentArgs
+import de.wuapps.moredays.ui.journal.JournalViewModel
 import de.wuapps.moredays.ui.tools.handleFab
+import de.wuapps.moredays.utilities.InjectorUtils
 import java.lang.Integer.parseInt
 
 class ScaleFragment : Fragment() {
-    private lateinit var viewModel: ScaleViewModel
-    private lateinit var binding: ScaleFragmentBinding
-
-    companion object {
-        fun newInstance() = ScaleFragment()
+    private val args: ScaleFragmentArgs by navArgs()
+    private val viewModel: ScaleViewModel by viewModels {
+        InjectorUtils.provideScaleViewModelFactory(requireActivity(), args.scale)
     }
+    private lateinit var binding: ScaleFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,15 +34,6 @@ class ScaleFragment : Fragment() {
     ): View? {
         binding = ScaleFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
-        val arguments = ScaleFragmentArgs.fromBundle(requireArguments())
-
-        val application = requireNotNull(this.activity).application
-        viewModel = ViewModelProvider(
-            this, ScaleViewModelFactory(
-                MoreDaysDatabase.getInstance(application).scaleDao,
-                arguments.scale
-            )
-        ).get(ScaleViewModel::class.java)
         binding.scaleViewModel = viewModel
 
         binding.buttonSave.setOnClickListener { save() }

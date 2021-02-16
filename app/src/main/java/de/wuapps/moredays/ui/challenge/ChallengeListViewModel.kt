@@ -5,5 +5,5 @@ import androidx.lifecycle.asLiveData
 import de.wuapps.moredays.database.dao.ChallengeDao
 
 class ChallengeListViewModel(challengeDao: ChallengeDao) : ViewModel() {
-    val goals = challengeDao.getAll().asLiveData()
+    val challenges = challengeDao.getAll().asLiveData()
 }

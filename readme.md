@@ -178,6 +178,8 @@ fun Context.runOnUiThread(f: Context.() -> Unit) {
   - Livedata is used to observe data without having any hazel to handle lifecycle problems. Whereas Kotlin flow is used for continuous data integration and it also simplified the asynchronous programming.
   - Live data is an observable data holder class, Live data is lifecycle aware
   - use setvalue/postvalue to notify observers of changed value
+    - setValue for MainThread
+    - postValue for BackgroundThread
 
 ### Dagger & Hilt -- Dependency injection 
 Less boiler plate code, better testing, e.g. no ViewModelFactories only because there are additional parameters.

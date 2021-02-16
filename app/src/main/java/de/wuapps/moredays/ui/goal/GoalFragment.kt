@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -26,52 +28,32 @@ import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.databinding.GoalFragmentBinding
 import de.wuapps.moredays.ui.activity.ActivityAdapter
+import de.wuapps.moredays.ui.activity.ActivityFragmentArgs
+import de.wuapps.moredays.ui.activity.ActivityViewModel
 import de.wuapps.moredays.ui.tools.handleFab
+import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
 import java.lang.Integer.parseInt
 
 
 class GoalFragment : Fragment(), IconDialog.Callback {
     private val SELECT_COLOR_ICON_ID = 502
-    private var _binding: GoalFragmentBinding? = null
     private var selectedIconId: Int = 0
     private var selectedColor: Int = 0
     private val ICON_DIALOG_TAG = "ICON_DIALOG_TAG"
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-    private lateinit var viewModel: GoalViewModel
-
-    @InternalCoroutinesApi
-    //private lateinit var sharedViewModel: SharedViewModel
-    private lateinit var application: Application
-
-    //private val viewModel: GoalViewModel by viewModels()
-    //val vm: GoalViewModel by lazy { ViewModelProviders.of(this).get(GoalViewModel::class.java) }
-    companion object {
-        fun newInstance() = GoalFragment()
+    private lateinit var binding: GoalFragmentBinding
+    private val args: ActivityFragmentArgs by navArgs()
+    private val viewModel: GoalViewModel by viewModels {
+        InjectorUtils.provideGoalViewModelFactory(requireActivity(), args.goal)
     }
-
     @InternalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        application = requireNotNull(this.activity).application
-        _binding = GoalFragmentBinding.inflate(inflater, container, false)
+        binding = GoalFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
-
-        val arguments = GoalFragmentArgs.fromBundle(requireArguments())
-
-        val db = MoreDaysDatabase.getInstance(application)
-        viewModel = ViewModelProvider(
-            this,
-            GoalViewModelFactory(
-                db.goalDao,
-                arguments.goal
-            )
-        ).get(GoalViewModel::class.java)
         binding.goalViewModel = viewModel
         binding.lifecycleOwner = this
         binding.buttonSave.setOnClickListener {
@@ -111,7 +93,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
             }
         }
 
-        if (arguments.goal != null) {
+        if (args.goal != null) {
             val layoutManager = FlexboxLayoutManager(
                 requireNotNull(this.activity),
                 FlexDirection.ROW
@@ -119,7 +101,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
             layoutManager.flexWrap = FlexWrap.WRAP
             binding.recyclerViewActivities.layoutManager = layoutManager
 
-            val adapter = ActivityAdapter(arguments.goal)
+            val adapter = ActivityAdapter(args.goal!!)
             binding.recyclerViewActivities.adapter = adapter
             subscribeUi(adapter)
         }
@@ -217,11 +199,6 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         viewModel.goal.symbol = selectedIconId
         viewModel.save()
         return true
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     @InternalCoroutinesApi

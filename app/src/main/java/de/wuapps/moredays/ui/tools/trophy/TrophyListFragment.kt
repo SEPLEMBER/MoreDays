@@ -5,36 +5,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.TrophyAndRelatedGoal
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.databinding.TrophyListFragmentBinding
 import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
+import de.wuapps.moredays.ui.journal.JournalListViewModel
 import de.wuapps.moredays.ui.tools.handleFab
+import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
 
 class TrophyListFragment : Fragment() {
 
     private lateinit var binding: TrophyListFragmentBinding
 
-    @InternalCoroutinesApi
-    private lateinit var viewModel: TrophyListViewModel
+    private val viewModel: TrophyListViewModel by viewModels {
+        InjectorUtils.provideTrophyListViewModelFactory(requireActivity())
+    }
 
     @InternalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val application = requireNotNull(this.activity).application
-        val db = MoreDaysDatabase.getInstance(application)
-        viewModel = ViewModelProvider(
-            this,
-            TrophyListViewModelFactory(
-                db.trophyDao
-            )
-        ).get(TrophyListViewModel::class.java)
-
         binding = TrophyListFragmentBinding.inflate(inflater, container, false)
         val layoutManager = ResponsiveGridLayoutManager(
             requireNotNull(this.activity),

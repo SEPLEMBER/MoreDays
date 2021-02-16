@@ -10,11 +10,11 @@ import kotlinx.coroutines.launch
 
 class ActivityViewModel(
     private val activityDao: ActivityDao,
-    _goal: Goal,
+    _goal: Goal?,
     _activity: Activity?
 ) : ViewModel() {
     val activity = _activity
-    val goal = _goal
+    val goal = _goal!!
     val isNew = activity == null
     var isUsed = false
     val hasFab = false

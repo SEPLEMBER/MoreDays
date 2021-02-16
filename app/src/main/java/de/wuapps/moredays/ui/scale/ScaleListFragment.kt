@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
@@ -13,8 +14,10 @@ import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.databinding.ScaleListFragmentBinding
 import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
+import de.wuapps.moredays.ui.journal.JournalListViewModel
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
+import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
 
 
@@ -22,8 +25,9 @@ class ScaleListFragment : Fragment() {
 
     private lateinit var binding: ScaleListFragmentBinding
 
-    @InternalCoroutinesApi
-    private lateinit var viewModel: ScaleListViewModel
+    private val viewModel: ScaleListViewModel by viewModels {
+        InjectorUtils.provideScaleListViewModelFactory(requireActivity())
+    }
 
     @InternalCoroutinesApi
     override fun onCreateView(
@@ -31,15 +35,6 @@ class ScaleListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.w("home", "onCreateView ScaleListFragment")
-        val application = requireNotNull(this.activity).application
-        val db = MoreDaysDatabase.getInstance(application)
-        viewModel = ViewModelProvider(
-            this,
-            ScaleListViewModelFactory(
-                db.scaleDao
-            )
-        ).get(ScaleListViewModel::class.java)
-
         binding = ScaleListFragmentBinding.inflate(inflater, container, false)
         binding.recyclerviewScales.layoutManager = ResponsiveGridLayoutManager(
             requireNotNull(this.activity),

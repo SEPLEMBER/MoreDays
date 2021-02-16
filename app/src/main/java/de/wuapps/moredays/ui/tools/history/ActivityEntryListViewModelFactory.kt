@@ -6,10 +6,7 @@ import de.wuapps.moredays.database.dao.ActivityEntryDao
 
 class ActivityEntryListViewModelFactory (private val activityEntryDao: ActivityEntryDao) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ActivityEntryListViewModel::class.java)) {
-            return ActivityEntryListViewModel(activityEntryDao) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return ActivityEntryListViewModel(activityEntryDao) as T
     }
 }

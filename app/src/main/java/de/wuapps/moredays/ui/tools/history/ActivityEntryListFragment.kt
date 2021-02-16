@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.database.entity.ActivityEntryAndRelatedData
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.databinding.ActivityEntryListFragmentBinding
+import de.wuapps.moredays.ui.journal.JournalListViewModel
 import de.wuapps.moredays.ui.tools.handleFab
+import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
 
 
@@ -20,25 +23,17 @@ class ActivityEntryListFragment : Fragment() {
 
     private lateinit var binding: ActivityEntryListFragmentBinding
     private lateinit var adapter: ActivityEntryAdapter
-    @InternalCoroutinesApi
-    private lateinit var viewModel: ActivityEntryListViewModel
+    private val viewModel: ActivityEntryListViewModel by viewModels {
+        InjectorUtils.provideActivityEntryListViewModelFactory(requireActivity())
+    }
 
     @InternalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val application = requireNotNull(this.activity).application
-        val db = MoreDaysDatabase.getInstance(application)
-        viewModel = ViewModelProvider(
-            this,
-            ActivityEntryListViewModelFactory(
-                db.activityEntryDao
-            )
-        ).get(ActivityEntryListViewModel::class.java)
-
         binding = ActivityEntryListFragmentBinding.inflate(inflater, container, false)
-        val layoutManager = LinearLayoutManager(application)
+        val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.recyclerviewActivityEntries.layoutManager = layoutManager
         adapter = ActivityEntryAdapter()

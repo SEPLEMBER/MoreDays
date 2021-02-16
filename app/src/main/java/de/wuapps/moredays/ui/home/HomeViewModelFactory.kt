@@ -1,5 +1,6 @@
 package de.wuapps.moredays.ui.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import de.wuapps.moredays.database.dao.*
@@ -14,9 +15,8 @@ class HomeViewModelFactory
     private val trophyDao: TrophyDao
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return HomeViewModel(
                 goalDao,
                 scaleDao,
                 challengeDao,
@@ -24,7 +24,5 @@ class HomeViewModelFactory
                 scaleEntryDao,
                 trophyDao
             ) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

@@ -27,12 +27,15 @@ class Challenge { //serializable: damit kann es als Parameter zwischen Intents Ã
     var valueType: Int = 0
 
     @ColumnInfo(name = "desired_value")
-    var desiredValue: Float = 0.toFloat()
+    var desiredValue: Float = 0F
 
     @ColumnInfo(name = "current_value")
-    var currentValue: Float = 0.toFloat()
+    var currentValue: Float = 0F
 
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = "start_value")
+    var startValue: Float = 0F
+
+    @ColumnInfo(name = "id") //goalid|activityid|scaleid
     var id: Long = 0
 
     @ColumnInfo(name = "symbol")
@@ -70,6 +73,7 @@ class Challenge { //serializable: damit kann es als Parameter zwischen Intents Ã
         challengeType: Int,
         valueType: Int,
         desiredValue: Float,
+        startValue: Float,
         id: Long,
         symbol: Int
     ) {
@@ -79,6 +83,7 @@ class Challenge { //serializable: damit kann es als Parameter zwischen Intents Ã
         this.challengeType = challengeType
         this.valueType = valueType
         this.desiredValue = desiredValue
+        this.startValue = startValue
         this.symbol = symbol
         this.id = id
         this.startDate = startDate

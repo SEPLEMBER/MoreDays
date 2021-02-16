@@ -6,20 +6,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Journal
 import de.wuapps.moredays.databinding.JournalListFragmentBinding
+import de.wuapps.moredays.ui.activity.ActivityFragmentArgs
+import de.wuapps.moredays.ui.goal.GoalViewModel
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
+import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
 
 class JournalListFragment : Fragment() {
 
-    private lateinit var viewModel: JournalListViewModel
+    private val viewModel: JournalListViewModel by viewModels {
+        InjectorUtils.provideJournalListViewModelFactory(requireActivity())
+    }
     private lateinit var binding: JournalListFragmentBinding
 
     @InternalCoroutinesApi
@@ -27,15 +34,6 @@ class JournalListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val application = requireNotNull(this.activity).application
-        val db = MoreDaysDatabase.getInstance(application)
-        viewModel = ViewModelProvider(
-            this,
-            JournalListViewModelFactory(
-                db.journalDao
-            )
-        ).get(JournalListViewModel::class.java)
-
         binding = JournalListFragmentBinding.inflate(inflater, container, false)
         val layoutManager = LinearLayoutManager(this.activity)
         layoutManager.orientation = LinearLayoutManager.VERTICAL

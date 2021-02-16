@@ -10,8 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
@@ -24,38 +26,32 @@ import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.databinding.JournalFragmentBinding
+import de.wuapps.moredays.ui.activity.ActivityFragmentArgs
+import de.wuapps.moredays.ui.goal.GoalViewModel
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
+import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
 
 @GlideModule
 class JournalFragment : Fragment(), IconDialog.Callback {
 
     private lateinit var binding: JournalFragmentBinding
-    private lateinit var viewModel: JournalViewModel
-    private var selectedColor: Int = 0
+    private val args: JournalFragmentArgs by navArgs()
+    private val viewModel: JournalViewModel by viewModels {
+        InjectorUtils.provideJournalViewModelFactory(requireActivity(), args.journal)
+    }
     private val ICON_DIALOG_TAG = "ICON_DIALOG_TAG"
     private val REQUEST_IMAGE = 42
     private lateinit var adapter: IconAdapter
-    private val maxIcons = 8
+    private val maxIcons = 100
     private lateinit var exampleAffirmations :List<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val application = requireNotNull(this.activity).application
-        val db = MoreDaysDatabase.getInstance(application)
-        val arguments = JournalFragmentArgs.fromBundle(requireArguments())
-
-        viewModel = ViewModelProvider(
-            this,
-            JournalViewModelFactory(
-                db.journalDao,
-                arguments.journal
-            )
-        ).get(JournalViewModel::class.java)
         binding = JournalFragmentBinding.inflate(inflater, container, false)
         binding.imageButtonPickImage.setOnClickListener {
             GligarPicker().requestCode(REQUEST_IMAGE).withFragment(this).show()
@@ -79,7 +75,7 @@ class JournalFragment : Fragment(), IconDialog.Callback {
         }
         binding.imageButtonSuggestAffirmation.setOnClickListener{suggestAffirmation()}
         exampleAffirmations = getString(R.string.affirmation_examples).split("\\.".toRegex())
-        val layoutManager = LinearLayoutManager(application)
+        val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         binding.recyclerviewIcons.layoutManager = layoutManager
         adapter = IconAdapter()
