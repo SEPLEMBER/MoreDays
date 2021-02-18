@@ -5,9 +5,8 @@ import de.wuapps.moredays.database.dao.ActivityEntryDao
 import de.wuapps.moredays.database.dao.ChallengeDao
 import de.wuapps.moredays.database.dao.ScaleEntryDao
 import de.wuapps.moredays.database.dao.TrophyDao
-import de.wuapps.moredays.database.entity.Challenge
-import de.wuapps.moredays.database.entity.Goal
-import de.wuapps.moredays.database.entity.Trophy
+import de.wuapps.moredays.database.entity.*
+import de.wuapps.moredays.ui.tools.atEndOfDay
 import kotlinx.coroutines.flow.collectLatest
 import java.util.*
 import kotlin.collections.ArrayList
@@ -18,38 +17,47 @@ class Analysis {
      * Update all pending/not running/eventually finished challenges.
      *
      */
-    suspend fun updateChallenges(dao: ChallengeDao, scaleEntryDao: ScaleEntryDao,
-                                 entryDao: ActivityEntryDao,
-                                 trophyDao: TrophyDao) {
-        val allChallenges = dao.getAllOnce()
-
+    fun checkChallenges(challenges: List<Challenge>, activityEntries: List<ActivityEntry>, scales: List<Scale>, scaleEntries: List<ScaleEntry>, trophies: List<Trophy>):List<Challenge> {
+        val changedChallenges = ArrayList<Challenge>()
         val now = Calendar.getInstance()
-        for (c in allChallenges) {
+        for (c in challenges) {
+            var challengeNeedsUpdate = false
             if (c.status == Challenge.CHALLENGE_FAILED || c.status == Challenge.CHALLENGE_SUCCEEDED) {
                 //nothing to do
             } else {
                 //check deadline for running or not started
                 if ((c.status == Challenge.CHALLENGE_RUNNING || c.status == Challenge.CHALLENGE_NOT_STARTED) && (c.deadline.time < now.time)
-                ) c.status = Challenge.CHALLENGE_FAILED
+                ) {
+                    c.status = Challenge.CHALLENGE_FAILED
+                    challengeNeedsUpdate = true
+                }
                 else if (c.status == Challenge.CHALLENGE_NOT_STARTED && c.startDate
                         .getTime() < now.time
-                ) c.status = Challenge.CHALLENGE_RUNNING
+                ) {
+                    c.status = Challenge.CHALLENGE_RUNNING
+                    challengeNeedsUpdate = true
+                }
                 //check running
                 if (c.status == Challenge.CHALLENGE_RUNNING) {
-                    c.currentValue = calculateCurrentValueForChallenge(c, scaleEntryDao, entryDao, trophyDao)
+                    val oldValue = c.currentValue
+                    c.currentValue = calculateCurrentValueForChallenge(c, scaleEntries, activityEntries, trophies)
+                    if (oldValue != c.currentValue) challengeNeedsUpdate = true
                     if (c.valueType == Challenge.CHALLENGE_VALUE_TYPE_LESS) {
                         if (c.currentValue < c.desiredValue) {
                             c.status = Challenge.CHALLENGE_SUCCEEDED
+                            challengeNeedsUpdate = true
                         }
                     } else {
                         if (c.currentValue > c.desiredValue) {
                             c.status = Challenge.CHALLENGE_SUCCEEDED
+                            challengeNeedsUpdate = true
                         }
                     }
                 }
-                dao.update(c)
+                if (challengeNeedsUpdate) changedChallenges.add(c)
             }
         }
+        return changedChallenges
     }
 
 
@@ -57,38 +65,29 @@ class Analysis {
      * Get the current value of a given challenge, i.e. calculate it according to the challenge
      * type and the data in the database.
      */
-     private suspend fun calculateCurrentValueForChallenge(
+     fun calculateCurrentValueForChallenge(
         challenge: Challenge,
-        scaleEntryDao: ScaleEntryDao,
-        entryDao: ActivityEntryDao,
-        trophyDao: TrophyDao
+        scaleEntries: List<ScaleEntry>,
+        activityEntries: List<ActivityEntry>,
+        trophies: List<Trophy>
     ): Int {
-        var currentValue = -1
+        var currentValue = 0
         if (challenge.challengeType == Challenge.CHALLENGE_TYPE_SCALE) {
-            currentValue = scaleEntryDao.getLatestValue(challenge.uid).toInt()
+            val relevantScaleEntries = scaleEntries.filter { scaleEntry ->  scaleEntry.scaleId == challenge.id}
+            if (relevantScaleEntries.size > 0)
+                currentValue = relevantScaleEntries.sortedByDescending { scale -> scale.timestamp }.first().value.toInt()
         } else if (challenge.challengeType == Challenge.CHALLENGE_TYPE_ACTIVITY) {
-            currentValue = entryDao.getCountToActivityInTimeSpan(
-                challenge.uid,
-                challenge.startDate,
-                challenge.deadline
-            )
+            val entriesInTimespan = activityEntries.filter { activityEntry -> activityEntry.uid == challenge.id && activityEntry.timestamp<challenge.deadline && activityEntry.timestamp>challenge.startDate }
+            currentValue = entriesInTimespan.size
         } else if (challenge.challengeType == Challenge.CHALLENGE_TYPE_GOAL) {
             if (challenge.valueType == Challenge.CHALLENGE_VALUE_TIMES) {
-                currentValue = trophyDao.getCountToTimeSpan(
-                    challenge.uid,
-                    Trophy.TROPHY_TYPE_MADE_GOAL,
-                    challenge.startDate,
-                    challenge.deadline
-                )
+                val relevantTrophies = trophies.filter { trophy -> trophy.goalId == challenge.id && trophy.timestamp<challenge.deadline && trophy.timestamp>challenge.startDate }
+                currentValue = relevantTrophies.size
             } else if (challenge.valueType == Challenge.CHALLENGE_VALUE_POINTS) {
-                currentValue = entryDao.getSumToGoalInTimeSpan(
-                    challenge.uid,
-                    challenge.startDate,
-                    challenge.deadline
-                ) ?: 0
+                val entriesInTimespan = activityEntries.filter { activityEntry -> activityEntry.goalId == challenge.id && activityEntry.timestamp<challenge.deadline && activityEntry.timestamp>challenge.startDate }
+                currentValue = entriesInTimespan.sumBy { it.points }
             }
         }
-        Log.w("calccurrent", currentValue.toString())
         return currentValue
     }
 
@@ -101,38 +100,33 @@ class Analysis {
     /**
      *
      */
-    suspend fun checkForNewTrophies(
+    fun checkForNewTrophies(
         goal: Goal,
         entryId: Long,
         date: Calendar,
-        trophyDao: TrophyDao,
-        activityEntryDao: ActivityEntryDao
+        trophies: List<Trophy>,
+        activityEntries: List<ActivityEntry>
     ): List<Trophy> {
         var newTrophies = ArrayList<Trophy>()
         var trophy: Trophy? = null
-        //check for trophy for today for goal
-        if (trophyDao.getCountToGoalAndTypeForGivenDate(
-                goal.uid,
-                Trophy.TROPHY_TYPE_MADE_GOAL,
-                date
-            ) > 0
-        )
+        //check for trophy for given date for goal
+        val trophiesOfGivenDateAndGoal = trophies.filter { trophy ->  trophy.goalId == goal.uid && trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL && trophy.isOfSameDay(date)}
+        if (trophiesOfGivenDateAndGoal.size > 0)
             return newTrophies //handled already, maybe the last entry made it and the user goes above the desired value...
-        val sum: Int = activityEntryDao.getSumByGoalIdForGivenDate(goal.uid, date)
+        val relevantActivityEntries = activityEntries.filter { activityEntry ->  activityEntry.goalId == goal.uid && activityEntry.isOfSameDay(date)}
+        val sum: Int = relevantActivityEntries.sumBy { it.points }
         if (sum >= goal.points) {
             trophy = Trophy(
                 Trophy.TROPHY_TYPE_MADE_GOAL, goal.uid, 1,
                 entryId
             )
-            trophy.timestamp = date
-            trophyDao.insert(trophy)
+            trophy.timestamp = date.atEndOfDay()
             newTrophies.add(trophy)
         }
 
         //check for special trophies based on goal made -- but not for entries added for the past
         if (isToday(date) && newTrophies.size > 0) {
-            val trophiesOfGivenGoal: List<Trophy> =
-                trophyDao.getByGoalId(goal.uid).sortedByDescending { it.timestamp }
+            val trophiesOfGivenGoal = trophies.filter { trophy ->  trophy.goalId == goal.uid}.sortedByDescending { it.timestamp }
             val trophiesOfGivenGoalOfTypeGoalMade =
                 trophiesOfGivenGoal.filter { trophy -> trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL }
             var currentInDb = -1
@@ -147,13 +141,11 @@ class Analysis {
                     entryId
                 )
                 trophy.timestamp = date
-                trophyDao.insert(trophy)
                 newTrophies.add(trophy)
             }
-            currentInDb = trophyDao.getMaxValueToGoalAndType(
-                goal.uid,
-                Trophy.TROPHY_TYPE_GOAL_DAYS_IN_ROW
-            ) ?: -1
+            currentInDb = -1
+            var matchTrophy = trophies.filter { trophy ->  trophy.goalId == goal.uid && trophy.type == Trophy.TROPHY_TYPE_GOAL_DAYS_IN_ROW}.maxByOrNull { it.value }
+            if (matchTrophy!=null) currentInDb = matchTrophy.value
             current = countDaysInRow(trophiesOfGivenGoalOfTypeGoalMade)
             if (current > 2 && current > currentInDb) {
                 trophy = Trophy(
@@ -161,14 +153,12 @@ class Analysis {
                     entryId
                 )
                 trophy.timestamp = date
-                trophyDao.insert(trophy)
                 newTrophies.add(trophy)
             }
             //check total increased by 5, 10, 25
-            currentInDb = trophyDao.getMaxValueToGoalAndType(
-                goal.uid,
-                Trophy.TROPHY_TYPE_GOAL_TOTAL
-            ) ?: -1
+            currentInDb = -1
+            matchTrophy = trophies.filter { trophy ->  trophy.goalId == goal.uid && trophy.type == Trophy.TROPHY_TYPE_GOAL_TOTAL}.maxByOrNull { it.value }
+            if (matchTrophy!=null) currentInDb = matchTrophy.value
             current = trophiesOfGivenGoalOfTypeGoalMade.size
             if (current > currentInDb && (current == 5 || current == 10 || current % 25 == 0)) {
                 trophy = Trophy(
@@ -176,7 +166,6 @@ class Analysis {
                     entryId
                 )
                 trophy.timestamp = date
-                trophyDao.insert(trophy)
                 newTrophies.add(trophy)
             }
         }

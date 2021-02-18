@@ -28,7 +28,6 @@ class ActivityAdapter(_goal: Goal) :
 
         init {
             chipEditActivity.setOnClickListener {
-                Log.w("activity", "clicked")
                 it.findNavController().navigate(
                     GoalFragmentDirections.navigationGoalActivity(
                         currentActivity,

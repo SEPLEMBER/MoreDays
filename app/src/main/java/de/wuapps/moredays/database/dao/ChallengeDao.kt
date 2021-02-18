@@ -35,4 +35,6 @@ interface ChallengeDao {
     @Update
     suspend fun update(challenge: Challenge)
 
+    @Update
+    suspend fun update(challenges: List<Challenge>)
 }

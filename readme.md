@@ -134,12 +134,14 @@ getSupportFragmentManager().beginTransaction()
                            .addToBackStack(null)
                            .commit();
 ```
-### Binding
+### Binding and ViewModels
 - https://developer.android.com/topic/libraries/view-binding
 - ***needs a generic layout tag in layout files***, see https://developer.android.com/topic/libraries/data-binding/expressions
 - the viewModel should not know the context, hence it provides the data without internationalization, however this may be done in the view, e.g.
 ```
 android:text="@{@plurals/watering_next(viewModel.wateringInterval, viewModel.wateringInterval)}"
+<!-- or -->
+android:text="@{journalViewModel.getFormattedDate(@string/date_ymd)}"
 ```
 - binding of edittext to number is a bit tricky, workaround use one way binding, see https://stackoverflow.com/questions/38982604/two-way-databinding-in-edittext
   - `` android:text="@={`` + goalViewModel.goal.points}" `
@@ -151,17 +153,18 @@ android:text="@{@plurals/watering_next(viewModel.wateringInterval, viewModel.wat
     - https://code.luasoftware.com/tutorials/android/android-two-way-data-binding-with-spinner/ 
     - https://wamae.medium.com/using-android-livedata-in-spinners-room-428de4238847 
     - https://stackoverflow.com/questions/2562248/how-to-keep-onitemselected-from-firing-off-on-a-newly-instantiated-spinner
-
+- ViewModels should not reference view/Android stuff and ViewModel shouldn’t be referenced in any object that can outlive the activity/fragment
 ### Navigation
 - up button https://developer.android.com/codelabs/kotlin-android-training-add-navigation/index.html#7
 - conditional https://developer.android.com/codelabs/kotlin-android-training-add-navigation/index.html#5
 - handle back button in MainActivity
 - advanced navigation see https://github.com/android/architecture-components-samples/tree/main/NavigationAdvancedSample/app/src/main/java/com/example/android/navigationadvancedsample
+- current problem: fragments and corresponding viewmodels are recreated and recreated, whenever one selects an item in the bottom navigation; the navigationadvancedsample offers a workaround, I wait for the update of navigation component ;-)
 
 ### Room & coroutines
 You can use the suspend keyword to make your DAO queries asynchronous using Kotlin coroutines. Suspend function is a function that could be started, paused, and resume. One of the most important points to remember about the suspend functions is that they are only allowed to be called from a coroutine or another suspend function. The official documentation says that coroutines are lightweight threads. By lightweight, it means that creating coroutines doesn’t allocate new threads. Instead, they use predefined thread pools and smart scheduling. Use launch to start a new coroutine as fire & forget; use async to return -- see https://developer.android.com/kotlin/coroutines-adv
 - use flow at repository and dao level for observable lists, use simple nullable data (Type?) for one shot async read (suspend), e.g. `suspend fun getById(id: Long): Goal?`
-- use LieveData or MutableLiveData at viewmodel level
+- use LieveData or MutableLiveData at viewmodel level -- in case of MutableLiveData use getters/setters
 Prepopulate Room Database: https://developer.android.com/training/data-storage/room/prepopulate
 - hint to implement runOnUIThread (see https://github.com/AllanWang/KAU/blob/master/core/src/main/kotlin/ca/allanwang/kau/utils/ContextUtils.kt)
 ```

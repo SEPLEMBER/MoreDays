@@ -34,7 +34,6 @@ class ScaleListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.w("home", "onCreateView ScaleListFragment")
         binding = ScaleListFragmentBinding.inflate(inflater, container, false)
         binding.recyclerviewScales.layoutManager = ResponsiveGridLayoutManager(
             requireNotNull(this.activity),
@@ -55,7 +54,6 @@ class ScaleListFragment : Fragment() {
 
     @InternalCoroutinesApi
     private fun subscribeUi(adapter: ScaleAdapter) {
-        Log.w("home", "subscribeUi ScaleListFragment")
         viewModel.scales.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it as MutableList<Scale>)

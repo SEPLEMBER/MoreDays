@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ScaleEntryDao {
     @Query("SELECT * FROM scaleentry")
-    fun getAll(): Flow<ScaleEntry>
+    fun getAll(): Flow<List<ScaleEntry>>
 
     @Query("SELECT value from scaleentry where scale_id = :id order by timestamp desc LIMIT 1")
     suspend fun getLatestValue(id: Long): Float

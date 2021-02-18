@@ -54,7 +54,6 @@ class GoalListFragment : Fragment() {
 
     @InternalCoroutinesApi
     private fun subscribeUi(adapter: GoalAdapter) {
-        Log.w("home", "subscribeUi GoalListFragment")
         viewModel.goals.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it as MutableList<Goal>)

@@ -1,30 +1,24 @@
 package de.wuapps.moredays.ui.home
 
 import android.app.AlertDialog
-import android.app.Application
-import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.NumberPicker
-import android.widget.Toast
+import androidx.constraintlayout.solver.Metrics
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
-import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Challenge
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.databinding.FragmentHomeBinding
 import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
-import de.wuapps.moredays.ui.activity.ActivityFragmentArgs
-import de.wuapps.moredays.ui.goal.GoalViewModel
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
 import de.wuapps.moredays.utilities.InjectorUtils
@@ -33,11 +27,12 @@ import nl.dionsegijn.konfetti.models.Shape
 import nl.dionsegijn.konfetti.models.Size
 import java.util.*
 
+
 @InternalCoroutinesApi
 class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels {
-        InjectorUtils.provideHomeViewModelFactory(requireActivity())
+        InjectorUtils.provideHomeViewModelFactory(requireActivity().getApplication())
     }
     private lateinit var binding: FragmentHomeBinding
     private lateinit var goalAdapter: GoalAdapter
@@ -61,7 +56,9 @@ class HomeFragment : Fragment() {
         binding.recyclerViewGoals.adapter = goalAdapter
         challengeAdapter = ChallengeAdapter()
         binding.recyclerviewChallenges.adapter = challengeAdapter
-        binding.recyclerviewChallenges.layoutManager = LinearLayoutManager(this.context)
+        val layoutManager = LinearLayoutManager(this.context)
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        binding.recyclerviewChallenges.layoutManager = layoutManager
         setFabOnClickListener { showAddOptions() }
         handleLoading()
         return binding.root
@@ -79,7 +76,8 @@ class HomeFragment : Fragment() {
         activityData.forEach { (_, activity) -> items.add(activity.toString()) }
         val builder = AlertDialog.Builder(this.activity)
         builder.setTitle(R.string.title_affirmation)
-            .setItems(items.toTypedArray()
+            .setItems(
+                items.toTypedArray()
             ) { dialog, which ->
                 run{
                     if (which < countScales) {
@@ -111,7 +109,10 @@ class HomeFragment : Fragment() {
             .setView(layout)
             .setTitle(scale.name)
             .setPositiveButton(R.string.ok) { _, _ ->
-                viewModel.addScaleEntry(scale.uid, decimalView.value.toFloat() + fractionView.value / 100F)
+                viewModel.addScaleEntry(
+                    scale.uid,
+                    decimalView.value.toFloat() + fractionView.value / 100F
+                )
             }
             .setNegativeButton(R.string.cancel, null)
         val alertDialog = dialogBuilder.create()
@@ -141,6 +142,13 @@ class HomeFragment : Fragment() {
         })
         viewModel.goalEntries.observe(viewLifecycleOwner, {
             it?.let {
+                val cardWidthInDp =  (getResources().getDimension(R.dimen.home_card_width) / getResources().getDisplayMetrics().density)
+                val layoutWidth = binding.layoutHome.width
+                if (it.size * (cardWidthInDp + 2) < layoutWidth) {
+                    val layoutManager = LinearLayoutManager(context)
+                    layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+                    binding.recyclerViewGoals.layoutManager = layoutManager
+                }
                 val data = it as MutableList<GoalEntry>
                 goalAdapter.submitList(data)
                 binding.circlesView.setCirclesData(data)
@@ -165,7 +173,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        viewModel.trophies.observe(viewLifecycleOwner, {
+        viewModel.newTrophies.observe(viewLifecycleOwner, {
             it?.let {
                 if (it.isNotEmpty()) {
                     val trophy = it.last()

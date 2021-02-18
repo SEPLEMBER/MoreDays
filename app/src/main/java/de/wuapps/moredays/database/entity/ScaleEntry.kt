@@ -2,6 +2,7 @@ package de.wuapps.moredays.database.entity
 
 import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
+import java.text.SimpleDateFormat
 import java.util.*
 
 @Entity(
@@ -39,5 +40,10 @@ class ScaleEntry {
         this.scaleId = scaleId
         this.value = value
         this.timestamp = date
+    }
+
+    fun getFormattedtTimestamp(format: String): String {
+        val formatter = SimpleDateFormat(format)
+        return formatter.format(timestamp.time)
     }
 }

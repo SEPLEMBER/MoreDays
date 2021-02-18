@@ -3,6 +3,8 @@ package de.wuapps.moredays.database.entity
 import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
 import androidx.room.ForeignKey.NO_ACTION
+import java.text.SimpleDateFormat
+import java.time.Year
 import java.util.*
 
 
@@ -55,6 +57,19 @@ class Trophy {
         var TROPHY_TYPE_MADE_GOAL = 3
         var TROPHY_TYPE_MADE_GOAL_N_TIMES_IN_WEEK = 4
 
+    }
+
+    fun isOfSameDay(trophy: Trophy):Boolean{
+        return trophy.timestamp.get(Calendar.YEAR) == timestamp.get(Calendar.YEAR) && trophy.timestamp.get(Calendar.DAY_OF_YEAR) == timestamp.get(Calendar.DAY_OF_YEAR)
+    }
+
+    fun isOfSameDay(date: Calendar):Boolean{
+        return date.get(Calendar.YEAR) == timestamp.get(Calendar.YEAR) && date.get(Calendar.DAY_OF_YEAR) == timestamp.get(Calendar.DAY_OF_YEAR)
+    }
+
+    fun getFormattedtTimestamp(format: String): String {
+        val formatter = SimpleDateFormat(format)
+        return formatter.format(timestamp.time)
     }
 }
 

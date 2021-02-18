@@ -5,8 +5,12 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import de.wuapps.moredays.database.converter.DateTypeConverter
+import de.wuapps.moredays.ui.tools.atEndOfDay
+import de.wuapps.moredays.ui.tools.atStartOfDay
 import de.wuapps.moredays.utilities.DEFAULLT_ICON_ID
 import kotlinx.parcelize.Parcelize
+import java.text.SimpleDateFormat
 import java.util.*
 
 @Entity
@@ -15,7 +19,7 @@ class Challenge(
     @PrimaryKey(autoGenerate = true)
     var uid: Long = 0,
     var title: String = "",
-    var deadline: Calendar = Calendar.getInstance(),
+    @JvmField var deadline: Calendar = Calendar.getInstance().atEndOfDay(),
     @ColumnInfo(name = "challenge_type")
     var challengeType: Int = CHALLENGE_TYPE_GOAL,
     @ColumnInfo(name = "value_type")
@@ -33,7 +37,8 @@ class Challenge(
     @ColumnInfo(name = "status")
     var status:Int = CHALLENGE_NOT_STARTED,
     @ColumnInfo(name = "start_date")
-    var startDate: Calendar = Calendar.getInstance()):Parcelable{
+    @JvmField var startDate: Calendar = Calendar.getInstance().atStartOfDay()
+):Parcelable{
 
     companion object {
         var CHALLENGE_TYPE_SCALE = 0
@@ -49,4 +54,27 @@ class Challenge(
         var CHALLENGE_FAILED = 1
         var CHALLENGE_SUCCEEDED = 2
     }
+
+    fun getStartDate():Calendar {
+        return startDate
+    }
+    fun setStartDate(value: Calendar){
+        startDate = value.atStartOfDay()
+    }
+    fun getDeadline():Calendar {
+        return deadline
+    }
+    fun setDeadline(value: Calendar){
+        startDate = value.atEndOfDay()
+    }
+    fun getFormattedStartDate(format: String): String {
+        val formatter = SimpleDateFormat(format)
+        return formatter.format(startDate.time)
+    }
+
+    fun getFormattedDeadline(format: String): String {
+        val formatter = SimpleDateFormat(format)
+        return formatter.format(deadline.time)
+    }
 }
+
