@@ -15,7 +15,7 @@ interface ChallengeDao {
     fun getAllOnce(): List<Challenge>
 
     @Query("SELECT * FROM challenge WHERE status = :status and date('now') <= date(datetime(deadline / 1000 , 'unixepoch')) order by deadline asc")
-    fun getDueByStatus(status: Int): LiveData<List<Challenge>>
+    fun getDueByStatus(status: Int): Flow<List<Challenge>>
 
     @Query("SELECT * FROM challenge WHERE id = :id")
     suspend fun getChallengesById(id: Long): List<Challenge>

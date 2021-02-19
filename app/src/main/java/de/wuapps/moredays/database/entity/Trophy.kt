@@ -51,6 +51,14 @@ class Trophy {
         this.activityEntryId = activityEntryId
     }
 
+    @Ignore
+    constructor(type: Int, goalId: Long, activityEntryId: Long, date: Calendar) {
+        this.timestamp = date
+        this.type = type
+        this.goalId = goalId
+        this.activityEntryId = activityEntryId
+    }
+
     companion object {
         var TROPHY_TYPE_GOAL_DAYS_IN_ROW = 0
         var TROPHY_TYPE_GOAL_TOTAL = 1
@@ -59,12 +67,12 @@ class Trophy {
 
     }
 
-    fun isOfSameDay(trophy: Trophy):Boolean{
-        return trophy.timestamp.get(Calendar.YEAR) == timestamp.get(Calendar.YEAR) && trophy.timestamp.get(Calendar.DAY_OF_YEAR) == timestamp.get(Calendar.DAY_OF_YEAR)
+    fun isAtSameDay(date: Calendar):Boolean{
+        return date.get(Calendar.YEAR) == timestamp.get(Calendar.YEAR) && date.get(Calendar.DAY_OF_YEAR) == timestamp.get(Calendar.DAY_OF_YEAR)
     }
 
-    fun isOfSameDay(date: Calendar):Boolean{
-        return date.get(Calendar.YEAR) == timestamp.get(Calendar.YEAR) && date.get(Calendar.DAY_OF_YEAR) == timestamp.get(Calendar.DAY_OF_YEAR)
+    fun isInSameWeek(date: Calendar):Boolean{
+        return date.get(Calendar.YEAR) == timestamp.get(Calendar.YEAR) && date.get(Calendar.WEEK_OF_YEAR) == timestamp.get(Calendar.WEEK_OF_YEAR)
     }
 
     fun getFormattedtTimestamp(format: String): String {

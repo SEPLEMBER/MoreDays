@@ -21,12 +21,14 @@ fun Fragment.setFabOnClickListener(l: View.OnClickListener) {
 }
 
 fun Calendar.atEndOfDay(): Calendar {
-    this.set(Calendar.HOUR, 23)
+    this.set(Calendar.HOUR_OF_DAY, 23)
+    this.set(Calendar.HOUR, 11)
     this.set(Calendar.MINUTE, 59)
     this.set(Calendar.SECOND, 59)
     return this
 }
 fun Calendar.atStartOfDay(): Calendar {
+    this.set(Calendar.HOUR_OF_DAY, 0)
     this.set(Calendar.HOUR, 0)
     this.set(Calendar.MINUTE, 0)
     this.set(Calendar.SECOND, 1)

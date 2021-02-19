@@ -1,6 +1,7 @@
 package de.wuapps.moredays.database.entity
 
 import android.os.Parcelable
+import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -15,31 +16,41 @@ import java.util.*
 
 @Entity
 @Parcelize
-class Challenge(
-    @PrimaryKey(autoGenerate = true)
-    var uid: Long = 0,
-    var title: String = "",
-    @JvmField var deadline: Calendar = Calendar.getInstance().atEndOfDay(),
-    @ColumnInfo(name = "challenge_type")
-    var challengeType: Int = CHALLENGE_TYPE_GOAL,
-    @ColumnInfo(name = "value_type")
-    var valueType: Int = CHALLENGE_VALUE_TIMES,
-    @ColumnInfo(name = "desired_value")
-    var desiredValue: Int = 1,
-    @ColumnInfo(name = "current_value")
-    var currentValue: Int = 0,
-    @ColumnInfo(name = "start_value")
-    var startValue: Int = 0,
-    @ColumnInfo(name = "id") //goalid|activityid|scaleid
-    var id: Long = 0,
-    @ColumnInfo(name = "symbol")
-    var symbol: Int = DEFAULLT_ICON_ID,
-    @ColumnInfo(name = "status")
-    var status:Int = CHALLENGE_NOT_STARTED,
-    @ColumnInfo(name = "start_date")
-    @JvmField var startDate: Calendar = Calendar.getInstance().atStartOfDay()
-):Parcelable{
+class Challenge():Parcelable{
 
+    @PrimaryKey(autoGenerate = true)
+    var uid: Long = 0
+    var title: String = ""
+    var deadline: Calendar = Calendar.getInstance().atEndOfDay()
+        get() = field
+        set(value) {
+            field = value.atEndOfDay()
+        }
+    @ColumnInfo(name = "challenge_type")
+    var challengeType: Int = CHALLENGE_TYPE_GOAL
+    @ColumnInfo(name = "value_type")
+    var valueType: Int = CHALLENGE_VALUE_TIMES
+    @ColumnInfo(name = "desired_value")
+    var desiredValue: Int = 1
+    @ColumnInfo(name = "current_value")
+    var currentValue: Int = 0
+    @ColumnInfo(name = "start_value")
+    var startValue: Int = 0
+    @ColumnInfo(name = "id") //goalid|activityid|scaleid
+    var id: Long = 0
+    @ColumnInfo(name = "symbol")
+    var symbol: Int = DEFAULLT_ICON_ID
+    @ColumnInfo(name = "status")
+    var status:Int = CHALLENGE_RUNNING
+    @ColumnInfo(name = "start_date")
+    var startDate: Calendar = Calendar.getInstance().atStartOfDay()
+        get() = field
+        set(value) {
+            field = value.atStartOfDay()
+            val today = Calendar.getInstance()
+            if (field > today)
+                status = Challenge.CHALLENGE_NOT_STARTED
+        }
     companion object {
         var CHALLENGE_TYPE_SCALE = 0
         var CHALLENGE_TYPE_ACTIVITY = 1
@@ -55,18 +66,6 @@ class Challenge(
         var CHALLENGE_SUCCEEDED = 2
     }
 
-    fun getStartDate():Calendar {
-        return startDate
-    }
-    fun setStartDate(value: Calendar){
-        startDate = value.atStartOfDay()
-    }
-    fun getDeadline():Calendar {
-        return deadline
-    }
-    fun setDeadline(value: Calendar){
-        startDate = value.atEndOfDay()
-    }
     fun getFormattedStartDate(format: String): String {
         val formatter = SimpleDateFormat(format)
         return formatter.format(startDate.time)
