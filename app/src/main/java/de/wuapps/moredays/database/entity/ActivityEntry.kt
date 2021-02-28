@@ -51,8 +51,4 @@ class ActivityEntry {
         val formatter = SimpleDateFormat(format)
         return formatter.format(timestamp.time)
     }
-
-    fun isOfSameDay(date: Calendar):Boolean{
-        return date.get(Calendar.YEAR) == timestamp.get(Calendar.YEAR) && date.get(Calendar.DAY_OF_YEAR) == timestamp.get(Calendar.DAY_OF_YEAR)
-    }
 }

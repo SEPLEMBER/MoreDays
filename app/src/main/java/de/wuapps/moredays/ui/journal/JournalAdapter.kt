@@ -85,6 +85,12 @@ object JournalDiffCallback : DiffUtil.ItemCallback<Journal>() {
     }
 
     override fun areContentsTheSame(oldItem: Journal, newItem: Journal): Boolean {
-        return oldItem.date == newItem.date
+        var result = oldItem.date == newItem.date && oldItem.affirmation == newItem.affirmation && oldItem.imageFilename == newItem.imageFilename && oldItem.icons.size == newItem.icons.size
+        if (!result)
+            return false
+        for (icon in oldItem.icons)
+            if (!newItem.icons.contains(icon))
+                return false
+        return true
     }
 }

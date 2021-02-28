@@ -1,6 +1,8 @@
 package de.wuapps.moredays.database
 
 import de.wuapps.moredays.database.entity.*
+import de.wuapps.moredays.ui.tools.isSameDay
+import de.wuapps.moredays.ui.tools.isSameWeek
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -105,10 +107,10 @@ class Analysis {
         var newTrophies = ArrayList<Trophy>()
         var trophy: Trophy? = null
         //check for trophy for given date for goal
-        val trophiesOfGivenDateAndGoal = trophies.filter { trophy ->  trophy.goalId == goal.uid && trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL && trophy.isAtSameDay(date)}
+        val trophiesOfGivenDateAndGoal = trophies.filter { trophy ->  trophy.goalId == goal.uid && trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL && trophy.timestamp.isSameDay(date)}
         if (trophiesOfGivenDateAndGoal.size > 0)
             return newTrophies //handled already, maybe the last entry made it and the user goes above the desired value...
-        val relevantActivityEntries = activityEntries.filter { activityEntry ->  activityEntry.goalId == goal.uid && activityEntry.isOfSameDay(date)}
+        val relevantActivityEntries = activityEntries.filter { activityEntry ->  activityEntry.goalId == goal.uid && activityEntry.timestamp.isSameDay(date)}
         val sum: Int = relevantActivityEntries.sumBy { it.points }
         if (sum >= goal.points) {
             trophy = Trophy(
@@ -122,7 +124,7 @@ class Analysis {
         //check for special trophies based on goal made -- but not for entries added for the past
         if (isToday(date) && newTrophies.size > 0) {
             val trophiesOfGivenGoalOfTypeGoalMade = trophies.filter { trophy ->  trophy.goalId == goal.uid && trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL}
-            val trophiesOfGivenGoalMadeInThisWeek = trophiesOfGivenGoalOfTypeGoalMade.filter { trophy -> trophy.isInSameWeek(date)}
+            val trophiesOfGivenGoalMadeInThisWeek = trophiesOfGivenGoalOfTypeGoalMade.filter { trophy -> trophy.timestamp.isSameWeek(date)}
             var currentInDb = -1
             var current = -1
             //check if at least 3 times in this week

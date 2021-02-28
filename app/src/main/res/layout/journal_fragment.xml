@@ -10,98 +10,120 @@
             type="de.wuapps.moredays.ui.journal.JournalViewModel" />
     </data>
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/layout_margin"
-        tools:context=".ui.journal.JournalFragment">
+        android:layout_margin="@dimen/min_margin"
+        tools:context=".ui.challenge.ChallengeFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/layout_margin"
+            tools:context=".ui.journal.JournalFragment">
 
-            <TextView
-                android:id="@+id/textViewDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{journalViewModel.getFormattedDate(@string/date_ymd)}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageViewPictureOfTheDay"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:importantForAccessibility="no"
-                android:scaleType="centerCrop"
-                app:layout_constraintDimensionRatio="3:2"
-                android:layout_margin="8dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewDate" />
-
-            <ImageButton
-                android:id="@+id/imageButtonPickImage"
-                android:layout_width="@dimen/min_accesible_size"
-                android:layout_height="@dimen/min_accesible_size"
-                android:background="@drawable/circle_in_secondary"
-                android:importantForAccessibility="no"
-                android:src="@drawable/ic_camera"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewDate" />
-
-            <ImageButton
-                android:id="@+id/btnRemoveImage"
-                android:layout_width="@dimen/min_accesible_size"
-                android:layout_height="@dimen/min_accesible_size"
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/circle_in_secondary"
-                android:importantForAccessibility="no"
-                android:src="@drawable/ic_delete"
-                app:layout_constraintEnd_toStartOf="@id/imageButtonPickImage"
-                app:layout_constraintTop_toBottomOf="@id/textViewDate" />
-
-            <EditText
-                android:id="@+id/editTextAffirmation"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ems="12"
-                android:layout_marginTop="8dp"
-                android:hint="@string/title_affirmation"
-                android:inputType="text"
-                android:text="@={journalViewModel.journal.affirmation}"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/imageButtonSuggestAffirmation"
-                app:layout_constraintTop_toBottomOf="@id/imageViewPictureOfTheDay" />
-
-            <ImageButton
-                android:id="@+id/imageButtonSuggestAffirmation"
-                android:layout_width="@dimen/min_accesible_size"
-                android:layout_height="@dimen/min_accesible_size"
-                android:background="@drawable/circle_in_secondary"
-                android:importantForAccessibility="no"
-                android:src="@drawable/ic_lookup"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/editTextAffirmation" />
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerviewIcons"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flow_horizontalAlign="center"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editTextAffirmation" />
+                android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/editTextNote"
+                <TextView
+                    android:id="@+id/textViewDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{journalViewModel.getCurrentDate()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageViewPictureOfTheDay"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="8dp"
+                    android:importantForAccessibility="no"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintDimensionRatio="3:2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewDate" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonPickImage"
+                    android:layout_width="@dimen/min_accesible_size"
+                    android:layout_height="@dimen/min_accesible_size"
+                    android:background="@drawable/circle_in_secondary"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_camera"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewDate" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonRemoveImage"
+                    android:layout_width="@dimen/min_accesible_size"
+                    android:layout_height="@dimen/min_accesible_size"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/circle_in_secondary"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_delete"
+                    app:layout_constraintEnd_toStartOf="@id/imageButtonPickImage"
+                    app:layout_constraintTop_toBottomOf="@id/textViewDate" />
+
+                <EditText
+                    android:id="@+id/editTextAffirmation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:ems="12"
+                    android:hint="@string/title_affirmation"
+                    android:inputType="text"
+                    android:text="@={journalViewModel.journal.affirmation}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/imageButtonSuggestAffirmation"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewPictureOfTheDay" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonSuggestAffirmation"
+                    android:layout_width="@dimen/min_accesible_size"
+                    android:layout_height="@dimen/min_accesible_size"
+                    android:background="@drawable/circle_in_secondary"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_lookup"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/editTextAffirmation" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerviewIcons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:flow_horizontalAlign="center"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editTextAffirmation" />
+
+                <EditText
+                    android:id="@+id/editTextNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="12"
+                    android:hint="Notes"
+                    android:inputType="textMultiLine"
+                    android:text="@={journalViewModel.journal.note}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recyclerviewIcons" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <DatePicker
+                android:id="@+id/date_Picker"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="12"
-                android:hint="Notes"
-                android:inputType="textMultiLine"
-                android:text="@={journalViewModel.journal.note}"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerviewIcons" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                android:layout_height="400dp"
+                android:background="@color/background"
+                android:visibility="gone" />
+        </LinearLayout>
+    </FrameLayout>
 </layout>

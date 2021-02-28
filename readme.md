@@ -13,6 +13,7 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 - check https://github.com/deano2390/MaterialShowcaseView
 - https://github.com/square/leakcanary
 - https://github.com/AnyChart/AnyChart-Android
+- check wasabeef/awesome-android-ui:
 - Tests hinzufügen https://developer.android.com/codelabs/advanced-android-kotlin-training-testing-basics#0 und https://speakerdeck.com/alexzhukovich/writing-robust-android-ui-tests 
 - DB-Tests
   - https://speakerdeck.com/alexzhukovich/let-us-play-in-room-with-kotlin?slide=49
@@ -191,6 +192,9 @@ Less boiler plate code, better testing, e.g. no ViewModelFactories only because 
 - from view model factories to di with hilt: https://medium.com/mobile-app-development-publication/injecting-viewmodel-with-dagger-hilt-54ca2e433865
 - very good summary of several features of hilt https://youtu.be/B56oV3IHMxg
 - not used in this app, as we do not use any web services and hence do not need repositories for abstraction; dao and hilt do not work together right now
+
+## Tests
+Usually, you write one assert per test. However the test preparation is relativ complex, hence I decided to integrate all tests of one method into one test.
 
 ## Links
 - list of libraries

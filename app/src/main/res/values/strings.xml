@@ -146,5 +146,6 @@
     <string name="error">Error</string>
     <string name="challenge_count_made">count made</string>
     <string name="challenge_count_points">Points made</string>
+    <string name="date">date</string>
 
 </resources>

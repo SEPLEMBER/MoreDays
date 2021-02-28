@@ -67,14 +67,6 @@ class Trophy {
 
     }
 
-    fun isAtSameDay(date: Calendar):Boolean{
-        return date.get(Calendar.YEAR) == timestamp.get(Calendar.YEAR) && date.get(Calendar.DAY_OF_YEAR) == timestamp.get(Calendar.DAY_OF_YEAR)
-    }
-
-    fun isInSameWeek(date: Calendar):Boolean{
-        return date.get(Calendar.YEAR) == timestamp.get(Calendar.YEAR) && date.get(Calendar.WEEK_OF_YEAR) == timestamp.get(Calendar.WEEK_OF_YEAR)
-    }
-
     fun getFormattedtTimestamp(format: String): String {
         val formatter = SimpleDateFormat(format)
         return formatter.format(timestamp.time)

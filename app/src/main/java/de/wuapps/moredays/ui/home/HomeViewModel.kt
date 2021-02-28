@@ -49,7 +49,6 @@ class HomeViewModel(
     private val trophyList = ArrayList<Trophy>()
 
     init {
-        Log.w("trapp", "init homeviewmodel")
         newTrophies.value = ArrayList<Trophy>()
         justReached100Percent.value = false
         percent.value = 0F

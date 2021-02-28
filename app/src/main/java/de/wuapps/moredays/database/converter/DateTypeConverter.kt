@@ -1,5 +1,6 @@
 package de.wuapps.moredays.database.converter
 
+import android.util.Log
 import androidx.room.TypeConverter
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -17,16 +18,21 @@ class DateTypeConverter {
 
         @TypeConverter
         fun convertDateToString(date: Date): String {
-            return (SimpleDateFormat("yyMMdd").format(date))
+            val tmp = SimpleDateFormat("yyMMdd").format(date)
+            return tmp
         }
 
         @TypeConverter
         fun convertStringToDate(strDate: String): Date {
             var date = Date()
             try {
-                (SimpleDateFormat("yyMMdd").parse(strDate)).also { if (it != null) date = it }
+                (SimpleDateFormat("yyMMdd").parse(strDate)).also {
+                    if (it != null)
+                        date = it
+                }
             } catch (ex: ParseException) {
                 //@todo log
+                Log.w("DateTypeConverter", "convertStringToDate, ParseException: " + ex.message)
             }
             return date
         }

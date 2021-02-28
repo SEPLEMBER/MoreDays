@@ -15,6 +15,7 @@ import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Journal
 import de.wuapps.moredays.databinding.JournalListFragmentBinding
+import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
 import de.wuapps.moredays.ui.activity.ActivityFragmentArgs
 import de.wuapps.moredays.ui.goal.GoalViewModel
 import de.wuapps.moredays.ui.tools.handleFab
@@ -35,8 +36,10 @@ class JournalListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = JournalListFragmentBinding.inflate(inflater, container, false)
-        val layoutManager = LinearLayoutManager(this.activity)
-        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        val layoutManager = ResponsiveGridLayoutManager(
+            requireNotNull(this.activity),
+            resources.getDimension(R.dimen.journal_item_width).toInt()
+        )
         binding.recyclerviewJournal.layoutManager = layoutManager
         val adapter = JournalAdapter()
         binding.recyclerviewJournal.adapter = adapter

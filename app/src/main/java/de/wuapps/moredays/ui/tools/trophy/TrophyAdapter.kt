@@ -34,7 +34,7 @@ class TrophyAdapter :
                 MoreDaysApplication.iconPack?.let { it.getIcon(matchTrophyTypeToSymbol(item.trophy.type)) }?.drawable
             )
             binding.textViewDate.text = dateFormatter.format(item.trophy.timestamp.time)
-            binding.textViewTitle.text = matchTrophyTypeToText(item.trophy.type)
+            binding.textViewTitle.text = matchTrophyTypeToText(item.trophy.type, item.trophy.value)
             binding.apply {
                 trophyData = item
                 executePendingBindings()
@@ -50,12 +50,12 @@ class TrophyAdapter :
             }
             return 42
         }
-        private fun matchTrophyTypeToText(trophyType: Int): String {
+        private fun matchTrophyTypeToText(trophyType: Int, value: Int): String {
             when (trophyType) {
-                Trophy.TROPHY_TYPE_GOAL_DAYS_IN_ROW -> return itemView.context.getString(R.string.trophy_type_title_row)
-                Trophy.TROPHY_TYPE_GOAL_TOTAL -> return itemView.context.getString(R.string.trophy_type_title_total)
-                Trophy.TROPHY_TYPE_MADE_GOAL -> return itemView.context.getString(R.string.trophy_type_title_made_goal)
-                Trophy.TROPHY_TYPE_MADE_GOAL_N_TIMES_IN_WEEK -> return itemView.context.getString(R.string.trophy_type_title_times_per_week)
+                Trophy.TROPHY_TYPE_GOAL_DAYS_IN_ROW -> return String.format("%s: %d", itemView.context.getString(R.string.trophy_type_title_row), value)
+                Trophy.TROPHY_TYPE_GOAL_TOTAL -> return  String.format("%s: %d", itemView.context.getString(R.string.trophy_type_title_total), value)
+                Trophy.TROPHY_TYPE_MADE_GOAL -> return  itemView.context.getString(R.string.trophy_type_title_made_goal)
+                Trophy.TROPHY_TYPE_MADE_GOAL_N_TIMES_IN_WEEK -> return  String.format("%s: %d", itemView.context.getString(R.string.trophy_type_title_times_per_week), value)
             }
             return ""
         }

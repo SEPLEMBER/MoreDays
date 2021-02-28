@@ -34,3 +34,17 @@ fun Calendar.atStartOfDay(): Calendar {
     this.set(Calendar.SECOND, 1)
     return this
 }
+
+fun Calendar.isSameDay(date: Calendar): Boolean {
+    return date.get(Calendar.YEAR) == this.get(Calendar.YEAR) && date.get(Calendar.DAY_OF_YEAR) == this.get(Calendar.DAY_OF_YEAR)
+}
+fun Calendar.isSameWeek(date: Calendar):Boolean{
+    return date.get(Calendar.YEAR) == this.get(Calendar.YEAR) && date.get(Calendar.WEEK_OF_YEAR) == this.get(Calendar.WEEK_OF_YEAR)
+}
+
+fun Calendar.setDate(year: Int, month: Int, day: Int): Calendar {
+    this.set(Calendar.YEAR, year)
+    this.set(Calendar.MONTH, month)
+    this.set(Calendar.DAY_OF_MONTH, day)
+    return this
+}
