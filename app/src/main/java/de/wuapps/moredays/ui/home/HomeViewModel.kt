@@ -97,11 +97,11 @@ class HomeViewModel(
     private suspend fun analyzeGoalTrophies(goal: Goal, activity: Activity) {
         val newTrophies =
             analysis.checkForNewTrophies(goal, activity.uid, date, trophyList, activityEntriesList)
-        viewModelScope.launch(Dispatchers.IO) { trophyDao.insert(newTrophies) }
         if (newTrophies.size > 0) {
             this.newTrophies.value!!.clear()
             this.newTrophies.postValue(newTrophies as MutableList<Trophy>)
         }
+        viewModelScope.launch(Dispatchers.IO) { trophyDao.insert(newTrophies) }
     }
 
     fun addGoalEntry(goal: Goal, activity: Activity) {

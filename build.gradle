@@ -29,6 +29,7 @@ buildscript {
         //for aboutlibrary
         maven { url 'https://maven.fabric.io/public' }
         maven { url "https://plugins.gradle.org/m2/" }
+
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
@@ -44,8 +45,18 @@ allprojects {
     repositories {
         google()
         jcenter()
+        //for chart lib
+        maven { url 'https://www.jitpack.io' }
+    }
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.encoding = 'UTF-8'
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
     }
 }
+
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir

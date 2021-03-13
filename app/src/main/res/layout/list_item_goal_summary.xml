@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
+    android:layout_margin="4dp"
+    app:cardBackgroundColor="@color/background"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/layout"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/imageViewIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:importantForAccessibility="no"
+            />
+
+        <TextView
+            android:id="@+id/lblPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/min_accesible_textsize"
+            android:layout_gravity="center"
+
+            />
+
+        <TextView
+            android:id="@+id/lblMade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_gravity="center"
+
+            android:textSize="@dimen/min_accesible_textsize" />
+        <TextView
+            android:id="@+id/lblInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_gravity="center"
+
+            android:textSize="@dimen/min_accesible_textsize" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

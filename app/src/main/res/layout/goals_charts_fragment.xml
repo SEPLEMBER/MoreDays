@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.charts.GoalsChartsFragment">
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAnalysis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.github.mikephil.charting.charts.CombinedChart
+            android:id="@+id/combinedChartHistory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:minHeight="@dimen/bar_chart_height" />
+
+        <com.github.mikephil.charting.charts.RadarChart
+            android:id="@+id/radarChartPoints"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/radar_chart_height" />
+
+        <com.github.mikephil.charting.charts.RadarChart
+            android:id="@+id/radarChartDaysMade"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/radar_chart_height" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_chart_goals_points_total" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChartGoalsPointsTotal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bar_chart_height"
+            android:layout_marginBottom="@dimen/activity_vertical_margin" />
+
+        <TextView
+            android:id="@+id/lblChartCategoriesMade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_chart_goals_days_made" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChartGoalsDaysMade"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bar_chart_height"
+            android:layout_marginBottom="@dimen/activity_vertical_margin" />
+
+        <TextView
+            android:id="@+id/lblChartEntryType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_chart_activities" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChartActivities"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bar_chart_height" />
+
+    </LinearLayout>
+
+</ScrollView>

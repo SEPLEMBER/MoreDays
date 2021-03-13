@@ -5,28 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import de.wuapps.moredays.R
+import de.wuapps.moredays.databinding.ChartsFragmentBinding
+import de.wuapps.moredays.ui.tools.handleFab
 
 class ChartsFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = ChartsFragment()
-    }
-
-    private lateinit var viewModel: ChartsViewModel
-
+    private lateinit var binding: ChartsFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.charts_fragment, container, false)
+        binding = ChartsFragmentBinding.inflate(inflater, container, false)
+        wireUpViewPagerAndTabs()
+        handleFab(false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ChartsViewModel::class.java)
-        // TODO: Use the ViewModel
+    private fun wireUpViewPagerAndTabs() {
+        var adapter = ViewPagerAdapter(childFragmentManager)
+
+        adapter.addFragment(GoalsChartsFragment(), getString(R.string.goals))
+        adapter.addFragment(ScalesChartFragment(), getString(R.string.scales))
+
+        binding.viewPager.setAdapter(adapter)
+        binding.tabLayout.setupWithViewPager(binding.viewPager)
     }
 
 }

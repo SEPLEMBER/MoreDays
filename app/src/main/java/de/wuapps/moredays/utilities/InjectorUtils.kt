@@ -7,6 +7,8 @@ import de.wuapps.moredays.database.entity.*
 import de.wuapps.moredays.ui.activity.ActivityViewModelFactory
 import de.wuapps.moredays.ui.challenge.ChallengeListViewModelFactory
 import de.wuapps.moredays.ui.challenge.ChallengeViewModelFactory
+import de.wuapps.moredays.ui.charts.GoalsChartsViewModelFactory
+import de.wuapps.moredays.ui.charts.ScalesChartViewModelFactory
 import de.wuapps.moredays.ui.goal.GoalListViewModelFactory
 import de.wuapps.moredays.ui.goal.GoalViewModelFactory
 import de.wuapps.moredays.ui.home.HomeViewModelFactory
@@ -102,4 +104,17 @@ object InjectorUtils {
         return ChallengeViewModelFactory(db.challengeDao, db.goalDao, db.activityDao, db.scaleDao, challenge)
     }
 
+    fun provideGoalsChartsViewModelFactory(
+        context: Context
+    ): GoalsChartsViewModelFactory {
+        val db = MoreDaysDatabase.getInstance(context.applicationContext)
+        return GoalsChartsViewModelFactory(db.goalDao, db.activityEntryDao, db.trophyDao)
+    }
+
+    fun ScalesChartViewModelFactory(
+        context: Context
+    ): ScalesChartViewModelFactory {
+        val db = MoreDaysDatabase.getInstance(context.applicationContext)
+        return ScalesChartViewModelFactory(db.scaleDao, db.scaleEntryDao)
+    }
 }

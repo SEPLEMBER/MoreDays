@@ -147,5 +147,8 @@
     <string name="challenge_count_made">count made</string>
     <string name="challenge_count_points">Points made</string>
     <string name="date">date</string>
+    <string name="label_chart_goals_points_total">Points per goal</string>
+    <string name="label_chart_goals_days_made">days made</string>
+    <string name="label_chart_activities">Activities</string>
 
 </resources>
