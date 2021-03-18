@@ -1,5 +1,6 @@
 package de.wuapps.moredays.database
 
+import android.util.Log
 import de.wuapps.moredays.database.entity.*
 import de.wuapps.moredays.ui.tools.isSameDay
 import de.wuapps.moredays.ui.tools.isSameWeek
@@ -104,12 +105,16 @@ class Analysis {
         trophies: List<Trophy>,
         activityEntries: List<ActivityEntry>
     ): List<Trophy> {
+        Log.w("trapp", "start checkForNewTrophies")
+        Log.w("trapp", "latest entry " + activityEntries.last().activityId)
         var newTrophies = ArrayList<Trophy>()
         var trophy: Trophy? = null
         //check for trophy for given date for goal
         val trophiesOfGivenDateAndGoal = trophies.filter { trophy ->  trophy.goalId == goal.uid && trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL && trophy.timestamp.isSameDay(date)}
-        if (trophiesOfGivenDateAndGoal.size > 0)
+        if (trophiesOfGivenDateAndGoal.size > 0) {
+            Log.w("trapp", "had trophy already - goalid=" + goal.uid.toString())
             return newTrophies //handled already, maybe the last entry made it and the user goes above the desired value...
+        }
         val relevantActivityEntries = activityEntries.filter { activityEntry ->  activityEntry.goalId == goal.uid && activityEntry.timestamp.isSameDay(date)}
         val sum: Int = relevantActivityEntries.sumBy { it.points }
         if (sum >= goal.points) {
@@ -117,6 +122,7 @@ class Analysis {
                 Trophy.TROPHY_TYPE_MADE_GOAL, goal.uid, 1,
                 entryId
             )
+            Log.w("trapp", "new trophy made goal")
             trophy.timestamp = date
             newTrophies.add(trophy)
         }
@@ -166,6 +172,7 @@ class Analysis {
                 newTrophies.add(trophy)
             }
         }
+        Log.w("trapp", "end checkForNewTrophies - " + newTrophies.size.toString())
         return newTrophies
     }
 

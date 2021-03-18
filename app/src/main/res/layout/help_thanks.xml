@@ -28,7 +28,7 @@
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="@string/help_copyright_title"
+                android:text="@string/help_thanks_title"
                 android:textAlignment="gravity"
                 android:textColor="@color/textOnCardColor" />
 
@@ -52,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/layout_padding"
-            android:text="@string/help_copyright_content" />
+            android:id="@+id/textViewThanks"
+            android:text="@string/help_thanks_content" />
     </com.github.florent37.expansionpanel.ExpansionLayout>
 </LinearLayout>

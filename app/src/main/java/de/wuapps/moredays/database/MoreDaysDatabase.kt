@@ -27,6 +27,7 @@ abstract class MoreDaysDatabase : RoomDatabase() {
     abstract val scaleDao: ScaleDao
     abstract val trophyDao: TrophyDao
     abstract val journalDao: JournalDao
+    abstract val hundredPercentValueDao: HundredPercentValueDao
 
     companion object {
         @Volatile

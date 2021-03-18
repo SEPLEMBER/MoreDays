@@ -95,10 +95,7 @@ dependencies {
     implementation "com.github.skydoves:colorpickerview:$colorPickerVersion"
     implementation "com.google.android:flexbox:$flexBoxVersion"
     implementation 'com.automayta:material-spinner:1.0.2'
-    //implementation "com.github.skydoves:expandablelayout:1.0.6"
-    //implementation 'com.github.hakobast:dropdown-textview:0.3.1'
-    //implementation 'com.github.onurkagan:ktoast:1.0.3'
-    // image picker
+      // image picker
     implementation 'com.opensooq.supernova:gligar:1.1.0'
     // If you have a problem with Glide, please use the same Glide version or simply open an issue
     implementation 'com.github.bumptech.glide:glide:4.11.0'
@@ -114,5 +111,8 @@ dependencies {
     implementation "com.mikepenz:aboutlibraries:$aboutVersion"
 
     implementation 'nl.dionsegijn:konfetti:1.2.6'
+
+    //onboarding
+    implementation 'com.github.AppIntro:AppIntro:6.1.0'
 
 }

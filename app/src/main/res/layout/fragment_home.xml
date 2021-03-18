@@ -5,53 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/layoutHome"
-    >
 
-   <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/recyclerviewChallenges"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:padding="2dp"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintTop_toTopOf="parent"/>
-   <de.wuapps.moredays.ui.customviews.CirclesView
-       android:id="@+id/circlesView"
-       android:layout_width="match_parent"
-       android:layout_height="240dp"
-       android:layout_marginBottom="@dimen/min_accesible_size"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintTop_toBottomOf="@id/recyclerviewChallenges"
-       />
-   <ProgressBar
-       android:layout_weight="1"
-       android:id="@+id/progressBar_cyclic"
-       android:visibility="gone"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:minHeight="40dp"
-       android:minWidth="40dp"
-       app:layout_constraintTop_toTopOf="parent"
-       app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintLeft_toLeftOf="parent"
-       app:layout_constraintRight_toRightOf="parent"/>
-   <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/recyclerViewGoals"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:padding="2dp"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintTop_toBottomOf="@id/circlesView"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
-   <nl.dionsegijn.konfetti.KonfettiView
-       android:id="@+id/viewKonfetti"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerviewChallenges"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.wuapps.moredays.ui.customviews.CirclesView
+                android:id="@+id/circlesView"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginBottom="@dimen/min_accesible_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerviewChallenges" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewGoals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/circlesView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <nl.dionsegijn.konfetti.KonfettiView
+        android:id="@+id/viewKonfetti"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>

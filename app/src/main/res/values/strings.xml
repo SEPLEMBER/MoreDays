@@ -3,12 +3,18 @@
         <item quantity="one">%2$s (%1$d point)</item>
         <item quantity="other">%2$s (%1$d points)</item>
     </plurals>
+    <plurals name="point">
+        <item quantity="one">point</item>
+        <item quantity="other">points</item>
+    </plurals>
     <string name="date_ymd">yy-MM-dd</string>
+    <string name="date_md">MM-dd</string>
     <string name="date_time">yy-MM-dd HH:mm</string>
     <string name="app_name">moreDays</string>
     <string name="title_home">Home</string>
     <string name="title_chart">Charts</string>
-    <string name="title_trophy">Trophies</string>
+    <string name="title_trophies">Trophies</string>
+    <string name="title_trophy">Trophy</string>
     <string name="title_journal">Journal</string>
     <string name="title_settings">Settings</string>
     <string name="title_tools">Tools</string>
@@ -18,22 +24,13 @@
     <string name="activites">Activities</string>
     <string name="scales">Scales</string>
     <string name="challenges">Challenges</string>
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <!-- Settings Titles -->
 
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <!-- ShredPreferences -->
+    <string name="preferences_onboarding" translatable="false">preferences_onboarding</string>
+    <string name="preferences_file_key" translatable="false">de.wuapps.moredays.PREFERENCE_FILE_KEY</string>
 
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lbl_choose_goal">lbl_choose_goal</string>
     <string name="lbl_question_activity_to_goal">lbl_question_activity_to_goal</string>
     <string name="hint_update_points_activity">hint_update_points_activity</string>
@@ -71,6 +68,10 @@
     <string name="trophy_type_title_total">total</string>
     <string name="trophy_type_title_times_per_week">in week</string>
     <string name="trophy_type_title_made_goal">made it</string>
+    <string name="trophy_type_msg_row">Super, you made %1$s %2$d days in row</string>
+    <string name="trophy_type_msg_total">Super, you made %1$s %2$d times</string>
+    <string name="trophy_type_msg_times_per_week">Super, you made %1$s %2$d times in this week</string>
+    <string name="trophy_type_msg_made_goal">Super, you made %s for today</string>
     <string name="help_introduction_content">
         What makes a good day, a balanced day? Define different goals, such as fit, relaxed, slim. For every goal you define how difficult it is for you, start with a low number of points and increase over time. Choose a color and symbol as you like.
 
@@ -121,6 +122,23 @@
     <string name="help_version_title">Version \&amp; Feedback</string>
     <string name="help_copyright_title">Copyright</string>
     <string name="help_copyright_content">GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007</string>
+    <string name="help_thanks_title">Thanks</string>
+    <string name="help_thanks_content" translatable="false">
+        <![CDATA[
+        <h3>Affirmation</h3>
+        <ul style="list-style-type: ' - ';">
+        <li>https://www.louisehay.com/affirmations/</li>
+        <li>https://www.developgoodhabits.com/positive-affirmations/</li>
+        <li>https://zeitzuleben.de/affirmationen-ein-praktischer-weg-zu-wachstum-veranderung-und-heilung/</li>
+        <li>https://karrierebibel.de/affirmationen/</li>
+        <li>http://www.empathie-lernen.de/positive-affirmationen-beispiele</li>
+        </ul>
+        <h3>Graphics</h3>
+        <ul style="list-style-type: ' - '">
+        <li>https://undraw.co/</li>
+        </ul>
+        ]]>
+    </string>
     <string name="help_credentials_title">Credentials</string>
     <string name="affirmation_examples">I believe I can lose weight.My health is the most important thing to me.I am avoiding excessive carbs.There is no need for rich or sugary foods.Which food will be good for my body today?.I have the power to control my weight through healthy eating and exercise.My body is a temple - I will keep my temple clean.
     Everything will work out for me.I am a winner.I have confidence in my skills.I am not afraid to be wrong.Happiness is within my grasp.I am confident in the presence of others.
@@ -150,5 +168,17 @@
     <string name="label_chart_goals_points_total">Points per goal</string>
     <string name="label_chart_goals_days_made">days made</string>
     <string name="label_chart_activities">Activities</string>
+    <string name="analysis_made">days made</string>
+    <string name="analysis_chain">chain</string>
+    <string name="add_entry">Add scale value or activity made</string>
+    <string name="menu_import">Import</string>
+    <string name="export">Export</string>
+    <string name="onboarding_choose">For now, choose your goals (fit, relaxed, slim, ...) and related activities (stretching, sports, ...) from the examples below.</string>
+    <string name="onboarding_title2">Goals &amp; Activities</string>
+    <string name="onboarding_title1">YOUR data</string>
+    <string name="onboarding_title3">Analyse, adapt and reflect</string>
+    <string name="onboarding_desc1">Use the positive psychology with journaling, observe your weight, reach your goals - on easy and on strenuous days. No ads, no registration, your data on your mobile.</string>
+    <string name="onboarding_desc2">We start with an initial set of goals and activities to reach those goals, edit/delete/add them as you like in the tools section of your bottom navigation.</string>
+    <string name="onboarding_desc3">In the menu you will find many ways to adapt and analyse your data, give it a try :) only what feels easy and light may be done daily ...</string>
 
 </resources>

@@ -1,87 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:flexWrap="wrap"
-    android:padding="@dimen/layout_margin"
-    tools:context=".ui.tools.ToolsFragment">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textViewBaseData"
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:text="@string/base_data"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonGoals"
-        android:layout_margin="@dimen/min_margin"
-        android:text="@string/goals"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonChallenges"
-        android:layout_margin="@dimen/min_margin"
-        android:text="@string/challenges"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/min_margin"
-        android:text="@string/scales"
-        android:id="@+id/buttonScales"
-        />
-    <TextView
-        android:id="@+id/textViewLists"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:text="@string/lists"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/min_margin"
-        android:text="@string/activity_entries"
-        android:id="@+id/buttonActivityEntries"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/min_margin"
-        android:text="@string/title_trophy"
-        android:id="@+id/buttonTrophies"
-        />
-    <TextView
-        android:id="@+id/textViewTools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:text="@string/title_tools"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/min_margin"
-        android:text="@string/import_export"
-        android:id="@+id/buttonImportExport"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/min_margin"
-        android:text="@string/title_settings"
-        android:id="@+id/buttonSettings"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/min_margin"
-        android:text="@string/help"
-        android:id="@+id/buttonHelp"
-        />
+        android:layout_height="match_parent"
+        android:padding="@dimen/layout_margin"
+        app:flexWrap="wrap"
+        tools:context=".ui.tools.ToolsFragment">
 
-</com.google.android.flexbox.FlexboxLayout>
+        <TextView
+            android:id="@+id/textViewBaseData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/base_data"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <Button
+            android:id="@+id/buttonGoals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/min_margin"
+            android:text="@string/goals" />
+
+        <Button
+            android:id="@+id/buttonChallenges"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/min_margin"
+            android:text="@string/challenges" />
+
+        <Button
+            android:id="@+id/buttonScales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/min_margin"
+            android:text="@string/scales" />
+
+        <TextView
+            android:id="@+id/textViewLists"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lists"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <Button
+            android:id="@+id/buttonActivityEntries"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/min_margin"
+            android:text="@string/activity_entries" />
+
+        <Button
+            android:id="@+id/buttonTrophies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/min_margin"
+            android:text="@string/title_trophies" />
+
+        <TextView
+            android:id="@+id/textViewTools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_tools"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <Button
+            android:id="@+id/buttonImportExport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/min_margin"
+            android:text="@string/import_export" />
+
+        <Button
+            android:id="@+id/buttonSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/min_margin"
+            android:text="@string/title_settings" />
+
+        <Button
+            android:id="@+id/buttonHelp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/min_margin"
+            android:text="@string/help" />
+
+    </com.google.android.flexbox.FlexboxLayout>
+</ScrollView>

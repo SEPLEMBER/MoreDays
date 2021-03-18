@@ -2,27 +2,33 @@ package de.wuapps.moredays.ui.home
 
 import android.app.AlertDialog
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.NumberPicker
-import androidx.constraintlayout.solver.Metrics
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Challenge
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Scale
+import de.wuapps.moredays.database.entity.Trophy
 import de.wuapps.moredays.databinding.FragmentHomeBinding
 import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
 import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import nl.dionsegijn.konfetti.models.Shape
 import nl.dionsegijn.konfetti.models.Size
 import java.util.*
@@ -60,7 +66,7 @@ class HomeFragment : Fragment() {
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         binding.recyclerviewChallenges.layoutManager = layoutManager
         setFabOnClickListener { showAddOptions() }
-        handleLoading()
+        subscribeUI()
         return binding.root
     }
 
@@ -75,11 +81,11 @@ class HomeFragment : Fragment() {
         val countScales = scales.size
         activityData.forEach { (_, activity) -> items.add(activity.toString()) }
         val builder = AlertDialog.Builder(this.activity)
-        builder.setTitle(R.string.title_affirmation)
+        builder.setTitle(R.string.add_entry)
             .setItems(
                 items.toTypedArray()
             ) { dialog, which ->
-                run{
+                run {
                     if (which < countScales) {
                         val scale = viewModel.scales.value!!.get(which)
                         showAddScaleEntryDialog(scale)
@@ -92,7 +98,7 @@ class HomeFragment : Fragment() {
         builder.create().show()
     }
 
-    private fun showAddScaleEntryDialog(scale: Scale){
+    private fun showAddScaleEntryDialog(scale: Scale) {
         val layout =
             LayoutInflater.from(context).inflate(R.layout.float_picker_layout, null)
         val decimalView = layout.findViewById<NumberPicker>(R.id.numberPickerDecimal)
@@ -119,21 +125,7 @@ class HomeFragment : Fragment() {
         alertDialog.show()
     }
 
-    private fun handleLoading() {
-        if (MoreDaysApplication.loaded.value != null && MoreDaysApplication.loaded.value!!) {
-            subscribeUI()
-        } else {
-            binding.progressBarCyclic.visibility = View.VISIBLE
-            MoreDaysApplication.loaded.observe(viewLifecycleOwner, {
-                if (it) {
-                    subscribeUI()
-                }
-            })
-        }
-    }
-
     private fun subscribeUI() {
-        binding.progressBarCyclic.visibility = View.GONE
         viewModel.scales.observe(viewLifecycleOwner, {
             it?.let {
                 scales.clear()
@@ -142,7 +134,8 @@ class HomeFragment : Fragment() {
         })
         viewModel.goalEntries.observe(viewLifecycleOwner, {
             it?.let {
-                val cardWidthInDp =  (getResources().getDimension(R.dimen.home_card_width) / getResources().getDisplayMetrics().density)
+                val cardWidthInDp =
+                    (getResources().getDimension(R.dimen.home_card_width) / getResources().getDisplayMetrics().density)
                 val layoutWidth = binding.layoutHome.width
                 if (it.size * (cardWidthInDp + 2) < layoutWidth) {
                     val layoutManager = LinearLayoutManager(context)
@@ -177,7 +170,13 @@ class HomeFragment : Fragment() {
             it?.let {
                 if (it.isNotEmpty()) {
                     val trophy = it.last()
-                    //Toast.makeText(application, "trophy", Toast.LENGTH_LONG).show()
+                    showTrophyDialog(
+                        getTrophyMessage(
+                            trophy.type,
+                            trophy.value,
+                            viewModel.latestGoal!!.name
+                        ), trophy.type
+                    )
                 }
             }
         })
@@ -198,4 +197,51 @@ class HomeFragment : Fragment() {
         })
     }
 
+    private fun getTrophyMessage(trophyType: Int, value: Int, goalName: String): String {
+        when (trophyType) {
+            Trophy.TROPHY_TYPE_GOAL_DAYS_IN_ROW -> return String.format(
+                getString(R.string.trophy_type_msg_row),
+                goalName,
+                value
+            )
+            Trophy.TROPHY_TYPE_GOAL_TOTAL -> return String.format(
+                getString(R.string.trophy_type_msg_total),
+                goalName,
+                value
+            )
+            Trophy.TROPHY_TYPE_MADE_GOAL -> return String.format(
+                getString(R.string.trophy_type_msg_made_goal),
+                goalName
+            )
+            Trophy.TROPHY_TYPE_MADE_GOAL_N_TIMES_IN_WEEK -> return String.format(
+                getString(R.string.trophy_type_msg_times_per_week),
+                goalName,
+                value
+            )
+        }
+        return ""
+    }
+
+    private fun showTrophyDialog(message: String, trophyType: Int) {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        val layoutView: View = layoutInflater.inflate(R.layout.trophy_custom_dialog, null)
+        val imageViewTrophy = layoutView.findViewById<ImageView>(R.id.imageViewTrophy)
+        imageViewTrophy.setImageDrawable(
+            MoreDaysApplication.iconPack?.let { it.getIcon(Trophy.matchTrophyTypeToSymbol(trophyType)) }?.drawable
+        )
+        val textViewMessage = layoutView.findViewById<TextView>(R.id.textViewMessage)
+        textViewMessage.setText(message)
+        dialogBuilder.setView(layoutView)
+        val trophytDialog = dialogBuilder.create()
+        trophytDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val animation = AnimationUtils.loadAnimation(requireContext(),
+            R.anim.trophy_dialog)
+        layoutView.startAnimation(animation)
+        lifecycleScope.launch {
+            delay(3000)
+            trophytDialog.dismiss()
+        }
+        trophytDialog.show()
+
+    }
 }

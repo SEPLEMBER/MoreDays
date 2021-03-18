@@ -1,46 +1,45 @@
 package de.wuapps.moredays.database.entity
 
-import androidx.room.ColumnInfo
+import android.os.Parcelable
+import android.util.Log
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import de.wuapps.moredays.database.converter.ListGoalTypeConverter
+import de.wuapps.moredays.database.converter.DateTypeConverter
+import kotlinx.parcelize.Parcelize
 import org.jetbrains.annotations.NotNull
 import java.text.SimpleDateFormat
 import java.util.*
 
 
+@Parcelize
 @Entity
-class HundredPercentValue {
+data class HundredPercentValue(
     @PrimaryKey
     @NotNull
-    var date: String
-
+    var date: String,
     @NotNull
-    var points: Int = 0
+    var points: Int
+) : Parcelable {
+    constructor() : this(
+        SimpleDateFormat(Journal.DATE_FORMAT).format(Date()), 0
+    )
 
-    @NotNull
-    @ColumnInfo(name = "active_goals")
-    var activeGoals: String = ""
-    val activeGoalsAsList: List<Goal>
-        get() {
-            return ListGoalTypeConverter.convertStringToGoalList(activeGoals)
+    constructor(date: Date) : this() {
+        this.date = SimpleDateFormat(DATE_FORMAT).format(date)
+    }
+
+    fun getDateAsCalendar(): Calendar {
+        if (date.isEmpty() || date.length != DATE_FORMAT.length) {
+            Log.e("Journal", "date is invalid:" + date)
+            return Calendar.getInstance()
         }
-
-    @Ignore
-    constructor(date: String, points: Int, activeGoals: List<Goal>) {
-        this.date = date
-        this.points = points
-        this.setActiveGoals(activeGoals)
+        val tmp = DateTypeConverter.convertStringToDate(date)
+        val calendar = Calendar.getInstance()
+        calendar.time = tmp
+        return calendar
     }
 
-    constructor() {
-        this.date = (SimpleDateFormat("yyMMdd").format(Date()))
-        this.points = 0
-        this.activeGoals = ""
-    }
-
-    private fun setActiveGoals(activeGoals: List<Goal>) {
-        this.activeGoals = ListGoalTypeConverter.convertListGoalToString(activeGoals)
+    companion object {
+        const val DATE_FORMAT = "yyMMdd"
     }
 }

@@ -1,6 +1,9 @@
 package de.wuapps.moredays
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -13,6 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.maltaisn.icondialog.pack.IconPackLoader
 import com.maltaisn.iconpack.defaultpack.createDefaultIconPack
+import de.wuapps.moredays.ui.onboarding.Onboarding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -27,6 +31,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         iconPackLoader = IconPackLoader(this)
+        val sharedPref: SharedPreferences = getSharedPreferences(getString(R.string.preferences_file_key), MODE_PRIVATE)  //getPreferences(MODE_PRIVATE)
+        if (!sharedPref.getBoolean(getString(R.string.preferences_onboarding), false)) {
+            val intentOnboarding = Intent(this, Onboarding::class.java)
+            startActivity(intentOnboarding)
+        }
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         fab = findViewById(R.id.fabMain)

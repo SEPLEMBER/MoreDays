@@ -65,6 +65,16 @@ class Trophy {
         var TROPHY_TYPE_MADE_GOAL = 3
         var TROPHY_TYPE_MADE_GOAL_N_TIMES_IN_WEEK = 4
 
+        fun matchTrophyTypeToSymbol(trophyType: Int): Int {
+            when (trophyType) {
+                TROPHY_TYPE_GOAL_DAYS_IN_ROW -> return 62 // trophy
+                TROPHY_TYPE_GOAL_TOTAL -> return 49 // crown
+                TROPHY_TYPE_MADE_GOAL -> return 59 // award
+                TROPHY_TYPE_MADE_GOAL_N_TIMES_IN_WEEK -> return 60 // medal
+            }
+            return 42
+        }
+
     }
 
     fun getFormattedtTimestamp(format: String): String {

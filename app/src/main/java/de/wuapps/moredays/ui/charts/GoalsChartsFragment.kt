@@ -10,6 +10,8 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.CombinedChart
+import com.github.mikephil.charting.charts.CombinedChart.DrawOrder
 import com.github.mikephil.charting.charts.RadarChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
@@ -43,6 +45,7 @@ class GoalsChartsFragment : Fragment() {
     private val dateFormat: SimpleDateFormat? = null
     private val BAR_WIDTH = 0.9f
     private val TEXTSIZE_LEGEND = 12f
+    private val NUMBER_VISIBLE_BARS = 10
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,17 +73,25 @@ class GoalsChartsFragment : Fragment() {
                 }
             }
         })
+        viewModel.goalHistory.observe(viewLifecycleOwner, {
+            it?.let {
+                if (it.isNotEmpty()) {
+                    stackedBarChart(binding.combinedChartHistory, it)
+                }
+            }
+        })
     }
 
     private fun fillCharts(data: List<GoalsChartsViewModel.GoalSummary>) {
-        val barEntriesGoalsTotal: MutableList<BarEntry> = ArrayList<BarEntry>()
-        val barEntriesGoalsMade: MutableList<BarEntry> = ArrayList<BarEntry>()
-        val radarEntriesSumPoints: ArrayList<RadarEntry> = ArrayList<RadarEntry>()
-        val radarEntriesGoalsMade: ArrayList<RadarEntry> = ArrayList<RadarEntry>()
-        val barEntriesActivity: MutableList<BarEntry> = ArrayList<BarEntry>()
+        val barEntriesGoalsTotal: MutableList<BarEntry> = ArrayList()
+        val barEntriesGoalsMade: MutableList<BarEntry> = ArrayList()
+        val radarEntriesSumPoints: ArrayList<RadarEntry> = ArrayList()
+        val radarEntriesGoalsMade: ArrayList<RadarEntry> = ArrayList()
+        val barEntriesActivity: MutableList<BarEntry> = ArrayList()
         val colorsActivities: MutableList<Int> = ArrayList()
         val colorsGoals: MutableList<Int> = ArrayList()
         val goalNames: MutableList<String> = ArrayList()
+        val activityNames: MutableList<String> = ArrayList()
         var i = 0
         for (goalData in data) {
             colorsGoals.add(goalData.goal.color)
@@ -107,96 +118,69 @@ class GoalsChartsFragment : Fragment() {
             for (activityEntry in goalData.activitySummaries) {
                 barEntriesActivity.add(
                     BarEntry(
-                        (i + j).toFloat(),
+                        activityNames.size.toFloat(),
                         activityEntry.countMade.toFloat(),
                         null,
                         activityEntry.activity.name
                     )
                 )
+                activityNames.add(activityEntry.activity.name)
                 colorsActivities.add(goalData.goal.color)
                 j++
             }
             i++
         }
-        // barChartGoalsPointsTotal
-        var barWidth = adaptBarChart(
+        // barCharts
+        adaptBarChart(
             barEntriesGoalsTotal,
             binding.barChartGoalsPointsTotal,
-            colorsGoals
+            colorsGoals,
+            goalNames
         )
-        var axis: XAxis = binding.barChartGoalsPointsTotal.getXAxis()
-        axis.setValueFormatter(IndexAxisValueFormatter(goalNames))
-        axis.setDrawLabels(true)
-        axis.setLabelCount(goalNames.size)
-        axis.setTextSize(TEXTSIZE_LEGEND)
-        binding.barChartGoalsPointsTotal.setExtraBottomOffset(20F) //wegen etwas größerer Schrift, sonst Label unten abgeschnitten
-        axis.setPosition(XAxis.XAxisPosition.BOTTOM)
-        var longestLabelLength = Collections.max(
-            goalNames,
-            Comparator.comparing { obj: String -> obj.length }).length
-        if (longestLabelLength * 2.8 > barWidth) { //2.8 mit Ausprobieren
-            axis.setLabelRotationAngle(45F)
-            binding.barChartGoalsPointsTotal.setExtraBottomOffset(50F)
-        }
-        binding.barChartGoalsPointsTotal.animateXY(1000, 1000)
-
-
-        //web sum points
-        val set1: RadarDataSet
-        set1 = RadarDataSet(radarEntriesSumPoints, "web sum points")
-        set1.setColor(getColor(this.requireContext(), R.color.secondaryColor))
-        set1.setFillColor(getColor(this.requireContext(), R.color.secondaryVariantColor))
-        set1.setDrawFilled(true)
-        set1.setFillAlpha(180)
-        set1.setLineWidth(2f)
-        set1.setDrawHighlightCircleEnabled(true)
-        set1.setDrawHighlightIndicators(false)
-        // web days made
-        val set2 = RadarDataSet(radarEntriesGoalsMade, "web days made")
-        set1.setColor(getColor(this.requireContext(), R.color.secondaryColor))
-        set1.setFillColor(getColor(this.requireContext(), R.color.secondaryVariantColor))
-        set2.setDrawFilled(true)
-        set2.setFillAlpha(180)
-        set2.setLineWidth(2f)
-        set2.setDrawHighlightCircleEnabled(true)
-        set2.setDrawHighlightIndicators(false)
-        val setsPoints: ArrayList<IRadarDataSet> = ArrayList<IRadarDataSet>()
-        setsPoints.add(set1)
-        val setsMade: ArrayList<IRadarDataSet> = ArrayList<IRadarDataSet>()
-        setsMade.add(set2)
-        val radarDataPoints = RadarData(setsPoints)
-        adaptWeb(binding.radarChartPoints, radarDataPoints, goalNames.toTypedArray())
-        val radarDataMade = RadarData(setsMade)
-        adaptWeb(binding.radarChartDaysMade, radarDataMade, goalNames.toTypedArray())
-
-        // bar chart goals days made
-        barWidth = adaptBarChart(barEntriesGoalsMade, binding.barChartGoalsDaysMade, colorsGoals)
-        axis = binding.barChartGoalsDaysMade.getXAxis()
-        axis.setValueFormatter(IndexAxisValueFormatter(goalNames))
-        axis.setDrawLabels(true)
-        axis.setLabelCount(goalNames.size)
-        axis.setTextSize(TEXTSIZE_LEGEND)
-        binding.barChartGoalsDaysMade.setExtraBottomOffset(20F)
-        longestLabelLength = Collections.max(
-            goalNames,
-            Comparator.comparing { obj: String -> obj.length }).length
-        if (longestLabelLength * 2.8 > barWidth) {
-            axis.setLabelRotationAngle(45F)
-            binding.barChartGoalsDaysMade.setExtraBottomOffset(50F)
-        }
-        axis.setPosition(XAxis.XAxisPosition.BOTTOM)
-        binding.barChartGoalsDaysMade.animateXY(1000, 1000)
-
-
-        //activity
-        adaptBarChart(barEntriesActivity, binding.barChartActivities, colorsActivities)
-        if (barEntriesActivity.size > 10) binding.barChartActivities.moveViewToX(barEntriesActivity.size.toFloat()) //got to today, calls invalidate already
-        else {
+        adaptBarChart(
+            barEntriesGoalsMade,
+            binding.barChartGoalsDaysMade,
+            colorsGoals,
+            goalNames
+        )
+        adaptBarChart(
+            barEntriesActivity,
+            binding.barChartActivities,
+            colorsActivities,
+            activityNames
+        )
+        if (barEntriesActivity.size > NUMBER_VISIBLE_BARS) {
+            binding.barChartActivities.moveViewToX(barEntriesActivity.size.toFloat()) //got to today, calls invalidate already
+        } else {
             binding.barChartActivities.invalidate()
         }
+        //webs
+        adaptWeb(
+            binding.radarChartPoints,
+            RadarDataSet(radarEntriesSumPoints, "web sum points"),
+            goalNames.toTypedArray()
+        )
+        adaptWeb(
+            binding.radarChartDaysMade,
+            RadarDataSet(radarEntriesGoalsMade, "web days made"),
+            goalNames.toTypedArray()
+        )
     }
 
-    private fun adaptWeb(chart: RadarChart, radarData: RadarData, names: Array<String>) {
+    private fun adaptWeb(
+        chart: RadarChart,
+        radarDataSet: RadarDataSet,
+        names: Array<String>
+    ) {
+        radarDataSet.setColor(getColor(this.requireContext(), R.color.secondaryColor))
+        radarDataSet.setFillColor(getColor(this.requireContext(), R.color.secondaryVariantColor))
+        radarDataSet.setDrawFilled(true)
+        radarDataSet.setFillAlpha(180)
+        radarDataSet.setLineWidth(2f)
+        radarDataSet.setDrawHighlightCircleEnabled(true)
+        radarDataSet.setDrawHighlightIndicators(false)
+        val radarDataList: ArrayList<IRadarDataSet> = ArrayList<IRadarDataSet>()
+        radarDataList.add(radarDataSet)
         chart.getDescription().setEnabled(false)
         chart.setWebLineWidth(1f)
         chart.setWebColor(Color.LTGRAY)
@@ -223,6 +207,7 @@ class GoalsChartsFragment : Fragment() {
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT)
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL)
         l.setDrawInside(true)
+        val radarData = RadarData(radarDataList)
         radarData.setValueTextSize(TEXTSIZE_LEGEND)
         radarData.setDrawValues(true)
         radarData.setValueFormatter(object : ValueFormatter() {
@@ -232,10 +217,16 @@ class GoalsChartsFragment : Fragment() {
         }
         )
         chart.setData(radarData)
+        chart.animateXY(1000, 1000)
     }
 
     //return width of first bar
-    private fun adaptBarChart(entries: List<BarEntry>, chart: BarChart, colors: List<Int>): Float {
+    private fun adaptBarChart(
+        entries: List<BarEntry>,
+        chart: BarChart,
+        colors: List<Int>,
+        names: List<String>
+    ) {
         val barDataSet = BarDataSet(entries, "")
         barDataSet.setColors(colors)
         barDataSet.setDrawValues(false)
@@ -249,7 +240,10 @@ class GoalsChartsFragment : Fragment() {
         chart.getLegend().setEnabled(false)
         val xAxis: XAxis = chart.getXAxis()
         xAxis.setDrawAxisLine(false)
-        xAxis.setDrawLabels(false)
+        xAxis.setValueFormatter(IndexAxisValueFormatter(names))
+        xAxis.setDrawLabels(true)
+        xAxis.setLabelCount(names.size)
+        xAxis.setTextSize(TEXTSIZE_LEGEND)
         chart.setDrawValueAboveBar(false)
         val intValueFormatter: ValueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String? {
@@ -269,6 +263,108 @@ class GoalsChartsFragment : Fragment() {
         chart.setDrawMarkers(true)
         chart.setMarker(mv) // Set the marker to the chart
         chart.setHighlightPerTapEnabled(true) //otherwise marker will not work
-        return barRect.right - barRect.left
+        val barWidth = barRect.right - barRect.left
+
+        chart.setExtraBottomOffset(20F)
+        val longestLabelLength = Collections.max(
+            names,
+            Comparator.comparing { obj: String -> obj.length }).length
+        if (longestLabelLength * 2.8 > barWidth) {
+            xAxis.setLabelRotationAngle(45F)
+            chart.setExtraBottomOffset(50F)
+        }
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM)
+        chart.animateXY(1000, 1000)
+    }
+
+    private fun stackedBarChart(chart: CombinedChart, data: List<GoalsChartsViewModel.GoalsDate>) {
+        if (data.isEmpty()) return //nothing to show
+        val countGoals = data[0].goalPoints.size
+        chart.clear()
+        chart.setDrawOrder(arrayOf(DrawOrder.LINE, DrawOrder.BAR))
+        val colors = ArrayList<Int>()
+        val labels = Array<String>(countGoals){ _ -> ""}
+        val barEntries: MutableList<BarEntry> = ArrayList()
+        val hundredPercentLineValues = ArrayList<Entry>()
+        val shortDateFormat = SimpleDateFormat(getString(R.string.date_md))
+        var goalIndex = 0
+        var barIndex = 0
+        for (goalPoint in data[0].goalPoints) {
+            colors.add(goalPoint.first.color)
+            labels[goalIndex] = goalPoint.first.name
+            goalIndex++
+        }
+        val dates = arrayOfNulls<String>(data.size + 1)
+        for (goalDate in data) {
+            val bar = FloatArray(countGoals)
+            goalIndex = 0
+            for (goalPoint in goalDate.goalPoints) {
+                bar[goalIndex] = goalPoint.second.toFloat()
+                goalIndex++
+            }
+            hundredPercentLineValues.add(
+                Entry(
+                    barIndex.toFloat(),
+                    goalDate.hundredPercent.toFloat()
+                )
+            )
+            barEntries.add(BarEntry(barIndex.toFloat(), bar, goalDate.day))
+            dates[barIndex] = shortDateFormat.format(goalDate.day.time)
+            barIndex++
+        }
+        //add empty bar to show todays bar full (if there are more than 10 bars)
+        if (barIndex > NUMBER_VISIBLE_BARS) {
+            dates[barIndex] = ""
+            barEntries.add(BarEntry(barIndex.toFloat(), null, ""))
+        }
+        chart.getXAxis().setValueFormatter(IndexAxisValueFormatter(dates))
+        chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM)
+        chart.getAxisLeft().setDrawLabels(false)
+        chart.getAxisRight().setDrawLabels(false)
+
+        val setLine = LineDataSet(hundredPercentLineValues, "100%")
+        setLine.lineWidth = 2f
+        setLine.color = Color.RED
+        setLine.setDrawCircles(false)
+        setLine.enableDashedLine(10f, 5f, 0f)
+        setLine.valueTextSize = 0f
+        val dataTotalDesired = LineData(setLine)
+
+        val barSet = BarDataSet(barEntries, "")
+        barSet.colors = colors
+        barSet.stackLabels = labels
+
+
+        barSet.valueTextSize = 20f
+
+        barSet.setDrawIcons(false)
+        val bar = BarData(barSet)
+        bar.setDrawValues(false)
+
+        val combinedData = CombinedData()
+        combinedData.setData(bar)
+        combinedData.setData(dataTotalDesired)
+        chart.setData(combinedData)
+
+
+        chart.getDescription().setEnabled(false)
+
+        chart.setVisibleXRangeMaximum(10f)
+        chart.getAxisLeft().setAxisMinimum(0f)
+        chart.getAxisRight().setAxisMinimum(0f)
+
+        chart.getAxisLeft().setValueFormatter(object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                return Math.floor(value.toDouble()).toInt().toString()
+            }
+        })
+        chart.getAxisLeft().setLabelCount(5)
+        chart.getAxisRight().setLabelCount(5)
+
+        val l: Legend = chart.getLegend()
+        l.isWordWrapEnabled = true
+
+        if (data.size > 10) chart.moveViewToX(data.size.toFloat()) //got to today, calls invalidate already
+        else chart.invalidate()
     }
 }

@@ -12,6 +12,9 @@ interface GoalDao {
     @Query("SELECT * FROM goal order by order_number asc")
     fun getAll(): Flow<List<Goal>>
 
+    @Query("SELECT * FROM goal order by order_number asc")
+    fun getAllWithRelatedActivities(): Flow<List<GoalAndRelatedActivities>>
+
     @Query("SELECT color FROM goal order by order_number asc")
     fun getAllColors(): Flow<List<Int>>
 

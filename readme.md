@@ -10,15 +10,9 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 
 
 ## ToDos
-- check https://github.com/deano2390/MaterialShowcaseView
 - https://github.com/square/leakcanary
 - https://github.com/AnyChart/AnyChart-Android
-- check wasabeef/awesome-android-ui:
-- Tests hinzufügen https://developer.android.com/codelabs/advanced-android-kotlin-training-testing-basics#0 und https://speakerdeck.com/alexzhukovich/writing-robust-android-ui-tests 
-- DB-Tests
-  - https://speakerdeck.com/alexzhukovich/let-us-play-in-room-with-kotlin?slide=49
 - Hilfe mit https://github.com/KeepSafe/TapTargetView
-- für Onboarding auswählen: https://undraw.co/illustrations oder https://www.drawkit.io/
 - https://github.com/googlesamples/easypermissions
 - permission to export pictures ... see https://github.com/TeamAmaze/AmazeFileManager
 - implement trophy made using https://github.com/gabriel-TheCode/AestheticDialogs or https://github.com/chnouman/AwesomeDialog
@@ -201,5 +195,5 @@ Usually, you write one assert per test. However the test preparation is relativ 
   - https://github.com/wasabeef/awesome-android-ui
 - UX: fonts, colors...
   - https://uxplanet.org/ui-design-resources-to-kickstart-your-project-ce2bea7a3740
-
+  - https://undraw.co/illustrations oder https://www.drawkit.io/
 ## Thanks 

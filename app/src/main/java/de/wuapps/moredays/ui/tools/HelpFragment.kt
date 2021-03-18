@@ -34,6 +34,7 @@ class HelpFragment : Fragment() {
         )
         view.findViewById<TextView>(R.id.texViewVersion).text = version
         view.findViewById<TextView>(R.id.textViewTips).text = HtmlCompat.fromHtml(getString(R.string.help_tips_content), HtmlCompat.FROM_HTML_MODE_LEGACY)
+        view.findViewById<TextView>(R.id.textViewThanks).text = HtmlCompat.fromHtml(getString(R.string.help_thanks_content), HtmlCompat.FROM_HTML_MODE_LEGACY)
         hideFab()
         return view
     }

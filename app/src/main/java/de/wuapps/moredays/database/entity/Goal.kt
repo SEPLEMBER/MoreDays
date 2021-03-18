@@ -26,6 +26,7 @@ class Goal(
   var isOld: Boolean
 ) : Parcelable {
     constructor() : this(0, "", DEFAULT_COLOR, 0, DEFAULLT_ICON_ID, 0, true, false)
+    constructor(name: String, color: Int, points: Int, symbol: Int) : this(0, name, color, points, symbol, 0, true, false)
 
     //needed for spinner
     override fun toString(): String {

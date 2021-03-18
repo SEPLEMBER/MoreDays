@@ -11,10 +11,11 @@
             name="journal"
             type="de.wuapps.moredays.database.entity.Journal" />
     </data>
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="@dimen/journal_item_width"
-        android:layout_height="175dp"
-        android:layout_margin="8dp"
+        android:layout_height="165dp"
+        android:layout_margin="4dp"
         android:clickable="true"
         android:onClick="@{clickListener}"
         app:cardCornerRadius="8dp"
@@ -47,18 +48,19 @@
                 android:id="@+id/textViewImportant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:text="@{journal.affirmation}"
+                android:layout_marginHorizontal="4dp"
                 android:layout_marginVertical="1dp"
-                android:textAlignment="center"
+                android:lines="2"
+                android:text="@{journal.affirmation}"
+                android:gravity="center"
                 android:textSize="14sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerviewIcons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
-
+                android:layout_gravity="center_horizontal"
+                 />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

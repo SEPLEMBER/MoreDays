@@ -39,6 +39,7 @@ class HomeViewModel(
         false //before an activity is inserted this is set to true/false, hence with an update of goalData reached100Percent may be set accordingly
     private val analysis = Analysis()
     private var latestActivity: Activity? = null
+    var latestGoal: Goal? = null
     private val _activityEntries = activityEntryDao.getAll()
     private val _scaleEntries = scaleEntryDao.getAll()
     private val _trophies = trophyDao.getAll()
@@ -85,18 +86,16 @@ class HomeViewModel(
     private fun mapGoalDataToGoalEntries(goalData: List<GoalAndRelatedData>): List<GoalEntry> {
         val result = mutableListOf<GoalEntry>()
         for (item in goalData) {
-            result += GoalEntry(
-                item,
-                date
-            )
+            result.add(GoalEntry(item, date))
         }
         calcPercentage(result)
         return result
     }
 
-    private suspend fun analyzeGoalTrophies(goal: Goal, activity: Activity) {
+    private suspend fun analyzeGoalTrophies(goal: Goal, entryId: Long) {
+        latestGoal = goal
         val newTrophies =
-            analysis.checkForNewTrophies(goal, activity.uid, date, trophyList, activityEntriesList)
+            analysis.checkForNewTrophies(goal, entryId, date, trophyList, activityEntriesList)
         if (newTrophies.size > 0) {
             this.newTrophies.value!!.clear()
             this.newTrophies.postValue(newTrophies as MutableList<Trophy>)
@@ -108,12 +107,13 @@ class HomeViewModel(
         val id = -1L
         was100Percent = (percent.value!! >= 100F)
         viewModelScope.launch(Dispatchers.IO) {
-            val id = activityEntryDao.insert(
-                ActivityEntry(activity)
-            )
-            activity.uid = id
-            analyzeGoalTrophies(goal, activity)
-            checkChallenges()
+            val activityEntry =  ActivityEntry(activity)
+            val id = activityEntryDao.insert(activityEntry)
+            activityEntry.uid = id
+            activityEntriesList.add(activityEntry) //später besser mit observe arbeiten!
+            Log.w("trapp", "call analyzegoaltrophies, latest id="+id.toString())
+            analyzeGoalTrophies(goal, id)
+            Log.w("trapp", "after calling analyzegoaltrophies")
         }
         latestActivity = activity
     }

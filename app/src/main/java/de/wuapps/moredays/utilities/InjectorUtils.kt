@@ -17,6 +17,7 @@ import de.wuapps.moredays.ui.journal.JournalViewModelFactory
 import de.wuapps.moredays.ui.scale.ScaleListViewModelFactory
 import de.wuapps.moredays.ui.scale.ScaleViewModelFactory
 import de.wuapps.moredays.ui.tools.history.ActivityEntryListViewModelFactory
+import de.wuapps.moredays.ui.tools.imexport.ImpotExportViewModelFactory
 import de.wuapps.moredays.ui.tools.trophy.TrophyListViewModelFactory
 
 /**
@@ -42,7 +43,8 @@ object InjectorUtils {
         context: Context,
         goal: Goal?
     ): GoalViewModelFactory {
-        return GoalViewModelFactory(MoreDaysDatabase.getInstance(context.applicationContext).goalDao, goal)
+        val db = MoreDaysDatabase.getInstance(context.applicationContext)
+        return GoalViewModelFactory(db.goalDao, db.hundredPercentValueDao, goal)
     }
 
     fun provideHomeViewModelFactory(
@@ -108,13 +110,20 @@ object InjectorUtils {
         context: Context
     ): GoalsChartsViewModelFactory {
         val db = MoreDaysDatabase.getInstance(context.applicationContext)
-        return GoalsChartsViewModelFactory(db.goalDao, db.activityEntryDao, db.trophyDao)
+        return GoalsChartsViewModelFactory(db.goalDao, db.activityEntryDao, db.trophyDao, db.hundredPercentValueDao)
     }
 
-    fun ScalesChartViewModelFactory(
+    fun provideScalesChartViewModelFactory(
         context: Context
     ): ScalesChartViewModelFactory {
         val db = MoreDaysDatabase.getInstance(context.applicationContext)
-        return ScalesChartViewModelFactory(db.scaleDao, db.scaleEntryDao)
+        return ScalesChartViewModelFactory(db.scaleEntryDao)
+    }
+
+    fun provideImportExportViewModelFactory(
+        context: Context
+    ): ImpotExportViewModelFactory {
+        val db = MoreDaysDatabase.getInstance(context.applicationContext)
+        return ImpotExportViewModelFactory(db.goalDao, db.activityDao, db.scaleDao, db.activityEntryDao, db.scaleEntryDao, db.journalDao, db.trophyDao)
     }
 }

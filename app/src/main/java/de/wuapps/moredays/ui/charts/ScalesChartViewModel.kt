@@ -1,9 +1,26 @@
 package de.wuapps.moredays.ui.charts
 
 import androidx.lifecycle.ViewModel
-import de.wuapps.moredays.database.dao.ScaleDao
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import de.wuapps.moredays.database.dao.ScaleEntryDao
+import de.wuapps.moredays.database.entity.ScaleEntry
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class ScalesChartViewModel(private val scaleDao: ScaleDao, private val scaleEntryDao: ScaleEntryDao) : ViewModel() {
+class ScalesChartViewModel(private val scaleEntryDao: ScaleEntryDao) : ViewModel() {
+    val scaleData = scaleEntryDao.getAllScaleData().asLiveData()
 
+    fun removeScaleEntry(id: Long){
+        viewModelScope.launch(Dispatchers.IO){
+            scaleEntryDao.delete(id)
+        }
+    }
+
+    fun addScaleEntry(scaleId: Long, value: Float){
+        viewModelScope.launch(Dispatchers.IO){
+            val scaleEntry = ScaleEntry(scaleId, value)
+            scaleEntryDao.insert(scaleEntry)
+        }
+    }
 }

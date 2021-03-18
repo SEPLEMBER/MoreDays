@@ -3,48 +3,43 @@ package de.wuapps.moredays.database.dao
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import de.wuapps.moredays.database.entity.HundredPercentValue
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface HundredPercentValueDao {
-    @get:Query("SELECT * FROM hundredpercentvalue order by date desc")
-    val all: List<HundredPercentValue>
+    @Query("SELECT * FROM hundredpercentvalue order by date desc")
+    fun getAll(): Flow<List<HundredPercentValue>>
 
-    @get:Query("SELECT points FROM hundredpercentvalue order by date asc limit 1")
-    val pointsOfFirstEntry: Int
-
-    @Query("SELECT points FROM hundredpercentvalue where date = :givenDate")
-    fun getPointsForGivenDate(givenDate: String): Int
-
-    @Query("SELECT * FROM hundredpercentvalue where date = :givenDate")
-    fun getEntryForGivenDate(givenDate: String): HundredPercentValue
-
-    @Query("SELECT * FROM hundredpercentvalue where date < :givenDate order by date desc limit 1")
-    fun getPreviousEntryForGivenDate(givenDate: String): HundredPercentValue
-
-    @Query("SELECT * FROM hundredpercentvalue where date > :givenDate order by date asc limit 1")
-    fun getNextEntryForGivenDate(givenDate: String): HundredPercentValue
-
-    @Query("SELECT active_goals FROM hundredpercentvalue where date = :givenDate")
-    fun getActiveCategoriesForGivenDate(givenDate: String): String
+    @Query("INSERT INTO hundredpercentvalue SELECT :date as date, sum(goal.points) as points from goal where is_active > 0")
+    suspend fun insert(date: String)
 
     @Insert(onConflict = REPLACE)
-    fun insert(data: HundredPercentValue): Long
+    suspend fun insert(data: HundredPercentValue): Long
 
     @Insert
-    fun insertData(data: List<HundredPercentValue>)
+    suspend fun insertData(data: List<HundredPercentValue>)
 
     @Query("Delete from hundredpercentvalue")
-    fun deleteAll()
+    suspend fun deleteAll()
 
     @Query("Delete from hundredpercentvalue where date < '191103'")
-    fun deleteOld()
+    suspend fun deleteOld()
 
     @Delete
-    fun delete(data: HundredPercentValue)
+    suspend fun delete(data: HundredPercentValue)
+
+    @Query("delete from hundredpercentvalue where date = :date")
+    suspend fun delete(date: String)
 
     @Update
-    fun update(data: HundredPercentValue)
+    suspend fun update(data: HundredPercentValue)
 
     @Update
-    fun update(data: List<HundredPercentValue>)
+    suspend fun update(data: List<HundredPercentValue>)
+
+    @Transaction
+    suspend fun update(date: String){
+        delete(date)
+        insert(date)
+    }
 }

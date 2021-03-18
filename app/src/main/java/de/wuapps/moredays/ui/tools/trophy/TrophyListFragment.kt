@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.TrophyAndRelatedGoal
 import de.wuapps.moredays.database.MoreDaysDatabase
@@ -20,6 +23,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 class TrophyListFragment : Fragment() {
 
     private lateinit var binding: TrophyListFragmentBinding
+    private lateinit var adapter: TrophyAdapter
 
     private val viewModel: TrophyListViewModel by viewModels {
         InjectorUtils.provideTrophyListViewModelFactory(requireActivity())
@@ -31,23 +35,47 @@ class TrophyListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = TrophyListFragmentBinding.inflate(inflater, container, false)
-        val layoutManager = ResponsiveGridLayoutManager(
-            requireNotNull(this.activity),
-            resources.getDimension(R.dimen.goal_item_width).toInt()
-        )
+        val layoutManager = LinearLayoutManager(this.context)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.recyclerviewTrophies.layoutManager = layoutManager
-        val adapter = TrophyAdapter()
+        adapter = TrophyAdapter()
+        val touchHelper = getItemTouchHelper()
+        touchHelper.attachToRecyclerView(binding.recyclerviewTrophies)
         binding.recyclerviewTrophies.adapter = adapter
-        subscribeUi(adapter)
+        subscribeUi()
         handleFab(viewModel.hasFab)
         return binding.root
     }
 
     @InternalCoroutinesApi
-    private fun subscribeUi(adapter: TrophyAdapter) {
+    private fun subscribeUi() {
         viewModel.trophies.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it as MutableList<TrophyAndRelatedGoal>)
+            }
+        })
+    }
+
+    @InternalCoroutinesApi
+    private fun getItemTouchHelper(): ItemTouchHelper {
+        return ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(
+                viewHolder: RecyclerView.ViewHolder,
+                direction: Int
+            ) {
+                val id = adapter.getTrophyId(viewHolder.adapterPosition)
+                viewModel.removeTrophy(id)
             }
         })
     }
