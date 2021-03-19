@@ -8,15 +8,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.MoreDaysApplication
+import de.wuapps.moredays.database.entity.Activity
+import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.ListItemGoalHomeBinding
 
 
-class GoalAdapter(private val homeViewModel: HomeViewModel) :
+class GoalAdapter(private val onGoalClickHandler: (goal: Goal, activity: Activity) -> Unit) :
     ListAdapter<GoalEntry, GoalAdapter.GoalViewHolder>(GoalDiffCallback) {
 
     class GoalViewHolder(
         private val binding: ListItemGoalHomeBinding,
-        private val homeViewModel: HomeViewModel
+        private val onGoalClickHandler: (goal: Goal, activity: Activity) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
         init {
@@ -47,7 +49,7 @@ class GoalAdapter(private val homeViewModel: HomeViewModel) :
             val values: Array<String> = stringList.toTypedArray()
             dialogBuilder.setTitle(goalEntry.getName()).setItems(values) { _, position ->
                 val activity = activities[position]
-                homeViewModel.addGoalEntry(goalEntry.getGoal(), activity)
+                onGoalClickHandler(goalEntry.getGoal(), activity)
             }
             val alertDialog = dialogBuilder.create()
             alertDialog.show()
@@ -61,7 +63,7 @@ class GoalAdapter(private val homeViewModel: HomeViewModel) :
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ), homeViewModel
+            ), onGoalClickHandler
         )
     }
 

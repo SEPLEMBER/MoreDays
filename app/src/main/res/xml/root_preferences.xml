@@ -1,0 +1,24 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/settings_personal_header">
+
+        <EditTextPreference
+            app:key="@string/preferences_name_key"
+            app:title="@string/settings_your_name_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/settings_start_header">
+
+        <SwitchPreferenceCompat
+            app:key="@string/preferences_start_fragment_key"
+            app:title="@string/settings_start_home_title"
+            app:summaryOff="@string/settings_start_home_title_off"
+            app:summaryOn="@string/settings_start_home_title_on"/>
+
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

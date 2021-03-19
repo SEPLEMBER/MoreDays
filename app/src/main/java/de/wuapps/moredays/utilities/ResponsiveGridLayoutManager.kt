@@ -1,4 +1,4 @@
-package de.wuapps.moredays.ui
+package de.wuapps.moredays.utilities
 
 import android.content.Context
 import androidx.recyclerview.widget.GridLayoutManager

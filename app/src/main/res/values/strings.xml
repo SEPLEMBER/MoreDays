@@ -24,13 +24,6 @@
     <string name="activites">Activities</string>
     <string name="scales">Scales</string>
     <string name="challenges">Challenges</string>
-    <!-- Settings Titles -->
-
-    <!-- ShredPreferences -->
-    <string name="preferences_onboarding" translatable="false">preferences_onboarding</string>
-    <string name="preferences_file_key" translatable="false">de.wuapps.moredays.PREFERENCE_FILE_KEY</string>
-
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="lbl_choose_goal">Choose a goal</string>
     <string name="lbl_question_activity_to_goal">How may you reach this goal? Define different activities with different difficulty.</string>
     <string name="hint_update_points_activity">Change will effect all data, including past entries.</string>
@@ -67,10 +60,10 @@
     <string name="trophy_type_title_total">total</string>
     <string name="trophy_type_title_times_per_week">in week</string>
     <string name="trophy_type_title_made_goal">made it</string>
-    <string name="trophy_type_msg_row">Super, you made %1$s %2$d days in row</string>
-    <string name="trophy_type_msg_total">Super, you made %1$s %2$d times</string>
-    <string name="trophy_type_msg_times_per_week">Super, you made %1$s %2$d times in this week</string>
-    <string name="trophy_type_msg_made_goal">Super, you made %s for today</string>
+    <string name="trophy_type_msg_row">Super %1$s! You made %2$s %3$d days in row :)</string>
+    <string name="trophy_type_msg_total">Super %1$s! you made %2$s %3$d times :)</string>
+    <string name="trophy_type_msg_times_per_week">Super %1$s! you made %2$s %3$d times in this week :)</string>
+    <string name="trophy_type_msg_made_goal">Super %1$s! you made %2$s for today</string>
     <string name="help_introduction_content">
         What makes a good day, a balanced day? Define different goals, such as fit, relaxed, slim. For every goal you define how difficult it is for you, start with a low number of points and increase over time. Choose a color and symbol as you like.
 
@@ -167,6 +160,8 @@
     <string name="label_chart_goals_points_total">Points per goal</string>
     <string name="label_chart_goals_days_made">days made</string>
     <string name="label_chart_activities">Activities</string>
+    <string name="label_min_value">minimum value</string>
+    <string name="label_max_value">maximum value</string>
     <string name="analysis_made">days made</string>
     <string name="analysis_chain">chain</string>
     <string name="add_entry">Add scale value or activity made</string>
@@ -181,7 +176,7 @@
     <string name="onboarding_desc3">In the menu you will find many ways to adapt and analyse your data, give it a try :) only what feels easy and light may be done daily ...</string>
     <string name="msg_tutorial_complete">Tutorial completet, start using it :)</string>
     <string name="today">today</string>
-
+    <string name="ini_circle_value">let\'s start %s :)</string>
 
     <!-- tap help -->
     <string name="help_goal">Define your own goals. How do you want to be? What belongs to a balanced day? With the activities you define different ways to reach these goals.</string>
@@ -208,4 +203,23 @@
     <string name="help_journal_icons">Select icons to describe your day.</string>
     <string name="help_journal_picture">Add or remove a picture for this day.</string>
     <string name="help_goal_isOld">Mark a goal as old, if you want to keep the data, but do not want to see it at the home screen any more. You may reactivate it any time.</string>
+
+    <!-- ShredPreferences -->
+    <string name="preferences_onboarding" translatable="false">onboarding</string>
+    <string name="preferences_file_key" translatable="false">de.wuapps.moredays.PREFERENCE_FILE_KEY</string>
+    <string name="preferences_name_key" translatable="false">name</string>
+    <string name="preferences_start_fragment_key" translatable="false">start_fragment</string>
+
+    <!-- Preference Titles -->
+    <string name="settings_personal_header">Personal</string>
+    <string name="settings_start_header">Start</string>
+
+    <!-- Personal Preferences -->
+    <string name="settings_your_name_title">Your name</string>
+
+    <!-- Start Preferences -->
+    <string name="settings_start_home_title">Start Screen</string>
+    <string name="settings_start_home_title_on">Show journal at start up</string>
+    <string name="settings_start_home_title_off">Show home with circles at start up</string>
+
 </resources>

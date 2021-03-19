@@ -1,6 +1,7 @@
 package de.wuapps.moredays.ui.home
 
 import android.app.AlertDialog
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
@@ -24,7 +26,7 @@ import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.database.entity.Trophy
 import de.wuapps.moredays.databinding.FragmentHomeBinding
-import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
+import de.wuapps.moredays.utilities.ResponsiveGridLayoutManager
 import de.wuapps.moredays.ui.tools.isSameDay
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
@@ -63,7 +65,9 @@ class HomeFragment : Fragment() {
             requireNotNull(this.activity),
             resources.getDimension(R.dimen.entry_type_item_width).toInt()
         )
-        goalAdapter = GoalAdapter(viewModel)
+        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        viewModel.name = preferences.getString(getString(R.string.preferences_name_key), null) ?: ""
+        goalAdapter = GoalAdapter(viewModel::addGoalEntry)
         binding.recyclerViewGoals.adapter = goalAdapter
         challengeAdapter = ChallengeAdapter()
         binding.recyclerviewChallenges.adapter = challengeAdapter
@@ -149,10 +153,15 @@ class HomeFragment : Fragment() {
         decimalView.value
         val fractionView = layout.findViewById<NumberPicker>(R.id.numberPickerFraction)
         val fractionValues = Array(100) { i -> i.toString() }
+        val latestValue = viewModel.getLatestValueToScale(scale)
+        val decimalValue = Math.floor(latestValue.toDouble()).toInt()
+        val fractionValue = ((latestValue - decimalValue) * 100).toInt()
         fractionView.minValue = 0
         fractionView.maxValue = 99
         decimalView.minValue = scale.minValue
         decimalView.maxValue = scale.maxValue
+        decimalView.value = decimalValue
+        fractionView.value = fractionValue
         fractionView.displayedValues = fractionValues
         val dialogBuilder = AlertDialog.Builder(this.activity)
         dialogBuilder
@@ -188,7 +197,9 @@ class HomeFragment : Fragment() {
                 }
                 val data = it as MutableList<GoalEntry>
                 goalAdapter.submitList(data)
+                binding.circlesView.circlesLabel = String.format(getString(R.string.ini_circle_value), viewModel.name)
                 binding.circlesView.setCirclesData(data)
+
                 activityData.clear()
                 it.forEach { goalEntry ->
                     goalEntry.getActivities().forEach { activity ->
@@ -245,20 +256,24 @@ class HomeFragment : Fragment() {
         when (trophyType) {
             Trophy.TROPHY_TYPE_GOAL_DAYS_IN_ROW -> return String.format(
                 getString(R.string.trophy_type_msg_row),
+                viewModel.name,
                 goalName,
                 value
             )
             Trophy.TROPHY_TYPE_GOAL_TOTAL -> return String.format(
                 getString(R.string.trophy_type_msg_total),
+                viewModel.name,
                 goalName,
                 value
             )
             Trophy.TROPHY_TYPE_MADE_GOAL -> return String.format(
                 getString(R.string.trophy_type_msg_made_goal),
+                viewModel.name,
                 goalName
             )
             Trophy.TROPHY_TYPE_MADE_GOAL_N_TIMES_IN_WEEK -> return String.format(
                 getString(R.string.trophy_type_msg_times_per_week),
+                viewModel.name,
                 goalName,
                 value
             )

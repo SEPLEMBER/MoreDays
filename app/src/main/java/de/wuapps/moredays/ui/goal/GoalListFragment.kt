@@ -1,21 +1,16 @@
 package de.wuapps.moredays.ui.goal
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import de.wuapps.moredays.R
-import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.GoalListFragmentBinding
-import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
-import de.wuapps.moredays.ui.activity.ActivityFragmentArgs
+import de.wuapps.moredays.utilities.ResponsiveGridLayoutManager
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
 import de.wuapps.moredays.utilities.InjectorUtils

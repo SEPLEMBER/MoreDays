@@ -24,6 +24,7 @@ class HomeViewModel(
 ) : ViewModel() {
 
     val hasFab = true
+    var name = ""
     val newTrophies = MutableLiveData<MutableList<Trophy>>()
     val justReached100Percent = MutableLiveData<Boolean>()
     val percent = MutableLiveData<Float>()
@@ -165,6 +166,10 @@ class HomeViewModel(
         }
         goalEntryList.postValue(tmp)
         calcPercentage(tmp)
+    }
+
+    fun getLatestValueToScale(scale: Scale):Float{
+        return scaleEntriesList.filter { it.scaleId == scale.uid }.lastOrNull()?.value ?: (scale.maxValue - scale.minValue)/2.0F
     }
 }
 

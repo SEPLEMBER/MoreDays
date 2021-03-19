@@ -10,15 +10,13 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 
 
 ## ToDos
-- HomeViewModel aus GoalAdapter in home raus 
-- dateformat aus adapter raus
-- Settings
+- trophy-Text mit persönlicher Anrede und auch beim Start los geht's Ute :) -- immer so formulieren, dass leerer String auch geht
+  - bei mainactivity start setzen/beachten
+- db initial befüllen ink. trinken (großes Glas 2, kleines Glas 1) desired: 15
 - Tests entkoppeln
 - leaks entdecken - https://github.com/square/leakcanary
 - relation challenge bzw. beim löschen der goalid entsprechende challenges löschen!
 - entities prüfen -> default-Werte in Konstruktor!
-- Hilfe vervollständigen für alle wesentlichen seiten
-- labels bei scale dazu, andere?
 - zweisprachig
 
 - optional

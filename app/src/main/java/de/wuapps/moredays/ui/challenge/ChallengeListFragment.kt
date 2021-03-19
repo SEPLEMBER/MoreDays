@@ -1,22 +1,16 @@
 package de.wuapps.moredays.ui.challenge
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Challenge
-import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.ChallengeListFragmentBinding
-import de.wuapps.moredays.databinding.GoalListFragmentBinding
-import de.wuapps.moredays.ui.ResponsiveGridLayoutManager
-import de.wuapps.moredays.ui.goal.GoalAdapter
-import de.wuapps.moredays.ui.goal.GoalListViewModel
+import de.wuapps.moredays.utilities.ResponsiveGridLayoutManager
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
 import de.wuapps.moredays.utilities.InjectorUtils

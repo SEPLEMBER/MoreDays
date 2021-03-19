@@ -149,7 +149,7 @@ class ScaleFragment : Fragment() {
     private fun showHelp(){
         TapTargetSequence(requireActivity())
             .targets(
-                TapTarget.forView(binding.textViewName, getString(R.string.activites), getString(R.string.help_add_activity))
+                TapTarget.forView(binding.textViewName, getString(R.string.scales), getString(R.string.help_scale))
                     .cancelable(false).transparentTarget(true).targetRadius(30)
             ).start()
     }

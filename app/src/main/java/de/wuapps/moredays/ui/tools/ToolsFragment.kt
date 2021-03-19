@@ -29,6 +29,8 @@ class ToolsFragment : Fragment() {
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_trophies) }
         view.findViewById<Button>(R.id.buttonActivityEntries)
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_history) }
+        view.findViewById<Button>(R.id.buttonSettings)
+            .setOnClickListener { findNavController().navigate(R.id.navigation_tools_settings) }
         hideFab()
         return view
     }

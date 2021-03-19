@@ -8,10 +8,11 @@
             type="de.wuapps.moredays.ui.scale.ScaleViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/layoutContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         tools:context=".ui.scale.ScaleFragment">
 
         <TextView
@@ -21,8 +22,7 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:labelFor="@id/editTextName"
             android:text="@string/lbl_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+             />
 
         <EditText
             android:id="@+id/editTextName"
@@ -30,9 +30,17 @@
             android:layout_height="@dimen/min_accesible_size"
             android:inputType="text"
             android:text="@={scaleViewModel.scale.name}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewName" />
+         />
 
+
+        <TextView
+            android:id="@+id/textViewMinValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:labelFor="@id/editTextMinValue"
+            android:text="@string/label_min_value"
+            />
 
         <EditText
             android:id="@+id/editTextMinValue"
@@ -40,10 +48,17 @@
             android:layout_height="@dimen/min_accesible_size"
             android:inputType="number"
             android:hint="@string/hint_min_value"
-            android:text="@={`` + scaleViewModel.scale.minValue}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextName" />
+            android:text="@={`` + scaleViewModel.scale.minValue}" />
 
+
+        <TextView
+            android:id="@+id/textViewMaxValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:labelFor="@id/editTextMaxValue"
+            android:text="@string/label_max_value"
+            />
 
         <EditText
             android:id="@+id/editTextMaxValue"
@@ -55,6 +70,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editTextMinValue" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

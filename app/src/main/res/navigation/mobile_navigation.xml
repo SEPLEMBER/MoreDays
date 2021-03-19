@@ -37,6 +37,9 @@
         <action
             android:id="@+id/navigation_tools_history"
             app:destination="@id/activityEntryListFragment" />
+        <action
+            android:id="@+id/navigation_tools_settings"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/activityFragment"
@@ -182,4 +185,8 @@
         android:name="de.wuapps.moredays.ui.tools.history.ActivityEntryListFragment"
         android:label="activity_entry_list_fragment"
         tools:layout="@layout/activity_entry_list_fragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="de.wuapps.moredays.ui.tools.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

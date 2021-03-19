@@ -19,7 +19,7 @@ class CirclesView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
-    private var _circlesLabel: String? = "let's start :)"
+    private var _circlesLabel: String = ""
     private lateinit var textPaint: TextPaint
     private val rect = RectF()
 
@@ -46,7 +46,7 @@ class CirclesView @JvmOverloads constructor(
     /**
      * The text to draw
      */
-    private var circlesLabel: String?
+    var circlesLabel: String
         get() = _circlesLabel
         set(value) {
             _circlesLabel = value
