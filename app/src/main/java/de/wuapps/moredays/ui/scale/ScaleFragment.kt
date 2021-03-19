@@ -6,15 +6,13 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.getkeepsafe.taptargetview.TapTarget
+import com.getkeepsafe.taptargetview.TapTargetSequence
 import de.wuapps.moredays.R
-import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.databinding.ScaleFragmentBinding
-import de.wuapps.moredays.ui.journal.JournalFragmentArgs
-import de.wuapps.moredays.ui.journal.JournalViewModel
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.utilities.InjectorUtils
 import java.lang.Integer.parseInt
@@ -126,6 +124,10 @@ class ScaleFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.menu_help -> {
+                showHelp()
+                true
+            }
             R.id.menu_delete -> {
                 delete()
                 true
@@ -139,8 +141,16 @@ class ScaleFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.delete_save_menu, menu)
+        inflater.inflate(R.menu.help_delete_save_menu, menu)
         if (viewModel.isNew)
             menu.findItem(R.id.menu_delete).isVisible = false
+    }
+
+    private fun showHelp(){
+        TapTargetSequence(requireActivity())
+            .targets(
+                TapTarget.forView(binding.textViewName, getString(R.string.activites), getString(R.string.help_add_activity))
+                    .cancelable(false).transparentTarget(true).targetRadius(30)
+            ).start()
     }
 }

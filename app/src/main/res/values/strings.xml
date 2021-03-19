@@ -31,16 +31,16 @@
     <string name="preferences_file_key" translatable="false">de.wuapps.moredays.PREFERENCE_FILE_KEY</string>
 
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="lbl_choose_goal">lbl_choose_goal</string>
-    <string name="lbl_question_activity_to_goal">lbl_question_activity_to_goal</string>
-    <string name="hint_update_points_activity">hint_update_points_activity</string>
-    <string name="lbl_name">lbl_name</string>
-    <string name="lbl_points">lbl_points</string>
-    <string name="lbl_inactive">lbl_inactive</string>
-    <string name="lbl_add_activity">lbl_add_activity</string>
-    <string name="lbl_categories_question">lbl_categories_question</string>
-    <string name="lbl_add_goal">lbl_add_goal</string>
-    <string name="lbl_is_old">lbl_is_old</string>
+    <string name="lbl_choose_goal">Choose a goal</string>
+    <string name="lbl_question_activity_to_goal">How may you reach this goal? Define different activities with different difficulty.</string>
+    <string name="hint_update_points_activity">Change will effect all data, including past entries.</string>
+    <string name="lbl_name">Name</string>
+    <string name="lbl_points">Points</string>
+    <string name="lbl_inactive">inactive</string>
+    <string name="lbl_add_activity">add activity</string>
+    <string name="lbl_categories_question">How do you want to be?</string>
+    <string name="lbl_add_goal">add goal</string>
+    <string name="lbl_is_old">is old</string>
     <string name="warning_field_is_required">field is required</string>
     <string name="title_delete">Delete</string>
     <string name="question_delete_goal">Do you really want to delete this goal and all data linked to it? Remember you may set it to old.</string>
@@ -50,14 +50,13 @@
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="title_color_picker_dialog">Color Picker Dialog</string>
-    <string name="inactive">inaktiv</string>
+    <string name="inactive">inactive</string>
     <string name="decimal_symbol">,</string>
     <string name="warning_not_an_int">not an int</string>
     <string name="question_delete_scale" />
     <string name="lbl_add_scale" />
-    <string name="hint_min_value">hint_min_value</string>
-    <string name="hint_max_value">hint_max_value</string>
-
+    <string name="hint_min_value">minimum value</string>
+    <string name="hint_max_value">maximum value</string>
     <string name="save">save</string>
     <string name="delete">delete</string>
     <string name="help">help</string>
@@ -180,5 +179,33 @@
     <string name="onboarding_desc1">Use the positive psychology with journaling, observe your weight, reach your goals - on easy and on strenuous days. No ads, no registration, your data on your mobile.</string>
     <string name="onboarding_desc2">We start with an initial set of goals and activities to reach those goals, edit/delete/add them as you like in the tools section of your bottom navigation.</string>
     <string name="onboarding_desc3">In the menu you will find many ways to adapt and analyse your data, give it a try :) only what feels easy and light may be done daily ...</string>
+    <string name="msg_tutorial_complete">Tutorial completet, start using it :)</string>
+    <string name="today">today</string>
 
+
+    <!-- tap help -->
+    <string name="help_goal">Define your own goals. How do you want to be? What belongs to a balanced day? With the activities you define different ways to reach these goals.</string>
+    <string name="help_goal_points">For your goals you define how many points you need to reach them. Points are gained through activities. The points correspond to the weight the goals has for you. Do not start too enthusiastic...</string>
+    <string name="help_activities">Activities are the way to reach your goals, each day. There is always more than one way to reach a goal. That\'s the strength of moreDays :) e.g. for your goal fit you may define activities like
+        sports (when you feel powerful) or a walk, yoga (for a strenuous day), i.e. different combinations of your activities make your goal. Think of your days and define realistic activities for each goal. The points indicate how easy/difficult this activity is for
+        you or how much time it takes. Think also of big activities like a great hiking tour, which will fill and make your day, i.e. this should get the sum of all points of your goal.
+        </string>
+    <string name="help_challenges">With challenges you may focus a special goal or activity, e.g. you may define a challenge to reach your goal fit 5 times until ... or you want to loose weight or you want to do your activity sports 3 times in this week.</string>
+    <string name="help_scale">Everything possible to measure with numbers could be a scale, e.g. weight, sleep quality or time, ... just give it a name and enter the values whenever you want and have a look at the charts.</string>
+    <string name="help_challenge_deadline">What should be the deadline of this challenge?</string>
+    <string name="help_add_challenge_startdate">When do you want to start this challenge?</string>
+    <string name="help_add_challenge_type">With challenges you may focus a special goal or activity, e.g. you may define a challenge to reach your goal fit 5 times until ... or you want to loose weight or you want to do your activity sports 3 times in this week. Choose goal, activity or scale accordingly.</string>
+    <string name="help_home_fab">Add scale values or track the just finished activity.</string>
+    <string name="help_home_goal">Tap shows you the related activities for the given goals, start collecting points :)</string>
+    <string name="help_home_challenges">Challenges focus a special goal or activity or scale. Tap navigates you to all challenges.</string>
+    <string name="help_nav_tools">Here you may define and adapt your goals, scales and settings. You will find several lists like the list of entries and trophies -- swiping an entry will delete it. You may also import/export data and find additional tipps and help.</string>
+    <string name="help_nav_charts">Analyze your data :)</string>
+    <string name="help_add_activity">Define an activity to reach this goal, e.g. for the goal to become fit you could define activities like sports, walk. There should be more than one way to reach this goal, what can you do on easy what on strenuous days?</string>
+    <string name="help_add_activity_points">The points may mirror, how difficult it is for you or how much time it takes.
+        Some great activities like a great hiking tour will fill the day and hence should get the sum of all goals as points.</string>
+    <string name="help_journal_intro">Journaling is part of the positive psychology, check the internet for more information.</string>
+    <string name="help_journal_example_affirmations">Be inspired by examples.</string>
+    <string name="help_journal_icons">Select icons to describe your day.</string>
+    <string name="help_journal_picture">Add or remove a picture for this day.</string>
+    <string name="help_goal_isOld">Mark a goal as old, if you want to keep the data, but do not want to see it at the home screen any more. You may reactivate it any time.</string>
 </resources>

@@ -7,10 +7,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.getkeepsafe.taptargetview.TapTarget
+import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.maltaisn.icondialog.IconDialog
 import com.maltaisn.icondialog.IconDialogSettings
 import com.maltaisn.icondialog.data.Icon
 import com.maltaisn.icondialog.pack.IconPack
+import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Activity
@@ -305,6 +308,10 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.menu_help -> {
+                showHelp()
+                true
+            }
             R.id.menu_delete -> {
                 delete()
                 true
@@ -319,9 +326,18 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.delete_save_menu, menu)
+        inflater.inflate(R.menu.help_delete_save_menu, menu)
         if (viewModel.isNew)
             menu.findItem(R.id.menu_delete).isVisible = false
     }
 
+    private fun showHelp(){
+        TapTargetSequence(requireActivity())
+            .targets(
+                TapTarget.forView(binding.textViewTitle, getString(R.string.challenges), getString(R.string.help_challenges))
+                    .cancelable(false).transparentTarget(true).targetRadius(30),
+                TapTarget.forView(binding.challengeType, "", getString(R.string.help_add_challenge_type))
+                    .cancelable(false).transparentTarget(true).targetRadius(30)
+            ).start()
+    }
 }

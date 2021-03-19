@@ -24,7 +24,7 @@ interface GoalDao {
 
     @Transaction
     @Query("SELECT * FROM goal where goal.is_old = 0 order by order_number asc")
-    fun getAllDataForGivenDate(): Flow<List<GoalAndRelatedData>>
+    fun getAllGoalData(): Flow<List<GoalAndRelatedData>>
 
     //  @Transaction
 //  @Query("SELECT * FROM goal LEFT JOIN activity INNER JOIN activityentry ON goal.uid = activity.goal_id and activityentry.goal_id = goal.uid and activityentry.activity_id = activity.uid")

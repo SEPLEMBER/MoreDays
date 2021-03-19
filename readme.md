@@ -10,19 +10,25 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 
 
 ## ToDos
-- https://github.com/square/leakcanary
-- https://github.com/AnyChart/AnyChart-Android
-- Hilfe mit https://github.com/KeepSafe/TapTargetView
-- https://github.com/googlesamples/easypermissions
-- permission to export pictures ... see https://github.com/TeamAmaze/AmazeFileManager
-- implement trophy made using https://github.com/gabriel-TheCode/AestheticDialogs or https://github.com/chnouman/AwesomeDialog
-- lock & export/import see https://github.com/hanjoongcho/aaf-easydiary
-- in case push notifications are wanted https://github.com/OneSignal/OneSignal-Android-SDK and https://github.com/Tapadoo/Alerter
-- onboarding see https://thesimplycoder.com/346/android-intro-slider-and-splash-screen-tutorial/
-- glide with circle crop and recycler view (-->journal) https://thesimplycoder.com/114/android-recyclerview-tutorial-using-kotlin/
-- biometrics https://developer.android.com/jetpack/androidx/releases/biometric#1.0.1
-- nice charts https://github.com/diogobernardino/WilliamChart
-- round bottom nav with fab https://www.geeksforgeeks.org/how-to-add-a-floating-action-button-to-bottom-navigation-bar-in-android/
+- HomeViewModel aus GoalAdapter in home raus 
+- dateformat aus adapter raus
+- Settings
+- Tests entkoppeln
+- leaks entdecken - https://github.com/square/leakcanary
+- relation challenge bzw. beim löschen der goalid entsprechende challenges löschen!
+- entities prüfen -> default-Werte in Konstruktor!
+- Hilfe vervollständigen für alle wesentlichen seiten
+- labels bei scale dazu, andere?
+- zweisprachig
+
+- optional
+  - rename/organize laoyut
+  - for schleifen nochmal durchgehen, wo vl. map o.ä. verwendbar?
+- Import/Export
+  - Permissions: https://github.com/googlesamples/easypermissions
+- Verschlüsseln
+  - https://github.com/hanjoongcho/aaf-easydiary
+  - biometrics https://developer.android.com/jetpack/androidx/releases/biometric#1.0.1
 
 ## Vision
 
@@ -196,4 +202,5 @@ Usually, you write one assert per test. However the test preparation is relativ 
 - UX: fonts, colors...
   - https://uxplanet.org/ui-design-resources-to-kickstart-your-project-ce2bea7a3740
   - https://undraw.co/illustrations oder https://www.drawkit.io/
+
 ## Thanks 

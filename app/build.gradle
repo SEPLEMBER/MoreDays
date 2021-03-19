@@ -102,6 +102,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     // https://github.com/PhilJay/MPAndroidChart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    //Alternative: https://github.com/AnyChart/AnyChart-Android
 
     //for help
     implementation 'com.github.florent37:expansionpanel:1.2.4'
@@ -114,5 +115,8 @@ dependencies {
 
     //onboarding
     implementation 'com.github.AppIntro:AppIntro:6.1.0'
+
+    //tap help
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.2'
 
 }

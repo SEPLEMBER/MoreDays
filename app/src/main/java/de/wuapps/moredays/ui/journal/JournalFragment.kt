@@ -6,7 +6,6 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,11 +14,14 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
+import com.getkeepsafe.taptargetview.TapTarget
+import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.maltaisn.icondialog.IconDialog
 import com.maltaisn.icondialog.IconDialogSettings
 import com.maltaisn.icondialog.data.Icon
 import com.maltaisn.icondialog.pack.IconPack
 import com.opensooq.supernova.gligar.GligarPicker
+import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.JournalFragmentBinding
@@ -172,6 +174,10 @@ class JournalFragment : Fragment(), IconDialog.Callback {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.menu_help -> {
+                showHelp()
+                true
+            }
             R.id.menu_delete -> {
                 delete()
                 true
@@ -189,7 +195,7 @@ class JournalFragment : Fragment(), IconDialog.Callback {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.delete_save_calendar_menu, menu)
+        inflater.inflate(R.menu.help_calendar_delete_save_menu, menu)
         optionsMenuDelete = menu.findItem(R.id.menu_delete)
         optionsMenuDelete!!.isVisible = viewModel.hasDeleteOption
         optionsMenuDate = menu.findItem(R.id.menu_date)
@@ -209,5 +215,17 @@ class JournalFragment : Fragment(), IconDialog.Callback {
             binding.datePicker.visibility = View.GONE
         }
         binding.datePicker.visibility = View.VISIBLE
+    }
+
+    private fun showHelp(){
+        TapTargetSequence(requireActivity())
+            .targets(
+                TapTarget.forView((activity as MainActivity).getFab(), "+", getString(R.string.help_journal_icons))
+                    .cancelable(false).transparentTarget(true).targetRadius(30),
+                TapTarget.forView(binding.imageViewPictureOfTheDay, "", getString(R.string.help_journal_picture))
+                    .cancelable(false).transparentTarget(true).targetRadius(30),
+                TapTarget.forView(binding.imageButtonSuggestAffirmation, "", getString(R.string.affirmation_examples))
+                    .cancelable(false).transparentTarget(true).targetRadius(30)
+            ).start()
     }
 }

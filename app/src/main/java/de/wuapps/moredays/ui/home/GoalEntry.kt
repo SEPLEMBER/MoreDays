@@ -8,13 +8,18 @@ import java.util.Calendar.DAY_OF_YEAR
 import java.util.Calendar.YEAR
 
 
-class GoalEntry(
-    private val goalData: GoalAndRelatedData,
-    private val date: Calendar
-)  {
+class GoalEntry(private val goalData: GoalAndRelatedData) {
+    var date = Calendar.getInstance()
+        get() = field
+        set(value) {
+            field = value
+            currentValue = -1
+        }
     private var currentValue = -1
     private val goal: Goal = goalData.goal!!
-
+    constructor(goalData: GoalAndRelatedData, date: Calendar) : this(goalData){
+        this.date = date
+    }
     fun getCurrentValue(): Int {
         if (currentValue < 0) {
             val year = date.get(YEAR)

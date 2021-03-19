@@ -1,15 +1,15 @@
 package de.wuapps.moredays.ui.goal
 
 import android.app.AlertDialog
-import android.app.Application
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.getkeepsafe.taptargetview.TapTarget
+import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -23,11 +23,8 @@ import com.skydoves.colorpickerview.flag.FlagMode
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
-import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.databinding.GoalFragmentBinding
 import de.wuapps.moredays.ui.activity.ActivityAdapter
-import de.wuapps.moredays.ui.activity.ActivityFragmentArgs
-import de.wuapps.moredays.ui.activity.ActivityViewModel
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -224,6 +221,10 @@ class GoalFragment : Fragment(), IconDialog.Callback {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.menu_help -> {
+                showHelp()
+                true
+            }
             R.id.menu_delete -> {
                 delete()
                 true
@@ -238,9 +239,22 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.delete_save_menu, menu)
+        inflater.inflate(R.menu.help_delete_save_menu, menu)
         if (viewModel.isNew)
             menu.findItem(R.id.menu_delete).isVisible = false
     }
 
+    private fun showHelp(){
+        TapTargetSequence(requireActivity())
+            .targets(
+                TapTarget.forView(binding.textViewGoal, getString(R.string.activites), getString(R.string.help_goal))
+                    .cancelable(false).transparentTarget(true).targetRadius(30),
+                TapTarget.forView(binding.imageButtonAddActivity, getString(R.string.activites), getString(R.string.help_activities))
+                    .cancelable(false).transparentTarget(true).targetRadius(30),
+                TapTarget.forView(binding.checkboxIsOld, "", getString(R.string.help_goal_isOld))
+                    .cancelable(false).transparentTarget(true).targetRadius(30),
+                TapTarget.forView(binding.editTextPoints, getString(R.string.lbl_points), getString(R.string.help_goal_points))
+                    .cancelable(false).transparentTarget(true).targetRadius(30)
+            ).start()
+    }
 }

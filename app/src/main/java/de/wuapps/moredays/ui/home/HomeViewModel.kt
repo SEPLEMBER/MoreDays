@@ -3,13 +3,12 @@ package de.wuapps.moredays.ui.home
 import android.util.Log
 import androidx.lifecycle.*
 import de.wuapps.moredays.database.Analysis
+import de.wuapps.moredays.database.converter.DateTypeConverter
 import de.wuapps.moredays.database.dao.*
 import de.wuapps.moredays.database.entity.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.util.*
@@ -28,13 +27,13 @@ class HomeViewModel(
     val newTrophies = MutableLiveData<MutableList<Trophy>>()
     val justReached100Percent = MutableLiveData<Boolean>()
     val percent = MutableLiveData<Float>()
-    val date: Calendar = Calendar.getInstance()
+    var date: Calendar = Calendar.getInstance()
     private val _scales = scaleDao.getAll()
     val scales = _scales.asLiveData()
     private val _challenges = challengeDao.getAll()
     val challenges = _challenges.asLiveData()
-    val goalEntries = goalDao.getAllDataForGivenDate().asLiveData()
-        .map { goalData -> mapGoalDataToGoalEntries(goalData) }
+    private val _goalData = goalDao.getAllGoalData()
+    val goalEntryList = MutableLiveData<MutableList<GoalEntry>>()
     private var was100Percent =
         false //before an activity is inserted this is set to true/false, hence with an update of goalData reached100Percent may be set accordingly
     private val analysis = Analysis()
@@ -53,6 +52,7 @@ class HomeViewModel(
         newTrophies.value = ArrayList<Trophy>()
         justReached100Percent.value = false
         percent.value = 0F
+        //goalEntryList.value = ArrayList<GoalEntry>()
         viewModelScope.launch(Dispatchers.IO) {
             observeData()
             checkChallenges()
@@ -81,15 +81,18 @@ class HomeViewModel(
             scaleList.clear()
             scaleList.addAll(it)
         }.launchIn(viewModelScope)
+        _goalData.onEach {
+            mapGoalDataToGoalEntries(it)
+        }.launchIn(viewModelScope)
     }
 
-    private fun mapGoalDataToGoalEntries(goalData: List<GoalAndRelatedData>): List<GoalEntry> {
+    private fun mapGoalDataToGoalEntries(goalData: List<GoalAndRelatedData>) {
         val result = mutableListOf<GoalEntry>()
         for (item in goalData) {
             result.add(GoalEntry(item, date))
         }
         calcPercentage(result)
-        return result
+        goalEntryList.postValue(result)
     }
 
     private suspend fun analyzeGoalTrophies(goal: Goal, entryId: Long) {
@@ -149,6 +152,19 @@ class HomeViewModel(
                 justReached100Percent.value = true
             percent.value = sum * 100F / desired
         }
+    }
+
+    fun changeDate(calendarDate: Calendar){
+        date = calendarDate
+        if (goalEntryList.value == null)
+            return
+        val tmp = ArrayList<GoalEntry>()
+        for (item in goalEntryList.value!!) {
+            item.date = calendarDate
+            tmp.add(item)
+        }
+        goalEntryList.postValue(tmp)
+        calcPercentage(tmp)
     }
 }
 
