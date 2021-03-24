@@ -4,6 +4,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import de.wuapps.moredays.MainActivity
 import java.util.*
+import java.util.concurrent.Executors
 
 
 fun Fragment.handleFab(isFabUsed: Boolean) = if (isFabUsed) showFab() else hideFab()
@@ -47,4 +48,8 @@ fun Calendar.setDate(year: Int, month: Int, day: Int): Calendar {
     this.set(Calendar.MONTH, month)
     this.set(Calendar.DAY_OF_MONTH, day)
     return this
+}
+private val IO_EXECUTOR = Executors.newSingleThreadExecutor()
+fun ioThread(f : () -> Unit) {
+    IO_EXECUTOR.execute(f)
 }

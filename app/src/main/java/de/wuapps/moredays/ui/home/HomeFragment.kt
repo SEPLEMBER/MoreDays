@@ -51,8 +51,6 @@ class HomeFragment : Fragment() {
     private lateinit var challengeAdapter: ChallengeAdapter
     private val scales = ArrayList<Scale>()
     private val activityData = ArrayList<Pair<Goal, de.wuapps.moredays.database.entity.Activity>>()
-    private var date = Calendar.getInstance()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,

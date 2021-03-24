@@ -124,8 +124,8 @@ class GoalFragment : Fragment(), IconDialog.Callback {
                 getString(R.string.cancel)
             ) { dialogInterface, _ -> dialogInterface.dismiss() }
             .setBottomSpace(12)
-            .attachAlphaSlideBar(false) // the default value is true.
-            .attachBrightnessSlideBar(false)
+            .attachAlphaSlideBar(true) // the default value is true.
+            .attachBrightnessSlideBar(true)
         val colorPickerView = builder.colorPickerView
         val bubbleFlag = BubbleFlag(this.activity)
         bubbleFlag.flagMode = FlagMode.ALWAYS

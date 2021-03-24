@@ -10,9 +10,11 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 
 
 ## ToDos
-- trophy-Text mit persönlicher Anrede und auch beim Start los geht's Ute :) -- immer so formulieren, dass leerer String auch geht
-  - bei mainactivity start setzen/beachten
-- db initial befüllen ink. trinken (großes Glas 2, kleines Glas 1) desired: 15
+- card goal/scale in goals_list, gleichverteilt
+- card goal home (titel zweizeilig ermöglichen), als grid anordnen, nicht horizontal linear layout
+- padding scale fragment
+- loading reactivieren, bis icon pack verfügbar ist!
+- strings activity titles
 - Tests entkoppeln
 - leaks entdecken - https://github.com/square/leakcanary
 - relation challenge bzw. beim löschen der goalid entsprechende challenges löschen!
@@ -24,6 +26,7 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
   - for schleifen nochmal durchgehen, wo vl. map o.ä. verwendbar?
 - Import/Export
   - Permissions: https://github.com/googlesamples/easypermissions
+  - zu importierende Ziele etc. zunächst in Map sammeln und und key als uid für activities verwenden, später nach bulk insert update 
 - Verschlüsseln
   - https://github.com/hanjoongcho/aaf-easydiary
   - biometrics https://developer.android.com/jetpack/androidx/releases/biometric#1.0.1
@@ -148,6 +151,7 @@ android:text="@{journalViewModel.getFormattedDate(@string/date_ymd)}"
   - better use number picker, as it is supported for two way binding, see https://developer.android.com/topic/libraries/data-binding/two-way#java
   - do not forget the = for two way binding, e.g. ```android:text="@={goalViewModel.goal.name}" ```
   - buttons/events: ```android:onClick="@{() -> viewModel.onCounterButtonPressed()}"```
+  - good article https://www.bignerdranch.com/blog/two-way-data-binding-on-android-observing-your-view-with-xml/
   - spinner is just a hassle to bind to: after binding there is an autoselection of the first item in the list, hence any preselection needs a hack
     - https://code.luasoftware.com/tutorials/android/android-two-way-data-binding-with-spinner/ 
     - https://wamae.medium.com/using-android-livedata-in-spinners-room-428de4238847 
@@ -164,7 +168,15 @@ android:text="@{journalViewModel.getFormattedDate(@string/date_ymd)}"
 You can use the suspend keyword to make your DAO queries asynchronous using Kotlin coroutines. Suspend function is a function that could be started, paused, and resume. One of the most important points to remember about the suspend functions is that they are only allowed to be called from a coroutine or another suspend function. The official documentation says that coroutines are lightweight threads. By lightweight, it means that creating coroutines doesn’t allocate new threads. Instead, they use predefined thread pools and smart scheduling. Use launch to start a new coroutine as fire & forget; use async to return -- see https://developer.android.com/kotlin/coroutines-adv
 - use flow at repository and dao level for observable lists, use simple nullable data (Type?) for one shot async read (suspend), e.g. `suspend fun getById(id: Long): Goal?`
 - use LieveData or MutableLiveData at viewmodel level -- in case of MutableLiveData use getters/setters
-Prepopulate Room Database: https://developer.android.com/training/data-storage/room/prepopulate
+- Prepopulate Room Database: https://developer.android.com/training/data-storage/room/prepopulate
+  - start with an empty db of the current schema
+  - add data using the app as wanted
+  - copy database: View > Tool Windows > Device File Explorer; make sure, you download the complete databases folder (found at /data/data/de.wuapps.moredays/databases) 
+    - edit/view db use https://sqlitebrowser.org/dl/ or use https://developer.android.com/studio/inspect/database?utm_source=android-studio
+    - create assets folder (see https://www.geeksforgeeks.org/assets-folder-in-android/ )
+      - open project in Android mode (not project)
+      -   app > right-click > New > Folder > Asset Folder 
+    - https://developer.android.com/training/data-storage/room/prepopulate 
 - hint to implement runOnUIThread (see https://github.com/AllanWang/KAU/blob/master/core/src/main/kotlin/ca/allanwang/kau/utils/ContextUtils.kt)
 ```
 /**

@@ -1,4 +1,6 @@
 <resources>
+    <string name="app_name">moreDays</string>
+    <string name="db_ini_name">moredays_initial_database.db</string>
     <plurals name="name_points_format">
         <item quantity="one">%2$s (%1$d point)</item>
         <item quantity="other">%2$s (%1$d points)</item>
@@ -10,7 +12,6 @@
     <string name="date_ymd">yy-MM-dd</string>
     <string name="date_md">MM-dd</string>
     <string name="date_time">yy-MM-dd HH:mm</string>
-    <string name="app_name">moreDays</string>
     <string name="title_home">Home</string>
     <string name="title_chart">Charts</string>
     <string name="title_trophies">Trophies</string>
@@ -205,7 +206,7 @@
     <string name="help_goal_isOld">Mark a goal as old, if you want to keep the data, but do not want to see it at the home screen any more. You may reactivate it any time.</string>
 
     <!-- ShredPreferences -->
-    <string name="preferences_onboarding" translatable="false">onboarding</string>
+    <string name="preferences_onboarding" translatable="false">onboardingxxx</string>
     <string name="preferences_file_key" translatable="false">de.wuapps.moredays.PREFERENCE_FILE_KEY</string>
     <string name="preferences_name_key" translatable="false">name</string>
     <string name="preferences_start_fragment_key" translatable="false">start_fragment</string>
@@ -222,4 +223,37 @@
     <string name="settings_start_home_title_on">Show journal at start up</string>
     <string name="settings_start_home_title_off">Show home with circles at start up</string>
 
+    <!-- prepopulate db -->
+    <string name="db_ini_stretch">stretching</string>
+    <string name="db_ini_walk">walk</string>
+    <string name="db_ini_sports">sports</string>
+    <string name="db_ini_meditation">meditation</string>
+    <string name="db_ini_sleep">sleep early</string>
+    <string name="db_ini_timeless">timeless day</string>
+    <string name="db_ini_sweets">sweets resisted</string>
+    <string name="db_ini_aware_eating">aware eating</string>
+    <string name="db_ini_fastet_long">fasted 16h</string>
+    <string name="db_ini_water">0,3 l water</string>
+    <string name="db_ini_fruits">fruits/vegetables</string>
+    <string name="db_ini_train">train instead of car</string>
+    <string name="db_ini_bike">bike instead of tram</string>
+    <string name="db_ini_backpack">backpack instead of plastic</string>
+    <string name="db_ini_regional">regional products</string>
+    <string name="db_ini_smart1">theater</string>
+    <string name="db_ini_smart2">1h learning</string>
+    <string name="db_ini_social1">called parents</string>
+    <string name="db_ini_social2">met friends</string>
+    <string name="db_ini_organized1">filing</string>
+    <string name="db_ini_organized2">planned my day</string>
+    <string name="db_ini_weight">weight</string>
+    <string name="db_ini_scale_sleep">sleep</string>
+    <string name="db_ini_ballance">balance</string>
+    <string name="db_ini_fitness">fit</string>
+    <string name="db_ini_nutrition">slim</string>
+    <string name="db_ini_relax">relaxed</string>
+    <string name="db_ini_environment">environmentally</string>
+    <string name="db_ini_smart">smart</string>
+    <string name="db_ini_social">social</string>
+    <string name="db_ini_organized">organized</string>
+    <string name="db_ini_drink">drinking</string>
 </resources>
