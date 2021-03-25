@@ -1,14 +1,15 @@
 package de.wuapps.moredays.ui.home
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import de.wuapps.moredays.database.Analysis
-import de.wuapps.moredays.database.converter.DateTypeConverter
 import de.wuapps.moredays.database.dao.*
 import de.wuapps.moredays.database.entity.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.util.*

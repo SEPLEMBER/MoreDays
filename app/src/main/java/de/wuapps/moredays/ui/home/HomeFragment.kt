@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
@@ -26,7 +27,6 @@ import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.database.entity.Trophy
 import de.wuapps.moredays.databinding.FragmentHomeBinding
-import de.wuapps.moredays.utilities.ResponsiveGridLayoutManager
 import de.wuapps.moredays.ui.tools.isSameDay
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
@@ -59,11 +59,11 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.textViewDate.text = getString(R.string.today)
-        binding.recyclerViewGoals.layoutManager = ResponsiveGridLayoutManager(
-            requireNotNull(this.activity),
-            resources.getDimension(R.dimen.entry_type_item_width).toInt()
-        )
-        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val layoutManagerGoals = LinearLayoutManager(context)
+        layoutManagerGoals.orientation = LinearLayoutManager.HORIZONTAL
+        binding.recyclerViewGoals.layoutManager = layoutManagerGoals
+        val preferences: SharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(requireContext())
         viewModel.name = preferences.getString(getString(R.string.preferences_name_key), null) ?: ""
         goalAdapter = GoalAdapter(viewModel::addGoalEntry)
         binding.recyclerViewGoals.adapter = goalAdapter
@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         binding.recyclerviewChallenges.layoutManager = layoutManager
         setFabOnClickListener { showAddOptions() }
-        subscribeUI()
+        handleLoading()
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -86,6 +86,7 @@ class HomeFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.help_calendar_menu, menu)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_help -> {
@@ -99,6 +100,7 @@ class HomeFragment : Fragment() {
             else -> false
         }
     }
+
     private fun showDatePicker() {
         var iniDate = viewModel.date
         binding.datePicker.init(
@@ -115,12 +117,13 @@ class HomeFragment : Fragment() {
         binding.datePicker.visibility = View.VISIBLE
     }
 
-    private fun getDateStringToDate(dateCalendar: Calendar):String {
+    private fun getDateStringToDate(dateCalendar: Calendar): String {
         val today = Calendar.getInstance()
         if (today.isSameDay(dateCalendar))
             return getString(R.string.today)
         return SimpleDateFormat(getString(R.string.date_ymd)).format(dateCalendar.time)
     }
+
     private fun showAddOptions() {
         val items = ArrayList<String>()
         scales.forEach { scale -> items.add(scale.name) }
@@ -176,7 +179,21 @@ class HomeFragment : Fragment() {
         alertDialog.show()
     }
 
+    private fun handleLoading() {
+        if (MoreDaysApplication.loaded.value != null && MoreDaysApplication.loaded.value!!) {
+            subscribeUI()
+        } else {
+            binding.progressBarCyclic.visibility = View.VISIBLE
+            MoreDaysApplication.loaded.observe(viewLifecycleOwner, {
+                if (it) {
+                    subscribeUI()
+                }
+            })
+        }
+    }
+
     private fun subscribeUI() {
+        binding.progressBarCyclic.visibility = View.GONE
         viewModel.scales.observe(viewLifecycleOwner, {
             it?.let {
                 scales.clear()
@@ -185,17 +202,15 @@ class HomeFragment : Fragment() {
         })
         viewModel.goalEntryList.observe(viewLifecycleOwner, {
             it?.let {
-                val cardWidthInDp =
-                    (getResources().getDimension(R.dimen.home_card_width) / getResources().getDisplayMetrics().density)
                 val layoutWidth = binding.layoutHome.width
-                if (it.size * (cardWidthInDp + 2) < layoutWidth) {
-                    val layoutManager = LinearLayoutManager(context)
-                    layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-                    binding.recyclerViewGoals.layoutManager = layoutManager
+                val cardWidth = getResources().getDimension(R.dimen.home_card_width).toInt()
+                if ((it.size * cardWidth) > layoutWidth) {
+                    binding.recyclerViewGoals.layoutManager = GridLayoutManager(context, layoutWidth / cardWidth)
                 }
                 val data = it as MutableList<GoalEntry>
                 goalAdapter.submitList(data)
-                binding.circlesView.circlesLabel = String.format(getString(R.string.ini_circle_value), viewModel.name)
+                binding.circlesView.circlesLabel =
+                    String.format(getString(R.string.ini_circle_value), viewModel.name)
                 binding.circlesView.setCirclesData(data)
 
                 activityData.clear()
@@ -309,9 +324,17 @@ class HomeFragment : Fragment() {
         val bottomNav = mainActivity.findViewById(R.id.nav_view) as BottomNavigationView
         TapTargetSequence(requireActivity())
             .targets(
-                TapTarget.forView(binding.recyclerViewGoals, getString(R.string.title_goal), getString(R.string.help_home_goal))
+                TapTarget.forView(
+                    binding.recyclerViewGoals,
+                    getString(R.string.title_goal),
+                    getString(R.string.help_home_goal)
+                )
                     .cancelable(false).transparentTarget(true).targetRadius(70),
-                TapTarget.forView(binding.recyclerviewChallenges, getString(R.string.title_challenge), getString(R.string.help_home_challenges))
+                TapTarget.forView(
+                    binding.recyclerviewChallenges,
+                    getString(R.string.title_challenge),
+                    getString(R.string.help_home_challenges)
+                )
                     .cancelable(false).transparentTarget(true).targetRadius(30),
                 TapTarget.forView(mainActivity.getFab(), "+", getString(R.string.help_home_fab))
                     .cancelable(false).transparentTarget(true).targetRadius(30),

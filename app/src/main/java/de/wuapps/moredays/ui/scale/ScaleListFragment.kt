@@ -10,10 +10,10 @@ import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.databinding.ScaleListFragmentBinding
-import de.wuapps.moredays.utilities.ResponsiveGridLayoutManager
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
 import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.ResponsiveGridLayoutManager
 import kotlinx.coroutines.InternalCoroutinesApi
 
 

@@ -13,10 +13,8 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 - card goal/scale in goals_list, gleichverteilt
 - card goal home (titel zweizeilig ermöglichen), als grid anordnen, nicht horizontal linear layout
 - padding scale fragment
-- loading reactivieren, bis icon pack verfügbar ist!
 - strings activity titles
 - Tests entkoppeln
-- leaks entdecken - https://github.com/square/leakcanary
 - relation challenge bzw. beim löschen der goalid entsprechende challenges löschen!
 - entities prüfen -> default-Werte in Konstruktor!
 - zweisprachig
@@ -56,7 +54,7 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 - downloaded fonts from https://fonts.google.com/
 - implemented features
 - added splash as described in https://www.bignerdranch.com/blog/splash-screens-the-right-way/
-
+- added leakcanary to debugImplementation and run it, see https://github.com/square/leakcanary
 
 ## Lessons learned
 - Dependency Injection (DI): a class should not create the dependencies, it needs, those dependencies should be provided through the constructor
@@ -156,6 +154,7 @@ android:text="@{journalViewModel.getFormattedDate(@string/date_ymd)}"
     - https://code.luasoftware.com/tutorials/android/android-two-way-data-binding-with-spinner/ 
     - https://wamae.medium.com/using-android-livedata-in-spinners-room-428de4238847 
     - https://stackoverflow.com/questions/2562248/how-to-keep-onitemselected-from-firing-off-on-a-newly-instantiated-spinner
+  - https://github.com/android/databinding-samples/tree/main/TwoWaySample
 - ViewModels should not reference view/Android stuff and ViewModel shouldn’t be referenced in any object that can outlive the activity/fragment
 ### Navigation
 - up button https://developer.android.com/codelabs/kotlin-android-training-add-navigation/index.html#7
@@ -207,10 +206,14 @@ Less boiler plate code, better testing, e.g. no ViewModelFactories only because 
 Usually, you write one assert per test. However the test preparation is relativ complex, hence I decided to integrate all tests of one method into one test.
 
 ## Links
+- android developer
+  - https://developer.android.com/guide
+  - https://developer.android.com/samples
 - list of libraries
   - https://github.com/wasabeef/awesome-android-ui
 - UX: fonts, colors...
   - https://uxplanet.org/ui-design-resources-to-kickstart-your-project-ce2bea7a3740
   - https://undraw.co/illustrations oder https://www.drawkit.io/
+  - https://blog.spoongraphics.co.uk/articles/25-classic-fonts-that-will-last-a-whole-design-career
 
 ## Thanks 

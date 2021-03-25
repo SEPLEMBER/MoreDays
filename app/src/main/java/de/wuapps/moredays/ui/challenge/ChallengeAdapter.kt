@@ -3,7 +3,6 @@ package de.wuapps.moredays.ui.challenge
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.content.ContextCompat.getColor
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
-import de.wuapps.moredays.database.converter.DateTypeConverter
 import de.wuapps.moredays.database.entity.Challenge
 import de.wuapps.moredays.database.entity.Challenge.Companion.CHALLENGE_FAILED
 import de.wuapps.moredays.database.entity.Challenge.Companion.CHALLENGE_NOT_STARTED
@@ -19,8 +17,6 @@ import de.wuapps.moredays.database.entity.Challenge.Companion.CHALLENGE_RUNNING
 import de.wuapps.moredays.database.entity.Challenge.Companion.CHALLENGE_STATUS_UNDEFINED
 import de.wuapps.moredays.database.entity.Challenge.Companion.CHALLENGE_SUCCEEDED
 import de.wuapps.moredays.databinding.ListItemChallengeBinding
-import de.wuapps.moredays.databinding.ListItemGoalBinding
-import de.wuapps.moredays.ui.goal.GoalAdapter
 import java.text.SimpleDateFormat
 
 class ChallengeAdapter :

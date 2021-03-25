@@ -1,20 +1,15 @@
 package de.wuapps.moredays.ui.tools.trophy
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
-import de.wuapps.moredays.database.entity.TrophyAndRelatedGoal
 import de.wuapps.moredays.database.entity.Trophy
-import de.wuapps.moredays.databinding.ListItemGoalBinding
+import de.wuapps.moredays.database.entity.TrophyAndRelatedGoal
 import de.wuapps.moredays.databinding.ListItemTrophyBinding
-import de.wuapps.moredays.ui.goal.GoalAdapter
 import java.text.SimpleDateFormat
 
 

@@ -1,12 +1,9 @@
 package de.wuapps.moredays.database.entity
 
 import android.os.Parcelable
-import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import de.wuapps.moredays.database.converter.DateTypeConverter
 import de.wuapps.moredays.ui.tools.atEndOfDay
 import de.wuapps.moredays.ui.tools.atStartOfDay
 import de.wuapps.moredays.utilities.DEFAULLT_ICON_ID

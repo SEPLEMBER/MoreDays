@@ -2,10 +2,9 @@ package de.wuapps.moredays.database.dao
 
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import de.wuapps.moredays.database.entity.TrophyAndRelatedGoal
 import de.wuapps.moredays.database.entity.Trophy
+import de.wuapps.moredays.database.entity.TrophyAndRelatedGoal
 import kotlinx.coroutines.flow.Flow
-import java.util.*
 
 @Dao
 interface TrophyDao {

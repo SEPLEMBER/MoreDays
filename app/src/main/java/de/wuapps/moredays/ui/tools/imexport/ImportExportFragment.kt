@@ -1,17 +1,12 @@
 package de.wuapps.moredays.ui.tools.imexport
 
 import android.net.Uri
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.os.ParcelFileDescriptor
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.ImportExportFragmentBinding
-import de.wuapps.moredays.databinding.TrophyListFragmentBinding
-import de.wuapps.moredays.ui.tools.trophy.TrophyAdapter
-import de.wuapps.moredays.ui.tools.trophy.TrophyListViewModel
 import de.wuapps.moredays.utilities.InjectorUtils
 
 class ImportExportFragment : Fragment() {

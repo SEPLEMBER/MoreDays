@@ -1,7 +1,6 @@
 package de.wuapps.moredays.utilities
 
 import android.content.Context
-import androidx.fragment.app.Fragment
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.*
 import de.wuapps.moredays.ui.activity.ActivityViewModelFactory

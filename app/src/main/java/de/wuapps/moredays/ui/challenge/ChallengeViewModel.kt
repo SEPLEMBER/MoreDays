@@ -1,6 +1,5 @@
 package de.wuapps.moredays.ui.challenge
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -9,8 +8,6 @@ import de.wuapps.moredays.database.dao.ChallengeDao
 import de.wuapps.moredays.database.dao.GoalDao
 import de.wuapps.moredays.database.dao.ScaleDao
 import de.wuapps.moredays.database.entity.Challenge
-import de.wuapps.moredays.database.entity.Goal
-import de.wuapps.moredays.database.entity.GoalAndRelatedActivities
 import kotlinx.coroutines.launch
 
 class ChallengeViewModel(private val challengeDao: ChallengeDao, private val goalDao: GoalDao, private val activityDao: ActivityDao, val scaleDao: ScaleDao, _challenge: Challenge?) : ViewModel() {

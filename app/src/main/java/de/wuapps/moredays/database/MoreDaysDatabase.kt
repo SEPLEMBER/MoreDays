@@ -1,21 +1,17 @@
 package de.wuapps.moredays.database
 
 import android.content.Context
-import android.graphics.Color
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.sqlite.db.SupportSQLiteDatabase
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.converter.DateTypeConverter
 import de.wuapps.moredays.database.converter.IntListTypeConverter
 import de.wuapps.moredays.database.dao.*
 import de.wuapps.moredays.database.entity.*
-import de.wuapps.moredays.ui.tools.ioThread
 import de.wuapps.moredays.utilities.DATABASE_NAME
 import de.wuapps.moredays.utilities.DATABASE_VERSION
-import java.util.*
 
 @Database(
     entities = [Activity::class, ActivityEntry::class, Goal::class, Challenge::class, Scale::class, ScaleEntry::class, Trophy::class, Journal::class, HundredPercentValue::class],

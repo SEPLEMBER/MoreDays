@@ -2,9 +2,9 @@ package de.wuapps.moredays.database.dao
 
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
+import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.GoalAndRelatedActivities
 import de.wuapps.moredays.database.entity.GoalAndRelatedData
-import de.wuapps.moredays.database.entity.Goal
 import kotlinx.coroutines.flow.Flow
 
 @Dao

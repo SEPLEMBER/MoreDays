@@ -4,13 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import de.wuapps.moredays.database.entity.GoalAndRelatedActivities
 import de.wuapps.moredays.database.dao.GoalDao
 import de.wuapps.moredays.database.dao.HundredPercentValueDao
 import de.wuapps.moredays.database.entity.Goal
+import de.wuapps.moredays.database.entity.GoalAndRelatedActivities
 import de.wuapps.moredays.database.entity.HundredPercentValue
 import kotlinx.coroutines.launch
-import java.util.*
 
 class GoalViewModel(private val goalDao: GoalDao, private val hundredPercentValueDao: HundredPercentValueDao,  _goal: Goal?) :
     ViewModel() {

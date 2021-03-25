@@ -1,8 +1,8 @@
 package de.wuapps.moredays.ui.home
 
-import de.wuapps.moredays.database.entity.GoalAndRelatedData
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
+import de.wuapps.moredays.database.entity.GoalAndRelatedData
 import java.util.*
 import java.util.Calendar.DAY_OF_YEAR
 import java.util.Calendar.YEAR

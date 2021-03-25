@@ -1,6 +1,5 @@
 package de.wuapps.moredays.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import de.wuapps.moredays.database.entity.Challenge

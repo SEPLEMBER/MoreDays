@@ -1,7 +1,5 @@
 package de.wuapps.moredays.ui.home
 
-import android.app.AlertDialog
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,7 +9,6 @@ import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Challenge
 import de.wuapps.moredays.databinding.ListItemChallengeHomeBinding
-import de.wuapps.moredays.databinding.ListItemGoalHomeBinding
 import java.text.SimpleDateFormat
 
 

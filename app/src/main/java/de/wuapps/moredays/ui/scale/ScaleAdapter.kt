@@ -1,18 +1,13 @@
 package de.wuapps.moredays.ui.scale
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Scale
-import de.wuapps.moredays.databinding.ListItemGoalBinding
 import de.wuapps.moredays.databinding.ListItemScaleBinding
-import de.wuapps.moredays.ui.goal.GoalAdapter
 
 class ScaleAdapter :
     ListAdapter<Scale, ScaleAdapter.ScaleViewHolder>(ScaleDiffCallback) {

@@ -1,24 +1,18 @@
 package de.wuapps.moredays.ui.journal
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import com.bumptech.glide.Glide
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.converter.DateTypeConverter
 import de.wuapps.moredays.database.entity.Journal
-import de.wuapps.moredays.databinding.ListItemGoalBinding
 import de.wuapps.moredays.databinding.ListItemJournalBinding
-import de.wuapps.moredays.ui.goal.GoalAdapter
 import java.text.SimpleDateFormat
 
 
