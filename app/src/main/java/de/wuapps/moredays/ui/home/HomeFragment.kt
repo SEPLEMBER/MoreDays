@@ -10,11 +10,11 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.NumberPicker
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
@@ -27,6 +27,7 @@ import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.database.entity.Trophy
 import de.wuapps.moredays.databinding.FragmentHomeBinding
+import de.wuapps.moredays.ui.tools.getFlexboxLayoutManager
 import de.wuapps.moredays.ui.tools.isSameDay
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
@@ -46,8 +47,12 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels {
         InjectorUtils.provideHomeViewModelFactory(requireActivity().getApplication())
     }
-    private lateinit var binding: FragmentHomeBinding
-    private lateinit var goalAdapter: GoalAdapter
+    private var _binding: FragmentHomeBinding? = null
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+    private var _goalAdapter: GoalAdapter? = null
+    private val goalAdapter get() = _goalAdapter!!
     private lateinit var challengeAdapter: ChallengeAdapter
     private val scales = ArrayList<Scale>()
     private val activityData = ArrayList<Pair<Goal, de.wuapps.moredays.database.entity.Activity>>()
@@ -57,15 +62,16 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.textViewDate.text = getString(R.string.today)
         val layoutManagerGoals = LinearLayoutManager(context)
         layoutManagerGoals.orientation = LinearLayoutManager.HORIZONTAL
-        binding.recyclerViewGoals.layoutManager = layoutManagerGoals
+        binding.recyclerViewGoals.layoutManager =
+            getFlexboxLayoutManager(requireContext()) //layoutManagerGoals
         val preferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(requireContext())
         viewModel.name = preferences.getString(getString(R.string.preferences_name_key), null) ?: ""
-        goalAdapter = GoalAdapter(viewModel::addGoalEntry)
+        _goalAdapter = GoalAdapter(viewModel::addGoalEntry)
         binding.recyclerViewGoals.adapter = goalAdapter
         challengeAdapter = ChallengeAdapter()
         binding.recyclerviewChallenges.adapter = challengeAdapter
@@ -75,6 +81,8 @@ class HomeFragment : Fragment() {
         setFabOnClickListener { showAddOptions() }
         handleLoading()
         setHasOptionsMenu(true)
+        if (!preferences.getBoolean(getString(R.string.preferences_showed_first_help), false))
+            showFirstHelp()
         return binding.root
     }
 
@@ -106,7 +114,7 @@ class HomeFragment : Fragment() {
         binding.datePicker.init(
             iniDate.get(Calendar.YEAR), iniDate.get(Calendar.MONTH),
             iniDate.get(Calendar.DAY_OF_MONTH)
-        ) { view, year, month, day ->
+        ) { _, year, month, day ->
             iniDate.set(Calendar.YEAR, year)
             iniDate.set(Calendar.MONTH, month)
             iniDate.set(Calendar.DAY_OF_MONTH, day)
@@ -133,7 +141,7 @@ class HomeFragment : Fragment() {
         builder.setTitle(R.string.add_entry)
             .setItems(
                 items.toTypedArray()
-            ) { dialog, which ->
+            ) { _, which ->
                 run {
                     if (which < countScales) {
                         val scale = viewModel.scales.value!!.get(which)
@@ -153,17 +161,22 @@ class HomeFragment : Fragment() {
         val decimalView = layout.findViewById<NumberPicker>(R.id.numberPickerDecimal)
         decimalView.value
         val fractionView = layout.findViewById<NumberPicker>(R.id.numberPickerFraction)
-        val fractionValues = Array(100) { i -> i.toString() }
+        fractionView.value = 0
         val latestValue = viewModel.getLatestValueToScale(scale)
         val decimalValue = Math.floor(latestValue.toDouble()).toInt()
-        val fractionValue = ((latestValue - decimalValue) * 100).toInt()
-        fractionView.minValue = 0
-        fractionView.maxValue = 99
+        if (scale.isIntValue) {
+            fractionView.visibility = View.GONE
+        } else {
+            val fractionValues = Array(100) { i -> i.toString() }
+            val fractionValue = ((latestValue - decimalValue) * 100).toInt()
+            fractionView.minValue = 0
+            fractionView.maxValue = 99
+            fractionView.value = fractionValue
+            fractionView.displayedValues = fractionValues
+        }
         decimalView.minValue = scale.minValue
         decimalView.maxValue = scale.maxValue
         decimalView.value = decimalValue
-        fractionView.value = fractionValue
-        fractionView.displayedValues = fractionValues
         val dialogBuilder = AlertDialog.Builder(this.activity)
         dialogBuilder
             .setView(layout)
@@ -202,16 +215,10 @@ class HomeFragment : Fragment() {
         })
         viewModel.goalEntryList.observe(viewLifecycleOwner, {
             it?.let {
-                val layoutWidth = binding.layoutHome.width
-                val cardWidth = getResources().getDimension(R.dimen.home_card_width).toInt()
-                if ((it.size * cardWidth) > layoutWidth) {
-                    binding.recyclerViewGoals.layoutManager = GridLayoutManager(context, layoutWidth / cardWidth)
-                }
-                val data = it as MutableList<GoalEntry>
-                goalAdapter.submitList(data)
+                goalAdapter.submitList(it)
                 binding.circlesView.circlesLabel =
                     String.format(getString(R.string.ini_circle_value), viewModel.name)
-                binding.circlesView.setCirclesData(data)
+                binding.circlesView.setCirclesData(it)
 
                 activityData.clear()
                 it.forEach { goalEntry ->
@@ -319,6 +326,50 @@ class HomeFragment : Fragment() {
 
     }
 
+    private fun showFirstHelp() {
+        val mainActivity = (activity as MainActivity)
+        val bottomNav = mainActivity.findViewById(R.id.nav_view) as BottomNavigationView
+        TapTargetSequence(requireActivity())
+            .targets(
+                TapTarget.forView(
+                    binding.recyclerViewGoals,
+                    getString(R.string.title_goal),
+                    getString(R.string.help_home_goal)
+                )
+                    .cancelable(false).transparentTarget(true).targetRadius(70),
+                TapTarget.forView(
+                    bottomNav.findViewById(R.id.navigation_tools),
+                    getString(R.string.title_tools),
+                    getString(R.string.help_nav_tools_first)
+                ).cancelable(false).transparentTarget(true).targetRadius(30),
+                TapTarget.forView(
+                    binding.textViewHelper,
+                    getString(R.string.help),
+                    getString(R.string.help_help)
+                ).cancelable(false).transparentTarget(true).targetRadius(30)
+            )
+            .listener(object : TapTargetSequence.Listener {
+                override fun onSequenceStep(lastTarget: TapTarget?, targetClicked: Boolean) {
+                }
+
+                override fun onSequenceFinish() {
+                    val preferences: SharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(requireContext())
+                    val editor = preferences.edit()
+                    editor.putBoolean(getString(R.string.preferences_showed_first_help), true)
+                    editor.apply()
+                    Toast.makeText(
+                        requireContext(), getString(R.string.msg_tutorial_complete),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+                override fun onSequenceCanceled(lastTarget: TapTarget) {
+                }
+            }).start()
+    }
+
+
     private fun showHelp() {
         val mainActivity = (activity as MainActivity)
         val bottomNav = mainActivity.findViewById(R.id.nav_view) as BottomNavigationView
@@ -340,13 +391,11 @@ class HomeFragment : Fragment() {
                     .cancelable(false).transparentTarget(true).targetRadius(30),
                 TapTarget.forView(
                     bottomNav.findViewById(R.id.navigation_tools),
-                    getString(R.string.title_tools),
-                    "toolsdesc"
+                    getString(R.string.title_tools), getString(R.string.help_nav_tools)
                 ).cancelable(false).transparentTarget(true).targetRadius(30),
                 TapTarget.forView(
                     bottomNav.findViewById(R.id.navigation_charts),
-                    getString(R.string.title_chart),
-                    "toolsdesc"
+                    getString(R.string.title_chart), getString(R.string.help_nav_charts)
                 ).cancelable(false).transparentTarget(true).targetRadius(30),
                 TapTarget.forView(
                     bottomNav.findViewById(R.id.navigation_journalList),
@@ -355,5 +404,11 @@ class HomeFragment : Fragment() {
                 ).cancelable(false).transparentTarget(true).targetRadius(30)
                     .tintTarget(true)
             ).start()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _goalAdapter = null
+         _binding = null
     }
 }
