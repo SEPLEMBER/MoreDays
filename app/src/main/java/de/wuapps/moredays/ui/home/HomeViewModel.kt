@@ -74,6 +74,7 @@ class HomeViewModel(
         _trophies.onEach {
             trophyList.clear()
             trophyList.addAll(it)
+            checkChallenges()
         }.launchIn(viewModelScope)
         _challenges.onEach {
             challengesList.clear()
@@ -109,16 +110,13 @@ class HomeViewModel(
     }
 
     fun addGoalEntry(goal: Goal, activity: Activity) {
-        val id = -1L
         was100Percent = (percent.value!! >= 100F)
         viewModelScope.launch(Dispatchers.IO) {
             val activityEntry =  ActivityEntry(activity)
             val id = activityEntryDao.insert(activityEntry)
             activityEntry.uid = id
             activityEntriesList.add(activityEntry) //später besser mit observe arbeiten!
-            Log.w("trapp", "call analyzegoaltrophies, latest id="+id.toString())
             analyzeGoalTrophies(goal, id)
-            Log.w("trapp", "after calling analyzegoaltrophies")
         }
         latestActivity = activity
     }
@@ -137,7 +135,6 @@ class HomeViewModel(
             val changedChallenges = analysis.checkChallenges(
                 challengesList,
                 activityEntriesList,
-                scaleList,
                 scaleEntriesList,
                 trophyList
             )

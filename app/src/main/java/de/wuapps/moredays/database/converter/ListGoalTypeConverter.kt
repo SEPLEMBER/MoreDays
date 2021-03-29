@@ -28,10 +28,6 @@ class ListGoalTypeConverter {
                 sb.append(DELIMITER_FIELD)
                 sb.append(goal.orderNumber)
                 sb.append(DELIMITER_FIELD)
-                if (goal.isActive)
-                    sb.append(1)
-                else
-                    sb.append(0)
                 sb.append(DELIMITER_GOAL)
             }
             return sb.toString()
@@ -55,7 +51,6 @@ class ListGoalTypeConverter {
                     goal.points = fields[3].toInt()
                     goal.symbol = fields[4].toInt()
                     goal.orderNumber = fields[5].toInt()
-                    goal.isActive = fields[6].toInt() > 0
                     goals.add(goal)
                 }
             } catch (exception: Exception) {

@@ -52,9 +52,7 @@ class Onboarding : AppIntro() {
             getString(R.string.preferences_file_key),
             MODE_PRIVATE
         )
-        val editor = sharedPref.edit()
-        editor.putBoolean(getString(R.string.preferences_onboarding), true)
-        editor.apply()
+        sharedPref.edit().putBoolean(getString(R.string.preferences_onboarding), true).apply()
         finish()
     }
 

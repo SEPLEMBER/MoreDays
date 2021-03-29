@@ -59,7 +59,6 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
         binding = ChallengeFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.challengeViewModel = viewModel
-        binding.lifecycleOwner = this
         val iconDialog =
             childFragmentManager.findFragmentByTag(ICON_DIALOG_TAG) as IconDialog?
                 ?: IconDialog.newInstance(IconDialogSettings())
@@ -120,7 +119,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
         challengeType = CHALLENGE_TYPE_ACTIVITY
         binding.spinnerValueType.adapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_spinner_item, valueTypesActivity
+            R.layout.spinner_item, valueTypesActivity
         )
 
     }
@@ -132,7 +131,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
         challengeType = CHALLENGE_TYPE_GOAL
         binding.spinnerValueType.adapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_spinner_item, valueTypesGoal
+            R.layout.spinner_item, valueTypesGoal
         )
     }
 
@@ -143,7 +142,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
         challengeType = CHALLENGE_TYPE_SCALE
         binding.spinnerValueType.adapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_spinner_item, valueTypesScale
+            R.layout.spinner_item, valueTypesScale
         )
     }
 
@@ -155,7 +154,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
                     goals.addAll(it)
                     binding.spinnerGoal.adapter = ArrayAdapter(
                         requireContext(),
-                        android.R.layout.simple_spinner_item, it
+                        R.layout.spinner_item, it
                     )
                 }
             }
@@ -168,7 +167,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
                     activities.addAll(it)
                     binding.spinnerActivity.adapter = ArrayAdapter(
                         requireContext(),
-                        android.R.layout.simple_spinner_item, it
+                        R.layout.spinner_item, it
                     )
                 }
             }
@@ -180,7 +179,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
                     scales.addAll(it)
                     binding.spinnerScale.adapter = ArrayAdapter(
                         requireContext(),
-                        android.R.layout.simple_spinner_item, it
+                        R.layout.spinner_item, it
                     )
                 }
             }
@@ -196,7 +195,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
         binding.datePicker.init(
             iniDate.get(Calendar.YEAR), iniDate.get(Calendar.MONTH),
             iniDate.get(Calendar.DAY_OF_MONTH)
-        ) { view, year, month, day ->
+        ) { _, year, month, day ->
             iniDate.set(Calendar.YEAR, year)
             iniDate.set(Calendar.MONTH, month)
             iniDate.set(Calendar.DAY_OF_MONTH, day)
@@ -333,7 +332,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
     private fun showHelp(){
         TapTargetSequence(requireActivity())
             .targets(
-                TapTarget.forView(binding.textViewTitle, getString(R.string.challenges), getString(R.string.help_challenges))
+                TapTarget.forView(binding.textViewTitle, getString(R.string.title_challenges), getString(R.string.help_challenges))
                     .cancelable(false).transparentTarget(true).targetRadius(30),
                 TapTarget.forView(binding.challengeType, "", getString(R.string.help_add_challenge_type))
                     .cancelable(false).transparentTarget(true).targetRadius(30)

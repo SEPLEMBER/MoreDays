@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">moreDays</string>
+    <string name="db_ini_name">moredays_initial_database_de.db</string>
+    <string name="date_ymd">dd.MM.yy</string>
+    <string name="date_md">dd.MM</string>
+    <string name="date_time">dd.MM.yy HH:mm</string>
+    <string name="title_home">Home</string>
+    <string name="title_chart">Diagramme</string>
+    <string name="title_trophies">Trophäen</string>
+    <string name="title_trophy">Trophäe</string>
+    <string name="title_journal">Journal</string>
+    <string name="title_settings">Einstellungen</string>
+    <string name="title_tools">Werkzeuge</string>
+    <string name="base_data">Basisdaten</string>
+    <string name="lbl_choose_goal">Wähle ein Ziel</string>
+    <string name="lbl_question_activity_to_goal">Wie möchtest du dieses Ziel erreichen? Definiere verschiedene Aktivitäten unterschiedlicher Schwierigkeit.</string>
+    <string name="hint_update_points_activity">Anpassungen beziehen sich auch auf Daten in der Vergangenheit.</string>
+    <string name="lbl_name">Name</string>
+    <string name="lbl_points">Punkte</string>
+    <string name="lbl_add_activity">Füge Aktivität(en) dazu</string>
+    <string name="label_goals_question">Wie möchtest du sein?</string>
+    <string name="lbl_add_goal">Füge ein Ziel(e) dazu</string>
+    <string name="lbl_is_old">veraltet</string>
+    <string name="warning_field_is_required">Eingabe ist erforderlich</string>
+    <string name="title_delete">Löschen</string>
+    <string name="question_delete_goal">Möchtest du wirklich dieses Ziel und alle damit verbundenen Aktivitäten und Daten löschen? Du kannst es auch einfach als veraltet markieren.</string>
+    <string name="question_delete_activity">Möchtest du wirklich dieses Aktivität und alle damit verbundenen Einträge löschen? Du kannst sie auch einfach als veraltet markieren.</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="ok">Ok</string>
+    <string name="save">speichern</string>
+    <string name="delete">löschen</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="title_color_picker_dialog">Farbauswahl</string>
+    <string name="decimal_symbol">.</string>
+    <string name="warning_not_an_int">keine ganze Zahl</string>
+    <string name="question_delete_scale">Möchtest du wirklich diese Skala und alle damit verbundenen Einträge löschen?</string>
+    <string name="lbl_add_scale">Skale(n) hinzufügen</string>
+    <string name="label_min_value">minimaler Wert</string>
+    <string name="label_max_value">maximaler Wert</string>
+    <string name="help">Hilfe</string>
+    <string name="lists">Listen</string>
+    <string name="activity_entries">Einträge zu Aktivitäten</string>
+    <string name="import_export">Import/Export</string>
+    <string name="trophy_type_title_row">Zeile</string>
+    <string name="trophy_type_title_total">insgesamt</string>
+    <string name="trophy_type_title_times_per_week">pro Woche</string>
+    <string name="trophy_type_title_made_goal">geschafft</string>
+    <string name="trophy_type_msg_row">Super %1$s! Du hast %2$s %3$d Tage hintereinander geschafft :)</string>
+    <string name="trophy_type_msg_total">Super %1$s! Du hast %2$s %3$d mal geschafft :)</string>
+    <string name="trophy_type_msg_times_per_week">Super %1$s! Du hast %2$s %3$d mal in der Woche geschafft :)</string>
+    <string name="trophy_type_msg_made_goal">Super %1$s! Du hast %2$s heute geschafft</string>
+    <string name="help_introduction_content">
+        Was macht für dich einen guten Tag aus? Was einen ausgewogenen Tag? Wann bist du zufrieden? Definiere deine persönlichen Ziele und wie du diese jeden Tag erreichen kannst. Starte mit wenigen
+        Zielen und wenigen Punkten pro Ziel und steigere diese Monat für Monat.
+        Aktivitäten sind die Möglichkeiten, Ziele zu erreichen. Es gibt immer mehr als einen Weg. Um fit zu werden, kannst du spazieren gehen oder dich richtig auspowern, an dem einen Tag das eine an dem
+        anderen das andere oder eine Kombination aus verschiedenen Aktivitäten.
+        Mit Skalen kannst du alles messen, dein Gewicht, die Schlafqualität, was auch immer die mit Zahlen erfassen kannst.
+        Mit Challenges kannst du den Fokus auf ein Ziel, eine Aktivität oder eine Skala legen und deine eigenen besonderen Herausforderungen für die nächste Woche oder auch den nächsten Monat festlegen.
+    </string>
+    <string name="help_introduction_title">Einführung</string>
+    <string name="help_privacy_content">Alle Daten werden in einem lokalen Verzeichnis gespeichert, auf das nur die App Zugriff hat. Es werden keine Daten auf irgendeinen Server
+        geschoben oder anderweitig mit anderen Apps geteilt, Sie gehören nur dir! Die in der App aufgenommenen Fotos werden im Verzeichnis Picture abgelegt. Falls du deine Apps mit
+        Google-Drive synchronisierst, so sind sie dort nicht geschützt. Eine Verschlüsselung wird es in der nächsten Version geben.</string>
+    <string name="help_privacy_title">Datenschutz</string>
+    <string name="help_tips_content"><![CDATA[
+        Mit moreDays kannst du deine Tage in Form eines Journals reflektieren, deine Ziele wie Fitness, Entspannung o.ä. verfolgen. Du kannst Herausforderungen definieren und überhaupt alles frei definieren.
+        <h1>Ziele</h1>
+        Was macht für dich einen guten Tag aus? Was einen ausgewogenen Tag? Wann bist du zufrieden? Definiere deine persönlichen Ziele und wie du diese jeden Tag erreichen kannst. Starte mit wenigen
+        Zielen und wenigen Punkten pro Ziel und steigere diese Monat für Monat.
+        <h1>Aktivitäten</h1>
+        Aktivitäten sind die Möglichkeiten, Ziele zu erreichen. Es gibt immer mehr als einen Weg. Um fit zu werden, kannst du spazieren gehen oder dich richtig auspowern, an dem einen Tag das eine an dem
+        anderen das andere oder eine Kombination aus verschiedenen Aktivitäten.
+        <h1>Skalen</h1>
+        Mit einer Skala kannst du dein Gewicht, deinen Muskelumfang, deine Zeit für 5 km oder irgendeinen anderen Zahlenwert verfolgen und dir im Diagramm anzeigen lassen.
+        <h1>Stimmung</h1>
+        Hier kannst du deinen Tag für dich festhalten, wie hast du dich gefühlt, was hat dazu beigetragen? In den Einstellungen kannst du festlegen, ob du mehrere Stimmungseinträge pro Tag machen könntest, im Journal oder unabhängig davon. So kannst du z.B. auch ein Ernährungstagebuch führen.
+        <h1>Journal</h1>
+        Für die Übersicht oder die Startseite kannst du einen Eintrag als Fokus definieren, indem du ein #-Zeichen als ersten Buchstaben eingibst, z.B. dankbar: #Schlaf, Freunde, Freizeit.
+        Als Standard wir im Startbildschirm und der Übersicht die Affirmation angezeigt.
+
+        <h1>Diagramme</h1>
+        Hier siehst du den Verlauf deiner Einträge. Unter Verlauf kannst du verfolgen, wie die letzten Tage im Vergleich waren, du kannst auch auf einen Balken klicken und dir diesen Tag nochmal genauer ansehen.
+        ]]></string>
+    <string name="help_tips_title">Tipps &amp; Tricks</string>
+    <string name="help_about_title">Über uns</string>
+    <string name="help_thanks_title">Danke</string>
+    <string name="help_credentials_title">Bibliotheken</string>
+    <string name="affirmation_examples">Ich bin in meiner Mitte.Ich bin wertvoll.Ich bin gut, so wie ich bin.Ich bin liebenswert.Ich bin offen und empfänglich für alles Gute von außen.Ich glaube an mich - jeden Tag mehr und mehr.Ich erlaube mir jeden Tag mehr, dem Leben zu vertrauen.
+        Ich achte auf gute Ernährung und ausreichend Bewegung.Meine Gesundheit ist mir das Wichtigste.Ich vermeide zuckerreiche Nahrungsmittel.Ich kann mein Gewicht mit gesunder Ernährung und Sport kontrollieren.Ich esse immer mehr Obst und Gemüse.Welches Essen würde mir und meinem Körper jetzt gut tun?.Jeden Tag werde ich ein bisschen schlanker und sportlicher.Ich fühle mich wohl in meinem Körper.Ich liebe meinen Körper.Ich achte meinen Körper und seine Bedürfnisse.Ich achte auf gesunde und frische Luft.
+        Ich werde von Tag zu Tag selbstbewusster sein.Ich bin ohne Angst und Zweifel.Ich bin stärker als meine Angst.Ich gehe respektvoll und freundlich mit meinen Mitmenschen um.Ich entwickle gute Ideen, die uns voranbringen.ICH komme jeden Tag besser und besser mit meiner Chef*in zurecht, egal was sie tut.Ich habe Vertrauen in meine Fähigkeiten. Ich habe keine Angst, Fehler zu machen.Ich bin in Gegenwart anderer selbstbewusst.
+    Auch außerhalb meiner Komfortzone fühle ich mich in meiner Haut wohl.Jede Herausforderung macht mich stärker.Ich denke gut über mich.Ich verliere nicht, ich lerne.Ich kann glücklich sein.Ich brauche keine anderen Leute, um glücklich zu sein.Ich nehme die Meinung anderer nicht persönlich - sie ist nur eine Offenbarung ihrer eigenen Probleme.Ich bin ein Diamant, es ist Zeit, dass ich scheine.Meine Meinung zählt.Ich werde geliebt und ich werde gebraucht.
+    Selbstmitleid hat bei mir keinen Platz.Ich gebe meinen Ängsten nicht nach - nehme sie war und mache dann weiter.Mein Körper, Geist und Seele sind stark.Ich entscheide mich für das Glück.Es ist Friede in mir.Gelassen gehe ich meinen Weg.Ich profitiere von meiner feinen Wahrnehmung.Ich werde meine Ziele erreichen.Ich habe mir erreichbare Ziele gesetzt und komme diesen Aktivität für Aktivität näher.
+        Ich bin flexibel und verändere mich - ich begrüße Veränderung.Ich bin achtsam - Achtsamkeit hilft mir im Alltag.Ich erfreue mich an den Kleinigkeiten, sie erfüllen meinen Tag.Je mehr ich gebe, desto mehr bekomme ich.Ich vertraue dem Leben und ich vertraue mir.
+        Gut ist gut genug.Mein Kind ist gesund und munter.Ich bin eine gute Mutter/Tochter/Sohn/Vater.Ich bin auch wichtig.Ich nehme mir Zeit für mich.
+        Ich bin auch stark, wenn ich Gefühle zeige.Ich darf um Hilfe bitten, ohne mein Gesicht zu verlieren.Ich darf mir Hilfe holen und sie annehmen.Ich darf offen sein für Zuwendung.
+       Gefühle zu zeigen ist erlaubt und ein Zeichen von Stärke.Ich bin vor allem wertvoll durch das, was ich bin.Ich darf auch Fehler machen und aus ihnen lernen.Ich muss gar nichts.
+        Ich darf meine Bedürfnisse und Standpunkte ernst nehmen.Ich darf es auch mir recht machen.Ich muss nicht bei allen beliebt sein.Wer \'Ja\' sagt, kann auch \'Nein\' sagen.Die Welt geht nicht unter, wenn ich Nein sage.Ich bin ok, auch wenn jemand unzufrieden mit mir ist.Ich akzeptiere, dass andere Menschen andere Meinungen haben.Ich formuliere meine Kritik konkret und wertschätzend und schlucke sie nicht hinunter.Ich lasse meine innere Anspannung jetzt los.Ich bin aufmerksam für das, was ist.Ich bin ganz bei mir.Ich schaue nach vorne.Ich lebe im Hier und Jetzt.Jeder neue Tag ist ein neuer Anfang.
+         Ich kann mich entscheiden, ob und wann ich mich beeile.Ich darf mir die Zeit geben, die ich brauche.
+        Ich darf etwas mit Gelassenheit tun und vollenden.Auch wenn es leicht geht, ist es wertvoll.Ich darf mich immer wieder auch entspannen und Fortschritte genießen. Meine Kraft gehört mir und ich darf sie mir so einteilen, wie es mir gut tut.Ich darf mir helfen lassen.Ich darf anderen meine Wünsche und Bedürfnisse mitteilen.Ich muss nicht alles alleine schaffen.80 Prozent sind super.Fehler machen ist sympathisch.Ich habe das Beste gegeben, was möglich war.</string>
+    <string name="title_affirmation">Titel/Affirmation</string>
+    <string name="title_challenge">Challenge</string>
+    <string name="title_challenges">Challenges</string>
+    <string name="title_scale">Skala</string>
+    <string name="title_scales">Skalen</string>
+    <string name="title_goal">Ziel</string>
+    <string name="title_goals">Ziele</string>
+    <string name="title_activity">Aktivität</string>
+    <string name="title_activities">Aktivitäten</string>
+    <string name="start_date">Anfangsdatum</string>
+    <string name="date_deadline">Deadline</string>
+    <string name="error">Fehler</string>
+    <string name="challenge_count_made">Anzahl geschafft</string>
+    <string name="challenge_count_points">Punkte geschafft</string>
+    <string name="date">Datum</string>
+    <string name="label_chart_goals_points_total">Punkte pro Ziel</string>
+    <string name="label_chart_goals_days_made">Tage geschafft</string>
+    <string name="analysis_chain">Folge</string>
+    <string name="add_entry">Füge einen Skalenwert hinzu oder trage eine Aktivität als gemacht ein</string>
+    <string name="menu_import">Import</string>
+    <string name="export">Export</string>
+    <string name="onboarding_title2">Ziele &amp; Aktivitäten</string>
+    <string name="onboarding_title1">DEINE Daten</string>
+    <string name="onboarding_title3">Analysieren, anpassen und reflektieren</string>
+    <string name="onboarding_desc1">Verfolge deine Ziele Tag für Tag, an guten wie an stressigen Tagen. Reflektiere deine Tage mit Icons und einem Foto. Verfolge dein Gewicht oder deine
+        Schlafqualität. Keine Werbung, keine Registierung, alle Daten nur auf deinem Handy!</string>
+    <string name="onboarding_desc2">Damit du direkt loslegen kannst und eine Idee bekommst, was geht, haben wir schon Ziele und Aktivitäten für dich angelegt. In den Werkzeugen kannst du sie einfach auf dich anspassen.</string>
+    <string name="onboarding_desc3">moreDays bietet dir viele Möglichkeiten, deine Ziele anzupassen und deine Daten zu analysieren. Probiere es aus :) nur, was sich leicht und gut anfühlt, schaffst du jeden Tag ...</string>
+
+    <string name="msg_tutorial_complete">Tutorial beendet, los geht\'s :)</string>
+    <string name="today">heute</string>
+    <string name="ini_circle_value">Los geht\'s %s :)</string>
+    <string name="help_goal">Diesen Zielen möchtest du jeden Tag einen Schritt näher kommen. Lege selbst fest, was deine Ziele sind und wie du sie mit Aktivitäten erreichen kannst.</string>
+    <string name="help_goal_points">Diese Anzahl von Punkten möchtest du täglich durch verschiedene Aktivitäten erreichen.</string>
+    <string name="settings_personal_header">Persönliche Daten</string>
+    <string name="settings_start_header">Start</string>
+    <string name="settings_your_name_title">Dein Name</string>
+    <string name="settings_start_home_title">Startseite</string>
+    <string name="settings_start_home_title_on">zeige das Journal als Startseite</string>
+    <string name="settings_start_home_title_off">zeige die Ziele und Kreise als Startseite</string>
+    <string name="label_chk_is_integer">nure ganze Zahlen</string>
+    <string name="label_desired_value">Gewünschter Wert</string>
+    <string name="help_activities">Aktivitäten sind die Möglichkeiten, wie du deine Ziele erreichen kannst. Beispielsweise für dein Ziel fit zu werden könntest du Sport, Spaziergang und Morgengymnastik als Aktivitäten definieren. Die Punkte einer Aktivität kannst du selbst festlegen, orientiere dich z.B. daran, wie schwer dir etwas fällt oder wieviel Zeit benötigt wird.
+        Achte darauf, dass du mit verschiedenen Kombinationen an Aktivitäten die gewünschte Punktzahl des jeweiligen Ziels erreichen kannst. Es gibt auch tolle Aktivitäten, die keine Zeit mehr für anderes lassen, z.B. eine tolle Bergwanderung, diese Aktivität könnte dann die Punkte von allen Zielen zusammen bekommen.
+
+        </string>
+    <string name="help_challenges">Was möchtest du die nächste Woche oder bis zum Datum x erreichen? Dein Ziel fit 10 mal geschafft haben oder die Aktivität Sport 15 mal oder dein Gewicht unter 70 kg bringen? Stelle dich deinen eigenen Herausforderungen/Challenges.</string>
+    <string name="help_scale">Mit Skalen kannst du alles quantitativ erfassen, Gewicht, Schlafqualität, Bauchumfang oder was auch immer du messen möchtest und dir im Diagramm anschauen möchtest. Vergib einen aussagekräftigen Titel und dann kannst du immer den Wert eintragen.</string>
+    <string name="help_challenge_deadline">Wann soll die Challenge auslaufen?</string>
+    <string name="help_add_challenge_startdate">Wann soll die Challenge starten?</string>
+    <string name="help_add_challenge_type">Challenges können sich auf ein Ziel, eine bestimmte Aktivität oder eine Skala beziehen, worauf möchtest du den Fokus legen?</string>
+    <string name="help_home_fab">Füge Skalenwerte hinzu oder markiere eine Aktivität als absolviert.</string>
+    <string name="help_home_goal">Tapp zeigt dir mit dem jeweiligen Ziel verknüpfte Aktivitäten, los geht\'s, sammel Punkte :)</string>
+    <string name="help_home_challenges">Das sind deine laufenden Challenges. Unter Werkzeuge kannst du sie verwalten.</string>
+    <string name="help_nav_tools">Hier kannst du deine Ziele und andere Stammdaten verwalten, deine bisherigen Einträge einsehen, findest weitere Tipps und vieles mehr. Swipe löscht meist einen Eintrag.</string>
+    <string name="help_nav_tools_first">Passe zunächst die vorgeschlagenen Ziele, d.h. lösche die, die für dich nicht in jeden Tag reinpassen. Mehr als vier werden schwer ;) </string>
+    <string name="help_nav_charts">Analysiere deine Daten :)</string>
+    <string name="help_add_activity">Definiere verschiedene Aktivitäten, um dein Ziel zu erreichen. Es sollte immer mehr als eine Möglichkeit geben, daher plane für gute und für stressige Tage.</string>
+    <string name="help_add_activity_points">Die Punkte geben die Schwierigkeit oder auch die Zeit wider, die eine Aktivität benötigt. Orientiere dich an der Punktzahl des Ziels und welchen Anteil diese Aktivität dafür hat.</string>
+    <string name="help_journal_intro">Das Journal ist Teil der positiven Psychology, probiere es einfach aus.
+        Suche nach \'5 Minuten Journal\' oder \'positive Affirmation\' im Web, mache dich mit der Methode vertraut und überzeuge dich selbst von der Wirksamkeit.</string>
+    <string name="help_journal_example_affirmations">Lass dich durch Beispiele inspirieren.</string>
+    <string name="help_journal_icons">Wähle Icons aus, um deinen Tag zu beschreiben.</string>
+    <string name="help_journal_picture">Füge ein Bild des Tages hinzu oder entferne es wieder.</string>
+    <string name="help_goal_isOld">Markiere ein Ziel als alt, wenn du es nicht mehr täglich sehen möchtest, die Daten aber noch behalten möchtest.</string>
+    <string name="help_help">Wähle das Fragezeichen in den Optionen, um eine Tour durch den jeweiligen Teil der Anwendung zu bekommen.</string>
+    <string name="lbl_scales_question">Was möchtest du messen?</string>
+</resources>

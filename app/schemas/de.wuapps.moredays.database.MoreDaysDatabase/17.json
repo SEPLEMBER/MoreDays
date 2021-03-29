@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 17,
-    "identityHash": "68859034be66b3f5fba2fad8717d203b",
+    "identityHash": "aabd339f955606560319be358b18b641",
     "entities": [
       {
         "tableName": "Activity",
@@ -136,7 +136,7 @@
       },
       {
         "tableName": "Goal",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `color` INTEGER NOT NULL, `points` INTEGER NOT NULL, `symbol` INTEGER NOT NULL, `order_number` INTEGER NOT NULL, `is_active` INTEGER NOT NULL, `is_old` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `color` INTEGER NOT NULL, `points` INTEGER NOT NULL, `symbol` INTEGER NOT NULL, `order_number` INTEGER NOT NULL, `is_old` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -171,12 +171,6 @@
           {
             "fieldPath": "orderNumber",
             "columnName": "order_number",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "isActive",
-            "columnName": "is_active",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -530,7 +524,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '68859034be66b3f5fba2fad8717d203b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aabd339f955606560319be358b18b641')"
     ]
   }
 }

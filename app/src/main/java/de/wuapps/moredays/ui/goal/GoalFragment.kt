@@ -50,7 +50,6 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         binding = GoalFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.goalViewModel = viewModel
-        binding.lifecycleOwner = this
         val iconDialog =
             childFragmentManager.findFragmentByTag(ICON_DIALOG_TAG) as IconDialog?
                 ?: IconDialog.newInstance(IconDialogSettings())
@@ -247,9 +246,9 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     private fun showHelp(){
         TapTargetSequence(requireActivity())
             .targets(
-                TapTarget.forView(binding.textViewGoal, getString(R.string.activites), getString(R.string.help_goal))
+                TapTarget.forView(binding.textViewGoal, getString(R.string.title_activities), getString(R.string.help_goal))
                     .cancelable(false).transparentTarget(true).targetRadius(30),
-                TapTarget.forView(binding.imageButtonAddActivity, getString(R.string.activites), getString(R.string.help_activities))
+                TapTarget.forView(binding.imageButtonAddActivity, getString(R.string.title_activities), getString(R.string.help_activities))
                     .cancelable(false).transparentTarget(true).targetRadius(30),
                 TapTarget.forView(binding.checkboxIsOld, "", getString(R.string.help_goal_isOld))
                     .cancelable(false).transparentTarget(true).targetRadius(30),

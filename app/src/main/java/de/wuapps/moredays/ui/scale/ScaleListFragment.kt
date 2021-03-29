@@ -10,10 +10,10 @@ import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.databinding.ScaleListFragmentBinding
+import de.wuapps.moredays.ui.tools.getFlexboxLayoutManager
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
 import de.wuapps.moredays.utilities.InjectorUtils
-import de.wuapps.moredays.utilities.ResponsiveGridLayoutManager
 import kotlinx.coroutines.InternalCoroutinesApi
 
 
@@ -31,10 +31,7 @@ class ScaleListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = ScaleListFragmentBinding.inflate(inflater, container, false)
-        binding.recyclerviewScales.layoutManager = ResponsiveGridLayoutManager(
-            requireNotNull(this.activity),
-            resources.getDimension(R.dimen.scale_item_width).toInt()
-        )
+        binding.recyclerviewScales.layoutManager = getFlexboxLayoutManager(requireContext())
         val adapter = ScaleAdapter()
         binding.recyclerviewScales.adapter = adapter
         subscribeUi(adapter)

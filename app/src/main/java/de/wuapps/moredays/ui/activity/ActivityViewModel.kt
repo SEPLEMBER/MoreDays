@@ -37,7 +37,7 @@ class ActivityViewModel(
     }
 
     fun delete() = viewModelScope.launch {
-        activityDao.delete(activity!!)
+        activityDao.deleteActivityAndRelatedChallenges(activity!!)
     }
 
 }

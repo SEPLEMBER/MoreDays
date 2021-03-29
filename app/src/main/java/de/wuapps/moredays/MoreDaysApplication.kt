@@ -11,6 +11,6 @@ class MoreDaysApplication : Application() {
         var loaded : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     }
     init {
-        MoreDaysApplication.loaded.value = false
+        loaded.value = false
     }
 }

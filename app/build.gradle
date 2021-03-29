@@ -63,7 +63,7 @@ dependencies {
     implementation 'androidx.viewpager:viewpager:1.0.0'
     implementation 'androidx.preference:preference:1.1.1'
 
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
@@ -99,8 +99,8 @@ dependencies {
       // image picker
     implementation 'com.opensooq.supernova:gligar:1.1.0'
     // If you have a problem with Glide, please use the same Glide version or simply open an issue
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     // https://github.com/PhilJay/MPAndroidChart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     //Alternative: https://github.com/AnyChart/AnyChart-Android
@@ -119,6 +119,9 @@ dependencies {
 
     //tap help
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.2'
+
+    //flexbox for recyclerviews
+    implementation 'com.google.android:flexbox:2.0.1'
 
     // debugImplementation because LeakCanary should only run in debug builds.
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'

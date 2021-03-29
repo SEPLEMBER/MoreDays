@@ -11,10 +11,10 @@ import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Journal
 import de.wuapps.moredays.databinding.JournalListFragmentBinding
+import de.wuapps.moredays.ui.tools.getFlexboxLayoutManager
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.utilities.InjectorUtils
-import de.wuapps.moredays.utilities.ResponsiveGridLayoutManager
 import kotlinx.coroutines.InternalCoroutinesApi
 
 class JournalListFragment : Fragment() {
@@ -30,11 +30,7 @@ class JournalListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = JournalListFragmentBinding.inflate(inflater, container, false)
-        val layoutManager = ResponsiveGridLayoutManager(
-            requireNotNull(this.activity),
-            resources.getDimension(R.dimen.journal_item_width).toInt()
-        )
-        binding.recyclerviewJournal.layoutManager = layoutManager
+        binding.recyclerviewJournal.layoutManager = getFlexboxLayoutManager(requireContext())
         val adapter = JournalAdapter()
         binding.recyclerviewJournal.adapter = adapter
         subscribeUi(adapter)

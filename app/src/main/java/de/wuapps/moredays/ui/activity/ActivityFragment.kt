@@ -31,7 +31,6 @@ class ActivityFragment : Fragment() {
         binding = ActivityFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.activityViewModel = viewModel
-        binding.lifecycleOwner = this.viewLifecycleOwner
         handleFab(viewModel.hasFab)
         setHasOptionsMenu(true)
         return view
@@ -137,9 +136,9 @@ class ActivityFragment : Fragment() {
     private fun showHelp(){
         TapTargetSequence(requireActivity())
             .targets(
-                TapTarget.forView(binding.textViewName, getString(R.string.activites), getString(R.string.help_add_activity))
+                TapTarget.forView(binding.textViewName, getString(R.string.title_activities), getString(R.string.help_add_activity))
                     .cancelable(false).transparentTarget(true).targetRadius(30),
-                TapTarget.forView(binding.editTextPoints, getString(R.string.activites), getString(R.string.help_add_activity_points))
+                TapTarget.forView(binding.editTextPoints, getString(R.string.title_activities), getString(R.string.help_add_activity_points))
                     .cancelable(false).transparentTarget(true).targetRadius(30)
             ).start()
     }

@@ -7,6 +7,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -30,6 +31,7 @@ import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
 import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
+import java.lang.Exception
 import java.util.*
 
 @GlideModule
@@ -111,7 +113,7 @@ class JournalFragment : Fragment(), IconDialog.Callback {
         val builder = AlertDialog.Builder(this.activity)
         builder.setTitle(R.string.title_affirmation)
             .setItems(exampleAffirmations.toTypedArray(),
-                DialogInterface.OnClickListener { dialog, which ->
+                DialogInterface.OnClickListener { _, which ->
                     binding.editTextAffirmation.setText(exampleAffirmations.get(which))
                 })
         builder.create().show()
@@ -207,7 +209,7 @@ class JournalFragment : Fragment(), IconDialog.Callback {
         binding.datePicker.init(
             iniDate.get(Calendar.YEAR), iniDate.get(Calendar.MONTH),
             iniDate.get(Calendar.DAY_OF_MONTH)
-        ) { view, year, month, day ->
+        ) { _, year, month, day ->
             iniDate.set(Calendar.YEAR, year)
             iniDate.set(Calendar.MONTH, month)
             iniDate.set(Calendar.DAY_OF_MONTH, day)

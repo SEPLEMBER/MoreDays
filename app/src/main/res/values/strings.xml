@@ -21,18 +21,13 @@
     <string name="title_tools">Tools</string>
     <!-- strings of tools fragment -->
     <string name="base_data">Base Data</string>
-    <string name="goals">Goals</string>
-    <string name="activites">Activities</string>
-    <string name="scales">Scales</string>
-    <string name="challenges">Challenges</string>
     <string name="lbl_choose_goal">Choose a goal</string>
     <string name="lbl_question_activity_to_goal">How may you reach this goal? Define different activities with different difficulty.</string>
     <string name="hint_update_points_activity">Change will effect all data, including past entries.</string>
     <string name="lbl_name">Name</string>
     <string name="lbl_points">Points</string>
-    <string name="lbl_inactive">inactive</string>
     <string name="lbl_add_activity">add activity</string>
-    <string name="lbl_categories_question">How do you want to be?</string>
+    <string name="label_goals_question">How do you want to be?</string>
     <string name="lbl_add_goal">add goal</string>
     <string name="lbl_is_old">is old</string>
     <string name="warning_field_is_required">field is required</string>
@@ -44,13 +39,10 @@
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="title_color_picker_dialog">Color Picker Dialog</string>
-    <string name="inactive">inactive</string>
     <string name="decimal_symbol">,</string>
     <string name="warning_not_an_int">not an int</string>
-    <string name="question_delete_scale" />
-    <string name="lbl_add_scale" />
-    <string name="hint_min_value">minimum value</string>
-    <string name="hint_max_value">maximum value</string>
+    <string name="question_delete_scale" >Do you really want to delete this scale and all related entries?</string>
+    <string name="lbl_add_scale" >add scale</string>
     <string name="save">save</string>
     <string name="delete">delete</string>
     <string name="help">help</string>
@@ -64,7 +56,6 @@
     <string name="trophy_type_msg_row">Super %1$s! You made %2$s %3$d days in row :)</string>
     <string name="trophy_type_msg_total">Super %1$s! you made %2$s %3$d times :)</string>
     <string name="trophy_type_msg_times_per_week">Super %1$s! you made %2$s %3$d times in this week :)</string>
-    <string name="trophy_type_msg_made_goal">Super %1$s! you made %2$s for today</string>
     <string name="help_introduction_content">
         What makes a good day, a balanced day? Define different goals, such as fit, relaxed, slim. For every goal you define how difficult it is for you, start with a low number of points and increase over time. Choose a color and symbol as you like.
 
@@ -81,7 +72,7 @@
     <string name="help_privacy_title">Privacy</string>
     <string name="help_tips_content">
         <![CDATA[
-        With MotiWeightMe you can track your moods, follow your goals, define challenges, everything is in your hand, just do it. Make every day a good day.
+        With moreDays you can reflect your day in a personal journal, follow your goals, define challenges, everything is in your hand, just do it. Make every day a good day.
         <h1>Goals</h1>
         What makes a good day, a balanced day? Define different categories, such as fitness, awareness, nutrition. If a catgory is not relevant any longer or not relevant at the moment, because you are on holiday, set it to be inactive.
         For every category you define how difficult it is for you, start with a low number of points and increase over time.
@@ -109,12 +100,12 @@
         ]]>
     </string>
     <string name="help_tips_title">Tips &amp; tricks</string>
-    <string name="help_about_content">To be able to teach app development with Android, I developed this app to experience all the difficulties.</string>
+    <string name="help_about_content" translatable="false">To be able to teach app development with Android, I developed this app to experience all the difficulties.</string>
     <string name="help_about_title">About Us</string>
-    <string name="help_version_pattern">%1$s.%2$d, schema %3$d -- feedback: info@wuapps.de</string>
-    <string name="help_version_title">Version \&amp; Feedback</string>
-    <string name="help_copyright_title">Copyright</string>
-    <string name="help_copyright_content">GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007</string>
+    <string name="help_version_pattern" translatable="false">%1$s.%2$d, schema %3$d -- feedback: info@wuapps.de</string>
+    <string name="help_version_title" translatable="false">Version \&amp; Feedback</string>
+    <string name="help_copyright_title" translatable="false">Copyright</string>
+    <string name="help_copyright_content" translatable="false">GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007</string>
     <string name="help_thanks_title">Thanks</string>
     <string name="help_thanks_content" translatable="false">
         <![CDATA[
@@ -132,7 +123,7 @@
         </ul>
         ]]>
     </string>
-    <string name="help_credentials_title">Credentials</string>
+    <string name="help_credentials_title">Libraries</string>
     <string name="affirmation_examples">I believe I can lose weight.My health is the most important thing to me.I am avoiding excessive carbs.There is no need for rich or sugary foods.Which food will be good for my body today?.I have the power to control my weight through healthy eating and exercise.My body is a temple - I will keep my temple clean.
     Everything will work out for me.I am a winner.I have confidence in my skills.I am not afraid to be wrong.Happiness is within my grasp.I am confident in the presence of others.
     My every desire is achievable.Even outside my comfort zone, I will be comfortable in my own skin.If I fail, I will fail forward.My confidence knows no limits.
@@ -149,9 +140,13 @@
     </string>
     <string name="title_affirmation">Title/Affirmation</string>
     <string name="title_challenge">Challenge</string>
+    <string name="title_challenges">Challenges</string>
     <string name="title_scale">Scale</string>
+    <string name="title_scales">Scales</string>
     <string name="title_goal">Goal</string>
+    <string name="title_goals">Goals</string>
     <string name="title_activity">Activity</string>
+    <string name="title_activities">Activities</string>
     <string name="start_date">start date</string>
     <string name="date_deadline">deadline</string>
     <string name="error">Error</string>
@@ -160,15 +155,12 @@
     <string name="date">date</string>
     <string name="label_chart_goals_points_total">Points per goal</string>
     <string name="label_chart_goals_days_made">days made</string>
-    <string name="label_chart_activities">Activities</string>
     <string name="label_min_value">minimum value</string>
     <string name="label_max_value">maximum value</string>
-    <string name="analysis_made">days made</string>
     <string name="analysis_chain">chain</string>
     <string name="add_entry">Add scale value or activity made</string>
     <string name="menu_import">Import</string>
     <string name="export">Export</string>
-    <string name="onboarding_choose">For now, choose your goals (fit, relaxed, slim, ...) and related activities (stretching, sports, ...) from the examples below.</string>
     <string name="onboarding_title2">Goals &amp; Activities</string>
     <string name="onboarding_title1">YOUR data</string>
     <string name="onboarding_title3">Analyse, adapt and reflect</string>
@@ -193,8 +185,9 @@
     <string name="help_add_challenge_type">With challenges you may focus a special goal or activity, e.g. you may define a challenge to reach your goal fit 5 times until ... or you want to loose weight or you want to do your activity sports 3 times in this week. Choose goal, activity or scale accordingly.</string>
     <string name="help_home_fab">Add scale values or track the just finished activity.</string>
     <string name="help_home_goal">Tap shows you the related activities for the given goals, start collecting points :)</string>
-    <string name="help_home_challenges">Challenges focus a special goal or activity or scale. Tap navigates you to all challenges.</string>
-    <string name="help_nav_tools">Here you may define and adapt your goals, scales and settings. You will find several lists like the list of entries and trophies -- swiping an entry will delete it. You may also import/export data and find additional tipps and help.</string>
+    <string name="help_home_challenges">These are your running challenges. Select tools to manage them.</string>
+    <string name="help_nav_tools">Here you may define and adapt your goals, scales and settings. You will find several lists like the list of entries and trophies -- swiping an entry will delete it. You may find additional tipps and help.</string>
+    <string name="help_nav_tools_first">Adapt the suggested goals, activities and scales to your needs, i.e. delete some goals, more than 4 are difficult to manage ;) </string>
     <string name="help_nav_charts">Analyze your data :)</string>
     <string name="help_add_activity">Define an activity to reach this goal, e.g. for the goal to become fit you could define activities like sports, walk. There should be more than one way to reach this goal, what can you do on easy what on strenuous days?</string>
     <string name="help_add_activity_points">The points may mirror, how difficult it is for you or how much time it takes.
@@ -204,9 +197,10 @@
     <string name="help_journal_icons">Select icons to describe your day.</string>
     <string name="help_journal_picture">Add or remove a picture for this day.</string>
     <string name="help_goal_isOld">Mark a goal as old, if you want to keep the data, but do not want to see it at the home screen any more. You may reactivate it any time.</string>
-
+    <string name="help_help">Just tap help in the options menu and you get a guided tour.</string>
     <!-- ShredPreferences -->
-    <string name="preferences_onboarding" translatable="false">onboardingxxx</string>
+    <string name="preferences_onboarding" translatable="false">onboarding</string>
+    <string name="preferences_showed_first_help" translatable="false">showed_first_help</string>
     <string name="preferences_file_key" translatable="false">de.wuapps.moredays.PREFERENCE_FILE_KEY</string>
     <string name="preferences_name_key" translatable="false">name</string>
     <string name="preferences_start_fragment_key" translatable="false">start_fragment</string>
@@ -223,37 +217,9 @@
     <string name="settings_start_home_title_on">Show journal at start up</string>
     <string name="settings_start_home_title_off">Show home with circles at start up</string>
 
-    <!-- prepopulate db -->
-    <string name="db_ini_stretch">stretching</string>
-    <string name="db_ini_walk">walk</string>
-    <string name="db_ini_sports">sports</string>
-    <string name="db_ini_meditation">meditation</string>
-    <string name="db_ini_sleep">sleep early</string>
-    <string name="db_ini_timeless">timeless day</string>
-    <string name="db_ini_sweets">sweets resisted</string>
-    <string name="db_ini_aware_eating">aware eating</string>
-    <string name="db_ini_fastet_long">fasted 16h</string>
-    <string name="db_ini_water">0,3 l water</string>
-    <string name="db_ini_fruits">fruits/vegetables</string>
-    <string name="db_ini_train">train instead of car</string>
-    <string name="db_ini_bike">bike instead of tram</string>
-    <string name="db_ini_backpack">backpack instead of plastic</string>
-    <string name="db_ini_regional">regional products</string>
-    <string name="db_ini_smart1">theater</string>
-    <string name="db_ini_smart2">1h learning</string>
-    <string name="db_ini_social1">called parents</string>
-    <string name="db_ini_social2">met friends</string>
-    <string name="db_ini_organized1">filing</string>
-    <string name="db_ini_organized2">planned my day</string>
-    <string name="db_ini_weight">weight</string>
-    <string name="db_ini_scale_sleep">sleep</string>
-    <string name="db_ini_ballance">balance</string>
-    <string name="db_ini_fitness">fit</string>
-    <string name="db_ini_nutrition">slim</string>
-    <string name="db_ini_relax">relaxed</string>
-    <string name="db_ini_environment">environmentally</string>
-    <string name="db_ini_smart">smart</string>
-    <string name="db_ini_social">social</string>
-    <string name="db_ini_organized">organized</string>
-    <string name="db_ini_drink">drinking</string>
+
+    <string name="trophy_type_msg_made_goal">Super %1$s! you made %2$s for today</string>
+    <string name="label_chk_is_integer">is integer</string>
+    <string name="label_desired_value">desired value</string>
+    <string name="lbl_scales_question">What do you want to meassure?</string>
 </resources>

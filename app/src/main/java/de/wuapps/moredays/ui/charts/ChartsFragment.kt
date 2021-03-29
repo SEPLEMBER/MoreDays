@@ -31,8 +31,8 @@ class ChartsFragment : Fragment() {
     private fun wireUpTabView() {
 
         binding.tabLayout.addTab(
-            binding.tabLayout.newTab().setText(getString(R.string.goals)))
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(getString(R.string.scales)))
+            binding.tabLayout.newTab().setText(getString(R.string.title_goals)))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(getString(R.string.title_scales)))
 
 
         binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {

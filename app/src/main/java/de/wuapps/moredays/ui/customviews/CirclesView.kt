@@ -114,15 +114,11 @@ class CirclesView @JvmOverloads constructor(
     }
 
     private fun drawLabel(canvas: Canvas) {
-        if (circlesLabel != null && circlesLabel!!.trim { it <= ' ' }.isNotEmpty()) {
+        if (circlesLabel.trim { it <= ' ' }.isNotEmpty()) {
             val yPos = (canvas.height / 2 - (paintText.descent() + paintText.ascent()) / 2).toInt()
             val xPos = canvas.width / 2
-            canvas.drawText(circlesLabel!!, xPos.toFloat(), yPos.toFloat(), paintText)
+            canvas.drawText(circlesLabel, xPos.toFloat(), yPos.toFloat(), paintText)
         }
-    }
-
-    fun getCirclesData(): List<GoalEntry> {
-        return goalEntries
     }
 
     fun setCirclesData(circleData: List<GoalEntry>) {

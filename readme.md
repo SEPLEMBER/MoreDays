@@ -10,14 +10,16 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 
 
 ## ToDos
-- card goal/scale in goals_list, gleichverteilt
-- card goal home (titel zweizeilig ermöglichen), als grid anordnen, nicht horizontal linear layout
-- padding scale fragment
-- strings activity titles
+- bugs
+  - trophy nicht in db eingetragen!
+  - change date --> circles updated, goals not! add activity, no effect!
+  - challenge progress not updated in home view!
+  - journal: datum ändern auf gestern (Calender nicht sichtbar)
+- ux
+  - Schrift zu groß, für alle definieren, insb. journal
+  - Onboarding nicht alles lesbar, Bilder 30% der Größe
 - Tests entkoppeln
-- relation challenge bzw. beim löschen der goalid entsprechende challenges löschen!
-- entities prüfen -> default-Werte in Konstruktor!
-- zweisprachig
+- Setting Startseite umsetzen/prüfen
 
 - optional
   - rename/organize laoyut
@@ -162,6 +164,7 @@ android:text="@{journalViewModel.getFormattedDate(@string/date_ymd)}"
 - handle back button in MainActivity
 - advanced navigation see https://github.com/android/architecture-components-samples/tree/main/NavigationAdvancedSample/app/src/main/java/com/example/android/navigationadvancedsample
 - current problem: fragments and corresponding viewmodels are recreated and recreated, whenever one selects an item in the bottom navigation; the navigationadvancedsample offers a workaround, I wait for the update of navigation component ;-)
+- if you pass parameters in the navigation graph they must implement Parcelable or Serializable
 
 ### Room & coroutines
 You can use the suspend keyword to make your DAO queries asynchronous using Kotlin coroutines. Suspend function is a function that could be started, paused, and resume. One of the most important points to remember about the suspend functions is that they are only allowed to be called from a coroutine or another suspend function. The official documentation says that coroutines are lightweight threads. By lightweight, it means that creating coroutines doesn’t allocate new threads. Instead, they use predefined thread pools and smart scheduling. Use launch to start a new coroutine as fire & forget; use async to return -- see https://developer.android.com/kotlin/coroutines-adv

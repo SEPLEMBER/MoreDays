@@ -7,7 +7,7 @@
 
     <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="@dimen/layout_margin"
         app:flexWrap="wrap"
         tools:context=".ui.tools.ToolsFragment">
@@ -24,21 +24,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/min_margin"
-            android:text="@string/goals" />
+            android:text="@string/title_goals" />
 
         <Button
             android:id="@+id/buttonChallenges"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/min_margin"
-            android:text="@string/challenges" />
+            android:text="@string/title_challenges" />
 
         <Button
             android:id="@+id/buttonScales"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/min_margin"
-            android:text="@string/scales" />
+            android:text="@string/title_scales" />
 
         <TextView
             android:id="@+id/textViewLists"
@@ -73,6 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/min_margin"
+            android:visibility="gone"
             android:text="@string/import_export" />
 
         <Button

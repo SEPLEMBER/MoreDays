@@ -20,13 +20,11 @@ class Goal(
   var symbol: Int,
   @ColumnInfo(name = "order_number")
   var orderNumber: Int,
-  @ColumnInfo(name = "is_active")
-  var isActive: Boolean,
   @ColumnInfo(name = "is_old") //old = formerly used, should not be able to be selected, but keep associated data and show it in bar chart
   var isOld: Boolean
 ) : Parcelable {
-    constructor() : this(0, "", DEFAULT_COLOR, 0, DEFAULLT_ICON_ID, 0, true, false)
-    constructor(name: String, color: Int, points: Int, symbol: Int) : this(0, name, color, points, symbol, 0, true, false)
+    constructor() : this(0, "", DEFAULT_COLOR, 0, DEFAULLT_ICON_ID, 0, false)
+    constructor(name: String, color: Int, points: Int, symbol: Int) : this(0, name, color, points, symbol, 0, false)
 
     //needed for spinner
     override fun toString(): String {
@@ -38,7 +36,7 @@ class Goal(
             return false
         if (other !is Goal)
             return false
-        return other.uid == uid && other.color == color && other.points == points && other.isActive == isActive && other.isOld == isOld
+        return other.uid == uid && other.color == color && other.points == points && other.isOld == isOld
     }
 
     override fun hashCode(): Int {
@@ -47,7 +45,6 @@ class Goal(
         result = 31 * result + color
         result = 31 * result + points
         result = 31 * result + symbol
-        result = 31 * result + isActive.hashCode()
         result = 31 * result + isOld.hashCode()
         return result
     }

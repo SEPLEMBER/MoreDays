@@ -10,10 +10,10 @@ import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Challenge
 import de.wuapps.moredays.databinding.ChallengeListFragmentBinding
+import de.wuapps.moredays.ui.tools.getFlexboxLayoutManager
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
 import de.wuapps.moredays.utilities.InjectorUtils
-import de.wuapps.moredays.utilities.ResponsiveGridLayoutManager
 
 class ChallengeListFragment : Fragment() {
 
@@ -27,10 +27,7 @@ class ChallengeListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = ChallengeListFragmentBinding.inflate(inflater, container, false)
-        binding.recyclerviewChallenges.layoutManager = ResponsiveGridLayoutManager(
-            requireNotNull(this.activity),
-            resources.getDimension(R.dimen.challenge_item_width).toInt()
-        )
+        binding.recyclerviewChallenges.layoutManager = getFlexboxLayoutManager(requireContext())
         val adapter = ChallengeAdapter()
         binding.recyclerviewChallenges.adapter = adapter
         subscribeUi(adapter)

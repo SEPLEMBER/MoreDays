@@ -9,7 +9,7 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"
+        android:layout_marginBottom="90dp"
         app:defaultNavHost="true"
         app:navGraph="@navigation/mobile_navigation" />
 
@@ -20,8 +20,8 @@
         android:layout_gravity="bottom"
         app:fabAlignmentMode="end"
         app:fabCradleMargin="10dp"
-        app:fabCradleRoundedCornerRadius="10dp"
-        app:fabCradleVerticalOffset="10dp">
+        app:fabCradleRoundedCornerRadius="12dp"
+        app:fabCradleVerticalOffset="4dp">
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
@@ -36,8 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fabMain"
-        android:layout_marginVertical="10dp"
-        android:background="@color/secondaryColor"
+        android:layout_marginVertical="8dp"
+        app:backgroundTint="@color/secondaryColor"
         app:layout_anchor="@id/bottomAppBar"
         android:src="@drawable/plus"
          />

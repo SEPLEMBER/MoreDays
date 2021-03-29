@@ -14,12 +14,13 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="@dimen/journal_item_width"
-        android:layout_height="165dp"
+        android:layout_height="150dp"
         android:layout_margin="4dp"
         android:clickable="true"
         android:onClick="@{clickListener}"
         app:cardCornerRadius="8dp"
-        app:cardElevation="4dp">
+        app:cardElevation="4dp"
+        android:focusable="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +31,7 @@
 
             <ImageView
                 android:id="@+id/imageViewPictureOfTheDay"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:importantForAccessibility="no"
                 android:scaleType="centerCrop" />
@@ -42,24 +43,26 @@
                 android:layout_gravity="end"
                 android:layout_marginVertical="1dp"
                 android:layout_marginEnd="4dp"
-                android:textSize="12sp" />
+                android:textSize="@dimen/min_accesible_textsize" />
 
             <TextView
                 android:id="@+id/textViewImportant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
+                android:layout_marginHorizontal="2dp"
                 android:layout_marginVertical="1dp"
-                android:lines="2"
+                android:lines="1"
+                android:ellipsize="end"
                 android:text="@{journal.affirmation}"
                 android:gravity="center"
-                android:textSize="14sp" />
+                android:textSize="@dimen/min_accesible_textsize" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerviewIcons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="2dp"
                  />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

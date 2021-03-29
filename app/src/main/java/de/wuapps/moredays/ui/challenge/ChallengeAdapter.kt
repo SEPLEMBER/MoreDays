@@ -62,7 +62,7 @@ class ChallengeAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChallengeViewHolder {
-        return ChallengeAdapter.ChallengeViewHolder(
+        return ChallengeViewHolder(
             ListItemChallengeBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -72,8 +72,11 @@ class ChallengeAdapter :
     }
 
     override fun onBindViewHolder(holder: ChallengeViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val challenge = getItem(position)
+        if (challenge != null)
+            holder.bind(challenge)
     }
+
 }
 
 object ChallengeDiffCallback : DiffUtil.ItemCallback<Challenge>() {

@@ -72,9 +72,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:ems="12"
+                    android:textSize="@dimen/min_accesible_textsize"
+                    android:inputType="textMultiLine"
                     android:hint="@string/title_affirmation"
-                    android:inputType="text"
                     android:text="@={journalViewModel.journal.affirmation}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/imageButtonSuggestAffirmation"
@@ -92,17 +92,18 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerviewIcons"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:flow_horizontalAlign="center"
+                    android:layout_gravity="center_horizontal"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/editTextAffirmation" />
 
                 <EditText
                     android:id="@+id/editTextNote"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="12"
+                    android:textSize="@dimen/min_accesible_textsize"
                     android:hint="Notes"
                     android:inputType="textMultiLine"
                     android:text="@={journalViewModel.journal.note}"

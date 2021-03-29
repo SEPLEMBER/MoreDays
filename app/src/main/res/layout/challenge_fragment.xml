@@ -31,20 +31,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/min_accesible_size"
                 android:labelFor="@id/editTextTitle"
-                android:text="@string/title_challenge"
+                android:text="@string/lbl_name"
                 android:layout_marginTop="@dimen/min_margin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/editTextTitle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/min_accesible_size"
                 android:inputType="text"
                 android:text="@={challengeViewModel.challenge.title}"
                 android:importantForAutofill="no"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imageButtonIcon"
                 app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+            <ImageButton
+                android:id="@+id/imageButtonIcon"
+                android:layout_width="@dimen/min_accesible_size"
+                android:layout_height="@dimen/min_accesible_size"
+                android:background="@drawable/circle_in_secondary"
+                android:layout_marginLeft="@dimen/activity_margin"
+                android:importantForAccessibility="no"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/editTextTitle" />
+
 
             <RadioGroup
                 android:id="@+id/challengeType"
@@ -112,11 +123,11 @@
                 android:id="@+id/lblDesiredValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginTop="60dp"
                 android:labelFor="@id/editTextDesiredValue"
-                android:text="@string/title_goal"
+                android:text="@string/label_desired_value"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/spinnerGoal" />
+                app:layout_constraintTop_toBottomOf="@id/challengeType" />
 
             <Spinner
                 android:id="@+id/spinnerValueType"
@@ -138,15 +149,6 @@
                 android:importantForAutofill="no"
                 app:layout_constraintStart_toEndOf="@id/spinnerValueType"
                 app:layout_constraintTop_toBottomOf="@id/lblDesiredValue" />
-
-            <ImageButton
-                android:id="@+id/imageButtonIcon"
-                android:layout_width="@dimen/min_accesible_size"
-                android:layout_height="@dimen/min_accesible_size"
-                android:background="@drawable/circle_in_secondary"
-                android:importantForAccessibility="no"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/lblDesiredValue" />
 
             <TextView
                 android:id="@+id/textViewStartDate"

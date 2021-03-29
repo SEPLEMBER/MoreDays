@@ -2,6 +2,7 @@ package de.wuapps.moredays.database.dao
 
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
+import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Scale
 import kotlinx.coroutines.flow.Flow
 
@@ -19,6 +20,9 @@ interface ScaleDao {
     @Insert(onConflict = REPLACE)
     suspend fun insert(scale: Scale): Long
 
+    @Query("DELETE from Challenge where challenge.challenge_type=0 and challenge.id =:scaleId")
+    suspend fun deleteRelatedChallenges(scaleId: Long): Int
+
     @Query("Delete from scale")
     suspend fun deleteAll()
 
@@ -27,4 +31,10 @@ interface ScaleDao {
 
     @Update
     suspend fun update(scale: Scale)
+
+    @Transaction
+    suspend fun deleteScaleAndRelatedChallenges(scale: Scale) {
+        delete(scale)
+        deleteRelatedChallenges(scale.uid)
+    }
 }

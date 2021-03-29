@@ -50,11 +50,11 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.recyclerview.adapter = adapter
         val touchHelper = getItemTouchHelper(adapter)
         touchHelper.attachToRecyclerView(binding.recyclerview)
-        subscribeUi(adapter)
+        subscribeUi()
         return binding.root
     }
 
-    private fun subscribeUi(adapter: ScaleEntryAdapter) {
+    private fun subscribeUi() {
         viewModel.scaleData.observe(viewLifecycleOwner, {
             it?.let {
                 if (it.isNotEmpty()) {
@@ -75,7 +75,7 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
             binding.spinnerScale.visibility = View.VISIBLE
             val adapter = ArrayAdapter(
                 this.requireContext(),
-                android.R.layout.simple_spinner_item, scaleNames
+                R.layout.spinner_item, scaleNames
             )
             binding.spinnerScale.adapter = adapter
             binding.spinnerScale.onItemSelectedListener = this

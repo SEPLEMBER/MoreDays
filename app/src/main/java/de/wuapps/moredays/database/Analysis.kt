@@ -13,7 +13,7 @@ class Analysis {
      * Update all pending/not running/eventually finished challenges.
      *
      */
-    fun checkChallenges(challenges: List<Challenge>, activityEntries: List<ActivityEntry>, scales: List<Scale>, scaleEntries: List<ScaleEntry>, trophies: List<Trophy>):List<Challenge> {
+    fun checkChallenges(challenges: List<Challenge>, activityEntries: List<ActivityEntry>, scaleEntries: List<ScaleEntry>, trophies: List<Trophy>):List<Challenge> {
         val changedChallenges = ArrayList<Challenge>()
         val now = Calendar.getInstance()
         for (c in challenges) {
@@ -105,14 +105,11 @@ class Analysis {
         trophies: List<Trophy>,
         activityEntries: List<ActivityEntry>
     ): List<Trophy> {
-        Log.w("trapp", "start checkForNewTrophies")
-        Log.w("trapp", "latest entry " + activityEntries.last().activityId)
         var newTrophies = ArrayList<Trophy>()
-        var trophy: Trophy? = null
+        var trophy: Trophy?
         //check for trophy for given date for goal
-        val trophiesOfGivenDateAndGoal = trophies.filter { trophy ->  trophy.goalId == goal.uid && trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL && trophy.timestamp.isSameDay(date)}
+        val trophiesOfGivenDateAndGoal = trophies.filter { t ->  t.goalId == goal.uid && t.type == Trophy.TROPHY_TYPE_MADE_GOAL && t.timestamp.isSameDay(date)}
         if (trophiesOfGivenDateAndGoal.size > 0) {
-            Log.w("trapp", "had trophy already - goalid=" + goal.uid.toString())
             return newTrophies //handled already, maybe the last entry made it and the user goes above the desired value...
         }
         val relevantActivityEntries = activityEntries.filter { activityEntry ->  activityEntry.goalId == goal.uid && activityEntry.timestamp.isSameDay(date)}
@@ -122,15 +119,14 @@ class Analysis {
                 Trophy.TROPHY_TYPE_MADE_GOAL, goal.uid, 1,
                 entryId
             )
-            Log.w("trapp", "new trophy made goal")
             trophy.timestamp = date
             newTrophies.add(trophy)
         }
 
         //check for special trophies based on goal made -- but not for entries added for the past
         if (isToday(date) && newTrophies.size > 0) {
-            val trophiesOfGivenGoalOfTypeGoalMade = trophies.filter { trophy ->  trophy.goalId == goal.uid && trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL}
-            val trophiesOfGivenGoalMadeInThisWeek = trophiesOfGivenGoalOfTypeGoalMade.filter { trophy -> trophy.timestamp.isSameWeek(date)}
+            val trophiesOfGivenGoalOfTypeGoalMade = trophies.filter { t ->  t.goalId == goal.uid && t.type == Trophy.TROPHY_TYPE_MADE_GOAL}
+            val trophiesOfGivenGoalMadeInThisWeek = trophiesOfGivenGoalOfTypeGoalMade.filter { t -> t.timestamp.isSameWeek(date)}
             var currentInDb = -1
             var current = -1
             //check if at least 3 times in this week
@@ -147,7 +143,7 @@ class Analysis {
             }
             //check for days in row
             currentInDb = -1
-            var matchTrophy = trophies.filter { trophy ->  trophy.goalId == goal.uid && trophy.type == Trophy.TROPHY_TYPE_GOAL_DAYS_IN_ROW}.maxByOrNull { it.value }
+            var matchTrophy = trophies.filter { t ->  t.goalId == goal.uid && t.type == Trophy.TROPHY_TYPE_GOAL_DAYS_IN_ROW}.maxByOrNull { it.value }
             if (matchTrophy!=null) currentInDb = matchTrophy.value
             current = countDaysInRow(trophiesOfGivenGoalOfTypeGoalMade)
             if (current > 2 && current > currentInDb) {
@@ -160,7 +156,7 @@ class Analysis {
             }
             //check total increased by 5, 10, 25
             currentInDb = -1
-            matchTrophy = trophies.filter { trophy ->  trophy.goalId == goal.uid && trophy.type == Trophy.TROPHY_TYPE_GOAL_TOTAL}.maxByOrNull { it.value }
+            matchTrophy = trophies.filter { t ->  t.goalId == goal.uid && t.type == Trophy.TROPHY_TYPE_GOAL_TOTAL}.maxByOrNull { it.value }
             if (matchTrophy!=null) currentInDb = matchTrophy.value
             current = trophiesOfGivenGoalOfTypeGoalMade.size
             if (current > 4 && current > currentInDb && (current == 5 || current == 10 || current % 25 == 0)) {

@@ -12,7 +12,7 @@
             android:id="@+id/textViewQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/lbl_categories_question"
+            android:text="@string/label_goals_question"
             android:textAlignment="center"
             android:layout_margin="8dp"
             android:textStyle="bold"

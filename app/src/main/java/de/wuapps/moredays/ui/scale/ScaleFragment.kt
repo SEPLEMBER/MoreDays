@@ -31,8 +31,6 @@ class ScaleFragment : Fragment() {
         binding = ScaleFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.scaleViewModel = viewModel
-
-        binding.lifecycleOwner = this.viewLifecycleOwner
         handleFab(viewModel.hasFab)
         setHasOptionsMenu(true)
         return view
@@ -106,17 +104,9 @@ class ScaleFragment : Fragment() {
         }
         if (!isValid)
             return
-        if (viewModel.isNew) {
-            val scale = Scale()
-            scale.name = name
-            scale.minValue = minValue
-            scale.maxValue = maxValue
-            viewModel.insert(scale)
-        } else {
-            viewModel.scale!!.minValue = minValue
-            viewModel.scale!!.maxValue = maxValue
-            viewModel.update()
-        }
+        viewModel.scale.minValue = minValue
+        viewModel.scale.maxValue = maxValue
+        viewModel.save()
         view?.post {
             findNavController().popBackStack()
         }
@@ -149,7 +139,7 @@ class ScaleFragment : Fragment() {
     private fun showHelp(){
         TapTargetSequence(requireActivity())
             .targets(
-                TapTarget.forView(binding.textViewName, getString(R.string.scales), getString(R.string.help_scale))
+                TapTarget.forView(binding.textViewName, getString(R.string.title_scales), getString(R.string.help_scale))
                     .cancelable(false).transparentTarget(true).targetRadius(30)
             ).start()
     }

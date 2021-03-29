@@ -11,30 +11,37 @@ class ScaleViewModel(
     _scale: Scale?
 ) : ViewModel() {
     val hasFab = false
-    val scale = _scale
-    val isNew = scale == null
+    var scale: Scale
+    var isNew = _scale == null
     var isUsed = false
 
     init {
+        scale = if (isNew) {
+            Scale()
+        } else {
+            _scale!!
+        }
         viewModelScope.launch {
-            if (scale != null)
+            if (_scale != null)
                 isUsed = scaleDao.isUsed(scale.uid) > 0
         }
     }
 
-    /**
-     * Launching a new coroutine to insert the data in a non-blocking way
-     */
-    fun insert(scale: Scale) = viewModelScope.launch {
-        scaleDao.insert(scale)
-    }
-
-    fun update() = viewModelScope.launch {
-        scaleDao.update(scale!!)
+    fun save() {
+        if (isNew) {
+            isNew = false
+            viewModelScope.launch {
+                scale.uid = scaleDao.insert(scale)
+            }
+        } else {
+            viewModelScope.launch {
+                scaleDao.update(scale)
+            }
+        }
     }
 
     fun delete() = viewModelScope.launch {
-        scaleDao.delete(scale!!)
+        scaleDao.deleteScaleAndRelatedChallenges(scale)
     }
 
 }

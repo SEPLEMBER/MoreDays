@@ -11,14 +11,16 @@ import kotlinx.parcelize.Parcelize
 @Entity
 class Scale(
     @PrimaryKey(autoGenerate = true)
-    var uid: Long = 0L,
-    var name: String = "",
+    var uid: Long,
+    var name: String,
     @ColumnInfo(name = "min_value")
-    var minValue: Int = 0,
+    var minValue: Int,
     @ColumnInfo(name = "max_value")
-    var maxValue: Int = 100
+    var maxValue: Int,
+    @ColumnInfo(name = "is_int")
+    var isIntValue: Boolean
 ) : Parcelable {
-    constructor() : this(0, "", 0, 100)
+    constructor() : this(0, "", 0, 100, false)
 
     @Ignore
     constructor(name: String) : this() {

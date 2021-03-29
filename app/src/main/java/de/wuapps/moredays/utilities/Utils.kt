@@ -1,7 +1,12 @@
 package de.wuapps.moredays.ui.tools
 
+import android.content.Context
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import de.wuapps.moredays.MainActivity
 import java.util.*
 import java.util.concurrent.Executors
@@ -52,4 +57,13 @@ fun Calendar.setDate(year: Int, month: Int, day: Int): Calendar {
 private val IO_EXECUTOR = Executors.newSingleThreadExecutor()
 fun ioThread(f : () -> Unit) {
     IO_EXECUTOR.execute(f)
+}
+
+fun getFlexboxLayoutManager(context: Context): FlexboxLayoutManager{
+    val layoutManager = FlexboxLayoutManager(context)
+    layoutManager.flexDirection = FlexDirection.ROW
+    layoutManager.flexWrap = FlexWrap.WRAP
+    //layoutManager.justifyContent = JustifyContent.SPACE_AROUND
+    layoutManager.justifyContent = JustifyContent.CENTER
+    return layoutManager
 }

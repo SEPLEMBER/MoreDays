@@ -10,7 +10,7 @@ interface HundredPercentValueDao {
     @Query("SELECT * FROM hundredpercentvalue order by date desc")
     fun getAll(): Flow<List<HundredPercentValue>>
 
-    @Query("INSERT INTO hundredpercentvalue SELECT :date as date, sum(goal.points) as points from goal where is_active > 0")
+    @Query("INSERT INTO hundredpercentvalue SELECT :date as date, sum(goal.points) as points from goal where is_old = 0")
     suspend fun insert(date: String)
 
     @Insert(onConflict = REPLACE)

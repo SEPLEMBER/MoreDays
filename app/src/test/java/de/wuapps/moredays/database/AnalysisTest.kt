@@ -41,7 +41,7 @@ class AnalysisTest : TestCase() {
         challenge.startDate = yesterday
         challenge.status = Challenge.CHALLENGE_NOT_STARTED
         challenges.add(challenge)
-        var actual = analysis.checkChallenges(challenges, activityEntries, scales, scaleEntries, trophies)
+        var actual = analysis.checkChallenges(challenges, activityEntries, scaleEntries, trophies)
         assertEquals("challenge not started is returned", 1, actual.size)
         if (actual.size > 0)
             assertEquals("challenge not started is returned as running", Challenge.CHALLENGE_RUNNING, actual.get(0).status)
@@ -55,7 +55,7 @@ class AnalysisTest : TestCase() {
         challenge.currentValue = 2
         challenges.clear()
         challenges.add(challenge)
-        actual = analysis.checkChallenges(challenges, activityEntries, scales, scaleEntries, trophies)
+        actual = analysis.checkChallenges(challenges, activityEntries, scaleEntries, trophies)
         assertEquals("running challenge after deadline", 1, actual.size)
         if (actual.size > 0)
             assertEquals("running challenge after deadline is returned as failied", Challenge.CHALLENGE_FAILED, actual.get(0).status)

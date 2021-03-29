@@ -355,9 +355,7 @@ class HomeFragment : Fragment() {
                 override fun onSequenceFinish() {
                     val preferences: SharedPreferences =
                         PreferenceManager.getDefaultSharedPreferences(requireContext())
-                    val editor = preferences.edit()
-                    editor.putBoolean(getString(R.string.preferences_showed_first_help), true)
-                    editor.apply()
+                    preferences.edit().putBoolean(getString(R.string.preferences_showed_first_help), true).apply()
                     Toast.makeText(
                         requireContext(), getString(R.string.msg_tutorial_complete),
                         Toast.LENGTH_LONG

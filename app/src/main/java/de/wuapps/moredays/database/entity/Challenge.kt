@@ -11,10 +11,9 @@ import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
 
-@Entity
 @Parcelize
-class Challenge():Parcelable{
-
+@Entity
+class Challenge() :Parcelable { //parcelable could be faster, but is in this case more effort
     @PrimaryKey(autoGenerate = true)
     var uid: Long = 0
     var title: String = ""
@@ -48,10 +47,12 @@ class Challenge():Parcelable{
             if (field > today)
                 status = Challenge.CHALLENGE_NOT_STARTED
         }
+    //constructor()
+
     companion object {
-        var CHALLENGE_TYPE_SCALE = 0
-        var CHALLENGE_TYPE_ACTIVITY = 1
-        var CHALLENGE_TYPE_GOAL = 2
+        var CHALLENGE_TYPE_SCALE = 0  //if changed adapt in ScaleDao!
+        var CHALLENGE_TYPE_ACTIVITY = 1 //if changed adapt in ActivityDao!
+        var CHALLENGE_TYPE_GOAL = 2 //if changed adapt in GoalDao!
         var CHALLENGE_VALUE_TYPE_LESS = 0
         var CHALLENGE_VALUE_TYPE_MORE = 1
         var CHALLENGE_VALUE_TIMES = 2
