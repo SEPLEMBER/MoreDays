@@ -17,8 +17,10 @@ import de.wuapps.moredays.utilities.InjectorUtils
 
 class ChallengeListFragment : Fragment() {
 
-    private lateinit var binding: ChallengeListFragmentBinding
-
+    private var _binding: ChallengeListFragmentBinding? = null
+    private val binding get() = _binding!!
+    private var _adapter: ChallengeAdapter? = null
+    private val adapter get() = _adapter!!
     private val viewModel: ChallengeListViewModel by viewModels {
         InjectorUtils.provideChallengeListViewModelFactory(requireActivity())
     }
@@ -26,11 +28,11 @@ class ChallengeListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ChallengeListFragmentBinding.inflate(inflater, container, false)
+        _binding = ChallengeListFragmentBinding.inflate(inflater, container, false)
         binding.recyclerviewChallenges.layoutManager = getFlexboxLayoutManager(requireContext())
-        val adapter = ChallengeAdapter()
+        _adapter = ChallengeAdapter()
         binding.recyclerviewChallenges.adapter = adapter
-        subscribeUi(adapter)
+        subscribeUi()
         setFabOnClickListener{findNavController().navigate(R.id.navgigation_challenges_challenge)}
         return binding.root
     }
@@ -40,11 +42,17 @@ class ChallengeListFragment : Fragment() {
         showFab()
     }
 
-    private fun subscribeUi(adapter: ChallengeAdapter) {
+    private fun subscribeUi() {
         viewModel.challenges.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it as MutableList<Challenge>)
             }
         })
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _adapter = null
+        _binding = null
+    }
+
 }

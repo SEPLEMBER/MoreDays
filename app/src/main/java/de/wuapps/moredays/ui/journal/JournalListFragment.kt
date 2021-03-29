@@ -22,18 +22,20 @@ class JournalListFragment : Fragment() {
     private val viewModel: JournalListViewModel by viewModels {
         InjectorUtils.provideJournalListViewModelFactory(requireActivity())
     }
-    private lateinit var binding: JournalListFragmentBinding
-
+    private var _binding: JournalListFragmentBinding? = null
+    private val binding get() = _binding!!
+    private var _adapter: JournalAdapter? = null
+    private val adapter get() = _adapter!!
     @InternalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = JournalListFragmentBinding.inflate(inflater, container, false)
+        _binding = JournalListFragmentBinding.inflate(inflater, container, false)
         binding.recyclerviewJournal.layoutManager = getFlexboxLayoutManager(requireContext())
-        val adapter = JournalAdapter()
+        _adapter = JournalAdapter()
         binding.recyclerviewJournal.adapter = adapter
-        subscribeUi(adapter)
+        subscribeUi()
         setFabOnClickListener{findNavController().navigate(R.id.navigation_journalList_journal)}
         return binding.root
     }
@@ -43,14 +45,16 @@ class JournalListFragment : Fragment() {
         handleFab(viewModel.hasFab)
     }
 
-    @InternalCoroutinesApi
-    private fun subscribeUi(adapter: JournalAdapter) {
-        Log.w("home", "subscribeUi GoalListFragment")
+    private fun subscribeUi() {
         viewModel.journalList.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it as MutableList<Journal>)
             }
         })
     }
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _adapter = null
+        _binding = null
+    }
 }

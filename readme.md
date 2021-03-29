@@ -16,14 +16,13 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
   - challenge progress not updated in home view!
   - journal: datum ändern auf gestern (Calender nicht sichtbar)
 - ux
-  - Schrift zu groß, für alle definieren, insb. journal
-  - Onboarding nicht alles lesbar, Bilder 30% der Größe
+  - Onboarding nicht alles lesbar, Bilder 30% der Größe --> texte kürzen
+  - analysis: Tage geschafft, PUnkte pro ziel labels nicht schhief 
 - Tests entkoppeln
 - Setting Startseite umsetzen/prüfen
 
 - optional
   - rename/organize laoyut
-  - for schleifen nochmal durchgehen, wo vl. map o.ä. verwendbar?
 - Import/Export
   - Permissions: https://github.com/googlesamples/easypermissions
   - zu importierende Ziele etc. zunächst in Map sammeln und und key als uid für activities verwenden, später nach bulk insert update 
@@ -125,6 +124,20 @@ value?.let {
 - https://developer.android.com/jetpack/guide
 - https://developer.android.com/topic/libraries/architecture/index.html
 - https://github.com/android/architecture-components-samples
+Binding and adapter may leak (see https://maxkohne.medium.com/memory-leaks-with-fragments-in-android-6664d1fd8e73), hence use the following snippet whereever you use binding or adapters.
+Of course, you could also use the attempt described in https://github.com/android/architecture-components-samples/blob/wmCleanup/GithubBrowserSample/app/src/main/java/com/android/example/github/util/AutoClearedValue.kt
+However, this means to check for improvements there again and again ...
+```
+private var _binding: FragmentHomeBinding? = null
+private val binding get() = _binding!!
+private var _goalAdapter: GoalAdapter? = null
+private val goalAdapter get() = _goalAdapter!!
+override fun onDestroyView() {
+  super.onDestroyView()
+  _goalAdapter = null
+  _binding = null
+}
+```
 
 ### Fragments
 - getSupportFragmentManager is associated with an activity. Consider it as a FragmentManager for your activity.

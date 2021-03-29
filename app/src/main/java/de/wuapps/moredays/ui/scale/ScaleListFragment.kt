@@ -19,8 +19,10 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 class ScaleListFragment : Fragment() {
 
-    private lateinit var binding: ScaleListFragmentBinding
-
+    private var _binding: ScaleListFragmentBinding? = null
+    private val binding get() = _binding!!
+    private var _adapter: ScaleAdapter? = null
+    private val adapter get() = _adapter!!
     private val viewModel: ScaleListViewModel by viewModels {
         InjectorUtils.provideScaleListViewModelFactory(requireActivity())
     }
@@ -30,11 +32,11 @@ class ScaleListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ScaleListFragmentBinding.inflate(inflater, container, false)
+        _binding = ScaleListFragmentBinding.inflate(inflater, container, false)
         binding.recyclerviewScales.layoutManager = getFlexboxLayoutManager(requireContext())
-        val adapter = ScaleAdapter()
+        _adapter = ScaleAdapter()
         binding.recyclerviewScales.adapter = adapter
-        subscribeUi(adapter)
+        subscribeUi()
 
         setFabOnClickListener{ findNavController().navigate(R.id.navigation_scales_scale) }
         return binding.root
@@ -45,12 +47,16 @@ class ScaleListFragment : Fragment() {
         showFab()
     }
 
-    @InternalCoroutinesApi
-    private fun subscribeUi(adapter: ScaleAdapter) {
+    private fun subscribeUi() {
         viewModel.scales.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it as MutableList<Scale>)
             }
         })
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _adapter = null
+        _binding = null
     }
 }

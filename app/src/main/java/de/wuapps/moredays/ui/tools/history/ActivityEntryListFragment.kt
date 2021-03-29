@@ -18,8 +18,10 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 class ActivityEntryListFragment : Fragment() {
 
-    private lateinit var binding: ActivityEntryListFragmentBinding
-    private lateinit var adapter: ActivityEntryAdapter
+    private var _binding: ActivityEntryListFragmentBinding? = null
+    private val binding get() = _binding!!
+    private var _adapter: ActivityEntryAdapter? = null
+    private val adapter get() = _adapter!!
     private val viewModel: ActivityEntryListViewModel by viewModels {
         InjectorUtils.provideActivityEntryListViewModelFactory(requireActivity())
     }
@@ -29,21 +31,21 @@ class ActivityEntryListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ActivityEntryListFragmentBinding.inflate(inflater, container, false)
+        _binding = ActivityEntryListFragmentBinding.inflate(inflater, container, false)
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.recyclerviewActivityEntries.layoutManager = layoutManager
-        adapter = ActivityEntryAdapter()
+        _adapter = ActivityEntryAdapter()
         binding.recyclerviewActivityEntries.adapter = adapter
         val touchHelper = getItemTouchHelper()
         touchHelper.attachToRecyclerView(binding.recyclerviewActivityEntries)
-        subscribeUi(adapter)
+        subscribeUi()
         handleFab(viewModel.hasFab)
         return binding.root
     }
 
     @InternalCoroutinesApi
-    private fun subscribeUi(adapter: ActivityEntryAdapter) {
+    private fun subscribeUi() {
         viewModel.activityEntries.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it as MutableList<ActivityEntryAndRelatedData>)
@@ -73,5 +75,10 @@ class ActivityEntryListFragment : Fragment() {
                 viewModel.removeActivityEntry(id)
             }
         })
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _adapter = null
+        _binding = null
     }
 }

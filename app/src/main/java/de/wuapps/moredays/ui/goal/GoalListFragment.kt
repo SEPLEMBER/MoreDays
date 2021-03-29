@@ -19,8 +19,10 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 class GoalListFragment : Fragment() {
 
-    private lateinit var binding: GoalListFragmentBinding
-
+    private var _binding: GoalListFragmentBinding? = null
+    private val binding get() = _binding!!
+    private var _adapter: GoalAdapter? = null
+    private val adapter get() = _adapter!!
     private val viewModel: GoalListViewModel by viewModels {
         InjectorUtils.provideGoalListViewModelFactory(requireActivity())
     }
@@ -30,11 +32,11 @@ class GoalListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = GoalListFragmentBinding.inflate(inflater, container, false)
+        _binding = GoalListFragmentBinding.inflate(inflater, container, false)
         binding.recyclerviewGoals.layoutManager = getFlexboxLayoutManager(requireContext())
-        val adapter = GoalAdapter()
+        _adapter = GoalAdapter()
         binding.recyclerviewGoals.adapter = adapter
-        subscribeUi(adapter)
+        subscribeUi()
         setFabOnClickListener{findNavController().navigate(R.id.navigation_goals_goal)}
         return binding.root
     }
@@ -44,12 +46,16 @@ class GoalListFragment : Fragment() {
         showFab()
     }
 
-    @InternalCoroutinesApi
-    private fun subscribeUi(adapter: GoalAdapter) {
+    private fun subscribeUi() {
         viewModel.goals.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it as MutableList<Goal>)
             }
         })
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _adapter = null
+        _binding = null
     }
 }

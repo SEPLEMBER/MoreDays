@@ -38,11 +38,10 @@ class GoalsChartsFragment : Fragment() {
     private val viewModel: GoalsChartsViewModel by viewModels {
         InjectorUtils.provideGoalsChartsViewModelFactory(requireActivity())
     }
-    private lateinit var binding: GoalsChartsFragmentBinding
-
-
-    private val handleDateFrom = true
-    private val dateFormat: SimpleDateFormat? = null
+    private var _binding: GoalsChartsFragmentBinding? = null
+    private val binding get() = _binding!!
+    private var _adapter: GoalSummaryAdapter? = null
+    private val adapter get() = _adapter!!
     private val BAR_WIDTH = 0.9f
     private val TEXTSIZE_LEGEND = 12f
     private val NUMBER_VISIBLE_BARS = 10
@@ -51,13 +50,13 @@ class GoalsChartsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = GoalsChartsFragmentBinding.inflate(inflater, container, false)
+        _binding = GoalsChartsFragmentBinding.inflate(inflater, container, false)
         val layoutManager = FlexboxLayoutManager(this.requireContext())
         layoutManager.flexWrap = FlexWrap.WRAP
         layoutManager.justifyContent = JustifyContent.CENTER
         layoutManager.flexDirection = FlexDirection.ROW
         binding.recyclerViewAnalysis.layoutManager = layoutManager
-        val adapter = GoalSummaryAdapter()
+        _adapter = GoalSummaryAdapter()
         binding.recyclerViewAnalysis.adapter = adapter
         subscribeUi(adapter)
 
@@ -366,5 +365,11 @@ class GoalsChartsFragment : Fragment() {
 
         if (data.size > 10) chart.moveViewToX(data.size.toFloat()) //got to today, calls invalidate already
         else chart.invalidate()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _adapter = null
+        _binding = null
     }
 }

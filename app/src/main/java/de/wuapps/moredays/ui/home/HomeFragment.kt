@@ -48,12 +48,11 @@ class HomeFragment : Fragment() {
         InjectorUtils.provideHomeViewModelFactory(requireActivity().getApplication())
     }
     private var _binding: FragmentHomeBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private var _goalAdapter: GoalAdapter? = null
     private val goalAdapter get() = _goalAdapter!!
-    private lateinit var challengeAdapter: ChallengeAdapter
+    private var _challengeAdapter: ChallengeAdapter? = null
+    private val challengeAdapter get() = _challengeAdapter!!
     private val scales = ArrayList<Scale>()
     private val activityData = ArrayList<Pair<Goal, de.wuapps.moredays.database.entity.Activity>>()
 
@@ -73,7 +72,7 @@ class HomeFragment : Fragment() {
         viewModel.name = preferences.getString(getString(R.string.preferences_name_key), null) ?: ""
         _goalAdapter = GoalAdapter(viewModel::addGoalEntry)
         binding.recyclerViewGoals.adapter = goalAdapter
-        challengeAdapter = ChallengeAdapter()
+        _challengeAdapter = ChallengeAdapter()
         binding.recyclerviewChallenges.adapter = challengeAdapter
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
@@ -407,6 +406,7 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _goalAdapter = null
+        _challengeAdapter = null
          _binding = null
     }
 }

@@ -22,13 +22,13 @@ class ScaleFragment : Fragment() {
     private val viewModel: ScaleViewModel by viewModels {
         InjectorUtils.provideScaleViewModelFactory(requireActivity(), args.scale)
     }
-    private lateinit var binding: ScaleFragmentBinding
-
+    private var _binding: ScaleFragmentBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ScaleFragmentBinding.inflate(inflater, container, false)
+        _binding = ScaleFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.scaleViewModel = viewModel
         handleFab(viewModel.hasFab)
@@ -142,5 +142,9 @@ class ScaleFragment : Fragment() {
                 TapTarget.forView(binding.textViewName, getString(R.string.title_scales), getString(R.string.help_scale))
                     .cancelable(false).transparentTarget(true).targetRadius(30)
             ).start()
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

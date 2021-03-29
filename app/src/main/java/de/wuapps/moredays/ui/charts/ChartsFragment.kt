@@ -15,14 +15,15 @@ import de.wuapps.moredays.ui.tools.handleFab
 
 
 class ChartsFragment : Fragment() {
-    private lateinit var binding: ChartsFragmentBinding
+    private var _binding: ChartsFragmentBinding? = null
+    private val binding get() = _binding!!
     private var goalsChartsFragment: GoalsChartsFragment? = null
     private var scalesChartFragment: ScalesChartFragment? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ChartsFragmentBinding.inflate(inflater, container, false)
+        _binding = ChartsFragmentBinding.inflate(inflater, container, false)
         handleFab(false)
         wireUpTabView()
         return binding.root
@@ -65,5 +66,10 @@ class ChartsFragment : Fragment() {
         ft.replace(binding.fragmentContainer.id, fragment)
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
         ft.commit()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

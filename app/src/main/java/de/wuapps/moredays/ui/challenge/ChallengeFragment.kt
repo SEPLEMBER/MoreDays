@@ -36,7 +36,8 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
     private var selectedIconId: Int = 0
     private val ICON_DIALOG_TAG = "ICON_DIALOG_TAG"
 
-    private lateinit var binding: ChallengeFragmentBinding
+    private var _binding: ChallengeFragmentBinding? = null
+    private val binding get() = _binding!!
     private val args: ChallengeFragmentArgs by navArgs()
     private val viewModel: ChallengeViewModel by viewModels {
         InjectorUtils.provideChallengeViewModelFactory(requireActivity(), args.challenge)
@@ -56,7 +57,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
         savedInstanceState: Bundle?
     ): View? {
         dateFormatter = SimpleDateFormat(getString(R.string.date_ymd))
-        binding = ChallengeFragmentBinding.inflate(inflater, container, false)
+        _binding = ChallengeFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.challengeViewModel = viewModel
         val iconDialog =
@@ -337,5 +338,9 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
                 TapTarget.forView(binding.challengeType, "", getString(R.string.help_add_challenge_type))
                     .cancelable(false).transparentTarget(true).targetRadius(30)
             ).start()
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

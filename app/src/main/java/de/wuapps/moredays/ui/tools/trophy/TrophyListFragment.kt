@@ -17,9 +17,10 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 class TrophyListFragment : Fragment() {
 
-    private lateinit var binding: TrophyListFragmentBinding
-    private lateinit var adapter: TrophyAdapter
-
+    private var _binding: TrophyListFragmentBinding? = null
+    private val binding get() = _binding!!
+    private var _adapter: TrophyAdapter? = null
+    private val adapter get() = _adapter!!
     private val viewModel: TrophyListViewModel by viewModels {
         InjectorUtils.provideTrophyListViewModelFactory(requireActivity())
     }
@@ -29,11 +30,11 @@ class TrophyListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = TrophyListFragmentBinding.inflate(inflater, container, false)
+        _binding = TrophyListFragmentBinding.inflate(inflater, container, false)
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.recyclerviewTrophies.layoutManager = layoutManager
-        adapter = TrophyAdapter()
+        _adapter = TrophyAdapter()
         val touchHelper = getItemTouchHelper()
         touchHelper.attachToRecyclerView(binding.recyclerviewTrophies)
         binding.recyclerviewTrophies.adapter = adapter
@@ -73,5 +74,10 @@ class TrophyListFragment : Fragment() {
                 viewModel.removeTrophy(id)
             }
         })
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _adapter = null
+        _binding = null
     }
 }

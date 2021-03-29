@@ -37,14 +37,16 @@ import java.util.*
 @GlideModule
 class JournalFragment : Fragment(), IconDialog.Callback {
 
-    private lateinit var binding: JournalFragmentBinding
+    private var _binding: JournalFragmentBinding? = null
+    private val binding get() = _binding!!
+    private var _adapter: IconAdapter? = null
+    private val adapter get() = _adapter!!
     private val args: JournalFragmentArgs by navArgs()
     private val viewModel: JournalViewModel by viewModels {
         InjectorUtils.provideJournalViewModelFactory(requireActivity(), args.journal)
     }
     private val ICON_DIALOG_TAG = "ICON_DIALOG_TAG"
     private val REQUEST_IMAGE = 42
-    private lateinit var adapter: IconAdapter
     private val maxIcons = 100
     private lateinit var exampleAffirmations: List<String>
     private var optionsMenuDelete: MenuItem? = null
@@ -55,7 +57,7 @@ class JournalFragment : Fragment(), IconDialog.Callback {
         savedInstanceState: Bundle?
     ): View? {
         viewModel.setDateFormat(getString(R.string.date_ymd))
-        binding = JournalFragmentBinding.inflate(inflater, container, false)
+        _binding = JournalFragmentBinding.inflate(inflater, container, false)
         binding.imageButtonPickImage.setOnClickListener {
             GligarPicker().requestCode(REQUEST_IMAGE).withFragment(this).show()
         }
@@ -69,7 +71,7 @@ class JournalFragment : Fragment(), IconDialog.Callback {
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         binding.recyclerviewIcons.layoutManager = layoutManager
-        adapter = IconAdapter()
+        _adapter = IconAdapter()
         viewModel.journal.observe(viewLifecycleOwner, {
             updateUI()
         })
@@ -229,5 +231,11 @@ class JournalFragment : Fragment(), IconDialog.Callback {
                 TapTarget.forView(binding.imageButtonSuggestAffirmation, "", getString(R.string.affirmation_examples))
                     .cancelable(false).transparentTarget(true).targetRadius(30)
             ).start()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _adapter = null
+        _binding = null
     }
 }

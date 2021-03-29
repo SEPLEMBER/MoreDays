@@ -22,13 +22,13 @@ class ActivityFragment : Fragment() {
     private val viewModel: ActivityViewModel  by viewModels {
         InjectorUtils.provideActivityViewModelFactory(requireActivity(), args.goal, args.activity)
     }
-    private lateinit var binding: ActivityFragmentBinding
-
+    private var _binding: ActivityFragmentBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ActivityFragmentBinding.inflate(inflater, container, false)
+        _binding = ActivityFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.activityViewModel = viewModel
         handleFab(viewModel.hasFab)
@@ -141,5 +141,9 @@ class ActivityFragment : Fragment() {
                 TapTarget.forView(binding.editTextPoints, getString(R.string.title_activities), getString(R.string.help_add_activity_points))
                     .cancelable(false).transparentTarget(true).targetRadius(30)
             ).start()
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

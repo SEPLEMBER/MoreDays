@@ -31,22 +31,24 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val viewModel: ScalesChartViewModel by viewModels {
         InjectorUtils.provideScalesChartViewModelFactory(requireActivity())
     }
-    private lateinit var binding: ScalesChartFragmentBinding
+    private var _binding: ScalesChartFragmentBinding? = null
+    private val binding get() = _binding!!
+    private var _adapter: ScaleEntryAdapter? = null
+    private val adapter get() = _adapter!!
     private var selectedScale: Scale? = null
     private val data = ArrayList<ScaleData>()
     private val scaleNames = ArrayList<String>()
-    private lateinit var adapter: ScaleEntryAdapter
 
     @InternalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ScalesChartFragmentBinding.inflate(inflater, container, false)
+        _binding = ScalesChartFragmentBinding.inflate(inflater, container, false)
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.recyclerview.layoutManager = layoutManager
-        adapter = ScaleEntryAdapter()
+        _adapter = ScaleEntryAdapter()
         binding.recyclerview.adapter = adapter
         val touchHelper = getItemTouchHelper(adapter)
         touchHelper.attachToRecyclerView(binding.recyclerview)
@@ -142,6 +144,12 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 viewModel.removeScaleEntry(entryId)
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _adapter = null
+        _binding = null
     }
 
     //AdapterView.OnItemSelectedListener

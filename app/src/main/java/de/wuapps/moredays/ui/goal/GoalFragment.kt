@@ -37,7 +37,8 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     private var selectedColor: Int = 0
     private val ICON_DIALOG_TAG = "ICON_DIALOG_TAG"
 
-    private lateinit var binding: GoalFragmentBinding
+    private var _binding: GoalFragmentBinding? = null
+    private val binding get() = _binding!!
     private val args: GoalFragmentArgs by navArgs()
     private val viewModel: GoalViewModel by viewModels {
         InjectorUtils.provideGoalViewModelFactory(requireActivity(), args.goal)
@@ -47,7 +48,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = GoalFragmentBinding.inflate(inflater, container, false)
+        _binding = GoalFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.goalViewModel = viewModel
         val iconDialog =
@@ -255,5 +256,10 @@ class GoalFragment : Fragment(), IconDialog.Callback {
                 TapTarget.forView(binding.editTextPoints, getString(R.string.lbl_points), getString(R.string.help_goal_points))
                     .cancelable(false).transparentTarget(true).targetRadius(30)
             ).start()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
