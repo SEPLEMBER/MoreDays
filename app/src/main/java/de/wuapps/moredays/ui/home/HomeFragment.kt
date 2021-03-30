@@ -31,6 +31,7 @@ import de.wuapps.moredays.ui.tools.getFlexboxLayoutManager
 import de.wuapps.moredays.ui.tools.isSameDay
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
+import de.wuapps.moredays.utilities.DatePickerFragment
 import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -110,18 +111,13 @@ class HomeFragment : Fragment() {
 
     private fun showDatePicker() {
         var iniDate = viewModel.date
-        binding.datePicker.init(
-            iniDate.get(Calendar.YEAR), iniDate.get(Calendar.MONTH),
-            iniDate.get(Calendar.DAY_OF_MONTH)
-        ) { _, year, month, day ->
-            iniDate.set(Calendar.YEAR, year)
-            iniDate.set(Calendar.MONTH, month)
-            iniDate.set(Calendar.DAY_OF_MONTH, day)
-            viewModel.changeDate(iniDate)
-            binding.textViewDate.text = getDateStringToDate(iniDate)
-            binding.datePicker.visibility = View.GONE
-        }
-        binding.datePicker.visibility = View.VISIBLE
+        val newFragment = DatePickerFragment(iniDate, this::handleDateSelected)
+        newFragment.show(childFragmentManager, "datePicker")
+    }
+
+    private fun handleDateSelected(calendar: Calendar){
+        viewModel.changeDate(calendar)
+        binding.textViewDate.text = getDateStringToDate(calendar)
     }
 
     private fun getDateStringToDate(dateCalendar: Calendar): String {

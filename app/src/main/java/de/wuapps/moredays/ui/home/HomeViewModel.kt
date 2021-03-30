@@ -113,6 +113,7 @@ class HomeViewModel(
         was100Percent = (percent.value!! >= 100F)
         viewModelScope.launch(Dispatchers.IO) {
             val activityEntry =  ActivityEntry(activity)
+            activityEntry.timestamp = date
             val id = activityEntryDao.insert(activityEntry)
             activityEntry.uid = id
             activityEntriesList.add(activityEntry) //später besser mit observe arbeiten!
@@ -159,9 +160,9 @@ class HomeViewModel(
             return
         val tmp = ArrayList<GoalEntry>()
         for (item in goalEntryList.value!!) {
-            item.date = calendarDate
-            tmp.add(item)
+            tmp.add(item.getCopy(calendarDate))
         }
+        Log.w("trapp", "date change, newList?" + (goalEntryList.value == tmp).toString())
         goalEntryList.postValue(tmp)
         calcPercentage(tmp)
     }

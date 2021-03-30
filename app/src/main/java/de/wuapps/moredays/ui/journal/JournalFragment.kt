@@ -29,6 +29,7 @@ import de.wuapps.moredays.databinding.JournalFragmentBinding
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
+import de.wuapps.moredays.utilities.DatePickerFragment
 import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
 import java.lang.Exception
@@ -107,8 +108,8 @@ class JournalFragment : Fragment(), IconDialog.Callback {
                 ICON_DIALOG_TAG
             )
         }
+
         if (optionsMenuDelete != null) optionsMenuDelete!!.isVisible = viewModel.hasDeleteOption
-        if (optionsMenuDate != null) optionsMenuDate!!.isVisible = viewModel.hasCalendarOption
     }
 
     private fun suggestAffirmation() {
@@ -140,10 +141,14 @@ class JournalFragment : Fragment(), IconDialog.Callback {
     }
 
     private fun setImage() {
-        if (!viewModel.journal.value!!.imageFilename.isNullOrBlank())
+        if (viewModel.journal.value!!.imageFilename.isNullOrBlank()){
+            binding.imageViewPictureOfTheDay.setImageDrawable(null)
+        }
+        else {
             Glide.with(this)
                 .load(viewModel.journal.value!!.imageFilename)
                 .into(binding.imageViewPictureOfTheDay);
+        }
     }
 
     private fun save() {
@@ -202,23 +207,16 @@ class JournalFragment : Fragment(), IconDialog.Callback {
         inflater.inflate(R.menu.help_calendar_delete_save_menu, menu)
         optionsMenuDelete = menu.findItem(R.id.menu_delete)
         optionsMenuDelete!!.isVisible = viewModel.hasDeleteOption
-        optionsMenuDate = menu.findItem(R.id.menu_date)
-        optionsMenuDate!!.isVisible = viewModel.hasCalendarOption
     }
 
     private fun showDatePicker() {
         var iniDate = viewModel.journal.value!!.getDateAsCalendar()
-        binding.datePicker.init(
-            iniDate.get(Calendar.YEAR), iniDate.get(Calendar.MONTH),
-            iniDate.get(Calendar.DAY_OF_MONTH)
-        ) { _, year, month, day ->
-            iniDate.set(Calendar.YEAR, year)
-            iniDate.set(Calendar.MONTH, month)
-            iniDate.set(Calendar.DAY_OF_MONTH, day)
-            viewModel.changeDate(iniDate)
-            binding.datePicker.visibility = View.GONE
-        }
-        binding.datePicker.visibility = View.VISIBLE
+        val newFragment = DatePickerFragment(iniDate, this::handleDateSelected)
+        newFragment.show(childFragmentManager, "datePicker")
+    }
+
+    private fun handleDateSelected(calendar: Calendar){
+            viewModel.changeDate(calendar)
     }
 
     private fun showHelp(){

@@ -1,5 +1,6 @@
 package de.wuapps.moredays.ui.home
 
+import android.util.Log
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.GoalAndRelatedData
@@ -11,7 +12,7 @@ import java.util.Calendar.YEAR
 class GoalEntry(private val goalData: GoalAndRelatedData) {
     var date = Calendar.getInstance()
         get() = field
-        set(value) {
+        private set(value) {
             field = value
             currentValue = -1
         }
@@ -19,6 +20,10 @@ class GoalEntry(private val goalData: GoalAndRelatedData) {
     private val goal: Goal = goalData.goal!!
     constructor(goalData: GoalAndRelatedData, date: Calendar) : this(goalData){
         this.date = date
+    }
+    fun getCopy(copyDate:Calendar):GoalEntry {
+        val goalEntry = GoalEntry(goalData, copyDate)
+        return goalEntry
     }
     fun getCurrentValue(): Int {
         if (currentValue < 0) {
@@ -67,12 +72,16 @@ class GoalEntry(private val goalData: GoalAndRelatedData) {
             return false
         if (other !is GoalEntry)
             return false
-        return other.goal == goal && other.currentValue == currentValue
+        val result = other.goal == goal && other.getCurrentValue() == getCurrentValue()
+        val x = other.date.get(DAY_OF_YEAR) == date.get(DAY_OF_YEAR)
+        val y = other.date == date
+        Log.w("trapp", result.toString() + ": " + other.goal.name + ":dates:" + x.toString() + y.toString())
+        return result && x && y //other.goal == goal && other.getCurrentValue() == getCurrentValue()
     }
 
     override fun hashCode(): Int {
         var result = date.hashCode()
-        result = 31 * result + currentValue
+        result = 31 * result + getCurrentValue()
         result = 31 * result + goal.hashCode()
         return result
     }

@@ -23,8 +23,6 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
     val hasFab = true
     val hasDeleteOption: Boolean
         get() = !_isNew
-    val hasCalendarOption: Boolean
-        get() = _isNew
     init {
         if (_isNew) {
             iniJournalWithGivenDate(Date())

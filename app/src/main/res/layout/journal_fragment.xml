@@ -9,13 +9,6 @@
             name="journalViewModel"
             type="de.wuapps.moredays.ui.journal.JournalViewModel" />
     </data>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/min_margin"
-        tools:context=".ui.challenge.ChallengeFragment">
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -112,19 +105,4 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <DatePicker
-                android:id="@+id/date_Picker"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:background="@color/background"
-                android:visibility="gone" />
-        </LinearLayout>
-    </FrameLayout>
 </layout>
