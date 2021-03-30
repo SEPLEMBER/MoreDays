@@ -52,10 +52,10 @@ class ActivityEntryAdapter :
 
 object ActivityEntryDiffCallback : DiffUtil.ItemCallback<ActivityEntryAndRelatedData>() {
     override fun areItemsTheSame(oldItem: ActivityEntryAndRelatedData, newItem: ActivityEntryAndRelatedData): Boolean {
-        return oldItem == newItem
+        return oldItem.activityEntry.uid == newItem.activityEntry.uid
     }
 
     override fun areContentsTheSame(oldItem: ActivityEntryAndRelatedData, newItem: ActivityEntryAndRelatedData): Boolean {
-        return oldItem.activityEntry.uid == newItem.activityEntry.uid
+        return oldItem == newItem
     }
 }

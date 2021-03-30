@@ -57,10 +57,10 @@ class ActivityAdapter(_goal: Goal) :
 
 object ActivityDiffCallback : DiffUtil.ItemCallback<Activity>() {
     override fun areItemsTheSame(oldItem: Activity, newItem: Activity): Boolean {
-        return oldItem == newItem
+        return oldItem.uid == newItem.uid
     }
 
     override fun areContentsTheSame(oldItem: Activity, newItem: Activity): Boolean {
-        return oldItem.uid == newItem.uid
+        return newItem == oldItem
     }
 }

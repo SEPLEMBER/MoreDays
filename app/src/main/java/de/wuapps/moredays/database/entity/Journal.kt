@@ -22,16 +22,14 @@ data class Journal(
     @ColumnInfo(name = "image_filename")
     var imageFilename: String,
     @ColumnInfo(name = "symbols")
-    val icons: MutableList<Int>,
-    var color: Int
+    val icons: MutableList<Int>
 ) : Parcelable {
     constructor() : this(
         SimpleDateFormat(DATE_FORMAT).format(Date()),
         "",
         "",
         "",
-        ArrayList<Int>(),
-        0
+        ArrayList<Int>()
     )
 
     constructor(date: Date) : this() {
@@ -47,6 +45,23 @@ data class Journal(
         val calendar = Calendar.getInstance()
         calendar.time = tmp
         return calendar
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other == null)
+            return false
+        if (other !is Journal)
+            return false
+        return other.date == date && other.note == note && other.affirmation == affirmation && other.imageFilename == imageFilename && other.icons == icons
+    }
+
+    override fun hashCode(): Int {
+        var result = date.hashCode()
+        result = 31 * result + affirmation.hashCode()
+        result = 31 * result + note.hashCode()
+        result = 31 * result + imageFilename.hashCode()
+        result = 31 * result + icons.hashCode()
+        return result
     }
 
     companion object {

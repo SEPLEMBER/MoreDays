@@ -42,11 +42,11 @@ class IconAdapter :
 
 object IconDiffCallback : DiffUtil.ItemCallback<Icon>() {
     override fun areItemsTheSame(oldItem: Icon, newItem: Icon): Boolean {
-        return oldItem == newItem
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Icon, newItem: Icon): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem == newItem
     }
 }
 

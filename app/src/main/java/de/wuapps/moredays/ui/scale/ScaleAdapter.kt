@@ -48,10 +48,10 @@ class ScaleAdapter :
 
 object ScaleDiffCallback : DiffUtil.ItemCallback<Scale>() {
     override fun areItemsTheSame(oldItem: Scale, newItem: Scale): Boolean {
-        return oldItem == newItem
+        return oldItem.uid == newItem.uid
     }
 
     override fun areContentsTheSame(oldItem: Scale, newItem: Scale): Boolean {
-        return oldItem.uid == newItem.uid
+        return oldItem == newItem
     }
 }

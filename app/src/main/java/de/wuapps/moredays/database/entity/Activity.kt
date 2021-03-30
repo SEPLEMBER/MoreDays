@@ -45,4 +45,21 @@ class Activity(
     override fun toString(): String {
         return "$name ($points P.)"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (other == null)
+            return false
+        if (other !is Activity)
+            return false
+        return other.uid == uid && other.name == name && other.points == points && other.isOld == isOld && other.goalId == goalId
+    }
+
+    override fun hashCode(): Int {
+        var result = uid.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + goalId.hashCode()
+        result = 31 * result + points
+        result = 31 * result + isOld.hashCode()
+        return result
+    }
 }

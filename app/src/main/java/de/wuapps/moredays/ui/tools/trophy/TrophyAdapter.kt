@@ -69,10 +69,10 @@ class TrophyAdapter :
 
 object TrophyDiffCallback : DiffUtil.ItemCallback<TrophyAndRelatedGoal>() {
     override fun areItemsTheSame(oldItem: TrophyAndRelatedGoal, newItem: TrophyAndRelatedGoal): Boolean {
-        return oldItem == newItem
+        return oldItem.trophy.uid == newItem.trophy.uid
     }
 
     override fun areContentsTheSame(oldItem: TrophyAndRelatedGoal, newItem: TrophyAndRelatedGoal): Boolean {
-        return oldItem.trophy.uid == newItem.trophy.uid
+        return oldItem == newItem
     }
 }

@@ -52,10 +52,10 @@ class ChallengeAdapter :
 
 object ChallengeDiffCallback : DiffUtil.ItemCallback<Challenge>() {
     override fun areItemsTheSame(oldItem: Challenge, newItem: Challenge): Boolean {
-        return oldItem == newItem
+        return oldItem.uid == newItem.uid
     }
 
     override fun areContentsTheSame(oldItem: Challenge, newItem: Challenge): Boolean {
-        return oldItem.uid == newItem.uid && oldItem.currentValue == newItem.currentValue && oldItem.status == newItem.status
+        return oldItem == newItem
     }
 }

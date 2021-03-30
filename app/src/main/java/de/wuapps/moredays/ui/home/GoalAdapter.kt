@@ -74,10 +74,10 @@ class GoalAdapter(private val onGoalClickHandler: (goal: Goal, activity: Activit
 
 object GoalDiffCallback : DiffUtil.ItemCallback<GoalEntry>() {
     override fun areItemsTheSame(oldItem: GoalEntry, newItem: GoalEntry): Boolean {
-        return oldItem == newItem
+        return  oldItem.getId() == newItem.getId()
     }
 
     override fun areContentsTheSame(oldItem: GoalEntry, newItem: GoalEntry): Boolean {
-        return oldItem.getId() == newItem.getId()
+        return oldItem == newItem
     }
 }
