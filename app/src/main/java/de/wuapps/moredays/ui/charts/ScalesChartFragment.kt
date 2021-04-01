@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -113,6 +114,13 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 return mFormat.format(Date(value.toLong()))
             }
         })
+        val yAxis = chart.getAxisLeft();
+        chart.getAxisRight().setEnabled(false);
+        if (!selectedScale!!.isIntValue)
+            yAxis.enableGridDashedLine(10f, 10f, 0f);
+        // axis range
+        yAxis.setAxisMaximum(selectedScale!!.maxValue.toFloat());
+        yAxis.setAxisMinimum(selectedScale!!.minValue.toFloat());
         chart.data = lineData
         val description = Description()
         description.text = selectedScale!!.name

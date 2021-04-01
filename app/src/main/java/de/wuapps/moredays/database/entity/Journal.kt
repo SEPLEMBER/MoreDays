@@ -20,16 +20,13 @@ data class Journal(
     var affirmation: String,
     var note: String,
     @ColumnInfo(name = "image_filename")
-    var imageFilename: String,
-    @ColumnInfo(name = "symbols")
-    val icons: MutableList<Int>
+    var imageFilename: String
 ) : Parcelable {
     constructor() : this(
         SimpleDateFormat(DATE_FORMAT).format(Date()),
         "",
         "",
-        "",
-        ArrayList<Int>()
+        ""
     )
 
     constructor(date: Date) : this() {
@@ -52,7 +49,7 @@ data class Journal(
             return false
         if (other !is Journal)
             return false
-        return other.date == date && other.note == note && other.affirmation == affirmation && other.imageFilename == imageFilename && other.icons == icons
+        return other.date == date && other.note == note && other.affirmation == affirmation && other.imageFilename == imageFilename
     }
 
     override fun hashCode(): Int {
@@ -60,7 +57,6 @@ data class Journal(
         result = 31 * result + affirmation.hashCode()
         result = 31 * result + note.hashCode()
         result = 31 * result + imageFilename.hashCode()
-        result = 31 * result + icons.hashCode()
         return result
     }
 

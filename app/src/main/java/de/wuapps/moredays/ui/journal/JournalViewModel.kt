@@ -20,7 +20,7 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
     private var _dateFormatter = SimpleDateFormat("yy-MM-dd")
     val journal: LiveData<Journal>
         get() = _journal
-    val hasFab = true
+    val hasFab = false
     val hasDeleteOption: Boolean
         get() = !_isNew
     init {

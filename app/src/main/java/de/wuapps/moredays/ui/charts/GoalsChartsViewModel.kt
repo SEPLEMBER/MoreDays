@@ -70,39 +70,41 @@ class GoalsChartsViewModel(
         if (activityEntries.size == 0 || goals.size == 0 || trophies.size == 0 ) return //not much to show
         var daysTotal = activityEntries.groupBy { Pair(it.activityEntry.timestamp.get(Calendar.YEAR), it.activityEntry.timestamp.get(Calendar.DAY_OF_YEAR)) }.size
         for (goal in goals) {
-            var trophiesOfThisGoal = trophies.filter { trophy -> trophy.goalId == goal.uid }
-            var activityEntriesOfThisGoal =
-                activityEntries.filter { activityEntry -> activityEntry.goal.uid == goal.uid }
-            var sumPoints =
-                activityEntriesOfThisGoal.sumBy { activityEntry -> activityEntry.activity.points }
-            var countDaysMade =
-                trophiesOfThisGoal.filter { trophy -> trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL }.size
-            var countDaysInRow =
-                trophiesOfThisGoal.filter { trophy -> trophy.type == Trophy.TROPHY_TYPE_GOAL_DAYS_IN_ROW }
-                    .sortedByDescending { trophy -> trophy.timestamp }.firstOrNull()?.value ?: 0
-            var activitySummaries = ArrayList<ActivitySummary>()
-            for (entry in activityEntriesOfThisGoal.groupBy { it.activity }) {
-                activitySummaries.add(ActivitySummary(entry.key, entry.value.size))
-            }
-            tmpSummary.add(
-                GoalSummary(
-                    goal,
-                    sumPoints,
-                    daysTotal,
-                    countDaysMade,
-                    countDaysInRow,
-                    activitySummaries
+            if (!goal.isOld) {
+                var trophiesOfThisGoal = trophies.filter { trophy -> trophy.goalId == goal.uid }
+                var activityEntriesOfThisGoal =
+                    activityEntries.filter { activityEntry -> activityEntry.goal.uid == goal.uid }
+                var sumPoints =
+                    activityEntriesOfThisGoal.sumBy { activityEntry -> activityEntry.activity.points }
+                var countDaysMade =
+                    trophiesOfThisGoal.filter { trophy -> trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL }.size
+                var countDaysInRow =
+                    trophiesOfThisGoal.filter { trophy -> trophy.type == Trophy.TROPHY_TYPE_GOAL_DAYS_IN_ROW }
+                        .sortedByDescending { trophy -> trophy.timestamp }.firstOrNull()?.value ?: 0
+                var activitySummaries = ArrayList<ActivitySummary>()
+                for (entry in activityEntriesOfThisGoal.groupBy { it.activity }) {
+                    activitySummaries.add(ActivitySummary(entry.key, entry.value.size))
+                }
+                tmpSummary.add(
+                    GoalSummary(
+                        goal,
+                        sumPoints,
+                        daysTotal,
+                        countDaysMade,
+                        countDaysInRow,
+                        activitySummaries
+                    )
                 )
-            )
+            }
         }
         goalSummaries.postValue(tmpSummary)
     }
     private fun onUpdateHistory(){
-        if (activityEntries.size == 0 || goals.size == 0 || hundredPercentValue.size == 0) return
+        if (activityEntries.size == 0 || goals.size == 0) return
         goals.sortedBy { it.uid }
         val currentHundredPercentValue = goals.sumBy { it.points }
         var tmpHistory = ArrayList<GoalsDate>()
-        for (day in activityEntries.groupBy { Pair(it.activityEntry.timestamp.get(Calendar.YEAR), it.activityEntry.timestamp.get(Calendar.DAY_OF_YEAR)) }){ //ignore days without entries!
+        for (day in activityEntries.sortedBy { it.activityEntry.timestamp }.groupBy { Pair(it.activityEntry.timestamp.get(Calendar.YEAR), it.activityEntry.timestamp.get(Calendar.DAY_OF_YEAR)) }){ //ignore days without entries!
             //select latest from 100% < date -->dao
             val goalSumsDate = ArrayList<Pair<Goal, Int>>()
             for(goal in goals){

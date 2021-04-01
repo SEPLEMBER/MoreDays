@@ -18,13 +18,11 @@ class Goal(
   var color: Int,
   var points: Int,
   var symbol: Int,
-  @ColumnInfo(name = "order_number")
-  var orderNumber: Int,
   @ColumnInfo(name = "is_old") //old = formerly used, should not be able to be selected, but keep associated data and show it in bar chart
   var isOld: Boolean
 ) : Parcelable {
-    constructor() : this(0, "", DEFAULT_COLOR, 0, DEFAULLT_ICON_ID, 0, false)
-    constructor(name: String, color: Int, points: Int, symbol: Int) : this(0, name, color, points, symbol, 0, false)
+    constructor() : this(0, "", DEFAULT_COLOR, 0, DEFAULLT_ICON_ID, false)
+    constructor(name: String, color: Int, points: Int, symbol: Int) : this(0, name, color, points, symbol, false)
 
     //needed for spinner
     override fun toString(): String {

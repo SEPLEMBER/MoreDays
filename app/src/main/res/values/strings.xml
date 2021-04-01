@@ -217,7 +217,6 @@
     <string name="settings_start_home_title_on">Show journal at start up</string>
     <string name="settings_start_home_title_off">Show home with circles at start up</string>
 
-
     <string name="trophy_type_msg_made_goal">Super %1$s! you made %2$s for today</string>
     <string name="label_chk_is_integer">is integer</string>
     <string name="label_desired_value">desired value</string>

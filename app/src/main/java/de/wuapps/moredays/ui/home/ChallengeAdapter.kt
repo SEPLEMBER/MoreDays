@@ -1,7 +1,10 @@
 package de.wuapps.moredays.ui.home
 
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -18,9 +21,19 @@ class ChallengeAdapter :
     class ChallengeViewHolder(
         private val binding: ListItemChallengeHomeBinding
     ) :
-        RecyclerView.ViewHolder(binding.root) {
+
+         RecyclerView.ViewHolder(binding.root) {
         private val dateFormatter = SimpleDateFormat(itemView.context.getString(R.string.date_ymd))
-        fun bind(item: Challenge) {
+            init {
+                binding.setClickListener { view ->
+                    run {
+                        val toast = Toast.makeText(view.context, binding.challenge!!.toString(dateFormatter), Toast.LENGTH_LONG)
+                        toast.setGravity(Gravity.TOP, 0, 450)
+                        toast.show()
+                    }
+                }
+            }
+       fun bind(item: Challenge) {
             binding.imageViewIcon.setImageDrawable(
                 MoreDaysApplication.iconPack?.let {
                     it.getIcon(item.symbol)

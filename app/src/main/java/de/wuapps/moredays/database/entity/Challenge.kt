@@ -100,5 +100,10 @@ class Challenge() : Parcelable { //parcelable could be faster, but is in this ca
         result = 31 * result + currentValue
         return result
     }
+
+    fun toString(dateFormatter: SimpleDateFormat): String {
+        val formattedDate = dateFormatter.format(deadline.time)
+        return "${title}: ${currentValue}/${desiredValue} \n ${formattedDate}"
+    }
 }
 

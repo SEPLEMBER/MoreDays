@@ -7,7 +7,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,38 +16,25 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
-import com.maltaisn.icondialog.IconDialog
-import com.maltaisn.icondialog.IconDialogSettings
-import com.maltaisn.icondialog.data.Icon
-import com.maltaisn.icondialog.pack.IconPack
 import com.opensooq.supernova.gligar.GligarPicker
-import de.wuapps.moredays.MainActivity
-import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.JournalFragmentBinding
 import de.wuapps.moredays.ui.tools.handleFab
-import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
 import de.wuapps.moredays.utilities.DatePickerFragment
 import de.wuapps.moredays.utilities.InjectorUtils
-import kotlinx.coroutines.InternalCoroutinesApi
-import java.lang.Exception
 import java.util.*
 
 @GlideModule
-class JournalFragment : Fragment(), IconDialog.Callback {
+class JournalFragment : Fragment() {
 
     private var _binding: JournalFragmentBinding? = null
     private val binding get() = _binding!!
-    private var _adapter: IconAdapter? = null
-    private val adapter get() = _adapter!!
     private val args: JournalFragmentArgs by navArgs()
     private val viewModel: JournalViewModel by viewModels {
         InjectorUtils.provideJournalViewModelFactory(requireActivity(), args.journal)
     }
-    private val ICON_DIALOG_TAG = "ICON_DIALOG_TAG"
     private val REQUEST_IMAGE = 42
-    private val maxIcons = 100
     private lateinit var exampleAffirmations: List<String>
     private var optionsMenuDelete: MenuItem? = null
     private var optionsMenuDate: MenuItem? = null
@@ -71,8 +57,6 @@ class JournalFragment : Fragment(), IconDialog.Callback {
         exampleAffirmations = getString(R.string.affirmation_examples).split("\\.".toRegex())
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        binding.recyclerviewIcons.layoutManager = layoutManager
-        _adapter = IconAdapter()
         viewModel.journal.observe(viewLifecycleOwner, {
             updateUI()
         })
@@ -89,26 +73,8 @@ class JournalFragment : Fragment(), IconDialog.Callback {
     private fun updateUI() {
         binding.textViewDate.text = viewModel.getCurrentDate()
         setImage()
-        binding.recyclerviewIcons.adapter = adapter
-        val icons =
-            viewModel.journal.value!!.icons.map { MoreDaysApplication.iconPack!!.getIcon(it)!! }
-        setIcons(icons)
         binding.editTextAffirmation.setText(viewModel.journal.value!!.affirmation)
         binding.editTextNote.setText(viewModel.journal.value!!.note)
-        val iconDialog =
-            childFragmentManager.findFragmentByTag(ICON_DIALOG_TAG) as IconDialog?
-                ?: IconDialog.newInstance(IconDialogSettings {
-                    maxSelection = maxIcons
-                    showMaxSelectionMessage = true
-                })
-        setFabOnClickListener {
-            iconDialog.selectedIconIds = viewModel.journal.value!!.icons
-            iconDialog.show(
-                childFragmentManager,
-                ICON_DIALOG_TAG
-            )
-        }
-
         if (optionsMenuDelete != null) optionsMenuDelete!!.isVisible = viewModel.hasDeleteOption
     }
 
@@ -163,24 +129,6 @@ class JournalFragment : Fragment(), IconDialog.Callback {
         }
     }
 
-    private fun setIcons(icons: List<Icon>) {
-        adapter.submitList(icons)
-    }
-
-    /**
-     * IconDialog.Callback
-     */
-    @InternalCoroutinesApi
-    override val iconDialogIconPack: IconPack?
-        get() = MoreDaysApplication.iconPack
-
-    @InternalCoroutinesApi
-    override fun onIconDialogIconsSelected(dialog: IconDialog, icons: List<Icon>) {
-        viewModel.journal.value!!.icons.clear()
-        viewModel.journal.value!!.icons.addAll(icons.map { it.id })
-        setIcons(icons)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_help -> {
@@ -222,8 +170,6 @@ class JournalFragment : Fragment(), IconDialog.Callback {
     private fun showHelp(){
         TapTargetSequence(requireActivity())
             .targets(
-                TapTarget.forView((activity as MainActivity).getFab(), "+", getString(R.string.help_journal_icons))
-                    .cancelable(false).transparentTarget(true).targetRadius(30),
                 TapTarget.forView(binding.imageViewPictureOfTheDay, "", getString(R.string.help_journal_picture))
                     .cancelable(false).transparentTarget(true).targetRadius(30),
                 TapTarget.forView(binding.imageButtonSuggestAffirmation, "", getString(R.string.affirmation_examples))
@@ -233,7 +179,6 @@ class JournalFragment : Fragment(), IconDialog.Callback {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _adapter = null
         _binding = null
     }
 }

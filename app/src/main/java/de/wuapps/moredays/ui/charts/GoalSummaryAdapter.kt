@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.MoreDaysApplication
+import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.ListItemGoalSummaryBinding
 import de.wuapps.moredays.ui.customviews.CircleDrawable
 
@@ -27,7 +28,7 @@ class GoalSummaryAdapter :
                     String.format(
                         "&#127941; %d %s",
                         item.countDaysMade,
-                        "made"
+                        itemView.context.getString(R.string.trophy_type_title_made_goal)
                     ), HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
             )
@@ -36,7 +37,7 @@ class GoalSummaryAdapter :
                     String.format(
                         "&sum; %d %s",
                         item.sumPoints,
-                        "points"
+                        itemView.context.getString(R.string.lbl_points)
                     ), HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
             )
@@ -45,7 +46,7 @@ class GoalSummaryAdapter :
                     String.format(
                         "&#9939; %d %s",
                         item.countDaysInRow,
-                        "chain"
+                        itemView.context.getString(R.string.trophy_type_title_row)
                     ), HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
             )
@@ -84,13 +85,13 @@ object GoalSummaryDiffCallback : DiffUtil.ItemCallback<GoalsChartsViewModel.Goal
         oldItem: GoalsChartsViewModel.GoalSummary,
         newItem: GoalsChartsViewModel.GoalSummary
     ): Boolean {
-        return oldItem == newItem
+        return oldItem.goal.uid == newItem.goal.uid
     }
 
     override fun areContentsTheSame(
         oldItem: GoalsChartsViewModel.GoalSummary,
         newItem: GoalsChartsViewModel.GoalSummary
     ): Boolean {
-        return oldItem.goal.uid == newItem.goal.uid
+        return oldItem == newItem
     }
 }

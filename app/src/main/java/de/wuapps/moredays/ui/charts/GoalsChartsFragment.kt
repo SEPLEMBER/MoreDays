@@ -32,6 +32,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.Comparator
 import kotlin.collections.ArrayList
+import kotlin.math.min
 
 class GoalsChartsFragment : Fragment() {
 
@@ -148,6 +149,7 @@ class GoalsChartsFragment : Fragment() {
             colorsActivities,
             activityNames
         )
+        binding.barChartActivities.getXAxis().setDrawLabels(false)
         if (barEntriesActivity.size > NUMBER_VISIBLE_BARS) {
             binding.barChartActivities.moveViewToX(barEntriesActivity.size.toFloat()) //got to today, calls invalidate already
         } else {
@@ -268,7 +270,7 @@ class GoalsChartsFragment : Fragment() {
         val longestLabelLength = Collections.max(
             names,
             Comparator.comparing { obj: String -> obj.length }).length
-        if (longestLabelLength * 2.8 > barWidth) {
+        if (longestLabelLength * 12 > barWidth) {
             xAxis.setLabelRotationAngle(45F)
             chart.setExtraBottomOffset(50F)
         }

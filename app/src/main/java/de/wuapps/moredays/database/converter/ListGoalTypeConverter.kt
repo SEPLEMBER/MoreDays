@@ -26,7 +26,6 @@ class ListGoalTypeConverter {
                 sb.append(DELIMITER_FIELD)
                 sb.append(goal.symbol)
                 sb.append(DELIMITER_FIELD)
-                sb.append(goal.orderNumber)
                 sb.append(DELIMITER_FIELD)
                 sb.append(DELIMITER_GOAL)
             }
@@ -50,7 +49,6 @@ class ListGoalTypeConverter {
                     goal.color = fields[2].toInt()
                     goal.points = fields[3].toInt()
                     goal.symbol = fields[4].toInt()
-                    goal.orderNumber = fields[5].toInt()
                     goals.add(goal)
                 }
             } catch (exception: Exception) {

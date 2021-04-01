@@ -17,8 +17,6 @@
             app:summaryOff="@string/settings_start_home_title_off"
             app:summaryOn="@string/settings_start_home_title_on"/>
 
-
-
     </PreferenceCategory>
 
 </PreferenceScreen>

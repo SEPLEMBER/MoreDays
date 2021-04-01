@@ -10,14 +10,14 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface GoalDao {
-    @Query("SELECT * FROM goal order by order_number asc")
+    @Query("SELECT * FROM goal")
     fun getAll(): Flow<List<Goal>>
 
     @Transaction
-    @Query("SELECT * FROM goal order by order_number asc")
+    @Query("SELECT * FROM goal")
     fun getAllWithRelatedActivities(): Flow<List<GoalAndRelatedActivities>>
 
-    @Query("SELECT color FROM goal order by order_number asc")
+    @Query("SELECT color FROM goal")
     fun getAllColors(): Flow<List<Int>>
 
     @Transaction
@@ -25,7 +25,7 @@ interface GoalDao {
     fun getGoalAndRelatedActivities(goalId: Long): Flow<GoalAndRelatedActivities?>
 
     @Transaction
-    @Query("SELECT * FROM goal where goal.is_old = 0 order by order_number asc")
+    @Query("SELECT * FROM goal where goal.is_old = 0")
     fun getAllGoalData(): Flow<List<GoalAndRelatedData>>
 
     @Query("SELECT count(*) from Activity where activity.goal_id =:goalId")

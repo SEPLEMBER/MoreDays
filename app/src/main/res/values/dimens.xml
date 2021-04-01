@@ -18,8 +18,8 @@
     <dimen name="journal_item_width">150dp</dimen>
     <dimen name="challenge_item_width">150dp</dimen>
     <dimen name="min_margin">4dp</dimen>
-    <dimen name="home_card_height">75dp</dimen>
-    <dimen name="home_card_width">55dp</dimen>
+    <dimen name="home_card_height">80dp</dimen>
+    <dimen name="home_card_width">60dp</dimen>
     <dimen name="icon_size">30dp</dimen>
     <dimen name="radar_chart_height">300dp</dimen>
     <dimen name="bar_chart_height">200dp</dimen>

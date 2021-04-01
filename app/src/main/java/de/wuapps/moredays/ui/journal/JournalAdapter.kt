@@ -39,18 +39,6 @@ class JournalAdapter :
                 Glide.with(itemView.context)
                     .load(item.imageFilename)
                     .into(binding.imageViewPictureOfTheDay);
-            if (item.icons.size > 0){
-                val layoutManager = LinearLayoutManager(
-                    itemView.context,
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-                )
-                layoutManager.initialPrefetchItemCount = item.icons.size
-                val iconAdapter = IconAdapter()
-                iconAdapter.submitList(item.icons.map{ MoreDaysApplication.iconPack!!.getIcon(it)!! })
-                binding.recyclerviewIcons.setLayoutManager(layoutManager)
-                binding.recyclerviewIcons.adapter = iconAdapter
-            }
             binding.apply {
                 journal = item
                 executePendingBindings()

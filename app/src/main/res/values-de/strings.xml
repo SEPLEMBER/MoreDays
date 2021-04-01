@@ -43,7 +43,7 @@
     <string name="lists">Listen</string>
     <string name="activity_entries">Einträge zu Aktivitäten</string>
     <string name="import_export">Import/Export</string>
-    <string name="trophy_type_title_row">Zeile</string>
+    <string name="trophy_type_title_row">Folge</string>
     <string name="trophy_type_title_total">insgesamt</string>
     <string name="trophy_type_title_times_per_week">pro Woche</string>
     <string name="trophy_type_title_made_goal">geschafft</string>
@@ -123,8 +123,7 @@
     <string name="onboarding_title2">Ziele &amp; Aktivitäten</string>
     <string name="onboarding_title1">DEINE Daten</string>
     <string name="onboarding_title3">Analysieren, anpassen und reflektieren</string>
-    <string name="onboarding_desc1">Verfolge deine Ziele Tag für Tag, an guten wie an stressigen Tagen. Reflektiere deine Tage mit Icons und einem Foto. Verfolge dein Gewicht oder deine
-        Schlafqualität. Keine Werbung, keine Registierung, alle Daten nur auf deinem Handy!</string>
+    <string name="onboarding_desc1">Verfolge deine Ziele, Tag für Tag, an guten wie an stressigen Tagen. Keine Werbung, keine Registierung, alle Daten nur auf deinem Handy!</string>
     <string name="onboarding_desc2">Damit du direkt loslegen kannst und eine Idee bekommst, was geht, haben wir schon Ziele und Aktivitäten für dich angelegt. In den Werkzeugen kannst du sie einfach auf dich anspassen.</string>
     <string name="onboarding_desc3">moreDays bietet dir viele Möglichkeiten, deine Ziele anzupassen und deine Daten zu analysieren. Probiere es aus :) nur, was sich leicht und gut anfühlt, schaffst du jeden Tag ...</string>
 

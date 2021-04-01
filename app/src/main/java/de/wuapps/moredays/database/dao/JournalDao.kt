@@ -10,12 +10,6 @@ interface JournalDao {
     @Query("SELECT * FROM Journal order by date asc")
     fun getAll(): Flow<List<Journal>>
 
-    @Query("SELECT distinct affirmation FROM Journal where affirmation is not null and affirmation != '' order by date asc")
-    suspend fun affirmations(): List<String>
-
-//    @get:Query("SELECT count(*) FROM Journal")
-//    val countJournalEntries: Int
-
     @Query("SELECT * FROM Journal where date = :givenDate order by date desc LIMIT 1")
     suspend fun getLatestForGivenDate(givenDate: String): Journal?
 

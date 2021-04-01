@@ -11,18 +11,17 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 
 ## ToDos
 - bugs
-  - trophy nicht in db eingetragen!
-  - change date --> circles updated, goals not! add activity, no effect!
-  - challenge progress not updated in home view!
-  - journal: datum ändern auf gestern (Calender nicht sichtbar)
+  - stacked chart
+    - days not sorted, data false?
 - ux
-  - Onboarding nicht alles lesbar, Bilder 30% der Größe --> texte kürzen
   - analysis: Tage geschafft, PUnkte pro ziel labels nicht schhief 
 - Tests entkoppeln
 - Setting Startseite umsetzen/prüfen
+- import
 
 - optional
   - rename/organize laoyut
+  - Stagged diagremm mit radio tag Woche Monat?
 - Import/Export
   - Permissions: https://github.com/googlesamples/easypermissions
   - zu importierende Ziele etc. zunächst in Map sammeln und und key als uid für activities verwenden, später nach bulk insert update 

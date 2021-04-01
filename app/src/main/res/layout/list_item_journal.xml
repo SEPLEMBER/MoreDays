@@ -14,7 +14,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="@dimen/journal_item_width"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         android:layout_margin="4dp"
         android:clickable="true"
         android:onClick="@{clickListener}"
@@ -56,14 +56,6 @@
                 android:text="@{journal.affirmation}"
                 android:gravity="center"
                 android:textSize="@dimen/min_accesible_textsize" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerviewIcons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginVertical="2dp"
-                 />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>
