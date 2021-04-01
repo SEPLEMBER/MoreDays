@@ -24,37 +24,9 @@
             android:minHeight="@dimen/bar_chart_height" />
 
         <com.github.mikephil.charting.charts.RadarChart
-            android:id="@+id/radarChartPoints"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/radar_chart_height" />
-
-        <com.github.mikephil.charting.charts.RadarChart
             android:id="@+id/radarChartDaysMade"
             android:layout_width="match_parent"
             android:layout_height="@dimen/radar_chart_height" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_chart_goals_points_total" />
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChartGoalsPointsTotal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/bar_chart_height"
-            android:layout_marginBottom="@dimen/activity_vertical_margin" />
-
-        <TextView
-            android:id="@+id/lblChartCategoriesMade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_chart_goals_days_made" />
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChartGoalsDaysMade"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/bar_chart_height"
-            android:layout_marginBottom="@dimen/activity_vertical_margin" />
 
         <TextView
             android:id="@+id/lblChartEntryType"

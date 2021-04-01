@@ -130,19 +130,6 @@ class GoalsChartsFragment : Fragment() {
             }
             i++
         }
-        // barCharts
-        adaptBarChart(
-            barEntriesGoalsTotal,
-            binding.barChartGoalsPointsTotal,
-            colorsGoals,
-            goalNames
-        )
-        adaptBarChart(
-            barEntriesGoalsMade,
-            binding.barChartGoalsDaysMade,
-            colorsGoals,
-            goalNames
-        )
         adaptBarChart(
             barEntriesActivity,
             binding.barChartActivities,
@@ -155,12 +142,6 @@ class GoalsChartsFragment : Fragment() {
         } else {
             binding.barChartActivities.invalidate()
         }
-        //webs
-        adaptWeb(
-            binding.radarChartPoints,
-            RadarDataSet(radarEntriesSumPoints, "web sum points"),
-            goalNames.toTypedArray()
-        )
         adaptWeb(
             binding.radarChartDaysMade,
             RadarDataSet(radarEntriesGoalsMade, "web days made"),
