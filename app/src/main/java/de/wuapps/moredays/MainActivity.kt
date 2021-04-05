@@ -4,12 +4,14 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,7 +32,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         iconPackLoader = IconPackLoader(this)
-        val sharedPref: SharedPreferences = getSharedPreferences(getString(R.string.preferences_file_key), MODE_PRIVATE)  //getPreferences(MODE_PRIVATE)
+        val sharedPref: SharedPreferences = getSharedPreferences(
+            getString(R.string.preferences_file_key),
+            MODE_PRIVATE
+        )  //getPreferences(MODE_PRIVATE)
         if (!sharedPref.getBoolean(getString(R.string.preferences_onboarding), false)) {
             val intentOnboarding = Intent(this, Onboarding::class.java)
             startActivity(intentOnboarding)
@@ -55,6 +60,12 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
         navView.menu.getItem(4).isEnabled = false
         navView.background = null
+        var startDestination = R.id.navigation_home
+        val preferences: SharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(this)
+        if (preferences.getBoolean(getString(R.string.preferences_start_fragment_key), false))
+            startDestination = R.id.navigation_journalList
+        navController.navigate(startDestination)
         loadIconPack()
     }
 
