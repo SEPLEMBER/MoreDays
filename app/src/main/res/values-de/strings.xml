@@ -160,10 +160,13 @@
     <string name="help_journal_intro">Das Journal ist Teil der positiven Psychology, probiere es einfach aus.
         Suche nach \'5 Minuten Journal\' oder \'positive Affirmation\' im Web, mache dich mit der Methode vertraut und überzeuge dich selbst von der Wirksamkeit.</string>
     <string name="help_journal_example_affirmations">Lass dich durch Beispiele inspirieren.</string>
-    <string name="help_journal_icons">Wähle Icons aus, um deinen Tag zu beschreiben.</string>
     <string name="help_journal_picture">Füge ein Bild des Tages hinzu oder entferne es wieder.</string>
     <string name="help_goal_isOld">Markiere ein Ziel als alt, wenn du es nicht mehr täglich sehen möchtest, die Daten aber noch behalten möchtest.</string>
     <string name="help_help">Wähle das Fragezeichen in den Optionen, um eine Tour durch den jeweiligen Teil der Anwendung zu bekommen.</string>
     <string name="lbl_scales_question">Was möchtest du messen?</string>
     <string name="message_made_challenge">Super %1$s! Du hast gerade deine Challenge %2$s geschafft :)</string>
+    <string name="label_journal_list_today">Starte mit deinem ersten Eintrag :)</string>
+    <string name="help_journal_title">Gib deinem Eintrag einen schönen Titel oder eine Affirmation.</string>
+    <string name="help_journal_button_affirmation">Lass dich von Beispielaffirmationen inspirieren.</string>
+    <string name="notes">Notizen/Emojis</string>
 </resources>

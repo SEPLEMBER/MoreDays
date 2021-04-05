@@ -37,7 +37,6 @@ class ScaleListFragment : Fragment() {
         _adapter = ScaleAdapter()
         binding.recyclerviewScales.adapter = adapter
         subscribeUi()
-
         setFabOnClickListener{ findNavController().navigate(R.id.navigation_scales_scale) }
         return binding.root
     }
@@ -57,7 +56,6 @@ class ScaleListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _adapter = null
-        setFabOnClickListener(null)
         _binding = null
     }
 }

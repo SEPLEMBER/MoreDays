@@ -19,7 +19,6 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 - import
 
 - optional
-  - rename/organize laoyut
   - Stagged diagremm mit radio tag Woche Monat?
 - Import/Export
   - Permissions: https://github.com/googlesamples/easypermissions

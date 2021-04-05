@@ -65,11 +65,6 @@ class JournalFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        showFab()
-    }
-
     private fun updateUI() {
         binding.textViewDate.text = viewModel.getCurrentDate()
         setImage()
@@ -172,7 +167,9 @@ class JournalFragment : Fragment() {
             .targets(
                 TapTarget.forView(binding.imageViewPictureOfTheDay, "", getString(R.string.help_journal_picture))
                     .cancelable(false).transparentTarget(true).targetRadius(30),
-                TapTarget.forView(binding.imageButtonSuggestAffirmation, "", getString(R.string.affirmation_examples))
+                TapTarget.forView(binding.editTextAffirmation, "", getString(R.string.help_journal_title))
+                    .cancelable(false).transparentTarget(true).targetRadius(30),
+                TapTarget.forView(binding.imageButtonSuggestAffirmation, "", getString(R.string.help_journal_button_affirmation))
                     .cancelable(false).transparentTarget(true).targetRadius(30)
             ).start()
     }

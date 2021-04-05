@@ -14,6 +14,7 @@ import de.wuapps.moredays.databinding.FragmentJournalListBinding
 import de.wuapps.moredays.ui.tools.getFlexboxLayoutManager
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
+import de.wuapps.moredays.ui.tools.showFab
 import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
 
@@ -36,26 +37,28 @@ class JournalListFragment : Fragment() {
         _adapter = JournalAdapter()
         binding.recyclerviewJournal.adapter = adapter
         subscribeUi()
-        setFabOnClickListener{findNavController().navigate(R.id.navigation_journalList_journal)}
+        setFabOnClickListener{
+            findNavController().navigate(R.id.navigation_journalList_journal)
+        }
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-        handleFab(viewModel.hasFab)
+        showFab()
     }
 
     private fun subscribeUi() {
         viewModel.journalList.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it as MutableList<Journal>)
+                binding.textViewToday.text = it.firstOrNull()?.affirmation ?: getString(R.string.label_journal_list_today)
             }
         })
     }
     override fun onDestroyView() {
         super.onDestroyView()
         _adapter = null
-        setFabOnClickListener(null)
         _binding = null
     }
 }

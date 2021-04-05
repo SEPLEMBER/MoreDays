@@ -52,7 +52,6 @@ class ChallengeListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _adapter = null
-        setFabOnClickListener(null)
         _binding = null
     }
 

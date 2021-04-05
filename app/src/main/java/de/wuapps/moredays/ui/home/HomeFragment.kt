@@ -420,7 +420,6 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _goalAdapter = null
         _challengeAdapter = null
-        setFabOnClickListener(null)
          _binding = null
     }
 }

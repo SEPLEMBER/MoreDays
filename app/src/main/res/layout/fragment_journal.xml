@@ -88,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/min_accesible_textsize"
-                    android:hint="Notes"
+                    android:hint="@string/notes"
                     android:inputType="textMultiLine"
                     android:text="@={journalViewModel.journal.note}"
                     app:layout_constraintLeft_toLeftOf="parent"
