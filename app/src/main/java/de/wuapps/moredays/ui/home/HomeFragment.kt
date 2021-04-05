@@ -245,7 +245,7 @@ class HomeFragment : Fragment() {
                             trophy.type,
                             trophy.value,
                             viewModel.latestGoal!!.name
-                        ), trophy.type
+                        ), Trophy.matchTrophyTypeToSymbol(trophy.type)
                     )
                 }
             }
@@ -257,13 +257,30 @@ class HomeFragment : Fragment() {
                     .setDirection(0.0, 359.0)
                     .setSpeed(1f, 5f)
                     .setFadeOutEnabled(true)
-                    .setTimeToLive(2000L)
+                    .setTimeToLive(1500L)
                     .addShapes(Shape.Square, Shape.Circle)
                     .addSizes(Size(12))
                     .setPosition(-50f, binding.viewKonfetti.width + 50f, -50f, -50f)
-                    .streamFor(300, 5000L)
+                    .streamFor(300, 3000L)
             }
             viewModel.justReached100Percent.postValue(false)
+        })
+        viewModel.justMadeChallenge.observe(viewLifecycleOwner, {
+            if (it && viewModel.madeChallenge != null) {
+                showTrophyDialog(String.format(getString(R.string.message_made_challenge), viewModel.name, viewModel.madeChallenge!!.title), viewModel.madeChallenge!!.symbol)
+                binding.viewKonfetti.build()
+                    .addColors(Color.RED, Color.CYAN, Color.BLUE)
+                    .setDirection(0.0, 359.0)
+                    .setSpeed(1f, 5f)
+                    .setFadeOutEnabled(true)
+                    .setTimeToLive(1500L)
+                    .addShapes(Shape.Square)
+                    .addSizes(Size(12))
+                    .setPosition(-50f, binding.viewKonfetti.width + 50f, -50f, -50f)
+                    .streamFor(300, 3000L)
+                viewModel.justMadeChallenge.postValue(false)
+                viewModel.madeChallenge = null
+            }
         })
     }
 
@@ -296,12 +313,12 @@ class HomeFragment : Fragment() {
         return ""
     }
 
-    private fun showTrophyDialog(message: String, trophyType: Int) {
+    private fun showTrophyDialog(message: String, iconId: Int) {
         val dialogBuilder = AlertDialog.Builder(requireContext())
         val layoutView: View = layoutInflater.inflate(R.layout.trophy_custom_dialog, null)
         val imageViewTrophy = layoutView.findViewById<ImageView>(R.id.imageViewTrophy)
         imageViewTrophy.setImageDrawable(
-            MoreDaysApplication.iconPack?.let { it.getIcon(Trophy.matchTrophyTypeToSymbol(trophyType)) }?.drawable
+            MoreDaysApplication.iconPack?.let { it.getIcon(iconId) }?.drawable
         )
         val textViewMessage = layoutView.findViewById<TextView>(R.id.textViewMessage)
         textViewMessage.setText(message)
@@ -403,6 +420,7 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _goalAdapter = null
         _challengeAdapter = null
+        setFabOnClickListener(null)
          _binding = null
     }
 }

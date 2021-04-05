@@ -22,7 +22,7 @@ fun Fragment.hideFab() {
     (activity as MainActivity).let { it.hideFab() }
 }
 
-fun Fragment.setFabOnClickListener(l: View.OnClickListener) {
+fun Fragment.setFabOnClickListener(l: View.OnClickListener?) {
     (activity as MainActivity).let { it.getFab().setOnClickListener(l) }
 }
 

@@ -198,6 +198,7 @@
     <string name="help_journal_picture">Add or remove a picture for this day.</string>
     <string name="help_goal_isOld">Mark a goal as old, if you want to keep the data, but do not want to see it at the home screen any more. You may reactivate it any time.</string>
     <string name="help_help">Just tap help in the options menu and you get a guided tour.</string>
+    <string name="message_made_challenge">Congratulations %1$s! You just made challenge %2$s :)</string>
     <!-- ShredPreferences -->
     <string name="preferences_onboarding" translatable="false">onboarding</string>
     <string name="preferences_showed_first_help" translatable="false">showed_first_help</string>

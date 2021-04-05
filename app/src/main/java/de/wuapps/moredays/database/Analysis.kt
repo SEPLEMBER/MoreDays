@@ -37,14 +37,15 @@ class Analysis {
                 if (c.status == Challenge.CHALLENGE_RUNNING) {
                     val oldValue = c.currentValue
                     c.currentValue = calculateCurrentValueForChallenge(c, scaleEntries, activityEntries, trophies)
-                    if (oldValue != c.currentValue) challengeNeedsUpdate = true
+                    if (oldValue != c.currentValue)
+                        challengeNeedsUpdate = true
                     if (c.valueType == Challenge.CHALLENGE_VALUE_TYPE_LESS) {
                         if (c.currentValue < c.desiredValue) {
                             c.status = Challenge.CHALLENGE_SUCCEEDED
                             challengeNeedsUpdate = true
                         }
                     } else {
-                        if (c.currentValue > c.desiredValue) {
+                        if (c.currentValue >= c.desiredValue) {
                             c.status = Challenge.CHALLENGE_SUCCEEDED
                             challengeNeedsUpdate = true
                         }

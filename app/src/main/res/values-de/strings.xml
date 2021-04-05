@@ -165,4 +165,5 @@
     <string name="help_goal_isOld">Markiere ein Ziel als alt, wenn du es nicht mehr täglich sehen möchtest, die Daten aber noch behalten möchtest.</string>
     <string name="help_help">Wähle das Fragezeichen in den Optionen, um eine Tour durch den jeweiligen Teil der Anwendung zu bekommen.</string>
     <string name="lbl_scales_question">Was möchtest du messen?</string>
+    <string name="message_made_challenge">Super %1$s! Du hast gerade deine Challenge %2$s geschafft :)</string>
 </resources>

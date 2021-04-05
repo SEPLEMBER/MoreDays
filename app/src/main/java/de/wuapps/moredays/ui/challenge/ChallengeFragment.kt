@@ -81,7 +81,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
             getString(R.string.challenge_count_points)
         )
         valueTypesActivity = listOf(getString(R.string.challenge_count_made))
-        valueTypesScale = listOf("<", ">")
+        valueTypesScale = listOf("<", ">=")
 
         binding.rbActivity.setOnClickListener { setChallengeTypeActivity() }
         binding.rbGoal.setOnClickListener { setChallengeTypeGoal() }

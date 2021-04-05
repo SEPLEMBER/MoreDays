@@ -11,10 +11,10 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 
 ## ToDos
 - bugs
-  - stacked chart
-    - days not sorted, data false?
+    - trophy made, delete entry deletes related trophy, but if we made more than 100% for this goal this is false!
+    - check challenges, previous list empty vs first start ...
 - ux
-  - analysis: Tage geschafft, PUnkte pro ziel labels nicht schhief 
+   
 - Tests entkoppeln
 - Setting Startseite umsetzen/prüfen
 - import
