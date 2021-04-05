@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Scale
-import de.wuapps.moredays.databinding.ScaleListFragmentBinding
+import de.wuapps.moredays.databinding.FragmentScaleListBinding
 import de.wuapps.moredays.ui.tools.getFlexboxLayoutManager
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
@@ -19,7 +19,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 class ScaleListFragment : Fragment() {
 
-    private var _binding: ScaleListFragmentBinding? = null
+    private var _binding: FragmentScaleListBinding? = null
     private val binding get() = _binding!!
     private var _adapter: ScaleAdapter? = null
     private val adapter get() = _adapter!!
@@ -32,7 +32,7 @@ class ScaleListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ScaleListFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentScaleListBinding.inflate(inflater, container, false)
         binding.recyclerviewScales.layoutManager = getFlexboxLayoutManager(requireContext())
         _adapter = ScaleAdapter()
         binding.recyclerviewScales.adapter = adapter

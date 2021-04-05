@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Challenge
-import de.wuapps.moredays.databinding.ChallengeListFragmentBinding
+import de.wuapps.moredays.databinding.FragmentChallengeListBinding
 import de.wuapps.moredays.ui.tools.getFlexboxLayoutManager
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
@@ -17,7 +17,7 @@ import de.wuapps.moredays.utilities.InjectorUtils
 
 class ChallengeListFragment : Fragment() {
 
-    private var _binding: ChallengeListFragmentBinding? = null
+    private var _binding: FragmentChallengeListBinding? = null
     private val binding get() = _binding!!
     private var _adapter: ChallengeAdapter? = null
     private val adapter get() = _adapter!!
@@ -28,7 +28,7 @@ class ChallengeListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ChallengeListFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentChallengeListBinding.inflate(inflater, container, false)
         binding.recyclerviewChallenges.layoutManager = getFlexboxLayoutManager(requireContext())
         _adapter = ChallengeAdapter()
         binding.recyclerviewChallenges.adapter = adapter

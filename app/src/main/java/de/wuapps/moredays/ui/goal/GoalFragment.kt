@@ -23,7 +23,7 @@ import com.skydoves.colorpickerview.flag.FlagMode
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
-import de.wuapps.moredays.databinding.GoalFragmentBinding
+import de.wuapps.moredays.databinding.FragmentGoalBinding
 import de.wuapps.moredays.ui.activity.ActivityAdapter
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.utilities.InjectorUtils
@@ -37,7 +37,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     private var selectedColor: Int = 0
     private val ICON_DIALOG_TAG = "ICON_DIALOG_TAG"
 
-    private var _binding: GoalFragmentBinding? = null
+    private var _binding: FragmentGoalBinding? = null
     private val binding get() = _binding!!
     private val args: GoalFragmentArgs by navArgs()
     private val viewModel: GoalViewModel by viewModels {
@@ -48,7 +48,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = GoalFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentGoalBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.goalViewModel = viewModel
         val iconDialog =

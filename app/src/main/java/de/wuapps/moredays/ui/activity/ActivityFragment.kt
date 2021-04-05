@@ -12,7 +12,7 @@ import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Activity
-import de.wuapps.moredays.databinding.ActivityFragmentBinding
+import de.wuapps.moredays.databinding.FragmentActivityBinding
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.utilities.InjectorUtils
 import java.lang.Integer.parseInt
@@ -22,13 +22,13 @@ class ActivityFragment : Fragment() {
     private val viewModel: ActivityViewModel  by viewModels {
         InjectorUtils.provideActivityViewModelFactory(requireActivity(), args.goal, args.activity)
     }
-    private var _binding: ActivityFragmentBinding? = null
+    private var _binding: FragmentActivityBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ActivityFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentActivityBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.activityViewModel = viewModel
         handleFab(viewModel.hasFab)

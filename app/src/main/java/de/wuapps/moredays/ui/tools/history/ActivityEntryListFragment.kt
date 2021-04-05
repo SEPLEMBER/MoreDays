@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.database.entity.ActivityEntryAndRelatedData
-import de.wuapps.moredays.databinding.ActivityEntryListFragmentBinding
+import de.wuapps.moredays.databinding.FragmentActivityEntryListBinding
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -18,7 +18,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 class ActivityEntryListFragment : Fragment() {
 
-    private var _binding: ActivityEntryListFragmentBinding? = null
+    private var _binding: FragmentActivityEntryListBinding? = null
     private val binding get() = _binding!!
     private var _adapter: ActivityEntryAdapter? = null
     private val adapter get() = _adapter!!
@@ -31,7 +31,7 @@ class ActivityEntryListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ActivityEntryListFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentActivityEntryListBinding.inflate(inflater, container, false)
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.recyclerviewActivityEntries.layoutManager = layoutManager

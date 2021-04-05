@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.database.entity.TrophyAndRelatedGoal
-import de.wuapps.moredays.databinding.TrophyListFragmentBinding
+import de.wuapps.moredays.databinding.FragmentTrophyListBinding
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
 
 class TrophyListFragment : Fragment() {
 
-    private var _binding: TrophyListFragmentBinding? = null
+    private var _binding: FragmentTrophyListBinding? = null
     private val binding get() = _binding!!
     private var _adapter: TrophyAdapter? = null
     private val adapter get() = _adapter!!
@@ -30,7 +30,7 @@ class TrophyListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = TrophyListFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentTrophyListBinding.inflate(inflater, container, false)
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.recyclerviewTrophies.layoutManager = layoutManager

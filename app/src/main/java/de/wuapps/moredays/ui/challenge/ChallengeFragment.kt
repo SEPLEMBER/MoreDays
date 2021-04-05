@@ -25,7 +25,7 @@ import de.wuapps.moredays.database.entity.Challenge.Companion.CHALLENGE_VALUE_TY
 import de.wuapps.moredays.database.entity.Challenge.Companion.CHALLENGE_VALUE_TYPE_MORE
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Scale
-import de.wuapps.moredays.databinding.ChallengeFragmentBinding
+import de.wuapps.moredays.databinding.FragmentChallengeBinding
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -36,7 +36,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
     private var selectedIconId: Int = 0
     private val ICON_DIALOG_TAG = "ICON_DIALOG_TAG"
 
-    private var _binding: ChallengeFragmentBinding? = null
+    private var _binding: FragmentChallengeBinding? = null
     private val binding get() = _binding!!
     private val args: ChallengeFragmentArgs by navArgs()
     private val viewModel: ChallengeViewModel by viewModels {
@@ -57,7 +57,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
         savedInstanceState: Bundle?
     ): View? {
         dateFormatter = SimpleDateFormat(getString(R.string.date_ymd))
-        _binding = ChallengeFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentChallengeBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.challengeViewModel = viewModel
         val iconDialog =

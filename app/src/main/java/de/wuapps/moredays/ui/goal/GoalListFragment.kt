@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Goal
-import de.wuapps.moredays.databinding.GoalListFragmentBinding
+import de.wuapps.moredays.databinding.FragmentGoalListBinding
 import de.wuapps.moredays.ui.tools.getFlexboxLayoutManager
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
@@ -19,7 +19,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 class GoalListFragment : Fragment() {
 
-    private var _binding: GoalListFragmentBinding? = null
+    private var _binding: FragmentGoalListBinding? = null
     private val binding get() = _binding!!
     private var _adapter: GoalAdapter? = null
     private val adapter get() = _adapter!!
@@ -32,7 +32,7 @@ class GoalListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = GoalListFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentGoalListBinding.inflate(inflater, container, false)
         binding.recyclerviewGoals.layoutManager = getFlexboxLayoutManager(requireContext())
         _adapter = GoalAdapter()
         binding.recyclerviewGoals.adapter = adapter

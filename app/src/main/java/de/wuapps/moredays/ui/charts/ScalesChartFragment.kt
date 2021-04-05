@@ -21,7 +21,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.database.entity.ScaleData
-import de.wuapps.moredays.databinding.ScalesChartFragmentBinding
+import de.wuapps.moredays.databinding.FragmentScalesChartBinding
 import de.wuapps.moredays.utilities.InjectorUtils
 import kotlinx.coroutines.InternalCoroutinesApi
 import java.text.SimpleDateFormat
@@ -32,7 +32,7 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val viewModel: ScalesChartViewModel by viewModels {
         InjectorUtils.provideScalesChartViewModelFactory(requireActivity())
     }
-    private var _binding: ScalesChartFragmentBinding? = null
+    private var _binding: FragmentScalesChartBinding? = null
     private val binding get() = _binding!!
     private var _adapter: ScaleEntryAdapter? = null
     private val adapter get() = _adapter!!
@@ -45,7 +45,7 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ScalesChartFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentScalesChartBinding.inflate(inflater, container, false)
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.recyclerview.layoutManager = layoutManager

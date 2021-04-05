@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Journal
-import de.wuapps.moredays.databinding.JournalListFragmentBinding
+import de.wuapps.moredays.databinding.FragmentJournalListBinding
 import de.wuapps.moredays.ui.tools.getFlexboxLayoutManager
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
@@ -22,7 +22,7 @@ class JournalListFragment : Fragment() {
     private val viewModel: JournalListViewModel by viewModels {
         InjectorUtils.provideJournalListViewModelFactory(requireActivity())
     }
-    private var _binding: JournalListFragmentBinding? = null
+    private var _binding: FragmentJournalListBinding? = null
     private val binding get() = _binding!!
     private var _adapter: JournalAdapter? = null
     private val adapter get() = _adapter!!
@@ -31,7 +31,7 @@ class JournalListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = JournalListFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentJournalListBinding.inflate(inflater, container, false)
         binding.recyclerviewJournal.layoutManager = getFlexboxLayoutManager(requireContext())
         _adapter = JournalAdapter()
         binding.recyclerviewJournal.adapter = adapter

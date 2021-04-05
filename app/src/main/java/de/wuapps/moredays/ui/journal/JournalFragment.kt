@@ -18,7 +18,7 @@ import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.opensooq.supernova.gligar.GligarPicker
 import de.wuapps.moredays.R
-import de.wuapps.moredays.databinding.JournalFragmentBinding
+import de.wuapps.moredays.databinding.FragmentJournalBinding
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.ui.tools.showFab
 import de.wuapps.moredays.utilities.DatePickerFragment
@@ -28,7 +28,7 @@ import java.util.*
 @GlideModule
 class JournalFragment : Fragment() {
 
-    private var _binding: JournalFragmentBinding? = null
+    private var _binding: FragmentJournalBinding? = null
     private val binding get() = _binding!!
     private val args: JournalFragmentArgs by navArgs()
     private val viewModel: JournalViewModel by viewModels {
@@ -44,7 +44,7 @@ class JournalFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewModel.setDateFormat(getString(R.string.date_ymd))
-        _binding = JournalFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentJournalBinding.inflate(inflater, container, false)
         binding.imageButtonPickImage.setOnClickListener {
             GligarPicker().requestCode(REQUEST_IMAGE).withFragment(this).show()
         }

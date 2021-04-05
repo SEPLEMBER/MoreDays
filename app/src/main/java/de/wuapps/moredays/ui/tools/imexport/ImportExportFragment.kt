@@ -6,12 +6,12 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import de.wuapps.moredays.R
-import de.wuapps.moredays.databinding.ImportExportFragmentBinding
+import de.wuapps.moredays.databinding.FragmentImportExportBinding
 import de.wuapps.moredays.utilities.InjectorUtils
 
 class ImportExportFragment : Fragment() {
 
-    private lateinit var binding: ImportExportFragmentBinding
+    private lateinit var binding: FragmentImportExportBinding
     private val viewModel: ImportExportViewModel by viewModels {
         InjectorUtils.provideImportExportViewModelFactory(requireActivity())
     }
@@ -20,7 +20,7 @@ class ImportExportFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ImportExportFragmentBinding.inflate(inflater, container, false)
+        binding = FragmentImportExportBinding.inflate(inflater, container, false)
         //setHasOptionsMenu(true)
         //viewModel.path = requireContext().filesDir.absolutePath
         return binding.root

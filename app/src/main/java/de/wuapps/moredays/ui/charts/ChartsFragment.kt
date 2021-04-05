@@ -10,12 +10,12 @@ import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import de.wuapps.moredays.R
-import de.wuapps.moredays.databinding.ChartsFragmentBinding
+import de.wuapps.moredays.databinding.FragmentChartsBinding
 import de.wuapps.moredays.ui.tools.handleFab
 
 
 class ChartsFragment : Fragment() {
-    private var _binding: ChartsFragmentBinding? = null
+    private var _binding: FragmentChartsBinding? = null
     private val binding get() = _binding!!
     private var goalsChartsFragment: GoalsChartsFragment? = null
     private var scalesChartFragment: ScalesChartFragment? = null
@@ -23,7 +23,7 @@ class ChartsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ChartsFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentChartsBinding.inflate(inflater, container, false)
         handleFab(false)
         wireUpTabView()
         return binding.root

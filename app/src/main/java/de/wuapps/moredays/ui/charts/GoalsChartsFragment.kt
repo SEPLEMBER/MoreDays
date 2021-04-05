@@ -25,7 +25,7 @@ import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import de.wuapps.moredays.R
-import de.wuapps.moredays.databinding.GoalsChartsFragmentBinding
+import de.wuapps.moredays.databinding.FragmentGoalsChartsBinding
 import de.wuapps.moredays.ui.customviews.SimpleMarkerView
 import de.wuapps.moredays.utilities.InjectorUtils
 import java.text.SimpleDateFormat
@@ -39,7 +39,7 @@ class GoalsChartsFragment : Fragment() {
     private val viewModel: GoalsChartsViewModel by viewModels {
         InjectorUtils.provideGoalsChartsViewModelFactory(requireActivity())
     }
-    private var _binding: GoalsChartsFragmentBinding? = null
+    private var _binding: FragmentGoalsChartsBinding? = null
     private val binding get() = _binding!!
     private var _adapter: GoalSummaryAdapter? = null
     private val adapter get() = _adapter!!
@@ -51,7 +51,7 @@ class GoalsChartsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = GoalsChartsFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentGoalsChartsBinding.inflate(inflater, container, false)
         val layoutManager = FlexboxLayoutManager(this.requireContext())
         layoutManager.flexWrap = FlexWrap.WRAP
         layoutManager.justifyContent = JustifyContent.CENTER

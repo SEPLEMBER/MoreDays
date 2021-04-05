@@ -12,7 +12,7 @@ import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Scale
-import de.wuapps.moredays.databinding.ScaleFragmentBinding
+import de.wuapps.moredays.databinding.FragmentScaleBinding
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.utilities.InjectorUtils
 import java.lang.Integer.parseInt
@@ -22,13 +22,13 @@ class ScaleFragment : Fragment() {
     private val viewModel: ScaleViewModel by viewModels {
         InjectorUtils.provideScaleViewModelFactory(requireActivity(), args.scale)
     }
-    private var _binding: ScaleFragmentBinding? = null
+    private var _binding: FragmentScaleBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ScaleFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentScaleBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.scaleViewModel = viewModel
         handleFab(viewModel.hasFab)

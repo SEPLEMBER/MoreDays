@@ -16,7 +16,6 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 - ux
    
 - Tests entkoppeln
-- Setting Startseite umsetzen/prüfen
 - import
 
 - optional
