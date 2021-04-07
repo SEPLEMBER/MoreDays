@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.ImageView

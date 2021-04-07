@@ -2,9 +2,6 @@ package de.wuapps.moredays.database
 
 import de.wuapps.moredays.database.entity.*
 import junit.framework.TestCase
-import kotlinx.coroutines.delay
-import org.hamcrest.core.IsEqual.equalTo
-import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 import java.util.*

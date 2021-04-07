@@ -1,27 +1,7 @@
 package de.wuapps.moredays.ui.tools.imexport
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.Environment
-import android.os.ParcelFileDescriptor
-import android.util.Base64
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import de.wuapps.moredays.database.dao.*
-import de.wuapps.moredays.database.entity.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
-import java.io.*
-import java.nio.charset.StandardCharsets
-import java.text.NumberFormat
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 
 class ImportExportViewModel(

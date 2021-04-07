@@ -16,7 +16,6 @@ import com.maltaisn.icondialog.pack.IconPack
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Activity
-import de.wuapps.moredays.database.entity.Challenge
 import de.wuapps.moredays.database.entity.Challenge.Companion.CHALLENGE_TYPE_ACTIVITY
 import de.wuapps.moredays.database.entity.Challenge.Companion.CHALLENGE_TYPE_GOAL
 import de.wuapps.moredays.database.entity.Challenge.Companion.CHALLENGE_TYPE_SCALE

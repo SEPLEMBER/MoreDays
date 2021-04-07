@@ -8,7 +8,9 @@ import android.graphics.RectF
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContentProviderCompat.requireContext
 import de.wuapps.moredays.ui.home.GoalEntry
+import de.wuapps.moredays.ui.tools.getColorResCompat
 import java.lang.Integer.min
 
 /**
@@ -28,7 +30,6 @@ class CirclesView @JvmOverloads constructor(
     // for every screen refresh.
     private val paintText = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        color = Color.BLACK
         textAlign = Paint.Align.CENTER
         textSize = 50.0f
     }
@@ -54,6 +55,7 @@ class CirclesView @JvmOverloads constructor(
 
     init {
         isClickable = true
+        paintText.color = this.context.getColorResCompat(android.R.attr.textColorPrimary)
     }
 
     override fun performClick(): Boolean {

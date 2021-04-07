@@ -1,7 +1,6 @@
 package de.wuapps.moredays.ui.journal
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Journal
 import de.wuapps.moredays.databinding.FragmentJournalListBinding
 import de.wuapps.moredays.ui.tools.getFlexboxLayoutManager
-import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.ui.tools.setFabOnClickListener
 import de.wuapps.moredays.ui.tools.showFab
 import de.wuapps.moredays.utilities.InjectorUtils

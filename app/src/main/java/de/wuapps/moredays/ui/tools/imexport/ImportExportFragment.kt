@@ -1,11 +1,11 @@
 package de.wuapps.moredays.ui.tools.imexport
 
-import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.FragmentImportExportBinding
 import de.wuapps.moredays.utilities.InjectorUtils
 

@@ -7,6 +7,12 @@
             app:title="@string/settings_your_name_title"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            app:key="@string/preferences_dark_mode_key"
+            app:title="@string/settings_dark_mode"
+            app:summaryOff="@string/settings_dark_mode_off"
+            app:summaryOn="@string/settings_dark_mode_on"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/settings_start_header">

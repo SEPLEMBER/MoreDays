@@ -32,7 +32,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.Comparator
 import kotlin.collections.ArrayList
-import kotlin.math.min
 
 class GoalsChartsFragment : Fragment() {
 

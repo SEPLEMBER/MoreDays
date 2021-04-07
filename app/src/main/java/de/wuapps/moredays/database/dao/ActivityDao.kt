@@ -2,7 +2,6 @@ package de.wuapps.moredays.database.dao
 
 import androidx.room.*
 import de.wuapps.moredays.database.entity.Activity
-import de.wuapps.moredays.database.entity.Goal
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -1,7 +1,11 @@
 package de.wuapps.moredays.ui.tools
 
 import android.content.Context
+import android.util.TypedValue
 import android.view.View
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -69,4 +73,12 @@ fun getFlexboxLayoutManager(context: Context): FlexboxLayoutManager{
     //layoutManager.justifyContent = JustifyContent.SPACE_AROUND
     layoutManager.justifyContent = JustifyContent.CENTER
     return layoutManager
+}
+
+@ColorInt
+fun Context.getColorResCompat(@AttrRes id: Int): Int {
+    val resolvedAttr = TypedValue()
+    this.theme.resolveAttribute(id, resolvedAttr, true)
+    val colorRes = resolvedAttr.run { if (resourceId != 0) resourceId else data }
+    return ContextCompat.getColor(this, colorRes)
 }

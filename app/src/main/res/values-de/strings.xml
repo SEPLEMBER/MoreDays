@@ -169,4 +169,7 @@
     <string name="help_journal_title">Gib deinem Eintrag einen schönen Titel oder eine Affirmation.</string>
     <string name="help_journal_button_affirmation">Lass dich von Beispielaffirmationen inspirieren.</string>
     <string name="notes">Notizen/Emojis</string>
+    <string name="settings_dark_mode">Dark-Mode (erfordert Neustart) </string>
+    <string name="settings_dark_mode_off">aus</string>
+    <string name="settings_dark_mode_on">an</string>
 </resources>

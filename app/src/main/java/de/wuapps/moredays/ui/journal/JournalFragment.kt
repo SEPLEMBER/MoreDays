@@ -20,8 +20,6 @@ import com.opensooq.supernova.gligar.GligarPicker
 import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.FragmentJournalBinding
 import de.wuapps.moredays.ui.tools.handleFab
-import de.wuapps.moredays.ui.tools.setFabOnClickListener
-import de.wuapps.moredays.ui.tools.showFab
 import de.wuapps.moredays.utilities.DatePickerFragment
 import de.wuapps.moredays.utilities.InjectorUtils
 import java.util.*

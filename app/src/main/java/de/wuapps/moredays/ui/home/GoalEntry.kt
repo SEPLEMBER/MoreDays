@@ -1,6 +1,5 @@
 package de.wuapps.moredays.ui.home
 
-import android.util.Log
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.GoalAndRelatedData

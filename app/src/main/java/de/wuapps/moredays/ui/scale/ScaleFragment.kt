@@ -11,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import de.wuapps.moredays.R
-import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.databinding.FragmentScaleBinding
 import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.utilities.InjectorUtils

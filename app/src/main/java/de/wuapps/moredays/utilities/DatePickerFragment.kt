@@ -1,14 +1,10 @@
 package de.wuapps.moredays.utilities
 
-import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.widget.DatePicker
-import androidx.annotation.NonNull
 import androidx.fragment.app.DialogFragment
-import de.wuapps.moredays.database.entity.Goal
 import java.util.*
 
 class DatePickerFragment(private val iniDate: Calendar, private val onDateSelectedHandler: (calendar: Calendar) -> Unit): DialogFragment(), DatePickerDialog.OnDateSetListener {

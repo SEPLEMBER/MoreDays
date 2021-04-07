@@ -189,12 +189,19 @@
     <string name="help_help">Just tap help in the options menu and you get a guided tour.</string>
     <string name="message_made_challenge">Congratulations %1$s! You just made challenge %2$s :)</string>
     <string name="label_journal_list_today">Start with your first journal entry :)</string>
-    <!-- ShredPreferences -->
+    <string name="trophy_type_msg_made_goal">Super %1$s! you made %2$s for today</string>
+    <string name="label_chk_is_integer">is integer</string>
+    <string name="label_desired_value">desired value</string>
+    <string name="lbl_scales_question">What do you want to meassure?</string>
+    <string name="notes">Notes/emojis</string>
+
+    <!-- SahredPreferences -->
     <string name="preferences_onboarding" translatable="false">onboarding</string>
     <string name="preferences_showed_first_help" translatable="false">showed_first_help</string>
     <string name="preferences_file_key" translatable="false">de.wuapps.moredays.PREFERENCE_FILE_KEY</string>
     <string name="preferences_name_key" translatable="false">name</string>
     <string name="preferences_start_fragment_key" translatable="false">start_fragment</string>
+    <string name="preferences_dark_mode_key" translatable="false">dark_mode</string>
 
     <!-- Preference Titles -->
     <string name="settings_personal_header">Personal</string>
@@ -202,15 +209,11 @@
 
     <!-- Personal Preferences -->
     <string name="settings_your_name_title">Your name</string>
-
+    <string name="settings_dark_mode">Dark Mode (requires restart)</string>
+    <string name="settings_dark_mode_off">off</string>
+    <string name="settings_dark_mode_on">on</string>
     <!-- Start Preferences -->
     <string name="settings_start_home_title">Start Screen</string>
     <string name="settings_start_home_title_on">Show journal at start up</string>
     <string name="settings_start_home_title_off">Show home with circles at start up</string>
-
-    <string name="trophy_type_msg_made_goal">Super %1$s! you made %2$s for today</string>
-    <string name="label_chk_is_integer">is integer</string>
-    <string name="label_desired_value">desired value</string>
-    <string name="lbl_scales_question">What do you want to meassure?</string>
-    <string name="notes">Notes/emojis</string>
 </resources>
