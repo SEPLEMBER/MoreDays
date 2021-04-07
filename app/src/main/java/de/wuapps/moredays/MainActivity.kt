@@ -3,8 +3,10 @@ package de.wuapps.moredays
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -60,12 +62,10 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
         navView.menu.getItem(4).isEnabled = false
         navView.background = null
-        var startDestination = R.id.navigation_home
         val preferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(this)
         if (preferences.getBoolean(getString(R.string.preferences_start_fragment_key), false))
-            startDestination = R.id.navigation_journalList
-        navController.navigate(startDestination)
+            navController.navigate(R.id.navigation_journalList)
         loadIconPack()
     }
 

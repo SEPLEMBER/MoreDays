@@ -36,10 +36,10 @@ class JournalListFragment : Fragment() {
         binding.recyclerviewJournal.layoutManager = getFlexboxLayoutManager(requireContext())
         _adapter = JournalAdapter()
         binding.recyclerviewJournal.adapter = adapter
-        subscribeUi()
         setFabOnClickListener{
             findNavController().navigate(R.id.navigation_journalList_journal)
         }
+        subscribeUi()
         return binding.root
     }
 

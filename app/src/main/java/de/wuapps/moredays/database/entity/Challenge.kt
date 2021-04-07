@@ -54,7 +54,7 @@ class Challenge() : Parcelable { //parcelable could be faster, but is in this ca
             field = value.atStartOfDay()
             val today = Calendar.getInstance()
             if (field > today)
-                status = Challenge.CHALLENGE_NOT_STARTED
+                status = CHALLENGE_NOT_STARTED
         }
     //constructor()
 

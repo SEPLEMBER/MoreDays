@@ -43,6 +43,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     private val viewModel: GoalViewModel by viewModels {
         InjectorUtils.provideGoalViewModelFactory(requireActivity(), args.goal)
     }
+
     @InternalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +67,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         setColor()
 
         binding.imageButtonColor.setImageDrawable(
-            MoreDaysApplication.iconPack?.let{it.getIcon(SELECT_COLOR_ICON_ID)}?.drawable
+            MoreDaysApplication.iconPack?.let { it.getIcon(SELECT_COLOR_ICON_ID) }?.drawable
         )
         binding.imageButtonColor.setOnClickListener {
             colorPickerDialog()
@@ -136,11 +137,9 @@ class GoalFragment : Fragment(), IconDialog.Callback {
 
     private fun delete() {
         if (!viewModel.isNew) {
-            if (!viewModel.isUsed) {
-                viewModel.delete()
-                view?.post {
-                    findNavController().popBackStack()
-                }
+            viewModel.delete()
+            view?.post {
+                findNavController().popBackStack()
             }
             val alertDialog: AlertDialog.Builder =
                 AlertDialog.Builder(requireNotNull(this.activity))
@@ -164,7 +163,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         }
     }
 
-    private fun save():Boolean {
+    private fun save(): Boolean {
         var isValid = true
         val name = binding.editTextName.text.toString().trim()
         val pointsAsString = binding.editTextPoints.text.toString().trim()
@@ -196,7 +195,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     private fun setIcon() {
         if (selectedIconId > 0)
             binding.imageButtonIcon.setImageDrawable(
-                MoreDaysApplication.iconPack?.let{it.getIcon(selectedIconId)}?.drawable
+                MoreDaysApplication.iconPack?.let { it.getIcon(selectedIconId) }?.drawable
             )
     }
 
@@ -230,7 +229,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
                 true
             }
             R.id.menu_save -> {
-                if(save())
+                if (save())
                     findNavController().popBackStack()
                 return true
             }
@@ -244,16 +243,28 @@ class GoalFragment : Fragment(), IconDialog.Callback {
             menu.findItem(R.id.menu_delete).isVisible = false
     }
 
-    private fun showHelp(){
+    private fun showHelp() {
         TapTargetSequence(requireActivity())
             .targets(
-                TapTarget.forView(binding.textViewGoal, getString(R.string.title_activities), getString(R.string.help_goal))
+                TapTarget.forView(
+                    binding.textViewGoal,
+                    getString(R.string.title_activities),
+                    getString(R.string.help_goal)
+                )
                     .cancelable(false).transparentTarget(true).targetRadius(30),
-                TapTarget.forView(binding.imageButtonAddActivity, getString(R.string.title_activities), getString(R.string.help_activities))
+                TapTarget.forView(
+                    binding.imageButtonAddActivity,
+                    getString(R.string.title_activities),
+                    getString(R.string.help_activities)
+                )
                     .cancelable(false).transparentTarget(true).targetRadius(30),
                 TapTarget.forView(binding.checkboxIsOld, "", getString(R.string.help_goal_isOld))
                     .cancelable(false).transparentTarget(true).targetRadius(30),
-                TapTarget.forView(binding.editTextPoints, getString(R.string.lbl_points), getString(R.string.help_goal_points))
+                TapTarget.forView(
+                    binding.editTextPoints,
+                    getString(R.string.lbl_points),
+                    getString(R.string.help_goal_points)
+                )
                     .cancelable(false).transparentTarget(true).targetRadius(30)
             ).start()
     }

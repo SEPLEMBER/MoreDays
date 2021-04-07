@@ -5,12 +5,14 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -78,19 +80,26 @@ class HomeFragment : Fragment() {
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         binding.recyclerviewChallenges.layoutManager = layoutManager
-        setFabOnClickListener { showAddOptions() }
         handleLoading()
         setHasOptionsMenu(true)
         if (!preferences.getBoolean(getString(R.string.preferences_showed_first_help), false))
             showFirstHelp()
+        setFabOnClickListener { showAddOptions() }
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
         showFab()
+        val now = Calendar.getInstance()
+        if (now.timeInMillis - viewModel.timeLatestActive.timeInMillis > 1000*60*1)
+            handleDateSelected(now)
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.timeLatestActive = Calendar.getInstance()
+    }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.help_calendar_menu, menu)
     }
@@ -118,6 +127,10 @@ class HomeFragment : Fragment() {
     private fun handleDateSelected(calendar: Calendar){
         viewModel.changeDate(calendar)
         binding.textViewDate.text = getDateStringToDate(calendar)
+        if (calendar.isSameDay(Calendar.getInstance()))
+            binding.textViewDate.background = null
+        else
+            binding.textViewDate.setBackgroundColor(getColor(requireContext(), R.color.primaryDarkColor))
     }
 
     private fun getDateStringToDate(dateCalendar: Calendar): String {
@@ -131,7 +144,8 @@ class HomeFragment : Fragment() {
         val items = ArrayList<String>()
         scales.forEach { scale -> items.add(scale.name) }
         val countScales = scales.size
-        activityData.forEach { (_, activity) -> items.add(activity.toString()) }
+        val sortedByPoints = activityData.sortedBy {(_, activity) -> activity.points}
+        sortedByPoints.forEach { (_, activity) -> items.add(activity.toString()) }
         val builder = AlertDialog.Builder(this.activity)
         builder.setTitle(R.string.add_entry)
             .setItems(
@@ -142,7 +156,7 @@ class HomeFragment : Fragment() {
                         val scale = viewModel.scales.value!!.get(which)
                         showAddScaleEntryDialog(scale)
                     } else {
-                        val pair = activityData.get(which - countScales)
+                        val pair = sortedByPoints.get(which - countScales)
                         viewModel.addGoalEntry(pair.first, pair.second)
                     }
                 }
@@ -162,7 +176,7 @@ class HomeFragment : Fragment() {
         if (scale.isIntValue) {
             fractionView.visibility = View.GONE
         } else {
-            val fractionValues = Array(100) { i -> i.toString() }
+            val fractionValues = Array(100) { i -> String.format("%02d", i) }
             val fractionValue = ((latestValue - decimalValue) * 100).toInt()
             fractionView.minValue = 0
             fractionView.maxValue = 99
@@ -257,11 +271,11 @@ class HomeFragment : Fragment() {
                     .setDirection(0.0, 359.0)
                     .setSpeed(1f, 5f)
                     .setFadeOutEnabled(true)
-                    .setTimeToLive(1500L)
+                    .setTimeToLive(1000L)
                     .addShapes(Shape.Square, Shape.Circle)
                     .addSizes(Size(12))
                     .setPosition(-50f, binding.viewKonfetti.width + 50f, -50f, -50f)
-                    .streamFor(300, 3000L)
+                    .streamFor(300, 2000L)
             }
             viewModel.justReached100Percent.postValue(false)
         })
@@ -273,11 +287,11 @@ class HomeFragment : Fragment() {
                     .setDirection(0.0, 359.0)
                     .setSpeed(1f, 5f)
                     .setFadeOutEnabled(true)
-                    .setTimeToLive(1500L)
+                    .setTimeToLive(1000L)
                     .addShapes(Shape.Square)
                     .addSizes(Size(12))
                     .setPosition(-50f, binding.viewKonfetti.width + 50f, -50f, -50f)
-                    .streamFor(300, 3000L)
+                    .streamFor(300, 2000L)
                 viewModel.justMadeChallenge.postValue(false)
                 viewModel.madeChallenge = null
             }

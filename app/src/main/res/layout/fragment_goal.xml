@@ -127,7 +127,7 @@
                 android:background="@drawable/circle_in_secondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:contentDescription="@string/lbl_add_activity"
-                app:layout_constraintBottom_toBottomOf="@id/recyclerViewActivities" />
+                app:layout_constraintTop_toTopOf="@id/recyclerViewActivities" />
 
 
 

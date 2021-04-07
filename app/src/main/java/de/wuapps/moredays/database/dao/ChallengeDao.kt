@@ -10,6 +10,9 @@ interface ChallengeDao {
     @Query("SELECT * FROM challenge order by deadline desc")
     fun getAll(): Flow<List<Challenge>>
 
+    @Query("SELECT * FROM challenge where  date('now') <=  date(datetime(deadline / 1000 , 'unixepoch')) and date('now')>= date(datetime(start_date / 1000 , 'unixepoch'))  order by deadline desc")
+    fun getAllDue(): Flow<List<Challenge>>
+
     @Query("SELECT * FROM challenge order by deadline desc")
     fun getAllOnce(): List<Challenge>
 

@@ -16,6 +16,7 @@ import com.maltaisn.icondialog.pack.IconPack
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Activity
+import de.wuapps.moredays.database.entity.Challenge
 import de.wuapps.moredays.database.entity.Challenge.Companion.CHALLENGE_TYPE_ACTIVITY
 import de.wuapps.moredays.database.entity.Challenge.Companion.CHALLENGE_TYPE_GOAL
 import de.wuapps.moredays.database.entity.Challenge.Companion.CHALLENGE_TYPE_SCALE
@@ -157,6 +158,12 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
                         requireContext(),
                         R.layout.spinner_item, it
                     )
+                    var selectedIndex = 0
+                    for (i in 0..goals.size-1){
+                        if (goals.get(i).uid == viewModel.challenge.id)
+                            selectedIndex = i
+                    }
+                    binding.spinnerGoal.setSelection(selectedIndex)
                 }
             }
         })
@@ -170,6 +177,12 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
                         requireContext(),
                         R.layout.spinner_item, it
                     )
+                    var selectedIndex = 0
+                    for (i in 0..activities.size-1){
+                        if (activities.get(i).uid == viewModel.challenge.id)
+                            selectedIndex = i
+                    }
+                    binding.spinnerActivity.setSelection(selectedIndex)
                 }
             }
         })
@@ -182,6 +195,12 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
                         requireContext(),
                         R.layout.spinner_item, it
                     )
+                    var selectedIndex = 0
+                    for (i in 0..scales.size-1){
+                        if (scales.get(i).uid == viewModel.challenge.id)
+                            selectedIndex = i
+                    }
+                    binding.spinnerScale.setSelection(selectedIndex)
                 }
             }
         })
@@ -274,6 +293,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
         }
         if (!isValid)
             return false
+        viewModel.challenge.challengeType = challengeType
         viewModel.challenge.desiredValue = desiredValue //trick supports only one way binding!!!
         viewModel.challenge.symbol = selectedIconId
         viewModel.challenge.valueType = getValueType()

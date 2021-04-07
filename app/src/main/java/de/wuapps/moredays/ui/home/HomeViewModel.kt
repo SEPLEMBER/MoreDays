@@ -34,9 +34,10 @@ class HomeViewModel(
     var date: Calendar = Calendar.getInstance()
     private val _scales = scaleDao.getAll()
     val scales = _scales.asLiveData()
-    private val _challenges = challengeDao.getAll()
+    private val _challenges = challengeDao.getAllDue()
     val challenges = _challenges.asLiveData()
     private val _goalData = goalDao.getAllGoalData()
+    var timeLatestActive = Calendar.getInstance()
     val goalEntryList = MutableLiveData<MutableList<GoalEntry>>()
     private var was100Percent =
         false //before an activity is inserted this is set to true/false, hence with an update of goalData reached100Percent may be set accordingly
@@ -80,7 +81,6 @@ class HomeViewModel(
             checkChallenges()
         }.launchIn(viewModelScope)
         _challenges.onEach {
-            checkForJustMadeChallenge(challengesList, it)
             challengesList.clear()
             challengesList.addAll(it)
         }.launchIn(viewModelScope)
@@ -100,19 +100,6 @@ class HomeViewModel(
         }
         calcPercentage(result)
         goalEntryList.postValue(result)
-    }
-
-    private fun checkForJustMadeChallenge(oldList: List<Challenge>, newList: List<Challenge>) {
-        val succeededChallenges = newList.filter { it.status == Challenge.CHALLENGE_SUCCEEDED }
-        for (challenge in succeededChallenges) {
-            val oldStatus = oldList.firstOrNull { it.uid == challenge.uid }?.status
-                ?: Challenge.CHALLENGE_SUCCEEDED
-            if (oldStatus != Challenge.CHALLENGE_SUCCEEDED) {
-                madeChallenge = challenge
-                justMadeChallenge.postValue(true)
-                return
-            }
-        }
     }
 
     private suspend fun analyzeGoalTrophies(goal: Goal, entryId: Long) {
@@ -152,6 +139,7 @@ class HomeViewModel(
     }
 
     private fun checkChallenges() {
+        Log.w("trapp", "check challenges " + trophyList.size.toString())
         viewModelScope.launch(Dispatchers.IO) {
             val changedChallenges = analysis.checkChallenges(
                 challengesList,
@@ -159,8 +147,12 @@ class HomeViewModel(
                 scaleEntriesList,
                 trophyList
             )
-            if (changedChallenges.size > 0)
-                challengeDao.update(changedChallenges)
+            if (changedChallenges.first.size > 0)
+                challengeDao.update(changedChallenges.first)
+            if (changedChallenges.second.size > 0){
+                madeChallenge = changedChallenges.second.last()
+                justMadeChallenge.postValue(true)
+            }
         }
     }
 
@@ -182,7 +174,6 @@ class HomeViewModel(
         for (item in goalEntryList.value!!) {
             tmp.add(item.getCopy(calendarDate))
         }
-        Log.w("trapp", "date change, newList?" + (goalEntryList.value == tmp).toString())
         goalEntryList.postValue(tmp)
         calcPercentage(tmp)
     }

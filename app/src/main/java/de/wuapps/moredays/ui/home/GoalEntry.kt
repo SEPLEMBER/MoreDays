@@ -75,7 +75,6 @@ class GoalEntry(private val goalData: GoalAndRelatedData) {
         val result = other.goal == goal && other.getCurrentValue() == getCurrentValue()
         val x = other.date.get(DAY_OF_YEAR) == date.get(DAY_OF_YEAR)
         val y = other.date == date
-        Log.w("trapp", result.toString() + ": " + other.goal.name + ":dates:" + x.toString() + y.toString())
         return result && x && y //other.goal == goal && other.getCurrentValue() == getCurrentValue()
     }
 

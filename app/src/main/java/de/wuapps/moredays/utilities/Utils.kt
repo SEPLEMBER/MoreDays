@@ -23,7 +23,10 @@ fun Fragment.hideFab() {
 }
 
 fun Fragment.setFabOnClickListener(l: View.OnClickListener?) {
-    (activity as MainActivity).let { it.getFab().setOnClickListener(l) }
+    (activity as MainActivity).let {
+        it.getFab().setOnLongClickListener(null)
+        it.getFab().setOnClickListener(l)
+    }
 }
 
 fun Calendar.atEndOfDay(): Calendar {

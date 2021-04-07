@@ -1,6 +1,5 @@
 package de.wuapps.moredays.database
 
-import android.util.Log
 import de.wuapps.moredays.database.entity.*
 import de.wuapps.moredays.ui.tools.isSameDay
 import de.wuapps.moredays.ui.tools.isSameWeek
@@ -13,8 +12,9 @@ class Analysis {
      * Update all pending/not running/eventually finished challenges.
      *
      */
-    fun checkChallenges(challenges: List<Challenge>, activityEntries: List<ActivityEntry>, scaleEntries: List<ScaleEntry>, trophies: List<Trophy>):List<Challenge> {
+    fun checkChallenges(challenges: List<Challenge>, activityEntries: List<ActivityEntry>, scaleEntries: List<ScaleEntry>, trophies: List<Trophy>):Pair<List<Challenge>, List<Challenge>> {
         val changedChallenges = ArrayList<Challenge>()
+        val succeededChallenges = ArrayList<Challenge>()
         val now = Calendar.getInstance()
         for (c in challenges) {
             var challengeNeedsUpdate = false
@@ -42,11 +42,13 @@ class Analysis {
                     if (c.valueType == Challenge.CHALLENGE_VALUE_TYPE_LESS) {
                         if (c.currentValue < c.desiredValue) {
                             c.status = Challenge.CHALLENGE_SUCCEEDED
+                            succeededChallenges.add(c)
                             challengeNeedsUpdate = true
                         }
                     } else {
                         if (c.currentValue >= c.desiredValue) {
                             c.status = Challenge.CHALLENGE_SUCCEEDED
+                            succeededChallenges.add(c)
                             challengeNeedsUpdate = true
                         }
                     }
@@ -54,7 +56,7 @@ class Analysis {
                 if (challengeNeedsUpdate) changedChallenges.add(c)
             }
         }
-        return changedChallenges
+        return Pair(changedChallenges, succeededChallenges)
     }
 
 
@@ -76,14 +78,14 @@ class Analysis {
                     .first().value.toInt()
             }
         } else if (challenge.challengeType == Challenge.CHALLENGE_TYPE_ACTIVITY) {
-            val entriesInTimespan = activityEntries.filter { activityEntry -> activityEntry.uid == challenge.id && activityEntry.timestamp<challenge.deadline && activityEntry.timestamp>challenge.startDate }
+            val entriesInTimespan = activityEntries.filter { activityEntry -> activityEntry.activityId == challenge.id && activityEntry.timestamp<=challenge.deadline && activityEntry.timestamp>=challenge.startDate }
             currentValue = entriesInTimespan.size
         } else if (challenge.challengeType == Challenge.CHALLENGE_TYPE_GOAL) {
             if (challenge.valueType == Challenge.CHALLENGE_VALUE_TIMES) {
                 val relevantTrophies = trophies.filter { trophy -> trophy.goalId == challenge.id && trophy.timestamp<=challenge.deadline && trophy.timestamp>=challenge.startDate }
                 currentValue = relevantTrophies.size
             } else if (challenge.valueType == Challenge.CHALLENGE_VALUE_POINTS) {
-                val entriesInTimespan = activityEntries.filter { activityEntry -> activityEntry.goalId == challenge.id && activityEntry.timestamp<challenge.deadline && activityEntry.timestamp>challenge.startDate }
+                val entriesInTimespan = activityEntries.filter { activityEntry -> activityEntry.goalId == challenge.id && activityEntry.timestamp<=challenge.deadline && activityEntry.timestamp>=challenge.startDate }
                 currentValue = entriesInTimespan.sumBy { it.points }
             }
         }
@@ -169,7 +171,6 @@ class Analysis {
                 newTrophies.add(trophy)
             }
         }
-        Log.w("trapp", "end checkForNewTrophies - " + newTrophies.size.toString())
         return newTrophies
     }
 

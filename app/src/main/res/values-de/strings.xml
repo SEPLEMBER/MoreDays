@@ -51,40 +51,40 @@
     <string name="trophy_type_msg_total">Super %1$s! Du hast %2$s %3$d mal geschafft :)</string>
     <string name="trophy_type_msg_times_per_week">Super %1$s! Du hast %2$s %3$d mal in der Woche geschafft :)</string>
     <string name="trophy_type_msg_made_goal">Super %1$s! Du hast %2$s heute geschafft</string>
-    <string name="help_introduction_content">
-        Was macht für dich einen guten Tag aus? Was einen ausgewogenen Tag? Wann bist du zufrieden? Definiere deine persönlichen Ziele und wie du diese jeden Tag erreichen kannst. Starte mit wenigen
-        Zielen und wenigen Punkten pro Ziel und steigere diese Monat für Monat.
-        Aktivitäten sind die Möglichkeiten, Ziele zu erreichen. Es gibt immer mehr als einen Weg. Um fit zu werden, kannst du spazieren gehen oder dich richtig auspowern, an dem einen Tag das eine an dem
-        anderen das andere oder eine Kombination aus verschiedenen Aktivitäten.
-        Mit Skalen kannst du alles messen, dein Gewicht, die Schlafqualität, was auch immer die mit Zahlen erfassen kannst.
-        Mit Challenges kannst du den Fokus auf ein Ziel, eine Aktivität oder eine Skala legen und deine eigenen besonderen Herausforderungen für die nächste Woche oder auch den nächsten Monat festlegen.
+    <string name="help_privacy_content">Alle Daten werden in einem lokalen Verzeichnis gespeichert, auf das nur die App Zugriff hat.
+        Sofern du ein automatisches Backup für dein Handy aktiviert hast, werden die Daten dieser App nur gesichert, wenn du auch die Verschlüsselung beim Backup aktiviert hast.
     </string>
-    <string name="help_introduction_title">Einführung</string>
-    <string name="help_privacy_content">Alle Daten werden in einem lokalen Verzeichnis gespeichert, auf das nur die App Zugriff hat. Es werden keine Daten auf irgendeinen Server
-        geschoben oder anderweitig mit anderen Apps geteilt, Sie gehören nur dir! Die in der App aufgenommenen Fotos werden im Verzeichnis Picture abgelegt. Falls du deine Apps mit
-        Google-Drive synchronisierst, so sind sie dort nicht geschützt. Eine Verschlüsselung wird es in der nächsten Version geben.</string>
     <string name="help_privacy_title">Datenschutz</string>
     <string name="help_tips_content"><![CDATA[
-        Mit moreDays kannst du deine Tage in Form eines Journals reflektieren, deine Ziele wie Fitness, Entspannung o.ä. verfolgen. Du kannst Herausforderungen definieren und überhaupt alles frei definieren.
+
+        Mache jeden Tag zu DEINEM Tag, mache das, was du wirklich wirklich willst zuerst und das, was du meinst tun zu müssen später. Mache jeden Tag ein Foto, um dich
+        an diesen Tag zu erinnern.
+    Was macht für dich einen guten Tag aus? Was einen ausgewogenen Tag? Wann bist du zufrieden? Definiere deine persönlichen Ziele und wie du diese jeden Tag erreichen kannst.
+        Mit moreDays kannst du deine Tage in Form eines Journals oder Tagebuchs reflektieren, deine Ziele wie Fitness, Entspannung o.ä. verfolgen. Du kannst Herausforderungen definieren und überhaupt alles so anpassen, wie es für dich passt.
+        <h1>Werkzeuge</h1>
+        Hier kannst du deine Ziele etc. definieren, Einträge per Swipe löschen, dich an deinen Trophäen erfreuen oder auch diese per Swipe löschen und in den Einstellungen kannst du
+        deinen Namen angeben, so dass die App dich mit Namen anspornen kann und du kannst festlegen, mit welcher Ansicht die App starten soll.
         <h1>Ziele</h1>
-        Was macht für dich einen guten Tag aus? Was einen ausgewogenen Tag? Wann bist du zufrieden? Definiere deine persönlichen Ziele und wie du diese jeden Tag erreichen kannst. Starte mit wenigen
-        Zielen und wenigen Punkten pro Ziel und steigere diese Monat für Monat.
+        Wie möchtest du sein? Definiere deine persönlichen Ziele und wie du diese jeden Tag erreichen kannst.
+        Betrachte nur die Ziele, für die du jeden Tag etwas tun möchtest, vielleicht möchtest du fit, entspannt und schlank sein, dann sind das deine Ziele.
+        Starte mit wenigen
+        Zielen und wenigen Punkten -- die Punkte dienen zur Gewichtung der Ziele.
         <h1>Aktivitäten</h1>
         Aktivitäten sind die Möglichkeiten, Ziele zu erreichen. Es gibt immer mehr als einen Weg. Um fit zu werden, kannst du spazieren gehen oder dich richtig auspowern, an dem einen Tag das eine an dem
-        anderen das andere oder eine Kombination aus verschiedenen Aktivitäten.
+        anderen das andere oder eine Kombination aus verschiedenen Aktivitäten. Denke also verschiedene Tage durch und überlege, was jeweils möglich ist. Die Punkte spiegeln wieder, wie schwer es dir fällt oder wieviel Zeit du brauchst und natürlich den Anteil, um
+        das Tagesziel zu erreichen.
         <h1>Skalen</h1>
-        Mit einer Skala kannst du dein Gewicht, deinen Muskelumfang, deine Zeit für 5 km oder irgendeinen anderen Zahlenwert verfolgen und dir im Diagramm anzeigen lassen.
-        <h1>Stimmung</h1>
-        Hier kannst du deinen Tag für dich festhalten, wie hast du dich gefühlt, was hat dazu beigetragen? In den Einstellungen kannst du festlegen, ob du mehrere Stimmungseinträge pro Tag machen könntest, im Journal oder unabhängig davon. So kannst du z.B. auch ein Ernährungstagebuch führen.
+        Mit einer Skala kannst du dein Gewicht, deinen Muskelumfang, deine Zeit für 5 km, deine Schlafqualität oder irgendeinen anderen Zahlenwert verfolgen und dir im Diagramm anzeigen lassen.
         <h1>Journal</h1>
-        Für die Übersicht oder die Startseite kannst du einen Eintrag als Fokus definieren, indem du ein #-Zeichen als ersten Buchstaben eingibst, z.B. dankbar: #Schlaf, Freunde, Freizeit.
-        Als Standard wir im Startbildschirm und der Übersicht die Affirmation angezeigt.
-
+        Du kannst das Journal als einfaches Tagebuch mit einem Bild des Tages nutzen oder damit die Journaling-Methode umsetzen und so dem Ansatz der positiven Psychologie nutzen. Quellen
+        dazu gibt es genug im Netz, suche danach und schaue, was für dich passt.
         <h1>Diagramme</h1>
-        Hier siehst du den Verlauf deiner Einträge. Unter Verlauf kannst du verfolgen, wie die letzten Tage im Vergleich waren, du kannst auch auf einen Balken klicken und dir diesen Tag nochmal genauer ansehen.
-        ]]></string>
+        Hier kannst du die alle Daten anschauen, analysieren, welche Ziele dir schon leicht gelingen, welche Aktivitäten oder wie sich dein Gewicht entwickelt.
+        ]]>
+    </string>
     <string name="help_tips_title">Tipps &amp; Tricks</string>
     <string name="help_about_title">Über uns</string>
+    <string name="help_about_content">Um Android-Entwicklung lehren zu können, habe ich diese App entwickelt, so dass ich in viele Fallen und Probleme reintapse ;-).</string>
     <string name="help_thanks_title">Danke</string>
     <string name="help_credentials_title">Bibliotheken</string>
     <string name="affirmation_examples">Ich bin in meiner Mitte.Ich bin wertvoll.Ich bin gut, so wie ich bin.Ich bin liebenswert.Ich bin offen und empfänglich für alles Gute von außen.Ich glaube an mich - jeden Tag mehr und mehr.Ich erlaube mir jeden Tag mehr, dem Leben zu vertrauen.
@@ -123,7 +123,7 @@
     <string name="onboarding_title2">Ziele &amp; Aktivitäten</string>
     <string name="onboarding_title1">DEINE Daten</string>
     <string name="onboarding_title3">Analysieren, anpassen und reflektieren</string>
-    <string name="onboarding_desc1">Verfolge deine Ziele, Tag für Tag, an guten wie an stressigen Tagen. Keine Werbung, keine Registierung, alle Daten nur auf deinem Handy!</string>
+    <string name="onboarding_desc1">Mache mehr Tage zu DEINEN Tagen. Verfolge deine Ziele, erinnere dich an deine Tage. Keine Werbung, keine Registierung, alle Daten nur auf deinem Handy!</string>
     <string name="onboarding_desc2">Damit du direkt loslegen kannst und eine Idee bekommst, was geht, haben wir schon Ziele und Aktivitäten für dich angelegt. In den Werkzeugen kannst du sie einfach auf dich anspassen.</string>
     <string name="onboarding_desc3">moreDays bietet dir viele Möglichkeiten, deine Ziele anzupassen und deine Daten zu analysieren. Probiere es aus :) nur, was sich leicht und gut anfühlt, schaffst du jeden Tag ...</string>
 
@@ -152,7 +152,7 @@
     <string name="help_home_fab">Füge Skalenwerte hinzu oder markiere eine Aktivität als absolviert.</string>
     <string name="help_home_goal">Tapp zeigt dir mit dem jeweiligen Ziel verknüpfte Aktivitäten, los geht\'s, sammel Punkte :)</string>
     <string name="help_home_challenges">Das sind deine laufenden Challenges. Unter Werkzeuge kannst du sie verwalten.</string>
-    <string name="help_nav_tools">Hier kannst du deine Ziele und andere Stammdaten verwalten, deine bisherigen Einträge einsehen, findest weitere Tipps und vieles mehr. Swipe löscht meist einen Eintrag.</string>
+    <string name="help_nav_tools">Hier kannst du deine Ziele und andere Stammdaten verwalten, deine bisherigen Einträge einsehen, findest weitere Tipps und vieles mehr. Swipe löscht meist einen Eintrag. In den Einstellungen kannst du auch deinen Namen zur persönlichen Anrede angeben.</string>
     <string name="help_nav_tools_first">Passe zunächst die vorgeschlagenen Ziele, d.h. lösche die, die für dich nicht in jeden Tag reinpassen. Mehr als vier werden schwer ;) </string>
     <string name="help_nav_charts">Analysiere deine Daten :)</string>
     <string name="help_add_activity">Definiere verschiedene Aktivitäten, um dein Ziel zu erreichen. Es sollte immer mehr als eine Möglichkeit geben, daher plane für gute und für stressige Tage.</string>

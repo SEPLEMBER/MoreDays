@@ -16,18 +16,8 @@ class ActivityViewModel(
     val activity = _activity
     val goal = _goal!!
     val isNew = activity == null
-    var isUsed = false
     val hasFab = false
-    init {
-        viewModelScope.launch {
-            if (activity != null)
-                isUsed = activityDao.isUsed(activity.uid) > 0
-        }
-    }
 
-    /**
-     * Launching a new coroutine to insert the data in a non-blocking way
-     */
     fun insert(activity: Activity) = viewModelScope.launch {
         activityDao.insert(activity)
     }

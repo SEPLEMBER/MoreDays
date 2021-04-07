@@ -56,51 +56,39 @@
     <string name="trophy_type_msg_row">Super %1$s! You made %2$s %3$d days in row :)</string>
     <string name="trophy_type_msg_total">Super %1$s! you made %2$s %3$d times :)</string>
     <string name="trophy_type_msg_times_per_week">Super %1$s! you made %2$s %3$d times in this week :)</string>
-    <string name="help_introduction_content">
-        What makes a good day, a balanced day? Define different goals, such as fit, relaxed, slim. For every goal you define how difficult it is for you, start with a low number of points and increase over time. Choose a color and symbol as you like.
-
-        Activities are the options to reach a goal. Remember, there is always more than one way to do it. E.g. to become fit you could create activities like sports or yoga or walking. The points may mirror, how difficult it is for you or how much time it takes.
-        Take your time to define more than one option for your goals. Some great activities like a great hiking tour will fill the day and hence should get the sum of all goals as points.
-
-        Everything possible to measure with numbers could be a scale, e.g. weight, sleep quality or time, ... just give it a name and enter the values whenever you want and have a look at the charts.
-
-        With challenges you may focus a special goal or activity, e.g. you may define a challenge to reach your goal fit 5 times until ... or you want to loose weight or you want to do your activity sports 3 times in this week.
-    </string>
-    <string name="help_introduction_title">Introduction</string>
-
-    <string name="help_privacy_content">All data is stored in a local folder, were only this app may access it. The pictures taken are stored in the folder pictures. If you sync your data with google drive, it will be clear text within the database. Encryption comes with the next version.</string>
+    <string name="help_privacy_content">All data is stored in a local folder, were only this app may access it. App data isn\'t included in your backup
+        unless client-side encryption is enabled. </string>
     <string name="help_privacy_title">Privacy</string>
     <string name="help_tips_content">
         <![CDATA[
-        With moreDays you can reflect your day in a personal journal, follow your goals, define challenges, everything is in your hand, just do it. Make every day a good day.
+        Make each day YOUR day, do what you really really want first and what you think you should do second.
+        Take each day a picture and some notes to remember each day.
+        With moreDays you can reflect your day in a personal journal, follow your goals, define challenges, everything is in your hand, just do it.
+        Make every day a good day :)
         <h1>Goals</h1>
-        What makes a good day, a balanced day? Define different categories, such as fitness, awareness, nutrition. If a catgory is not relevant any longer or not relevant at the moment, because you are on holiday, set it to be inactive.
-        For every category you define how difficult it is for you, start with a low number of points and increase over time.
+        What makes a good day, a balanced day? Define different goals, such as fitness, awareness, nutrition. However, too many goals are difficult to reach. Think of
+        goals, you want to focus on every day. If a goal is not relevant any longer or not relevant at the moment, because you are on holiday, set it to be inactive.
+        For every goal you define how difficult it is for you, start with a low number of points and increase over time.
         <h1>Activities</h1>
-        Activities are the options to fulfill a category. Remember, there is always more than one way to do it. E.g. for fitness you could create types like sports or yoga or walking. The points may mirror, how difficult it is for you or how much time it takes.
-        Take your time to define more than one option for your categories. That\'s one of the strength of MotiWeightMe, there is always more than one way to get closer to your goals. Think of strenuous days, what could you do on such a day? Maybe, sports is out of reach, but you
+        Activities are the options to fulfill a goal. Remember, there is always more than one way to do it. E.g. for fitness you could define activities like sports
+        or yoga or walking. The points may mirror, how difficult it is for you or how much time it takes.
+        Take your time to define more than one option for your goal. That\'s one of the strength of moreDays, there is always more than one way to get closer to your
+        goals. Think of strenuous days, what could you do on such a day? Maybe, sports is out of reach, but you
         could go for a nice walk and sleep early.
         <h1>Scales</h1>
-        With scales you could track your weight, muscles, time for 5 km or any other number based meassure.
-        <h1>Mood</h1>
-        How did you feel? Why did you feel better or less good than last time?
+        With scales you could track your weight, muscles, time for 5 km or any other number based meassure. Or you could rate your mood/sleep quality, whatever you like.
         <h1>Challenges</h1>
-        What do you want to focus on, the next week, month, until X-mas? Define your challenges in a very flexibel manner.
+        What do you want to focus on, the next week, month, until X-mas? Define your challenges in a very flexibel manner. You may focus on goals, special acitivities or a scale.
         <h1>Diagrams</h1>
-        You may enjoy looking at your last days and weeks. Did you reach 100%% mostly? Which category works well?
-        <h1>Import/Export</h1>
-        You may delete all your data or trophys or entries only. You may export your data to Excel (csv), import from csv and hence import categories or activities of
-        other people. You may analyse your exported data using Excel, to do so open Excel, select Data, call/import data from file, from text/csv file, select your file and press import,
-        select utf-8 in the box origin and semikolon in the box seperator. Now press load and you are done.
-        Pictures of the journal may not be exported or backed up otherwise.
+        You may enjoy looking at your last days and weeks. Did you reach 100%% mostly? Which goal works well? Which activity?
         <h1>Journal</h1>
-        The journal is part of the positive thinking psychology. Give it a try. You may define your own questions withing the settings.
+        The journal is part of the positive thinking psychology or a nice diary, however you like. Give it a try.
         Just search for 5 minute journal or read this article: https://www.intelligentchange.com/blogs/news/the-five-minute-journal-questions
-        For the moodboard and the start screen you may mark entries as important by adding a # as first letter, e.g. grateful: #friends, sleep, fitness.
+        Think every day of a picture you like to take to remember this special day.
         ]]>
     </string>
     <string name="help_tips_title">Tips &amp; tricks</string>
-    <string name="help_about_content" translatable="false">To be able to teach app development with Android, I developed this app to experience all the difficulties.</string>
+    <string name="help_about_content">To be able to teach app development with Android, I developed this app to experience all the difficulties.</string>
     <string name="help_about_title">About Us</string>
     <string name="help_version_pattern" translatable="false">%1$s.%2$d, schema %3$d -- feedback: info@wuapps.de</string>
     <string name="help_version_title" translatable="false">Version \&amp; Feedback</string>
@@ -164,7 +152,7 @@
     <string name="onboarding_title2">Goals &amp; Activities</string>
     <string name="onboarding_title1">YOUR data</string>
     <string name="onboarding_title3">Analyse, adapt and reflect</string>
-    <string name="onboarding_desc1">Use the positive psychology with journaling, observe your weight, reach your goals - on easy and on strenuous days. No ads, no registration, your data on your mobile.</string>
+    <string name="onboarding_desc1">Make more days to your days. Follow your goals, remember your days. No ads, no registration, your data on your mobile.</string>
     <string name="onboarding_desc2">We start with an initial set of goals and activities to reach those goals, edit/delete/add them as you like in the tools section of your bottom navigation.</string>
     <string name="onboarding_desc3">In the menu you will find many ways to adapt and analyse your data, give it a try :) only what feels easy and light may be done daily ...</string>
     <string name="msg_tutorial_complete">Tutorial completet, start using it :)</string>
@@ -186,7 +174,7 @@
     <string name="help_home_fab">Add scale values or track the just finished activity.</string>
     <string name="help_home_goal">Tap shows you the related activities for the given goals, start collecting points :)</string>
     <string name="help_home_challenges">These are your running challenges. Select tools to manage them.</string>
-    <string name="help_nav_tools">Here you may define and adapt your goals, scales and settings. You will find several lists like the list of entries and trophies -- swiping an entry will delete it. You may find additional tipps and help.</string>
+    <string name="help_nav_tools">Here you may define and adapt your goals, scales and settings. You will find several lists like the list of entries and trophies -- swiping an entry will delete it. You may find additional tipps and help. Use the settings to let the app use your name or define how to start the app.</string>
     <string name="help_nav_tools_first">Adapt the suggested goals, activities and scales to your needs, i.e. delete some goals, more than 4 are difficult to manage ;) </string>
     <string name="help_nav_charts">Analyze your data :)</string>
     <string name="help_add_activity">Define an activity to reach this goal, e.g. for the goal to become fit you could define activities like sports, walk. There should be more than one way to reach this goal, what can you do on easy what on strenuous days?</string>

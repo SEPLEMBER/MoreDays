@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/min_margin">
 
-                <include layout="@layout/help_introduction" />
+                <include layout="@layout/help_tips" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
@@ -31,14 +31,6 @@
                 android:layout_margin="@dimen/min_margin">
 
                 <include layout="@layout/help_privacy" />
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/min_margin">
-
-                <include layout="@layout/help_tips" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView

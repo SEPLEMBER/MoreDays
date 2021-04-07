@@ -23,6 +23,6 @@
     <dimen name="icon_size">30dp</dimen>
     <dimen name="radar_chart_height">300dp</dimen>
     <dimen name="bar_chart_height">200dp</dimen>
-    <dimen name="line_chart_height">400dp</dimen>
+    <dimen name="line_chart_height">300dp</dimen>
     <dimen name="min_accesible_textsize">12sp</dimen>
 </resources>

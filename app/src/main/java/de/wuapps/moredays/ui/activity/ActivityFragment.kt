@@ -19,7 +19,7 @@ import java.lang.Integer.parseInt
 
 class ActivityFragment : Fragment() {
     private val args: ActivityFragmentArgs by navArgs()
-    private val viewModel: ActivityViewModel  by viewModels {
+    private val viewModel: ActivityViewModel by viewModels {
         InjectorUtils.provideActivityViewModelFactory(requireActivity(), args.goal, args.activity)
     }
     private var _binding: FragmentActivityBinding? = null
@@ -38,15 +38,13 @@ class ActivityFragment : Fragment() {
     }
 
     private fun delete() {
-        if (!viewModel.isNew) {
-            if (!viewModel.isUsed) {
-                viewModel.delete()
-                findNavController().navigate(
-                    ActivityFragmentDirections.navigationActivityGoal(
-                        viewModel.goal
-                    )
-                )
+        if (viewModel.isNew) {
+            viewModel.delete()
+            view?.post {
+                findNavController().popBackStack()
             }
+        }
+        else {
             val alertDialog: AlertDialog.Builder =
                 AlertDialog.Builder(requireNotNull(this.activity))
             alertDialog.setTitle(getString(R.string.title_delete))
@@ -55,11 +53,9 @@ class ActivityFragment : Fragment() {
                 getString(R.string.yes)
             ) { _, _ ->
                 viewModel.delete()
-                findNavController().navigate(
-                    ActivityFragmentDirections.navigationActivityGoal(
-                        viewModel.goal
-                    )
-                )
+                view?.post {
+                    findNavController().popBackStack()
+                }
             }
             alertDialog.setNegativeButton(
                 getString(R.string.no)
@@ -106,7 +102,9 @@ class ActivityFragment : Fragment() {
             viewModel.activity!!.goalId = viewModel.goal.uid
             viewModel.update()
         }
-        findNavController().navigate(ActivityFragmentDirections.navigationActivityGoal(viewModel.goal))
+        view?.post {
+            findNavController().popBackStack()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -133,15 +131,24 @@ class ActivityFragment : Fragment() {
             menu.findItem(R.id.menu_delete).isVisible = false
     }
 
-    private fun showHelp(){
+    private fun showHelp() {
         TapTargetSequence(requireActivity())
             .targets(
-                TapTarget.forView(binding.textViewName, getString(R.string.title_activities), getString(R.string.help_add_activity))
+                TapTarget.forView(
+                    binding.textViewName,
+                    getString(R.string.title_activities),
+                    getString(R.string.help_add_activity)
+                )
                     .cancelable(false).transparentTarget(true).targetRadius(30),
-                TapTarget.forView(binding.editTextPoints, getString(R.string.title_activities), getString(R.string.help_add_activity_points))
+                TapTarget.forView(
+                    binding.editTextPoints,
+                    getString(R.string.title_activities),
+                    getString(R.string.help_add_activity_points)
+                )
                     .cancelable(false).transparentTarget(true).targetRadius(30)
             ).start()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

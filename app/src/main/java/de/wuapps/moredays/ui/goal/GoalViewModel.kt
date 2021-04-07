@@ -14,23 +14,9 @@ import kotlinx.coroutines.launch
 class GoalViewModel(private val goalDao: GoalDao, private val hundredPercentValueDao: HundredPercentValueDao,  _goal: Goal?) :
     ViewModel() {
     var isNew = _goal == null
-    var goal: Goal
-    var isUsed = false
+    var goal = _goal ?: Goal()
     val hasFab = false
-    lateinit var goalAndRelatedActivities: LiveData<GoalAndRelatedActivities?>
-
-    init {
-        goal = if (isNew) {
-            Goal()
-        } else {
-            _goal!!
-        }
-        viewModelScope.launch {
-            goalAndRelatedActivities = goalDao.getGoalAndRelatedActivities(goal.uid).asLiveData()
-            if (goalAndRelatedActivities.value != null)
-                isUsed == goalAndRelatedActivities.value!!.activities.isNotEmpty()
-        }
-    }
+    val goalAndRelatedActivities = goalDao.getGoalAndRelatedActivities(goal.uid).asLiveData()
 
     fun save() {
         if (isNew) {

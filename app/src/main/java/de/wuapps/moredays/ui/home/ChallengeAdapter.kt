@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -39,6 +40,8 @@ class ChallengeAdapter :
                     it.getIcon(item.symbol)
                 }?.drawable
             )
+           if (item.status == Challenge.CHALLENGE_SUCCEEDED)
+               binding.layout.setBackgroundColor(getColor(itemView.context, R.color.challenge_status_succeeded))
             binding.textViewDeadline.text = dateFormatter.format(item.deadline.time)
             binding.apply {
                 challenge = item
