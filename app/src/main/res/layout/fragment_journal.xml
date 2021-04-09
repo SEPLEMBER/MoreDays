@@ -17,7 +17,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/textViewDate"
@@ -71,7 +71,8 @@
                     android:text="@={journalViewModel.journal.affirmation}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/imageButtonSuggestAffirmation"
-                    app:layout_constraintTop_toBottomOf="@id/imageViewPictureOfTheDay" />
+                    app:layout_constraintTop_toBottomOf="@id/imageViewPictureOfTheDay"
+                    android:importantForAutofill="no" />
 
                 <ImageButton
                     android:id="@+id/imageButtonSuggestAffirmation"
@@ -92,7 +93,8 @@
                     android:inputType="textMultiLine"
                     android:text="@={journalViewModel.journal.note}"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/editTextAffirmation" />
+                    app:layout_constraintTop_toBottomOf="@id/editTextAffirmation"
+                    android:importantForAutofill="no" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

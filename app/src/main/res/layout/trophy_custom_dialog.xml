@@ -12,6 +12,7 @@
         android:layout_height="50dp"
         android:id="@+id/imageViewTrophy"
         android:src="@drawable/ic_trophy"
+        android:importantForAccessibility="no"
         />
 
     <TextView

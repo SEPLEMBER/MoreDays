@@ -38,7 +38,8 @@
                 android:inputType="text"
                 android:text="@={activityViewModel.activity.name}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewName" />
+                app:layout_constraintTop_toBottomOf="@id/textViewName"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/editTextPoints"
@@ -48,7 +49,9 @@
                 android:inputType="numberSigned|numberDecimal"
                 android:text="@={`` + activityViewModel.activity.points}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewPoints" />
+                app:layout_constraintTop_toBottomOf="@id/textViewPoints"
+                android:importantForAutofill="no"
+                 />
 
             <TextView
                 android:id="@+id/hintEditTextPoints"

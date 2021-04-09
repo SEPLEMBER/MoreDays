@@ -2,7 +2,7 @@
 buildscript {
     ext {
         gradleVersion = '4.1.3'
-        kotlinVersion = '1.4.31'
+        kotlinVersion = '1.4.32'
         coreVersion = '1.3.2'
         materialVersion = '1.3.0'
         constraintLayoutVersion = '2.0.4'
@@ -11,24 +11,23 @@ buildscript {
         roomVersion = '2.2.6'
         iconPickerVersion = '3.3.0'
         colorPickerVersion = '2.2.2'
-        aboutVersion = '8.6.8'
+        aboutVersion = '8.8.4'
         flexBoxVersion = '2.0.1'
         //coreTestingVersion = '2.1.0'
         coroutinesVersion = '1.4.2'
         archLifecycleVersion = '2.3.1'
         archVersion = '2.1.0'
-        navigationVersion = '2.3.4'
+        navigationVersion = '2.3.5'
         dataBindingCompilerVersion = gradleVersion // Always need to be the same.
 
     }
     repositories {
         google()
         jcenter()
-
+        mavenCentral()
+        //maven { url 'https://jitpack.io' }
         //for aboutlibrary
-        maven { url 'https://maven.fabric.io/public' }
         maven { url "https://plugins.gradle.org/m2/" }
-
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
@@ -44,7 +43,8 @@ allprojects {
     repositories {
         google()
         jcenter()
-        //for chart lib
+        //mavenCentral()
+        //for chart lib and aboutlibraries
         maven { url 'https://www.jitpack.io' }
     }
     gradle.projectsEvaluated {

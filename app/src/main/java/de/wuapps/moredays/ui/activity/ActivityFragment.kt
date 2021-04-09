@@ -13,8 +13,8 @@ import com.getkeepsafe.taptargetview.TapTargetSequence
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.databinding.FragmentActivityBinding
-import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.handleFab
 import java.lang.Integer.parseInt
 
 class ActivityFragment : Fragment() {

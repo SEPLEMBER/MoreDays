@@ -19,9 +19,9 @@ import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.opensooq.supernova.gligar.GligarPicker
 import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.FragmentJournalBinding
-import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.utilities.DatePickerFragment
 import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.handleFab
 import java.util.*
 
 @GlideModule
@@ -101,13 +101,13 @@ class JournalFragment : Fragment() {
     }
 
     private fun setImage() {
-        if (viewModel.journal.value!!.imageFilename.isNullOrBlank()){
+        if (viewModel.journal.value!!.imageFilename.isBlank()){
             binding.imageViewPictureOfTheDay.setImageDrawable(null)
         }
         else {
             Glide.with(this)
                 .load(viewModel.journal.value!!.imageFilename)
-                .into(binding.imageViewPictureOfTheDay);
+                .into(binding.imageViewPictureOfTheDay)
         }
     }
 

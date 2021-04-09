@@ -28,12 +28,7 @@ import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.database.entity.Trophy
 import de.wuapps.moredays.databinding.FragmentHomeBinding
-import de.wuapps.moredays.ui.tools.getFlexboxLayoutManager
-import de.wuapps.moredays.ui.tools.isSameDay
-import de.wuapps.moredays.ui.tools.setFabOnClickListener
-import de.wuapps.moredays.ui.tools.showFab
-import de.wuapps.moredays.utilities.DatePickerFragment
-import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.*
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -91,7 +86,7 @@ class HomeFragment : Fragment() {
         super.onResume()
         showFab()
         val now = Calendar.getInstance()
-        if (now.timeInMillis - viewModel.timeLatestActive.timeInMillis > 1000*60*1)
+        if (viewModel.timeLatestActive != null && now.timeInMillis - viewModel.timeLatestActive!!.timeInMillis > 1000*60*1)
             handleDateSelected(now)
     }
 

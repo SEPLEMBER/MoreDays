@@ -10,10 +10,10 @@ import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Journal
 import de.wuapps.moredays.databinding.FragmentJournalListBinding
-import de.wuapps.moredays.ui.tools.getFlexboxLayoutManager
-import de.wuapps.moredays.ui.tools.setFabOnClickListener
-import de.wuapps.moredays.ui.tools.showFab
 import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.getFlexboxLayoutManager
+import de.wuapps.moredays.utilities.setFabOnClickListener
+import de.wuapps.moredays.utilities.showFab
 import kotlinx.coroutines.InternalCoroutinesApi
 
 class JournalListFragment : Fragment() {

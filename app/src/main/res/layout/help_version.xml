@@ -38,6 +38,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/layout_margin"
                 android:adjustViewBounds="true"
+                android:contentDescription="@string/expand"
                 android:background="@drawable/ic_expansion_header_indicator_grey_24dp" />
         </LinearLayout>
     </com.github.florent37.expansionpanel.ExpansionHeader>

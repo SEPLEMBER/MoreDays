@@ -4,9 +4,9 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import de.wuapps.moredays.ui.tools.atEndOfDay
-import de.wuapps.moredays.ui.tools.atStartOfDay
 import de.wuapps.moredays.utilities.DEFAULLT_ICON_ID
+import de.wuapps.moredays.utilities.atEndOfDay
+import de.wuapps.moredays.utilities.atStartOfDay
 import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*

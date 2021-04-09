@@ -15,17 +15,10 @@
     <color name="accentTextColor">#000000</color>
     <color name="cardColor">#efefef</color>
     <color name="textOnCardColor">#3E3E3E</color>
-    <color name="deleteButtonColor">#B00020</color>
-    <color name="deleteButtonTextColor">#ffffff</color>
     <color name="challenge_status_undefined">#ff0000</color>
     <color name="challenge_status_not_started">#BDBDBD</color>
     <color name="challenge_status_running">#FFE0B2</color>
     <color name="challenge_status_failed">#ff0000</color>
     <color name="challenge_status_succeeded">#CDDC39</color>
-    <!--
-    <color name="title_text_color">#000000</color>
-    <color name="Title_text_color_expanded">#000000</color>
-    <color name="content_text_color">#000000</color>
-    <color name="link_text_color">#000000</color>-->
 </resources>
 

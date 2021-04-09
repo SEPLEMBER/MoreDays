@@ -10,10 +10,10 @@ import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Challenge
 import de.wuapps.moredays.databinding.FragmentChallengeListBinding
-import de.wuapps.moredays.ui.tools.getFlexboxLayoutManager
-import de.wuapps.moredays.ui.tools.setFabOnClickListener
-import de.wuapps.moredays.ui.tools.showFab
 import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.getFlexboxLayoutManager
+import de.wuapps.moredays.utilities.setFabOnClickListener
+import de.wuapps.moredays.utilities.showFab
 
 class ChallengeListFragment : Fragment() {
 

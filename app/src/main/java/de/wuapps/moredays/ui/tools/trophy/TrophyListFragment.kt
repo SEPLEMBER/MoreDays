@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.database.entity.TrophyAndRelatedGoal
 import de.wuapps.moredays.databinding.FragmentTrophyListBinding
-import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.handleFab
 import kotlinx.coroutines.InternalCoroutinesApi
 
 class TrophyListFragment : Fragment() {

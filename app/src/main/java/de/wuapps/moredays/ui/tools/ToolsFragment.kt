@@ -8,6 +8,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
+import de.wuapps.moredays.utilities.hideFab
 
 class ToolsFragment : Fragment() {
 

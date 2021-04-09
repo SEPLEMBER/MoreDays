@@ -1,8 +1,8 @@
 package de.wuapps.moredays.database
 
 import de.wuapps.moredays.database.entity.*
-import de.wuapps.moredays.ui.tools.isSameDay
-import de.wuapps.moredays.ui.tools.isSameWeek
+import de.wuapps.moredays.utilities.isSameDay
+import de.wuapps.moredays.utilities.isSameWeek
 import java.util.*
 import kotlin.collections.ArrayList
 

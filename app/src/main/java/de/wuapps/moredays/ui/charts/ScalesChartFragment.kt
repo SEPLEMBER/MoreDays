@@ -1,6 +1,7 @@
 package de.wuapps.moredays.ui.charts
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -113,7 +114,7 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 return mFormat.format(Date(value.toLong()))
             }
         })
-        val yAxis = chart.getAxisLeft();
+        val yAxis = chart.getAxisLeft()
         chart.getAxisRight().setEnabled(false);
         if (!selectedScale!!.isIntValue)
             yAxis.enableGridDashedLine(10f, 10f, 0f);
@@ -155,6 +156,7 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.w("trapp", "onDestroyView scaleschartfragment")
         _adapter = null
         _binding = null
     }

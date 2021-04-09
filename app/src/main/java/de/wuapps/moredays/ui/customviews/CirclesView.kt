@@ -10,7 +10,7 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContentProviderCompat.requireContext
 import de.wuapps.moredays.ui.home.GoalEntry
-import de.wuapps.moredays.ui.tools.getColorResCompat
+import de.wuapps.moredays.utilities.getColorResCompat
 import java.lang.Integer.min
 
 /**

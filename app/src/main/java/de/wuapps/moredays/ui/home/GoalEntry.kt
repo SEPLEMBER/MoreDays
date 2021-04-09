@@ -9,7 +9,7 @@ import java.util.Calendar.YEAR
 
 
 class GoalEntry(private val goalData: GoalAndRelatedData) {
-    var date = Calendar.getInstance()
+    var date: Calendar = Calendar.getInstance()
         get() = field
         private set(value) {
             field = value

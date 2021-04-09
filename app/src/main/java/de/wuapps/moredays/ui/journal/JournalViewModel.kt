@@ -28,7 +28,7 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
             iniJournalWithGivenDate(Date())
         }
         else {
-            _journal.value = pJournal
+            _journal.value = pJournal!!
         }
     }
 
@@ -72,7 +72,7 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
             }
             else {
                 _isNew = false
-                _journal.postValue(tmp)
+                _journal.postValue(tmp!!)
             }
         }
     }

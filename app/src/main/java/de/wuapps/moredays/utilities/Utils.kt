@@ -1,4 +1,4 @@
-package de.wuapps.moredays.ui.tools
+package de.wuapps.moredays.utilities
 
 import android.content.Context
 import android.util.TypedValue

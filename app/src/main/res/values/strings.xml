@@ -59,6 +59,7 @@
     <string name="help_privacy_content">All data is stored in a local folder, were only this app may access it. App data isn\'t included in your backup
         unless client-side encryption is enabled. </string>
     <string name="help_privacy_title">Privacy</string>
+    <string name="expand">expand</string>
     <string name="help_tips_content">
         <![CDATA[
         Make each day YOUR day, do what you really really want first and what you think you should do second.
@@ -154,7 +155,7 @@
     <string name="onboarding_title3">Analyse, adapt and reflect</string>
     <string name="onboarding_desc1">Make more days to your days. Follow your goals, remember your days. No ads, no registration, your data on your mobile.</string>
     <string name="onboarding_desc2">We start with an initial set of goals and activities to reach those goals, edit/delete/add them as you like in the tools section of your bottom navigation.</string>
-    <string name="onboarding_desc3">In the menu you will find many ways to adapt and analyse your data, give it a try :) only what feels easy and light may be done daily ...</string>
+    <string name="onboarding_desc3">In the menu you will find many ways to adapt and analyse your data, give it a try :) only what feels easy and light may be done daily …</string>
     <string name="msg_tutorial_complete">Tutorial completet, start using it :)</string>
     <string name="today">today</string>
     <string name="ini_circle_value">let\'s start %s :)</string>
@@ -194,6 +195,7 @@
     <string name="label_desired_value">desired value</string>
     <string name="lbl_scales_question">What do you want to meassure?</string>
     <string name="notes">Notes/emojis</string>
+    <string name="goal_charts_web_days_made">Radar chart days made</string>
 
     <!-- SahredPreferences -->
     <string name="preferences_onboarding" translatable="false">onboarding</string>

@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.BuildConfig
 import de.wuapps.moredays.R
 import de.wuapps.moredays.utilities.DATABASE_VERSION
+import de.wuapps.moredays.utilities.hideFab
 
 
 class HelpFragment : Fragment() {

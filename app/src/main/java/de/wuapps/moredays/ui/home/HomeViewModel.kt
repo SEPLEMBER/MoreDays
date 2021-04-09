@@ -37,7 +37,7 @@ class HomeViewModel(
     private val _challenges = challengeDao.getAllDue()
     val challenges = _challenges.asLiveData()
     private val _goalData = goalDao.getAllGoalData()
-    var timeLatestActive = Calendar.getInstance()
+    var timeLatestActive: Calendar? = Calendar.getInstance()
     val goalEntryList = MutableLiveData<MutableList<GoalEntry>>()
     private var was100Percent =
         false //before an activity is inserted this is set to true/false, hence with an update of goalData reached100Percent may be set accordingly
@@ -139,7 +139,6 @@ class HomeViewModel(
     }
 
     private fun checkChallenges() {
-        Log.w("trapp", "check challenges " + trophyList.size.toString())
         viewModelScope.launch(Dispatchers.IO) {
             val changedChallenges = analysis.checkChallenges(
                 challengesList,

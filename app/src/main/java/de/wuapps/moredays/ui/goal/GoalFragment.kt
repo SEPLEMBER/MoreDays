@@ -25,8 +25,8 @@ import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.FragmentGoalBinding
 import de.wuapps.moredays.ui.activity.ActivityAdapter
-import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.handleFab
 import kotlinx.coroutines.InternalCoroutinesApi
 import java.lang.Integer.parseInt
 

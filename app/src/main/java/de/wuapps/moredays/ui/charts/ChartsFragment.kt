@@ -1,6 +1,7 @@
 package de.wuapps.moredays.ui.charts
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.FragmentChartsBinding
-import de.wuapps.moredays.ui.tools.handleFab
-
+import de.wuapps.moredays.utilities.handleFab
 
 class ChartsFragment : Fragment() {
     private var _binding: FragmentChartsBinding? = null
@@ -70,6 +70,9 @@ class ChartsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.tabLayout.clearOnTabSelectedListeners()
+        goalsChartsFragment = null
+        scalesChartFragment = null
         _binding = null
     }
 }

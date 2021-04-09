@@ -3,6 +3,7 @@ package de.wuapps.moredays.ui.charts
 import android.graphics.Color
 import android.graphics.RectF
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -75,7 +76,7 @@ class GoalsChartsFragment : Fragment() {
         viewModel.goalHistory.observe(viewLifecycleOwner, {
             it?.let {
                 if (it.isNotEmpty()) {
-                    stackedBarChart(binding.combinedChartHistory, it)
+                    stackedBarChart(it)
                 }
             }
         })
@@ -143,7 +144,7 @@ class GoalsChartsFragment : Fragment() {
         }
         adaptWeb(
             binding.radarChartDaysMade,
-            RadarDataSet(radarEntriesGoalsMade, "web days made"),
+            RadarDataSet(radarEntriesGoalsMade, getString(R.string.goal_charts_web_days_made)),
             goalNames.toTypedArray()
         )
     }
@@ -258,9 +259,10 @@ class GoalsChartsFragment : Fragment() {
         chart.animateXY(1000, 1000)
     }
 
-    private fun stackedBarChart(chart: CombinedChart, data: List<GoalsChartsViewModel.GoalsDate>) {
+    private fun stackedBarChart(data: List<GoalsChartsViewModel.GoalsDate>) {
         if (data.isEmpty()) return //nothing to show
         val countGoals = data[0].goalPoints.size
+        val chart = binding.combinedChartHistory
         chart.clear()
         chart.setDrawOrder(arrayOf(DrawOrder.LINE, DrawOrder.BAR))
         val colors = ArrayList<Int>()
@@ -352,6 +354,10 @@ class GoalsChartsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _adapter = null
+//        binding.combinedChartHistory.data = null
+//        binding.barChartActivities.data = null
+//        binding.radarChartDaysMade.data = null
         _binding = null
+
     }
 }

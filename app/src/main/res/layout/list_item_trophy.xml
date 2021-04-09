@@ -58,10 +58,6 @@
                 android:layout_height="wrap_content"
                 android:text="title"
                 android:textAlignment="textEnd" />
-
-            />
-
-
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

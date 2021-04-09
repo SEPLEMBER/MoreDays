@@ -6,6 +6,7 @@
         <ImageView
             android:id="@+id/imageViewIcon"
             android:layout_width="@dimen/icon_item_widht"
+            android:importantForAccessibility="no"
             android:layout_height="@dimen/icon_item_widht"
             />
 </LinearLayout>

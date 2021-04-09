@@ -26,8 +26,8 @@ import de.wuapps.moredays.database.entity.Challenge.Companion.CHALLENGE_VALUE_TY
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.databinding.FragmentChallengeBinding
-import de.wuapps.moredays.ui.tools.handleFab
 import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.handleFab
 import kotlinx.coroutines.InternalCoroutinesApi
 import java.text.SimpleDateFormat
 import java.util.*

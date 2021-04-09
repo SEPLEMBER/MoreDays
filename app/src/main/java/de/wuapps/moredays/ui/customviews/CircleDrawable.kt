@@ -23,8 +23,8 @@ class CircleDrawable(
             Math.abs(bounds.top - bounds.bottom),
             Math.abs(bounds.right - bounds.left)
         ) - strokeWidth - 10) / 2 //10 ist margin
-        rectF[(canvas.width / 2 - size).toFloat(), (canvas.height / 2 - size).toFloat(), (canvas.width / 2 + size).toFloat()] =
-            (canvas.height / 2 + size).toFloat()
+        rectF[(bounds.width() / 2 - size).toFloat(), (bounds.height() / 2 - size).toFloat(), (bounds.width() / 2 + size).toFloat()] =
+            (bounds.height() / 2 + size).toFloat()
         paint.color = color
         paint.strokeWidth = strokeWidth.toFloat()
         paint.isAntiAlias = true

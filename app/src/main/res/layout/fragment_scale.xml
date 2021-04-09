@@ -31,7 +31,7 @@
             android:layout_height="@dimen/min_accesible_size"
             android:inputType="text"
             android:text="@={scaleViewModel.scale.name}"
-         />
+            android:importantForAutofill="no" />
 
 
         <TextView
@@ -48,7 +48,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/min_accesible_size"
             android:inputType="number"
-            android:text="@={`` + scaleViewModel.scale.minValue}" />
+            android:text="@={`` + scaleViewModel.scale.minValue}"
+            android:importantForAutofill="no" />
 
 
         <TextView
@@ -67,7 +68,8 @@
             android:inputType="number"
             android:text="@={`` + scaleViewModel.scale.maxValue}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextMinValue" />
+            app:layout_constraintTop_toBottomOf="@id/editTextMinValue"
+            android:importantForAutofill="no" />
         <CheckBox
             android:id="@+id/checkboxIsInteger"
             android:layout_width="wrap_content"

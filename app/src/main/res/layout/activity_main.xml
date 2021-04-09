@@ -40,5 +40,6 @@
         app:backgroundTint="@color/secondaryColor"
         app:layout_anchor="@id/bottomAppBar"
         android:src="@drawable/plus"
+        android:contentDescription="@string/add_entry"
          />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
