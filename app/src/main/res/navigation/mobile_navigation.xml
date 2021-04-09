@@ -159,10 +159,6 @@
     <fragment
         android:id="@+id/about_libraries_dest"
         android:name="com.mikepenz.aboutlibraries.ui.LibsSupportFragment">
-        <argument
-            android:name="data"
-            app:argType="java.io.Serializable"
-            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/trophyListFragment"
