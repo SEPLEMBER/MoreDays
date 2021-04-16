@@ -9,13 +9,12 @@ In addtion you may track your weight, your sleep quality or anything else you li
 
 With moreDays you can reflect your day in a personal journal, follow your goals, define challenges, everything is in your hand, just do it.
 Make every day a good day :)
-
-![home screen](/images/main.jpg)
-![onboarding](/images/onboarding.jpg)
-![diary](/images/journal.jpg)
-![charts](/images/analysis.jpg)
-![weight tracking](/images/weight.jpg)
-![dark mode](/images/darkMode.jpg)
+<img src="images/main.jpg" alt="home screen" width="100px"/>
+<img src="images/onboarding1.jpg" alt="onboarding" width="100px"/>
+<img src="images/journal.jpg" alt="diary" width="100px"/>
+<img src="images/analysis.jpg" alt="charts" width="100px"/>
+<img src="images/weight.jpg" alt="weight tracking" width="100px"/>
+<img src="images/darkMode.jpg" alt="dark mode" width="100px"/>
 
 ## Decisions
 After playing with flows, repositories, livedata and reading about viewmodel life cycles, the following architecture seems to be the best for this app:
