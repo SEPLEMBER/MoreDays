@@ -1,5 +1,22 @@
 # moreDays
 
+Make each day YOUR day, do what you really really want first and what you think you should do second. 
+Take each day a picture and some notes to remember each day.
+
+Habit apps focus on a specific habbit. Often you fail, because you start highly motivated but the days are to strenuous to do your habits on a daily basis. moreDays is different, you start with your goals, how you want to be and then you define different activities to reach those goals, there is always more than one way, hence different activities for easy days and for strenuous days. 
+
+In addtion you may track your weight, your sleep quality or anything else you like to meassure.
+
+With moreDays you can reflect your day in a personal journal, follow your goals, define challenges, everything is in your hand, just do it.
+Make every day a good day :)
+
+![home screen](/images/main.jpg)
+![onboarding](/images/onboarding.jpg)
+![diary](/images/journal.jpg)
+![charts](/images/analysis.jpg)
+![weight tracking](/images/weight.jpg)
+![dark mode](/images/darkMode.jpg)
+
 ## Decisions
 After playing with flows, repositories, livedata and reading about viewmodel life cycles, the following architecture seems to be the best for this app:
 - daos return flows for lists and simple objects for one shot read 
