@@ -29,19 +29,19 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 - bugs
     - trophy made, delete entry deletes related trophy, but if we made more than 100% for this goal this is false!
     - check challenges, previous list empty vs first start ...
+    - challenge parcelable?
+- update
+  - wait for update of https://github.com/OpenSooq/Gligar to handle depricated onActivityResult and update to https://developer.android.com/training/basics/intents/result
 - ux
-   
-- Tests entkoppeln
-- import
-
-- optional
-  - Stagged diagremm mit radio tag Woche Monat?
-- Import/Export
-  - Permissions: https://github.com/googlesamples/easypermissions
-  - zu importierende Ziele etc. zunächst in Map sammeln und und key als uid für activities verwenden, später nach bulk insert update 
-- Verschlüsseln
-  - https://github.com/hanjoongcho/aaf-easydiary
-  - biometrics https://developer.android.com/jetpack/androidx/releases/biometric#1.0.1
+- best practice
+  - split tests
+- features
+  - Import/Export
+    - Permissions: https://github.com/googlesamples/easypermissions
+    - zu importierende Ziele etc. zunächst in Map sammeln und und key als uid für activities verwenden, später nach bulk insert update
+  - encrypt
+    - https://github.com/hanjoongcho/aaf-easydiary
+    - biometrics https://developer.android.com/jetpack/androidx/releases/biometric#1.0.1
 
 ## Vision
 
@@ -190,7 +190,7 @@ android:text="@{journalViewModel.getFormattedDate(@string/date_ymd)}"
 - handle back button in MainActivity
 - advanced navigation see https://github.com/android/architecture-components-samples/tree/main/NavigationAdvancedSample/app/src/main/java/com/example/android/navigationadvancedsample
 - current problem: fragments and corresponding viewmodels are recreated and recreated, whenever one selects an item in the bottom navigation; the navigationadvancedsample offers a workaround, I wait for the update of navigation component ;-)
-- if you pass parameters in the navigation graph they must implement Parcelable or Serializable
+- if you pass parameters in the navigation graph they must implement Parcelable or Serializable, see https://developer.android.com/guide/navigation/navigation-pass-data and https://developer.android.com/kotlin/parcelize
 
 ### Room & coroutines
 You can use the suspend keyword to make your DAO queries asynchronous using Kotlin coroutines. Suspend function is a function that could be started, paused, and resume. One of the most important points to remember about the suspend functions is that they are only allowed to be called from a coroutine or another suspend function. The official documentation says that coroutines are lightweight threads. By lightweight, it means that creating coroutines doesn’t allocate new threads. Instead, they use predefined thread pools and smart scheduling. Use launch to start a new coroutine as fire & forget; use async to return -- see https://developer.android.com/kotlin/coroutines-adv

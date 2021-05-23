@@ -71,7 +71,7 @@ class ActivityEntryListFragment : Fragment() {
                 viewHolder: RecyclerView.ViewHolder,
                 direction: Int
             ) {
-                val id = adapter.getActivityEntryId(viewHolder.adapterPosition)
+                val id = adapter.getActivityEntryId(viewHolder.absoluteAdapterPosition)
                 viewModel.removeActivityEntry(id)
             }
         })

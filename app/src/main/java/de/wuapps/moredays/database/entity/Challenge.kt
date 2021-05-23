@@ -7,46 +7,58 @@ import androidx.room.PrimaryKey
 import de.wuapps.moredays.utilities.DEFAULLT_ICON_ID
 import de.wuapps.moredays.utilities.atEndOfDay
 import de.wuapps.moredays.utilities.atStartOfDay
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Parcelize
 @Entity
-class Challenge() : Parcelable { //parcelable could be faster, but is in this case more effort
+class Challenge() : Parcelable {
+    @IgnoredOnParcel
     @PrimaryKey(autoGenerate = true)
     var uid: Long = 0
+    @IgnoredOnParcel
     var title: String = ""
+    @IgnoredOnParcel
     var deadline: Calendar = Calendar.getInstance().atEndOfDay()
         get() = field
         set(value) {
             field = value.atEndOfDay()
         }
-
+    @IgnoredOnParcel
     @ColumnInfo(name = "challenge_type")
     var challengeType: Int = CHALLENGE_TYPE_GOAL
 
+    @IgnoredOnParcel
     @ColumnInfo(name = "value_type")
     var valueType: Int = CHALLENGE_VALUE_TIMES
 
+    @IgnoredOnParcel
     @ColumnInfo(name = "desired_value")
     var desiredValue: Int = 1
 
+    @IgnoredOnParcel
     @ColumnInfo(name = "current_value")
     var currentValue: Int = 0
 
+    @IgnoredOnParcel
     @ColumnInfo(name = "start_value")
     var startValue: Int = 0
 
+    @IgnoredOnParcel
     @ColumnInfo(name = "id") //goalid|activityid|scaleid
     var id: Long = 0
 
+    @IgnoredOnParcel
     @ColumnInfo(name = "symbol")
     var symbol: Int = DEFAULLT_ICON_ID
 
+    @IgnoredOnParcel
     @ColumnInfo(name = "status")
     var status: Int = CHALLENGE_RUNNING
 
+    @IgnoredOnParcel
     @ColumnInfo(name = "start_date")
     var startDate: Calendar = Calendar.getInstance().atStartOfDay()
         get() = field

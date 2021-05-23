@@ -70,7 +70,7 @@ class TrophyListFragment : Fragment() {
                 viewHolder: RecyclerView.ViewHolder,
                 direction: Int
             ) {
-                val id = adapter.getTrophyId(viewHolder.adapterPosition)
+                val id = adapter.getTrophyId(viewHolder.absoluteAdapterPosition)
                 viewModel.removeTrophy(id)
             }
         })

@@ -130,8 +130,8 @@ class Analysis {
         if (isToday(date) && newTrophies.size > 0) {
             val trophiesOfGivenGoalOfTypeGoalMade = trophies.filter { t ->  t.goalId == goal.uid && t.type == Trophy.TROPHY_TYPE_MADE_GOAL}
             val trophiesOfGivenGoalMadeInThisWeek = trophiesOfGivenGoalOfTypeGoalMade.filter { t -> t.timestamp.isSameWeek(date)}
-            var currentInDb = -1
-            var current = -1
+            var currentInDb: Int
+            var current: Int
             //check if at least 3 times in this week
             current = trophiesOfGivenGoalMadeInThisWeek.size
             if (current >= 3) {

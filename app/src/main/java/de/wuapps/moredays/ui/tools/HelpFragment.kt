@@ -16,9 +16,6 @@ import de.wuapps.moredays.utilities.hideFab
 
 
 class HelpFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

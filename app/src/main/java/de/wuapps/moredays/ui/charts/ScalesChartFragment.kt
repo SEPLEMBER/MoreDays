@@ -115,12 +115,12 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
         })
         val yAxis = chart.getAxisLeft()
-        chart.getAxisRight().setEnabled(false);
+        chart.getAxisRight().setEnabled(false)
         if (!selectedScale!!.isIntValue)
-            yAxis.enableGridDashedLine(10f, 10f, 0f);
+            yAxis.enableGridDashedLine(10f, 10f, 0f)
         // axis range
-        yAxis.setAxisMaximum(selectedScale!!.maxValue.toFloat());
-        yAxis.setAxisMinimum(selectedScale!!.minValue.toFloat());
+        yAxis.setAxisMaximum(selectedScale!!.maxValue.toFloat())
+        yAxis.setAxisMinimum(selectedScale!!.minValue.toFloat())
         chart.data = lineData
         val description = Description()
         description.text = selectedScale!!.name
@@ -148,7 +148,7 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 viewHolder: RecyclerView.ViewHolder,
                 direction: Int
             ) {
-                val entryId = adapter.getScaleEntryId(viewHolder.adapterPosition)
+                val entryId = adapter.getScaleEntryId(viewHolder.absoluteAdapterPosition)
                 viewModel.removeScaleEntry(entryId)
             }
         })

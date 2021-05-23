@@ -266,7 +266,7 @@ class GoalsChartsFragment : Fragment() {
         chart.clear()
         chart.setDrawOrder(arrayOf(DrawOrder.LINE, DrawOrder.BAR))
         val colors = ArrayList<Int>()
-        val labels = Array<String>(countGoals){ _ -> ""}
+        val labels = Array<String>(countGoals){ ""}
         val barEntries: MutableList<BarEntry> = ArrayList()
         val hundredPercentLineValues = ArrayList<Entry>()
         val shortDateFormat = SimpleDateFormat(getString(R.string.date_md))

@@ -36,7 +36,7 @@
     <string name="question_delete_activity">Do you really want to delete this activity and all data linked to it? Remember you may set it to old.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="title_color_picker_dialog">Color Picker Dialog</string>
     <string name="decimal_symbol">,</string>
@@ -162,16 +162,16 @@
 
     <!-- tap help -->
     <string name="help_goal">Define your own goals. How do you want to be? What belongs to a balanced day? With the activities you define different ways to reach these goals.</string>
-    <string name="help_goal_points">For your goals you define how many points you need to reach them. Points are gained through activities. The points correspond to the weight the goals has for you. Do not start too enthusiastic...</string>
+    <string name="help_goal_points">For your goals you define how many points you need to reach them. Points are gained through activities. The points correspond to the weight the goals has for you. Do not start too enthusiastic…</string>
     <string name="help_activities">Activities are the way to reach your goals, each day. There is always more than one way to reach a goal. That\'s the strength of moreDays :) e.g. for your goal fit you may define activities like
         sports (when you feel powerful) or a walk, yoga (for a strenuous day), i.e. different combinations of your activities make your goal. Think of your days and define realistic activities for each goal. The points indicate how easy/difficult this activity is for
         you or how much time it takes. Think also of big activities like a great hiking tour, which will fill and make your day, i.e. this should get the sum of all points of your goal.
         </string>
-    <string name="help_challenges">With challenges you may focus a special goal or activity, e.g. you may define a challenge to reach your goal fit 5 times until ... or you want to loose weight or you want to do your activity sports 3 times in this week.</string>
-    <string name="help_scale">Everything possible to measure with numbers could be a scale, e.g. weight, sleep quality or time, ... just give it a name and enter the values whenever you want and have a look at the charts.</string>
+    <string name="help_challenges">With challenges you may focus a special goal or activity, e.g. you may define a challenge to reach your goal fit 5 times until … or you want to loose weight or you want to do your activity sports 3 times in this week.</string>
+    <string name="help_scale">Everything possible to measure with numbers could be a scale, e.g. weight, sleep quality or time, … just give it a name and enter the values whenever you want and have a look at the charts.</string>
     <string name="help_challenge_deadline">What should be the deadline of this challenge?</string>
     <string name="help_add_challenge_startdate">When do you want to start this challenge?</string>
-    <string name="help_add_challenge_type">With challenges you may focus a special goal or activity, e.g. you may define a challenge to reach your goal fit 5 times until ... or you want to loose weight or you want to do your activity sports 3 times in this week. Choose goal, activity or scale accordingly.</string>
+    <string name="help_add_challenge_type">With challenges you may focus a special goal or activity, e.g. you may define a challenge to reach your goal fit 5 times until … or you want to loose weight or you want to do your activity sports 3 times in this week. Choose goal, activity or scale accordingly.</string>
     <string name="help_home_fab">Add scale values or track the just finished activity.</string>
     <string name="help_home_goal">Tap shows you the related activities for the given goals, start collecting points :)</string>
     <string name="help_home_challenges">These are your running challenges. Select tools to manage them.</string>
