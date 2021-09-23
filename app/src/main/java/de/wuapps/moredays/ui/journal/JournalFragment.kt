@@ -17,6 +17,7 @@ import com.bumptech.glide.annotation.GlideModule
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.opensooq.supernova.gligar.GligarPicker
+import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.FragmentJournalBinding
 import de.wuapps.moredays.utilities.DatePickerFragment
@@ -37,6 +38,7 @@ class JournalFragment : Fragment() {
     private lateinit var exampleAffirmations: List<String>
     private var optionsMenuDelete: MenuItem? = null
     private var optionsMenuDate: MenuItem? = null
+    private var selectedMood = 4
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,9 +61,38 @@ class JournalFragment : Fragment() {
         viewModel.journal.observe(viewLifecycleOwner, {
             updateUI()
         })
+        //mood bar
+        binding.buttonMood1.setOnClickListener{
+            selectedMood = 1
+            setMood()
+        }
+        binding.buttonMood2.setOnClickListener{
+            selectedMood = 2
+            setMood()
+        }
+        binding.buttonMood3.setOnClickListener{
+            selectedMood = 3
+            setMood()
+        }
+        binding.buttonMood4.setOnClickListener{
+            selectedMood = 4
+            setMood()
+        }
+        binding.buttonMood5.setOnClickListener{
+            selectedMood = 5
+            setMood()
+        }
         binding.journalViewModel = viewModel
         setHasOptionsMenu(true)
         return binding.root
+    }
+
+    private fun unselectAllMoodButtons(){
+        binding.buttonMood1.background = null
+        binding.buttonMood2.background = null
+        binding.buttonMood3.background = null
+        binding.buttonMood4.background = null
+        binding.buttonMood5.background = null
     }
 
     private fun updateUI() {
@@ -70,8 +101,21 @@ class JournalFragment : Fragment() {
         binding.editTextAffirmation.setText(viewModel.journal.value!!.affirmation)
         binding.editTextNote.setText(viewModel.journal.value!!.note)
         if (optionsMenuDelete != null) optionsMenuDelete!!.isVisible = viewModel.hasDeleteOption
+        selectedMood = viewModel.journal.value!!.mood
+        setMood()
     }
 
+    private fun setMood(){
+        unselectAllMoodButtons()
+        when(selectedMood){
+            1 -> binding.buttonMood1.setBackgroundResource(R.drawable.circle_in_secondary)
+            2 -> binding.buttonMood2.setBackgroundResource(R.drawable.circle_in_secondary)
+            3 -> binding.buttonMood3.setBackgroundResource(R.drawable.circle_in_secondary)
+            4 -> binding.buttonMood4.setBackgroundResource(R.drawable.circle_in_secondary)
+            5 -> binding.buttonMood5.setBackgroundResource(R.drawable.circle_in_secondary)
+        }
+        viewModel.changeMood(selectedMood)
+    }
     private fun suggestAffirmation() {
         val builder = AlertDialog.Builder(this.activity)
         builder.setTitle(R.string.title_affirmation)

@@ -107,7 +107,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         viewModel.goalAndRelatedActivities.observe(viewLifecycleOwner, {
             it?.let {
                 if (it.activities.isNotEmpty())
-                    adapter.submitList(it.activities)
+                    adapter.submitList(it.activities.sortedBy { activity -> activity.points })
 
             }
         })
@@ -248,14 +248,14 @@ class GoalFragment : Fragment(), IconDialog.Callback {
             .targets(
                 TapTarget.forView(
                     binding.textViewGoal,
-                    getString(R.string.title_activities),
+                    getString(R.string.title_goal),
                     getString(R.string.help_goal)
                 )
                     .cancelable(false).transparentTarget(true).targetRadius(30),
                 TapTarget.forView(
                     binding.imageButtonAddActivity,
                     getString(R.string.title_activities),
-                    getString(R.string.help_activities)
+                    getString(R.string.help_activities_short)
                 )
                     .cancelable(false).transparentTarget(true).targetRadius(30),
                 TapTarget.forView(binding.checkboxIsOld, "", getString(R.string.help_goal_isOld))

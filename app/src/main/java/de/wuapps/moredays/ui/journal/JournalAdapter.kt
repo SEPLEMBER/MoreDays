@@ -33,10 +33,11 @@ class JournalAdapter :
 
         fun bind(item: Journal) {
             binding.textViewDate.text = formatter.format(DateTypeConverter.convertStringToDate(item.date).time)
-            if (!item.imageFilename.isBlank())
+            if (item.imageFilename.isNotBlank())
                 Glide.with(itemView.context)
                     .load(item.imageFilename)
                     .into(binding.imageViewPictureOfTheDay)
+
             binding.apply {
                 journal = item
                 executePendingBindings()

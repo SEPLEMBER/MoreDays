@@ -106,7 +106,7 @@ class HomeViewModel(
         latestGoal = goal
         val newTrophies =
             analysis.checkForNewTrophies(goal, entryId, date, trophyList, activityEntriesList)
-        if (newTrophies.size > 0) {
+        if (newTrophies.isNotEmpty()) {
             this.newTrophies.value!!.clear()
             this.newTrophies.postValue(newTrophies as MutableList<Trophy>)
         }
@@ -146,9 +146,9 @@ class HomeViewModel(
                 scaleEntriesList,
                 trophyList
             )
-            if (changedChallenges.first.size > 0)
+            if (changedChallenges.first.isNotEmpty())
                 challengeDao.update(changedChallenges.first)
-            if (changedChallenges.second.size > 0){
+            if (changedChallenges.second.isNotEmpty()){
                 madeChallenge = changedChallenges.second.last()
                 justMadeChallenge.postValue(true)
             }

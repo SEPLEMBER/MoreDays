@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
     buildFeatures {
         dataBinding = true
@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId "de.wuapps.moredays"
         minSdkVersion 24
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName '1.0.0'
         multiDexEnabled true
@@ -126,4 +126,7 @@ dependencies {
 
     // debugImplementation because LeakCanary should only run in debug builds.
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
+
+    implementation "androidx.emoji2:emoji2:$emojiVersion"
+    implementation "androidx.emoji2:emoji2-views:$emojiVersion"
 }

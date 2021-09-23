@@ -16,6 +16,21 @@ Make every day a good day :)
 <img src="images/weight.jpg" alt="weight tracking" width="100px"/>
 <img src="images/darkMode.jpg" alt="dark mode" width="100px"/>
 
+## Used technologies and libraries and general features
+I developed this app to learn Android better, hence you will find example code for the following
+- architecture components, room, viewmodels, livecycle, bottom navigation with navigation graph
+- splash screen 
+- onboarding using the library https://github.com/jdsjlzx/AppIntro_guide
+- tutorial with tap and ballons using https://github.com/KeepSafe/TapTargetView  
+- giving credentials to all used libraries automatically, using the library https://github.com/mikepenz/AboutLibraries
+- charts using the library https://github.com/PhilJay/MPAndroidChart
+- emojis in textviews and buttons
+- selecting and showing icons using the library https://github.com/maltaisn/icondialoglib
+- select an image and camera using https://github.com/OpenSooq/Gligar
+- color picker using https://github.com/skydoves/ColorPickerView  
+- glide to show pictures (better performance) https://github.com/bumptech/glide
+- konfetti using the library https://github.com/DanielMartinus/Konfetti
+
 ## Decisions
 After playing with flows, repositories, livedata and reading about viewmodel life cycles, the following architecture seems to be the best for this app:
 - daos return flows for lists and simple objects for one shot read 
@@ -69,6 +84,9 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 - implemented features
 - added splash as described in https://www.bignerdranch.com/blog/splash-screens-the-right-way/
 - added leakcanary to debugImplementation and run it, see https://github.com/square/leakcanary
+- added emojis
+  - https://developer.android.com/guide/topics/ui/look-and-feel/emoji2
+  - copied from https://emojipedia.org
 
 ## Lessons learned
 - Dependency Injection (DI): a class should not create the dependencies, it needs, those dependencies should be provided through the constructor

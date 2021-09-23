@@ -150,7 +150,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
     private fun iniSpinner() {
         viewModel.goals.observe(viewLifecycleOwner, {
             it?.let {
-                if (!it.isEmpty()) {
+                if (it.isNotEmpty()) {
                     goals.clear()
                     goals.addAll(it)
                     binding.spinnerGoal.adapter = ArrayAdapter(
@@ -169,7 +169,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
 
         viewModel.activities.observe(viewLifecycleOwner, {
             it?.let {
-                if (!it.isEmpty()) {
+                if (it.isNotEmpty()) {
                     activities.clear()
                     activities.addAll(it)
                     binding.spinnerActivity.adapter = ArrayAdapter(
@@ -187,7 +187,7 @@ class ChallengeFragment : Fragment(), IconDialog.Callback {
         })
         viewModel.scales.observe(viewLifecycleOwner, {
             it?.let {
-                if (!it.isEmpty()) {
+                if (it.isNotEmpty()) {
                     scales.clear()
                     scales.addAll(it)
                     binding.spinnerScale.adapter = ArrayAdapter(

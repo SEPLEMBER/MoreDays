@@ -62,6 +62,9 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
         }
     }
 
+    fun changeMood(mood: Int){
+        journal.value!!.mood = mood
+    }
     private fun iniJournalWithGivenDate(date: Date){
         viewModelScope.launch {
             val dateAsString = DateTypeConverter.convertDateToString(date)
@@ -72,7 +75,7 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
             }
             else {
                 _isNew = false
-                _journal.postValue(tmp)
+                _journal.postValue(tmp!!)
             }
         }
     }

@@ -30,7 +30,7 @@ data class HundredPercentValue(
 
     fun getDateAsCalendar(): Calendar {
         if (date.isEmpty() || date.length != DATE_FORMAT.length) {
-            Log.e("Journal", "date is invalid:" + date)
+            Log.e("Journal", "date is invalid:$date")
             return Calendar.getInstance()
         }
         val tmp = DateTypeConverter.convertStringToDate(date)

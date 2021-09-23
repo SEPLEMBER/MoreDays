@@ -67,7 +67,7 @@
         With moreDays you can reflect your day in a personal journal, follow your goals, define challenges, everything is in your hand, just do it.
         Make every day a good day :)
         <h1>Goals</h1>
-        What makes a good day, a balanced day? Define different goals, such as fitness, awareness, nutrition. However, too many goals are difficult to reach. Think of
+        What makes a good day, a balanced day? Define different goals, such as fitness, mindfull, nutrition. However, too many goals are difficult to reach. Think of
         goals, you want to focus on every day. If a goal is not relevant any longer or not relevant at the moment, because you are on holiday, set it to be inactive.
         For every goal you define how difficult it is for you, start with a low number of points and increase over time.
         <h1>Activities</h1>
@@ -163,6 +163,8 @@
     <!-- tap help -->
     <string name="help_goal">Define your own goals. How do you want to be? What belongs to a balanced day? With the activities you define different ways to reach these goals.</string>
     <string name="help_goal_points">For your goals you define how many points you need to reach them. Points are gained through activities. The points correspond to the weight the goals has for you. Do not start too enthusiastic…</string>
+    <string name="help_activities_short">Activities are the way to reach your goals, each day. There is always more than one way to reach a goal. That\'s the strength of moreDays :) e.g. for your goal fit you may define activities like
+        sports (when you feel powerful) or a walk, yoga (for a strenuous day), i.e. different combinations of your activities make your goal. Think of your days and define realistic activities for each goal.</string>
     <string name="help_activities">Activities are the way to reach your goals, each day. There is always more than one way to reach a goal. That\'s the strength of moreDays :) e.g. for your goal fit you may define activities like
         sports (when you feel powerful) or a walk, yoga (for a strenuous day), i.e. different combinations of your activities make your goal. Think of your days and define realistic activities for each goal. The points indicate how easy/difficult this activity is for
         you or how much time it takes. Think also of big activities like a great hiking tour, which will fill and make your day, i.e. this should get the sum of all points of your goal.
@@ -218,4 +220,14 @@
     <string name="settings_start_home_title">Start Screen</string>
     <string name="settings_start_home_title_on">Show journal at start up</string>
     <string name="settings_start_home_title_off">Show home with circles at start up</string>
+    <string name="mood_1">Unamused Face</string>
+    <string name="mood_2">Confused Face</string>
+    <string name="mood_3">Neutral Face</string>
+    <string name="mood_4">Grinning Face</string>
+    <string name="mood_5">Face with Tears of Joy</string>
+    <string name="mood_face_1" translatable="false">&#x1F612;</string>
+    <string name="mood_face_2" translatable="false">&#x1F615;</string>
+    <string name="mood_face_3" translatable="false">&#x1F610;</string>
+    <string name="mood_face_4" translatable="false">&#x1F600;</string>
+    <string name="mood_face_5" translatable="false">&#x1F602;</string>
 </resources>

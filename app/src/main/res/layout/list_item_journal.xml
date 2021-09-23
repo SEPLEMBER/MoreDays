@@ -22,19 +22,30 @@
         app:cardElevation="4dp"
         android:focusable="true">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:orientation="vertical"
             android:padding="0dp">
-
             <ImageView
                 android:id="@+id/imageViewPictureOfTheDay"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:importantForAccessibility="no"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <androidx.emoji2.widget.EmojiTextView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="42dp"
+                android:mood="@{journal.mood}"
+                android:textSize="@dimen/mood_button_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imageViewPictureOfTheDay" />
 
             <TextView
                 android:id="@+id/textViewDate"
@@ -43,7 +54,9 @@
                 android:layout_gravity="end"
                 android:layout_marginVertical="1dp"
                 android:layout_marginEnd="4dp"
-                android:textSize="@dimen/min_accesible_textsize" />
+                android:textSize="@dimen/min_accesible_textsize"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageViewPictureOfTheDay"/>
 
             <TextView
                 android:id="@+id/textViewImportant"
@@ -55,7 +68,11 @@
                 android:ellipsize="end"
                 android:text="@{journal.affirmation}"
                 android:gravity="center"
-                android:textSize="@dimen/min_accesible_textsize" />
-        </LinearLayout>
+                android:textSize="@dimen/min_accesible_textsize"
+                app:layout_constraintTop_toBottomOf="@id/textViewDate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -73,7 +73,7 @@ class Analysis {
         var currentValue = 0
         if (challenge.challengeType == Challenge.CHALLENGE_TYPE_SCALE) {
             val relevantScaleEntries = scaleEntries.filter { scaleEntry ->  scaleEntry.scaleId == challenge.id}
-            if (relevantScaleEntries.size > 0) {
+            if (relevantScaleEntries.isNotEmpty()) {
                 currentValue = relevantScaleEntries.sortedByDescending { scale -> scale.timestamp }
                     .first().value.toInt()
             }
@@ -112,11 +112,11 @@ class Analysis {
         var trophy: Trophy?
         //check for trophy for given date for goal
         val trophiesOfGivenDateAndGoal = trophies.filter { t ->  t.goalId == goal.uid && t.type == Trophy.TROPHY_TYPE_MADE_GOAL && t.timestamp.isSameDay(date)}
-        if (trophiesOfGivenDateAndGoal.size > 0) {
+        if (trophiesOfGivenDateAndGoal.isNotEmpty()) {
             return newTrophies //handled already, maybe the last entry made it and the user goes above the desired value...
         }
         val relevantActivityEntries = activityEntries.filter { activityEntry ->  activityEntry.goalId == goal.uid && activityEntry.timestamp.isSameDay(date)}
-        val sum: Int = relevantActivityEntries.sumBy { it.points }
+        val sum: Int = relevantActivityEntries.sumBy({ it.points })
         if (sum >= goal.points) {
             trophy = Trophy(
                 Trophy.TROPHY_TYPE_MADE_GOAL, goal.uid, 1,

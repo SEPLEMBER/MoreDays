@@ -20,13 +20,15 @@ data class Journal(
     var affirmation: String,
     var note: String,
     @ColumnInfo(name = "image_filename")
-    var imageFilename: String
+    var imageFilename: String,
+    var mood: Int
 ) : Parcelable {
     constructor() : this(
         SimpleDateFormat(DATE_FORMAT).format(Date()),
         "",
         "",
-        ""
+        "",
+        4
     )
 
     constructor(date: Date) : this() {
@@ -35,7 +37,7 @@ data class Journal(
 
     fun getDateAsCalendar(): Calendar {
         if (date.isEmpty() || date.length != DATE_FORMAT.length) {
-            Log.e("Journal", "date is invalid:" + date)
+            Log.e("Journal", "date is invalid:$date")
             return Calendar.getInstance()
         }
         val tmp = DateTypeConverter.convertStringToDate(date)
@@ -49,7 +51,7 @@ data class Journal(
             return false
         if (other !is Journal)
             return false
-        return other.date == date && other.note == note && other.affirmation == affirmation && other.imageFilename == imageFilename
+        return other.date == date && other.note == note && other.affirmation == affirmation && other.imageFilename == imageFilename && other.mood == mood
     }
 
     override fun hashCode(): Int {
@@ -57,6 +59,7 @@ data class Journal(
         result = 31 * result + affirmation.hashCode()
         result = 31 * result + note.hashCode()
         result = 31 * result + imageFilename.hashCode()
+        result = 31 * result + mood.hashCode()
         return result
     }
 

@@ -27,8 +27,6 @@ class SimpleMarkerView(context: Context?, layoutResource: Int) :
     /**
      * Constructor. Sets up the MarkerView with a custom layout resource.
      *
-     * @param context
-     * @param layoutResource the layout resource to use for the MarkerView
      */
     init {
         textViewData = findViewById(R.id.textViewData)

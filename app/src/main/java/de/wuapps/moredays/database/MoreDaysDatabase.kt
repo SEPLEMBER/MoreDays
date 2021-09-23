@@ -1,10 +1,9 @@
 package de.wuapps.moredays.database
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
+import androidx.room.*
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.converter.DateTypeConverter
 import de.wuapps.moredays.database.converter.IntListTypeConverter
@@ -34,6 +33,12 @@ abstract class MoreDaysDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: MoreDaysDatabase? = null
 
+        private val MIGRATION_21_22 = object : Migration(21, 22) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE Journal ADD COLUMN mood INTEGER NOT NULL DEFAULT -1")
+            }
+        }
+
         fun getInstance(
             context: Context,
         ): MoreDaysDatabase {
@@ -46,7 +51,7 @@ abstract class MoreDaysDatabase : RoomDatabase() {
                     DATABASE_NAME
                 )
                     .createFromAsset(context.getString(R.string.db_ini_name))
-                    .fallbackToDestructiveMigration()
+                    .addMigrations(MIGRATION_21_22)
                     .build()
                 INSTANCE = instance
                 // return instance

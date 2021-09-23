@@ -2,6 +2,9 @@ package de.wuapps.moredays.utilities
 
 import android.view.View
 import androidx.databinding.BindingAdapter
+import androidx.emoji2.widget.EmojiTextView
+import de.wuapps.moredays.R
+
 
 @BindingAdapter("isGone")
 fun bindIsGone(view: View, isGone: Boolean) {
@@ -10,4 +13,15 @@ fun bindIsGone(view: View, isGone: Boolean) {
     } else {
         View.VISIBLE
     }
+}
+
+@BindingAdapter("android:mood")
+fun setMood(emojiTextView: EmojiTextView, mood: Int) {
+   when(mood){
+       1->emojiTextView.setText(emojiTextView.context.getText(R.string.mood_face_1))
+       2->emojiTextView.setText(emojiTextView.context.getText(R.string.mood_face_2))
+       3->emojiTextView.setText(emojiTextView.context.getText(R.string.mood_face_3))
+       4->emojiTextView.setText(emojiTextView.context.getText(R.string.mood_face_4))
+       5->emojiTextView.setText(emojiTextView.context.getText(R.string.mood_face_5))
+   }
 }

@@ -140,6 +140,8 @@
     <string name="settings_start_home_title_off">zeige die Ziele und Kreise als Startseite</string>
     <string name="label_chk_is_integer">nure ganze Zahlen</string>
     <string name="label_desired_value">Gewünschter Wert</string>
+    <string name="help_activities_short">Aktivitäten sind die Möglichkeiten, wie du deine Ziele erreichen kannst. Beispielsweise für dein Ziel fit zu werden könntest du Sport, Spaziergang und Morgengymnastik als Aktivitäten definieren. Die Punkte einer Aktivität kannst du selbst festlegen, orientiere dich z.B. daran, wie schwer dir etwas fällt oder wieviel Zeit benötigt wird.
+        Achte darauf, dass du mit verschiedenen Kombinationen an Aktivitäten die gewünschte Punktzahl des jeweiligen Ziels erreichen kannst.</string>
     <string name="help_activities">Aktivitäten sind die Möglichkeiten, wie du deine Ziele erreichen kannst. Beispielsweise für dein Ziel fit zu werden könntest du Sport, Spaziergang und Morgengymnastik als Aktivitäten definieren. Die Punkte einer Aktivität kannst du selbst festlegen, orientiere dich z.B. daran, wie schwer dir etwas fällt oder wieviel Zeit benötigt wird.
         Achte darauf, dass du mit verschiedenen Kombinationen an Aktivitäten die gewünschte Punktzahl des jeweiligen Ziels erreichen kannst. Es gibt auch tolle Aktivitäten, die keine Zeit mehr für anderes lassen, z.B. eine tolle Bergwanderung, diese Aktivität könnte dann die Punkte von allen Zielen zusammen bekommen.
 
@@ -153,7 +155,7 @@
     <string name="help_home_goal">Tapp zeigt dir mit dem jeweiligen Ziel verknüpfte Aktivitäten, los geht\'s, sammel Punkte :)</string>
     <string name="help_home_challenges">Das sind deine laufenden Challenges. Unter Werkzeuge kannst du sie verwalten.</string>
     <string name="help_nav_tools">Hier kannst du deine Ziele und andere Stammdaten verwalten, deine bisherigen Einträge einsehen, findest weitere Tipps und vieles mehr. Swipe löscht meist einen Eintrag. In den Einstellungen kannst du auch deinen Namen zur persönlichen Anrede angeben.</string>
-    <string name="help_nav_tools_first">Passe zunächst die vorgeschlagenen Ziele, d.h. lösche die, die für dich nicht in jeden Tag reinpassen. Mehr als vier werden schwer ;) </string>
+    <string name="help_nav_tools_first">Passe zunächst die vorgeschlagenen Ziele an, d.h. lösche die, die für dich nicht in jeden Tag reinpassen. Mehr als vier werden schwer ;) </string>
     <string name="help_nav_charts">Analysiere deine Daten :)</string>
     <string name="help_add_activity">Definiere verschiedene Aktivitäten, um dein Ziel zu erreichen. Es sollte immer mehr als eine Möglichkeit geben, daher plane für gute und für stressige Tage.</string>
     <string name="help_add_activity_points">Die Punkte geben die Schwierigkeit oder auch die Zeit wider, die eine Aktivität benötigt. Orientiere dich an der Punktzahl des Ziels und welchen Anteil diese Aktivität dafür hat.</string>
@@ -174,4 +176,9 @@
     <string name="settings_dark_mode_on">an</string>
     <string name="goal_charts_web_days_made">Radardiagramm Tage geschafft</string>
     <string name="expand">ausklappen</string>
+    <string name="mood_1">Gesicht, das negative Emotionen, einschließlich Irritation, Unmut, Grantigkeit und Skepsis zeigt</string>
+    <string name="mood_2">Gesicht, das moderate Traurigkeit zeigt</string>
+    <string name="mood_3">Neutrales Gesicht</string>
+    <string name="mood_4">Grinsendes Gesicht</string>
+    <string name="mood_5">breit grinsendes Gesicht mit Freudentränen</string>
 </resources>

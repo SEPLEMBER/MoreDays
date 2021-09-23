@@ -11,7 +11,8 @@ buildscript {
         roomVersion = '2.3.0'
         iconPickerVersion = '3.3.0'
         colorPickerVersion = '2.2.2'
-        aboutVersion = '8.8.4'
+        aboutVersion = '8.9.1'
+        emojiVersion = "1.0.0-beta01"
         flexBoxVersion = '2.0.1'
         //coreTestingVersion = '2.1.0'
         coroutinesVersion = '1.4.2'
@@ -19,7 +20,6 @@ buildscript {
         archVersion = '2.1.0'
         navigationVersion = '2.3.5'
         dataBindingCompilerVersion = gradleVersion // Always need to be the same.
-
     }
     repositories {
         google()
