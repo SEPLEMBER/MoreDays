@@ -65,8 +65,8 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.1.1'
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // Room components
     implementation "androidx.room:room-ktx:$roomVersion"
@@ -91,7 +91,7 @@ dependencies {
     // UI
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "com.google.android.material:material:$materialVersion"
-    implementation "androidx.recyclerview:recyclerview:1.2.0"
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
     implementation "com.maltaisn:icondialog:$iconPickerVersion"
     implementation "com.maltaisn:iconpack-default:1.0.0"
