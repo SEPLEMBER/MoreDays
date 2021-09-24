@@ -181,4 +181,8 @@
     <string name="mood_3">Neutrales Gesicht</string>
     <string name="mood_4">Grinsendes Gesicht</string>
     <string name="mood_5">breit grinsendes Gesicht mit Freudentränen</string>
+    <string name="no_mood">k.a.</string>
+    <string name="mood_chart">Stimmungsverlauf anzeigen/verbergen</string>
+    <string name="mood">Stimmung</string>
+    <string name="no_mood_data">Bisher gibt es keine Stimmungsdaten, tracke deine Stimmung im nächsten Journaleintrag :)</string>
 </resources>

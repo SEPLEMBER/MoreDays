@@ -7,6 +7,27 @@
     tools:context=".ui.journal.JournalListFragment">
 
     <TextView
+        android:id="@+id/textViewNoMoodData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_mood_data"
+        android:visibility="gone"
+        />
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChartMood"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:visibility="gone"
+        android:gravity="center" />
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChartMood"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_chart_height"
+        android:visibility="gone"
+        android:gravity="center" />
+
+    <TextView
         android:id="@+id/textViewToday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

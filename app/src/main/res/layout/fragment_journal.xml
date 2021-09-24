@@ -101,45 +101,21 @@
                 app:layout_constraintTop_toBottomOf="@id/editTextAffirmation" />
 
             <androidx.emoji2.widget.EmojiButton
-                android:id="@+id/buttonMood5"
+                android:id="@+id/buttonMood1"
                 android:layout_width="@dimen/mood_button_size"
                 android:layout_height="@dimen/mood_button_size"
-                android:contentDescription="@string/mood_5"
-                android:text="😂"
+                android:contentDescription="@string/mood_1"
+                android:text="😒"
                 android:background="@null"
-                android:layout_marginTop="@dimen/min_accesible_size"
                 android:textSize="@dimen/mood_button_text_size"
-                app:layout_constraintEnd_toStartOf="@id/buttonMood4"
-                app:layout_constraintHorizontal_bias="0.5"
+                android:layout_marginTop="@dimen/min_accesible_size"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/editTextNote" />
-
-            <androidx.emoji2.widget.EmojiButton
-                android:id="@+id/buttonMood4"
-                android:layout_width="@dimen/mood_button_size"
-                android:layout_height="@dimen/mood_button_size"
-                android:contentDescription="@string/mood_4"
-                android:text="😀"
-                android:background="@null"
-                android:textSize="@dimen/mood_button_text_size"
-                app:layout_constraintEnd_toStartOf="@id/buttonMood3"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@id/buttonMood5"
-                app:layout_constraintTop_toTopOf="@id/buttonMood5" />
+                app:layout_constraintEnd_toStartOf="@id/buttonMood2"
+                app:layout_constraintTop_toBottomOf="@id/editTextNote"
+                 />
 
-            <androidx.emoji2.widget.EmojiButton
-                android:id="@+id/buttonMood3"
-                android:layout_width="@dimen/mood_button_size"
-                android:layout_height="@dimen/mood_button_size"
-                android:contentDescription="@string/mood_3"
-                android:text="@string/mood_face_3"
-                android:textSize="@dimen/mood_button_text_size"
-                android:background="@null"
-                app:layout_constraintEnd_toStartOf="@+id/buttonMood2"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@id/buttonMood4"
-                app:layout_constraintTop_toTopOf="@id/buttonMood5" />
 
             <androidx.emoji2.widget.EmojiButton
                 android:id="@+id/buttonMood2"
@@ -149,23 +125,63 @@
                 android:text="😕"
                 android:background="@null"
                 android:textSize="@dimen/mood_button_text_size"
-                app:layout_constraintEnd_toStartOf="@+id/buttonMood1"
+                app:layout_constraintEnd_toStartOf="@+id/buttonMood3"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@id/buttonMood3"
-                app:layout_constraintTop_toTopOf="@id/buttonMood5" />
+                app:layout_constraintStart_toEndOf="@id/buttonMood1"
+                app:layout_constraintTop_toTopOf="@id/buttonMood1" />
 
             <androidx.emoji2.widget.EmojiButton
-                android:id="@+id/buttonMood1"
+                android:id="@+id/buttonMood3"
                 android:layout_width="@dimen/mood_button_size"
                 android:layout_height="@dimen/mood_button_size"
-                android:contentDescription="@string/mood_1"
-                android:text="😒"
-                android:background="@null"
+                android:contentDescription="@string/mood_3"
+                android:text="@string/mood_face_3"
                 android:textSize="@dimen/mood_button_text_size"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@null"
+                app:layout_constraintEnd_toStartOf="@+id/buttonMood4"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@id/buttonMood2"
-                app:layout_constraintTop_toTopOf="@id/buttonMood5" />
+                app:layout_constraintTop_toTopOf="@id/buttonMood1" />
+
+
+            <androidx.emoji2.widget.EmojiButton
+                android:id="@+id/buttonMood4"
+                android:layout_width="@dimen/mood_button_size"
+                android:layout_height="@dimen/mood_button_size"
+                android:contentDescription="@string/mood_4"
+                android:text="😀"
+                android:background="@null"
+                android:textSize="@dimen/mood_button_text_size"
+                app:layout_constraintEnd_toStartOf="@id/buttonMood5"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/buttonMood3"
+                app:layout_constraintTop_toTopOf="@id/buttonMood1" />
+            <androidx.emoji2.widget.EmojiButton
+                android:id="@+id/buttonMood5"
+                android:layout_width="@dimen/mood_button_size"
+                android:layout_height="@dimen/mood_button_size"
+                android:contentDescription="@string/mood_5"
+                android:text="😂"
+                android:background="@null"
+                android:textSize="@dimen/mood_button_text_size"
+                app:layout_constraintStart_toEndOf="@id/buttonMood4"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@id/buttonMoodNone"
+                app:layout_constraintTop_toTopOf="@id/buttonMood1"
+                 />
+            <androidx.emoji2.widget.EmojiButton
+                android:id="@+id/buttonMoodNone"
+                android:layout_width="@dimen/mood_button_size"
+                android:layout_height="@dimen/mood_button_size"
+                android:contentDescription="@string/mood_5"
+                android:text="@string/no_mood"
+                android:background="@null"
+                android:textSize="@dimen/min_accesible_textsize"
+                app:layout_constraintStart_toEndOf="@id/buttonMood5"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/buttonMood1"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

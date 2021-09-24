@@ -230,4 +230,8 @@
     <string name="mood_face_3" translatable="false">&#x1F610;</string>
     <string name="mood_face_4" translatable="false">&#x1F600;</string>
     <string name="mood_face_5" translatable="false">&#x1F602;</string>
+    <string name="no_mood">none</string>
+    <string name="mood_chart">show/hide mood chart</string>
+    <string name="mood">Mood</string>
+    <string name="no_mood_data">No mood data so far, start tracking your mood in the journal :)</string>
 </resources>

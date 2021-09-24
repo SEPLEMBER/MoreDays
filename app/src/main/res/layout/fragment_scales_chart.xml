@@ -22,6 +22,7 @@
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/lineChartScale"
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/activity_margin"
             android:layout_height="@dimen/line_chart_height"
             android:gravity="center" />
 

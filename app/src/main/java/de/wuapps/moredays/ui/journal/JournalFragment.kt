@@ -38,7 +38,7 @@ class JournalFragment : Fragment() {
     private lateinit var exampleAffirmations: List<String>
     private var optionsMenuDelete: MenuItem? = null
     private var optionsMenuDate: MenuItem? = null
-    private var selectedMood = 4
+    private var selectedMood = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,24 +63,22 @@ class JournalFragment : Fragment() {
         })
         //mood bar
         binding.buttonMood1.setOnClickListener{
-            selectedMood = 1
-            setMood()
+            setMood(1)
         }
         binding.buttonMood2.setOnClickListener{
-            selectedMood = 2
-            setMood()
+            setMood(2)
         }
         binding.buttonMood3.setOnClickListener{
-            selectedMood = 3
-            setMood()
+            setMood(3)
         }
         binding.buttonMood4.setOnClickListener{
-            selectedMood = 4
-            setMood()
+            setMood(4)
         }
         binding.buttonMood5.setOnClickListener{
-            selectedMood = 5
-            setMood()
+            setMood(5)
+        }
+        binding.buttonMoodNone.setOnClickListener{
+            setMood(-1)
         }
         binding.journalViewModel = viewModel
         setHasOptionsMenu(true)
@@ -101,11 +99,11 @@ class JournalFragment : Fragment() {
         binding.editTextAffirmation.setText(viewModel.journal.value!!.affirmation)
         binding.editTextNote.setText(viewModel.journal.value!!.note)
         if (optionsMenuDelete != null) optionsMenuDelete!!.isVisible = viewModel.hasDeleteOption
-        selectedMood = viewModel.journal.value!!.mood
-        setMood()
+        setMood(viewModel.journal.value!!.mood)
     }
 
-    private fun setMood(){
+    private fun setMood(mood: Int){
+        selectedMood = mood
         unselectAllMoodButtons()
         when(selectedMood){
             1 -> binding.buttonMood1.setBackgroundResource(R.drawable.circle_in_secondary)
