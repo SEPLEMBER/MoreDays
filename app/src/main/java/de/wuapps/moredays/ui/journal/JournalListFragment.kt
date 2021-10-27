@@ -123,8 +123,6 @@ class JournalListFragment : Fragment() {
         lineDataSet.setDrawValues(false)
         val lineData = LineData(lineDataSet)
         lineChart.getDescription().setEnabled(false)
-        lineChart.getAxisRight().setEnabled(false)
-        // axis range
         yAxis.setAxisMaximum(5.0f)
         yAxis.setAxisMinimum(0.0f)
         lineChart.axisRight.isEnabled = false
@@ -135,7 +133,7 @@ class JournalListFragment : Fragment() {
         val pieChart = binding.pieChartMood
         pieChart.clear()
         pieChart.visibility = View.VISIBLE
-        val labels = listOf(EmojiCompat.get().process("\uD83D\uDE12"), EmojiCompat.get().process("\uD83D\uDE15"), EmojiCompat.get().process("\uD83D\uDE10"), EmojiCompat.get().process("\uD83D\uDE00"), EmojiCompat.get().process("\uD83D\uDE02"))
+        val labels = listOf(EmojiCompat.get().process(getString(R.string.mood_face_1)), EmojiCompat.get().process(getString(R.string.mood_face_2)), EmojiCompat.get().process(getString(R.string.mood_face_3)), EmojiCompat.get().process(getString(R.string.mood_face_4)), EmojiCompat.get().process(getString(R.string.mood_face_5)))
         //group.key.toString()
         val pieDataSorted = data.groupBy{it.mood}.toSortedMap()
         val pieEntries = pieDataSorted.map { group -> PieEntry(group.value.size.toFloat() / data.size,

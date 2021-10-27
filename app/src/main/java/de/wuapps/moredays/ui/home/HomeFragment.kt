@@ -131,7 +131,7 @@ class HomeFragment : Fragment() {
         val today = Calendar.getInstance()
         if (today.isSameDay(dateCalendar))
             return getString(R.string.today)
-        return SimpleDateFormat(getString(R.string.date_ymd)).format(dateCalendar.time)
+        return SimpleDateFormat(getString(R.string.date_ymd_day)).format(dateCalendar.time)
     }
 
     private fun showAddOptions() {

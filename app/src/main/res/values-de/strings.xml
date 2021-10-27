@@ -3,6 +3,7 @@
     <string name="app_name">moreDays</string>
     <string name="db_ini_name">moredays_initial_database_de.db</string>
     <string name="date_ymd">dd.MM.yy</string>
+    <string name="date_ymd_day">E, dd.MM.yy</string>
     <string name="date_md">dd.MM</string>
     <string name="date_time">dd.MM.yy HH:mm</string>
     <string name="title_home">Home</string>
@@ -176,11 +177,11 @@
     <string name="settings_dark_mode_on">an</string>
     <string name="goal_charts_web_days_made">Radardiagramm Tage geschafft</string>
     <string name="expand">ausklappen</string>
-    <string name="mood_1">Gesicht, das negative Emotionen, einschließlich Irritation, Unmut, Grantigkeit und Skepsis zeigt</string>
-    <string name="mood_2">Gesicht, das moderate Traurigkeit zeigt</string>
-    <string name="mood_3">Neutrales Gesicht</string>
-    <string name="mood_4">Grinsendes Gesicht</string>
-    <string name="mood_5">breit grinsendes Gesicht mit Freudentränen</string>
+    <string name="mood_1">kurz vorm Heulen, kurz vor der Explosion, verkrampft, Augen geschlossen, sehr frustriert</string>
+    <string name="mood_2">niedergeschlagen, nachdenklich, in sich gekehrt, zurückgezogen</string>
+    <string name="mood_3">neutral, keine Meinung, aber offen, alles noch möglich</string>
+    <string name="mood_4">zufrieden, ausgeglichen, harmonisch, kann loslassen</string>
+    <string name="mood_5">freudig, glücklich, andere mitreißend, lustig, perfekten Moment gehabt</string>
     <string name="no_mood">k.a.</string>
     <string name="mood_chart">Stimmungsverlauf anzeigen/verbergen</string>
     <string name="mood">Stimmung</string>

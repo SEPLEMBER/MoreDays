@@ -10,6 +10,7 @@
         <item quantity="other">points</item>
     </plurals>
     <string name="date_ymd">yy-MM-dd</string>
+    <string name="date_ymd_day">E, yy-MM-dd</string>
     <string name="date_md">MM-dd</string>
     <string name="date_time">yy-MM-dd HH:mm</string>
     <string name="title_home">Home</string>
@@ -220,16 +221,16 @@
     <string name="settings_start_home_title">Start Screen</string>
     <string name="settings_start_home_title_on">Show journal at start up</string>
     <string name="settings_start_home_title_off">Show home with circles at start up</string>
-    <string name="mood_1">Unamused Face</string>
-    <string name="mood_2">Confused Face</string>
-    <string name="mood_3">Neutral Face</string>
-    <string name="mood_4">Grinning Face</string>
-    <string name="mood_5">Face with Tears of Joy</string>
-    <string name="mood_face_1" translatable="false">&#x1F612;</string>
-    <string name="mood_face_2" translatable="false">&#x1F615;</string>
+    <string name="mood_1">quivering in frustration or holding back tears, irritated, frustrated, disgusted, sad, furious, cramped</string>
+    <string name="mood_2">droopy, thoughtful, pensive, solitary, furrowed eyebrows</string>
+    <string name="mood_3">neutral, no opinion, open minded, everything is still possible</string>
+    <string name="mood_4">satisfied, balanced, harmonious, can let go</string>
+    <string name="mood_5">joyful, happy, inspiring, funny, perfect moment</string>
+    <string name="mood_face_1" translatable="false">&#x1F616;</string>
+    <string name="mood_face_2" translatable="false">&#x1F614;</string>
     <string name="mood_face_3" translatable="false">&#x1F610;</string>
-    <string name="mood_face_4" translatable="false">&#x1F600;</string>
-    <string name="mood_face_5" translatable="false">&#x1F602;</string>
+    <string name="mood_face_4" translatable="false">&#x1F60C;</string>
+    <string name="mood_face_5" translatable="false">&#x1F973;</string>
     <string name="no_mood">none</string>
     <string name="mood_chart">show/hide mood chart</string>
     <string name="mood">Mood</string>

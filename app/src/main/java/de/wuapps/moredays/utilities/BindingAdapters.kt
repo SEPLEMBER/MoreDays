@@ -23,5 +23,6 @@ fun setMood(emojiTextView: EmojiTextView, mood: Int) {
        3->emojiTextView.setText(emojiTextView.context.getText(R.string.mood_face_3))
        4->emojiTextView.setText(emojiTextView.context.getText(R.string.mood_face_4))
        5->emojiTextView.setText(emojiTextView.context.getText(R.string.mood_face_5))
+       else -> emojiTextView.setText("")
    }
 }

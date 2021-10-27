@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            android:textSize="@dimen/min_accesible_textsize"
+            android:textSize="@dimen/textsize_larger"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

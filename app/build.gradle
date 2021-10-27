@@ -17,8 +17,8 @@ android {
         applicationId "de.wuapps.moredays"
         minSdkVersion 24
         targetSdkVersion 31
-        versionCode 1
-        versionName '1.0.0'
+        versionCode 4
+        versionName '1.0.4'
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -129,4 +129,6 @@ dependencies {
 
     implementation "androidx.emoji2:emoji2:$emojiVersion"
     implementation "androidx.emoji2:emoji2-views:$emojiVersion"
+
+    //import/export
 }

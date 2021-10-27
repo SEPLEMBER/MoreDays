@@ -17,7 +17,6 @@ import com.bumptech.glide.annotation.GlideModule
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.opensooq.supernova.gligar.GligarPicker
-import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.FragmentJournalBinding
 import de.wuapps.moredays.utilities.DatePickerFragment
@@ -44,14 +43,14 @@ class JournalFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel.setDateFormat(getString(R.string.date_ymd))
+        viewModel.setDateFormat(getString(R.string.date_ymd_day))
         _binding = FragmentJournalBinding.inflate(inflater, container, false)
         binding.imageButtonPickImage.setOnClickListener {
             GligarPicker().requestCode(REQUEST_IMAGE).withFragment(this).show()
         }
         handleFab(viewModel.hasFab)
         binding.imageButtonSuggestAffirmation.setOnClickListener { suggestAffirmation() }
-        binding.imageButtonRemoveImage.setOnClickListener{
+        binding.imageButtonRemoveImage.setOnClickListener {
             binding.imageViewPictureOfTheDay.setImageDrawable(null)
             viewModel.journal.value!!.imageFilename = ""
         }
@@ -62,22 +61,22 @@ class JournalFragment : Fragment() {
             updateUI()
         })
         //mood bar
-        binding.buttonMood1.setOnClickListener{
+        binding.buttonMood1.setOnClickListener {
             setMood(1)
         }
-        binding.buttonMood2.setOnClickListener{
+        binding.buttonMood2.setOnClickListener {
             setMood(2)
         }
-        binding.buttonMood3.setOnClickListener{
+        binding.buttonMood3.setOnClickListener {
             setMood(3)
         }
-        binding.buttonMood4.setOnClickListener{
+        binding.buttonMood4.setOnClickListener {
             setMood(4)
         }
-        binding.buttonMood5.setOnClickListener{
+        binding.buttonMood5.setOnClickListener {
             setMood(5)
         }
-        binding.buttonMoodNone.setOnClickListener{
+        binding.buttonMoodNone.setOnClickListener {
             setMood(-1)
         }
         binding.journalViewModel = viewModel
@@ -85,7 +84,7 @@ class JournalFragment : Fragment() {
         return binding.root
     }
 
-    private fun unselectAllMoodButtons(){
+    private fun unselectAllMoodButtons() {
         binding.buttonMood1.background = null
         binding.buttonMood2.background = null
         binding.buttonMood3.background = null
@@ -102,10 +101,10 @@ class JournalFragment : Fragment() {
         setMood(viewModel.journal.value!!.mood)
     }
 
-    private fun setMood(mood: Int){
+    private fun setMood(mood: Int) {
         selectedMood = mood
         unselectAllMoodButtons()
-        when(selectedMood){
+        when (selectedMood) {
             1 -> binding.buttonMood1.setBackgroundResource(R.drawable.circle_in_secondary)
             2 -> binding.buttonMood2.setBackgroundResource(R.drawable.circle_in_secondary)
             3 -> binding.buttonMood3.setBackgroundResource(R.drawable.circle_in_secondary)
@@ -114,6 +113,7 @@ class JournalFragment : Fragment() {
         }
         viewModel.changeMood(selectedMood)
     }
+
     private fun suggestAffirmation() {
         val builder = AlertDialog.Builder(this.activity)
         builder.setTitle(R.string.title_affirmation)
@@ -143,10 +143,9 @@ class JournalFragment : Fragment() {
     }
 
     private fun setImage() {
-        if (viewModel.journal.value!!.imageFilename.isBlank()){
+        if (viewModel.journal.value!!.imageFilename.isBlank()) {
             binding.imageViewPictureOfTheDay.setImageDrawable(null)
-        }
-        else {
+        } else {
             Glide.with(this)
                 .load(viewModel.journal.value!!.imageFilename)
                 .into(binding.imageViewPictureOfTheDay)
@@ -199,18 +198,40 @@ class JournalFragment : Fragment() {
         newFragment.show(childFragmentManager, "datePicker")
     }
 
-    private fun handleDateSelected(calendar: Calendar){
-            viewModel.changeDate(calendar)
+    private fun handleDateSelected(calendar: Calendar) {
+        viewModel.changeDate(calendar)
     }
 
-    private fun showHelp(){
+    private fun showHelp() {
         TapTargetSequence(requireActivity())
             .targets(
-                TapTarget.forView(binding.imageViewPictureOfTheDay, "", getString(R.string.help_journal_picture))
+                TapTarget.forView(
+                    binding.imageViewPictureOfTheDay,
+                    "",
+                    getString(R.string.help_journal_picture)
+                )
                     .cancelable(false).transparentTarget(true).targetRadius(30),
-                TapTarget.forView(binding.editTextAffirmation, "", getString(R.string.help_journal_title))
+                TapTarget.forView(
+                    binding.editTextAffirmation,
+                    "",
+                    getString(R.string.help_journal_title)
+                )
                     .cancelable(false).transparentTarget(true).targetRadius(30),
-                TapTarget.forView(binding.imageButtonSuggestAffirmation, "", getString(R.string.help_journal_button_affirmation))
+                TapTarget.forView(
+                    binding.imageButtonSuggestAffirmation,
+                    "",
+                    getString(R.string.help_journal_button_affirmation)
+                )
+                    .cancelable(false).transparentTarget(true).targetRadius(30),
+                TapTarget.forView(binding.buttonMood1, "", getString(R.string.mood_1))
+                    .cancelable(false).transparentTarget(true).targetRadius(30),
+                TapTarget.forView(binding.buttonMood2, "", getString(R.string.mood_2))
+                    .cancelable(false).transparentTarget(true).targetRadius(30),
+                TapTarget.forView(binding.buttonMood3, "", getString(R.string.mood_3))
+                    .cancelable(false).transparentTarget(true).targetRadius(30),
+                TapTarget.forView(binding.buttonMood4, "", getString(R.string.mood_4))
+                    .cancelable(false).transparentTarget(true).targetRadius(30),
+                TapTarget.forView(binding.buttonMood5, "", getString(R.string.mood_5))
                     .cancelable(false).transparentTarget(true).targetRadius(30)
             ).start()
     }

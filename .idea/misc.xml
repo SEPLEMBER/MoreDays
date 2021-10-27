@@ -5,9 +5,10 @@
       <map>
         <entry key="..\:/repos/gitlab/moredays/app/src/main/res/drawable/circle_in_secondary.xml" value="0.2916666666666667" />
         <entry key="..\:/repos/gitlab/moredays/app/src/main/res/drawable/ic_camera.xml" value="0.2916666666666667" />
-        <entry key="..\:/repos/gitlab/moredays/app/src/main/res/layout/fragment_journal.xml" value="0.29222520107238603" />
+        <entry key="..\:/repos/gitlab/moredays/app/src/main/res/layout/fragment_journal.xml" value="0.55" />
         <entry key="..\:/repos/gitlab/moredays/app/src/main/res/layout/list_item_journal.xml" value="0.20625" />
         <entry key="..\:/repos/gitlab/moredays/app/src/main/res/layout/sample_mood_bar.xml" value="0.11322463768115942" />
+        <entry key="..\:/repos/gitlab/moredays/app/src/main/res/menu/help_menu.xml" value="0.171875" />
         <entry key="..\:/repos/gitlab/moredays/app/src/main/res/menu/journallist_menu.xml" value="0.3203125" />
         <entry key="..\:/repos/gitlab/moredays/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2916666666666667" />
       </map>
