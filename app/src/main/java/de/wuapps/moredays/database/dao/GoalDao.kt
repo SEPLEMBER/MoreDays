@@ -31,9 +31,6 @@ interface GoalDao {
     @Query("SELECT count(*) from Activity where activity.goal_id =:goalId")
     suspend fun isUsed(goalId: Long): Int
 
-    @Query("DELETE from Challenge where challenge.challenge_type=2 and challenge.id =:goalId")
-    suspend fun deleteRelatedChallenges(goalId: Long): Int
-
     @Insert(onConflict = REPLACE)
     suspend fun insert(goal: Goal): Long
 
@@ -52,9 +49,4 @@ interface GoalDao {
     @Update
     fun update(goals: List<Goal>)
 
-    @Transaction
-    suspend fun deleteGoalAndRelatedChallenges(goal:Goal) {
-        delete(goal)
-        deleteRelatedChallenges(goal.uid)
-    }
 }

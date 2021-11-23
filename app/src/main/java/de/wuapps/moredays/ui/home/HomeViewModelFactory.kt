@@ -8,7 +8,6 @@ class HomeViewModelFactory
     (
     private val goalDao: GoalDao,
     private val scaleDao: ScaleDao,
-    private val challengeDao: ChallengeDao,
     private val activityEntryDao: ActivityEntryDao,
     private val scaleEntryDao: ScaleEntryDao,
     private val trophyDao: TrophyDao
@@ -18,7 +17,6 @@ class HomeViewModelFactory
         return HomeViewModel(
                 goalDao,
                 scaleDao,
-                challengeDao,
                 activityEntryDao,
                 scaleEntryDao,
                 trophyDao

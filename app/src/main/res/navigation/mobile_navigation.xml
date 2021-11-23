@@ -23,9 +23,6 @@
             android:id="@+id/navigation_tools_goals"
             app:destination="@id/goalListFragment" />
         <action
-            android:id="@+id/navigation_tools_challenges"
-            app:destination="@id/challengeListFragment" />
-        <action
             android:id="@+id/navigation_tools_scales"
             app:destination="@id/scaleListFragment" />
         <action
@@ -40,6 +37,9 @@
         <action
             android:id="@+id/navigation_tools_settings"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/navigation_tools_import_export"
+            app:destination="@id/importExportFragment" />
     </fragment>
     <fragment
         android:id="@+id/activityFragment"
@@ -57,17 +57,6 @@
             app:argType="de.wuapps.moredays.database.entity.Goal"
             android:defaultValue="@null"
              />
-    </fragment>
-    <fragment
-        android:id="@+id/challengeFragment"
-        android:name="de.wuapps.moredays.ui.challenge.ChallengeFragment"
-        android:label="@string/title_challenge"
-        tools:layout="@layout/fragment_challenge">
-    <argument
-        android:name="challenge"
-        app:argType="de.wuapps.moredays.database.entity.Challenge"
-        app:nullable="true"
-        android:defaultValue="@null"/>
     </fragment>
     <fragment
         android:id="@+id/goalFragment"
@@ -96,15 +85,6 @@
         <action
             android:id="@+id/navigation_goals_goal"
             app:destination="@id/goalFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/challengeListFragment"
-        android:name="de.wuapps.moredays.ui.challenge.ChallengeListFragment"
-        android:label="@string/title_challenges"
-        tools:layout="@layout/fragment_challenge_list" >
-        <action
-            android:id="@+id/navgigation_challenges_challenge"
-            app:destination="@id/challengeFragment" />
     </fragment>
     <fragment
         android:id="@+id/scaleListFragment"
@@ -174,4 +154,8 @@
         android:id="@+id/settingsFragment"
         android:name="de.wuapps.moredays.ui.tools.settings.SettingsFragment"
         android:label="@string/title_settings" />
+    <fragment
+        android:id="@+id/importExportFragment"
+        android:name="de.wuapps.moredays.ui.tools.imexport.ImportExportFragment"
+        android:label="@string/title_import_export" />
 </navigation>

@@ -20,8 +20,6 @@ class ToolsFragment : Fragment() {
 
         view.findViewById<Button>(R.id.buttonGoals)
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_goals) }
-        view.findViewById<Button>(R.id.buttonChallenges)
-            .setOnClickListener { findNavController().navigate(R.id.navigation_tools_challenges) }
         view.findViewById<Button>(R.id.buttonScales)
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_scales) }
         view.findViewById<Button>(R.id.buttonHelp)
@@ -32,6 +30,8 @@ class ToolsFragment : Fragment() {
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_history) }
         view.findViewById<Button>(R.id.buttonSettings)
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_settings) }
+        view.findViewById<Button>(R.id.buttonImportExport)
+            .setOnClickListener { findNavController().navigate(R.id.navigation_tools_import_export) }
         hideFab()
         return view
     }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <color name="primaryColor">#FF9800</color>
     <color name="primaryVariantColor">#FFE0B2</color>
@@ -12,17 +11,8 @@
     <color name="secondaryTextColor">#757575</color>
     <color name="hintTextColor">#757575</color>
     <color name="accentColor">#CDDC39</color>
-    <color name="accentTextColor">#000000</color>
     <color name="cardColor">#efefef</color>
     <color name="textOnCardColor">#3E3E3E</color>
-    <color name="challenge_status_undefined">#ff0000</color>
-    <color name="challenge_status_not_started">#BDBDBD</color>
-    <color name="challenge_status_running">#FFE0B2</color>
-    <color name="challenge_status_failed">#ff0000</color>
     <color name="challenge_status_succeeded">#CDDC39</color>
-    <color name="light_blue_400">#FF29B6F6</color>
-    <color name="light_blue_600">#FF039BE5</color>
-    <color name="gray_400">#FFBDBDBD</color>
-    <color name="gray_600">#FF757575</color>
 </resources>
 

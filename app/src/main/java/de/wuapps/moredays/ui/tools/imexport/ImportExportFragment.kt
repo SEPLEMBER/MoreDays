@@ -1,23 +1,49 @@
 package de.wuapps.moredays.ui.tools.imexport
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
 import de.wuapps.moredays.R
+import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.FragmentImportExportBinding
 import de.wuapps.moredays.utilities.InjectorUtils
-import java.text.SimpleDateFormat
-import java.util.*
+import de.wuapps.moredays.utilities.generateFile
+import de.wuapps.moredays.utilities.getFileIntent
 
 class ImportExportFragment : Fragment() {
 
+    val CSV_FILENAME = "MoreDaysExport.txt" //.csv might cause trouble to open it, if there is no appropriate app
     private lateinit var binding: FragmentImportExportBinding
+    private var goals: MutableList<Goal>? = null
     private val viewModel: ImportExportViewModel by viewModels {
         InjectorUtils.provideImportExportViewModelFactory(requireActivity())
     }
+        private val columnHeaders = listOf<String>(
+        "DataName",
+        "GoalName",
+        "GoalColor",
+        "GoalPoints",
+        "GoalSymbol",
+        "ActivityName",
+        "ActivityPoints",
+        "ActivityTimestamp",
+        "ScaleName",
+        "ScaleValue",
+        "ScaleEntryTimestamp",
+        "TrophyType",
+        "TrophyCurrentValue",
+        "TrophyTimestamp",
+        "TrophyEntryId",
+        "JournalDate",
+        "JournalAffirmation",
+        "JournalNote",
+        "JournalIcons",
+        "JournalBase64Image"
+    )
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,8 +51,14 @@ class ImportExportFragment : Fragment() {
     ): View? {
         binding = FragmentImportExportBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
-        //viewModel.path = requireContext().filesDir.absolutePath
+        subscribeUi()
         return binding.root
+    }
+
+    private fun subscribeUi() {
+        viewModel.goals.observe(viewLifecycleOwner, {
+            it?.let {goals = it as MutableList<Goal>}
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -35,11 +67,7 @@ class ImportExportFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_delete -> {
-                delete()
-                true
-            }
-            R.id.menu_save -> {
+            R.id.menu_export -> {
                 export()
                 return true
             }
@@ -50,23 +78,26 @@ class ImportExportFragment : Fragment() {
             else -> false
         }
     }
-
-    private fun delete(){}
-    private fun export(){
-        val uri = Uri.EMPTY
-        val exportFileDescriptor = requireActivity().contentResolver.openFileDescriptor(uri, "w")
-    }
     private fun import(){}
 
-    fun selectExportFile() {
-//        val mimeType = "text/comma-separated-values"
-//        val today = Date()
-//        val dateFormat = SimpleDateFormat(getString(R.string.date_time))
-//        val filename = String.format("%1\$ty%1\$tm%1\$td%1\$tH%1\$tM-data.csv", today)
-//        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-//            .addCategory(Intent.CATEGORY_OPENABLE)
-//            .setType(mimeType)
-//            .putExtra(Intent.EXTRA_TITLE, filename)
-//        startActivityForResult(intent, REQUEST_CODE_EXPORT_FILENAME)
+    private fun export(){
+            val csvFile = generateFile(requireContext(), CSV_FILENAME)
+            if (csvFile == null) {
+                Toast.makeText(context, getString(R.string.create_export_file_error), Toast.LENGTH_LONG).show()
+                return
+            }
+        csvWriter().open(csvFile, append = false) {
+                // Header
+                writeRow(columnHeaders)
+                goals?.let {
+                    goals!!.forEach {
+                        writeRow(listOf(it.uid, it.name))
+                    }
+                }
+                }
+
+            Toast.makeText(context, getString(R.string.export_success), Toast.LENGTH_LONG).show()
+            val intent = csvFile?.let { getFileIntent(requireContext(), it) }
+            startActivity(intent)
     }
 }

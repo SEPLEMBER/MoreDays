@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="de.wuapps.moredays">
 
     <application
@@ -10,12 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoreDays">
-        <!--
-        <service
-            android:name=".services.ExportService"
-            android:enabled="true"
-            android:exported="true"></service>
-        -->
         <activity
             android:name=".SplashActivity"
             android:exported="true"

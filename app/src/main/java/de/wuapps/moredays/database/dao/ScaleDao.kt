@@ -19,9 +19,6 @@ interface ScaleDao {
     @Insert(onConflict = REPLACE)
     suspend fun insert(scale: Scale): Long
 
-    @Query("DELETE from Challenge where challenge.challenge_type=0 and challenge.id =:scaleId")
-    suspend fun deleteRelatedChallenges(scaleId: Long): Int
-
     @Query("Delete from scale")
     suspend fun deleteAll()
 
@@ -31,9 +28,4 @@ interface ScaleDao {
     @Update
     suspend fun update(scale: Scale)
 
-    @Transaction
-    suspend fun deleteScaleAndRelatedChallenges(scale: Scale) {
-        delete(scale)
-        deleteRelatedChallenges(scale.uid)
-    }
 }

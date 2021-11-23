@@ -23,7 +23,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
-import de.wuapps.moredays.database.entity.Challenge
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.database.entity.Trophy
@@ -48,8 +47,6 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private var _goalAdapter: GoalAdapter? = null
     private val goalAdapter get() = _goalAdapter!!
-    private var _challengeAdapter: ChallengeAdapter? = null
-    private val challengeAdapter get() = _challengeAdapter!!
     private val scales = ArrayList<Scale>()
     private val activityData = ArrayList<Pair<Goal, de.wuapps.moredays.database.entity.Activity>>()
 
@@ -69,11 +66,6 @@ class HomeFragment : Fragment() {
         viewModel.name = preferences.getString(getString(R.string.preferences_name_key), null) ?: ""
         _goalAdapter = GoalAdapter(viewModel::addGoalEntry)
         binding.recyclerViewGoals.adapter = goalAdapter
-        _challengeAdapter = ChallengeAdapter()
-        binding.recyclerviewChallenges.adapter = challengeAdapter
-        val layoutManager = LinearLayoutManager(this.context)
-        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        binding.recyclerviewChallenges.layoutManager = layoutManager
         handleLoading()
         setHasOptionsMenu(true)
         if (!preferences.getBoolean(getString(R.string.preferences_showed_first_help), false))
@@ -237,12 +229,6 @@ class HomeFragment : Fragment() {
                 activityData.toList().sortedBy { (_, activity) -> activity.points }
             }
         })
-        viewModel.challenges.observe(viewLifecycleOwner, {
-            it?.let {
-                val data = it as MutableList<Challenge>
-                challengeAdapter.submitList(data)
-            }
-        })
 
         viewModel.newTrophies.observe(viewLifecycleOwner, {
             it?.let {
@@ -272,23 +258,6 @@ class HomeFragment : Fragment() {
                     .streamFor(300, 2000L)
             }
             viewModel.justReached100Percent.postValue(false)
-        })
-        viewModel.justMadeChallenge.observe(viewLifecycleOwner, {
-            if (it && viewModel.madeChallenge != null) {
-                showTrophyDialog(String.format(getString(R.string.message_made_challenge), viewModel.name, viewModel.madeChallenge!!.title), viewModel.madeChallenge!!.symbol)
-                binding.viewKonfetti.build()
-                    .addColors(Color.RED, Color.CYAN, Color.BLUE)
-                    .setDirection(0.0, 359.0)
-                    .setSpeed(1f, 5f)
-                    .setFadeOutEnabled(true)
-                    .setTimeToLive(1000L)
-                    .addShapes(Shape.Square)
-                    .addSizes(Size(12))
-                    .setPosition(-50f, binding.viewKonfetti.width + 50f, -50f, -50f)
-                    .streamFor(300, 2000L)
-                viewModel.justMadeChallenge.postValue(false)
-                viewModel.madeChallenge = null
-            }
         })
     }
 
@@ -399,12 +368,6 @@ class HomeFragment : Fragment() {
                     getString(R.string.help_home_goal)
                 )
                     .cancelable(false).transparentTarget(true).targetRadius(70),
-                TapTarget.forView(
-                    binding.recyclerviewChallenges,
-                    getString(R.string.title_challenge),
-                    getString(R.string.help_home_challenges)
-                )
-                    .cancelable(false).transparentTarget(true).targetRadius(30),
                 TapTarget.forView(mainActivity.getFab(), "+", getString(R.string.help_home_fab))
                     .cancelable(false).transparentTarget(true).targetRadius(30),
                 TapTarget.forView(
@@ -427,7 +390,6 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _goalAdapter = null
-        _challengeAdapter = null
          _binding = null
     }
 }

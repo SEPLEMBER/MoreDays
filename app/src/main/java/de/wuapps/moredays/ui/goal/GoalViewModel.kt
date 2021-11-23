@@ -34,7 +34,7 @@ class GoalViewModel(private val goalDao: GoalDao, private val hundredPercentValu
     }
 
     fun delete() = viewModelScope.launch {
-        goalDao.deleteGoalAndRelatedChallenges(goal)
+        goalDao.delete(goal)
         goal = Goal()
         isNew = true
     }

@@ -41,15 +41,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerviewChallenges"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <de.wuapps.moredays.ui.customviews.CirclesView
             android:id="@+id/circlesView"
             android:layout_width="match_parent"
@@ -57,7 +48,7 @@
             android:layout_marginVertical="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recyclerviewChallenges"
+            app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintBottom_toTopOf="@id/recyclerViewGoals"/>
 
         <androidx.recyclerview.widget.RecyclerView

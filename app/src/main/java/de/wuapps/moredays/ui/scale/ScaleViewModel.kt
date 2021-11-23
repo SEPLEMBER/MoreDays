@@ -41,7 +41,7 @@ class ScaleViewModel(
     }
 
     fun delete() = viewModelScope.launch {
-        scaleDao.deleteScaleAndRelatedChallenges(scale)
+        scaleDao.delete(scale)
     }
 
 }

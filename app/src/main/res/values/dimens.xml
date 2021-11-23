@@ -1,6 +1,5 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_margin">16dp</dimen>
     <dimen name="layout_margin">16dp</dimen>
@@ -8,17 +7,10 @@
     <dimen name="min_accesible_size">48dp</dimen>
     <dimen name="mood_button_size">56dp</dimen>
     <dimen name="mood_button_text_size">27sp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="fab_size">56dp</dimen>
     <dimen name="goal_item_width">150dp</dimen>
-    <dimen name="icon_item_widht">20dp</dimen>
-    <dimen name="entry_type_item_width">100dp</dimen>
-    <dimen name="activity_item_width">165dp</dimen>
     <dimen name="scale_item_width">100dp</dimen>
     <dimen name="scale_item_height">100dp</dimen>
-    <dimen name="trophy_item_width">150dp</dimen>
     <dimen name="journal_item_width">150dp</dimen>
-    <dimen name="challenge_item_width">150dp</dimen>
     <dimen name="min_margin">4dp</dimen>
     <dimen name="home_card_height">80dp</dimen>
     <dimen name="home_card_width">60dp</dimen>

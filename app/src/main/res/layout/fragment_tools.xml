@@ -27,13 +27,6 @@
             android:text="@string/title_goals" />
 
         <Button
-            android:id="@+id/buttonChallenges"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/min_margin"
-            android:text="@string/title_challenges" />
-
-        <Button
             android:id="@+id/buttonScales"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,7 +66,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/min_margin"
-            android:visibility="gone"
             android:text="@string/import_export" />
 
         <Button

@@ -13,7 +13,7 @@ import de.wuapps.moredays.utilities.DATABASE_NAME
 import de.wuapps.moredays.utilities.DATABASE_VERSION
 
 @Database(
-    entities = [Activity::class, ActivityEntry::class, Goal::class, Challenge::class, Scale::class, ScaleEntry::class, Trophy::class, Journal::class, HundredPercentValue::class],
+    entities = [Activity::class, ActivityEntry::class, Goal::class, Scale::class, ScaleEntry::class, Trophy::class, Journal::class, HundredPercentValue::class],
     version = DATABASE_VERSION
 )
 @TypeConverters(DateTypeConverter::class, IntListTypeConverter::class)
@@ -21,7 +21,6 @@ abstract class MoreDaysDatabase : RoomDatabase() {
 
     abstract val goalDao: GoalDao
     abstract val activityDao: ActivityDao
-    abstract val challengeDao: ChallengeDao
     abstract val activityEntryDao: ActivityEntryDao
     abstract val scaleEntryDao: ScaleEntryDao
     abstract val scaleDao: ScaleDao
@@ -39,6 +38,12 @@ abstract class MoreDaysDatabase : RoomDatabase() {
             }
         }
 
+        private val MIGRATION_22_23 = object : Migration(22, 23) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("Drop table Challenge")
+            }
+        }
+
         fun getInstance(
             context: Context,
         ): MoreDaysDatabase {
@@ -51,7 +56,7 @@ abstract class MoreDaysDatabase : RoomDatabase() {
                     DATABASE_NAME
                 )
                     .createFromAsset(context.getString(R.string.db_ini_name))
-                    .addMigrations(MIGRATION_21_22)
+                    .addMigrations(MIGRATION_21_22, MIGRATION_22_23)
                     .build()
                 INSTANCE = instance
                 // return instance

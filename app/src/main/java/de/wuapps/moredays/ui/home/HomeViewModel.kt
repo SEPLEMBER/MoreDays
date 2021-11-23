@@ -18,7 +18,6 @@ import kotlin.collections.ArrayList
 class HomeViewModel(
     goalDao: GoalDao,
     scaleDao: ScaleDao,
-    private val challengeDao: ChallengeDao,
     private val activityEntryDao: ActivityEntryDao,
     private val scaleEntryDao: ScaleEntryDao,
     private val trophyDao: TrophyDao
@@ -28,14 +27,10 @@ class HomeViewModel(
     var name = ""
     val newTrophies = MutableLiveData<MutableList<Trophy>>()
     val justReached100Percent = MutableLiveData<Boolean>()
-    val justMadeChallenge = MutableLiveData<Boolean>()
-    var madeChallenge: Challenge? = null
     val percent = MutableLiveData<Float>()
     var date: Calendar = Calendar.getInstance()
     private val _scales = scaleDao.getAll()
     val scales = _scales.asLiveData()
-    private val _challenges = challengeDao.getAllDue()
-    val challenges = _challenges.asLiveData()
     private val _goalData = goalDao.getAllGoalData()
     var timeLatestActive: Calendar? = Calendar.getInstance()
     val goalEntryList = MutableLiveData<MutableList<GoalEntry>>()
@@ -47,7 +42,6 @@ class HomeViewModel(
     private val _activityEntries = activityEntryDao.getAll()
     private val _scaleEntries = scaleEntryDao.getAll()
     private val _trophies = trophyDao.getAll()
-    private val challengesList = ArrayList<Challenge>()
     private val activityEntriesList = ArrayList<ActivityEntry>()
     private val scaleList = ArrayList<Scale>()
     private val scaleEntriesList = ArrayList<ScaleEntry>()
@@ -56,12 +50,10 @@ class HomeViewModel(
     init {
         newTrophies.value = ArrayList<Trophy>()
         justReached100Percent.value = false
-        justMadeChallenge.value = false
         percent.value = 0F
         //goalEntryList.value = ArrayList<GoalEntry>()
         viewModelScope.launch(Dispatchers.IO) {
             observeData()
-            checkChallenges()
         }
 
     }
@@ -78,11 +70,6 @@ class HomeViewModel(
         _trophies.onEach {
             trophyList.clear()
             trophyList.addAll(it)
-            checkChallenges()
-        }.launchIn(viewModelScope)
-        _challenges.onEach {
-            challengesList.clear()
-            challengesList.addAll(it)
         }.launchIn(viewModelScope)
         _scales.onEach {
             scaleList.clear()
@@ -121,7 +108,6 @@ class HomeViewModel(
             val id = activityEntryDao.insert(activityEntry)
             activityEntry.uid = id
             activityEntriesList.add(activityEntry) //später besser mit observe arbeiten!
-            checkChallenges()
             analyzeGoalTrophies(goal, id)
         }
         latestActivity = activity
@@ -134,24 +120,6 @@ class HomeViewModel(
             val id = scaleEntryDao.insert(scaleEntry)
             scaleEntry.uid = id
             scaleEntriesList.add(scaleEntry)
-            checkChallenges()
-        }
-    }
-
-    private fun checkChallenges() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val changedChallenges = analysis.checkChallenges(
-                challengesList,
-                activityEntriesList,
-                scaleEntriesList,
-                trophyList
-            )
-            if (changedChallenges.first.isNotEmpty())
-                challengeDao.update(changedChallenges.first)
-            if (changedChallenges.second.isNotEmpty()){
-                madeChallenge = changedChallenges.second.last()
-                justMadeChallenge.postValue(true)
-            }
         }
     }
 

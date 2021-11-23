@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import de.wuapps.moredays.database.dao.*
 
-class ImpotExportViewModelFactory(
+class ImportExportViewModelFactory(
     private val goalDao: GoalDao,
     private val activityDao: ActivityDao,
     private val scaleDao: ScaleDao,
@@ -15,7 +15,7 @@ class ImpotExportViewModelFactory(
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return ImpotExportViewModelFactory(
+        return ImportExportViewModel(
             goalDao,
             activityDao,
             scaleDao,

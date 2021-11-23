@@ -9,19 +9,16 @@
     <string name="title_home">Home</string>
     <string name="title_chart">Diagramme</string>
     <string name="title_trophies">Trophäen</string>
-    <string name="title_trophy">Trophäe</string>
     <string name="title_journal">Journal</string>
     <string name="title_settings">Einstellungen</string>
     <string name="title_tools">Werkzeuge</string>
     <string name="base_data">Basisdaten</string>
-    <string name="lbl_choose_goal">Wähle ein Ziel</string>
     <string name="lbl_question_activity_to_goal">Wie möchtest du dieses Ziel erreichen? Definiere verschiedene Aktivitäten unterschiedlicher Schwierigkeit.</string>
     <string name="hint_update_points_activity">Anpassungen beziehen sich auch auf Daten in der Vergangenheit.</string>
     <string name="lbl_name">Name</string>
     <string name="lbl_points">Punkte</string>
     <string name="lbl_add_activity">Füge Aktivität(en) dazu</string>
     <string name="label_goals_question">Wie möchtest du sein?</string>
-    <string name="lbl_add_goal">Füge ein Ziel(e) dazu</string>
     <string name="lbl_is_old">veraltet</string>
     <string name="warning_field_is_required">Eingabe ist erforderlich</string>
     <string name="title_delete">Löschen</string>
@@ -37,7 +34,6 @@
     <string name="decimal_symbol">.</string>
     <string name="warning_not_an_int">keine ganze Zahl</string>
     <string name="question_delete_scale">Möchtest du wirklich diese Skala und alle damit verbundenen Einträge löschen?</string>
-    <string name="lbl_add_scale">Skale(n) hinzufügen</string>
     <string name="label_min_value">minimaler Wert</string>
     <string name="label_max_value">maximaler Wert</string>
     <string name="help">Hilfe</string>
@@ -109,15 +105,7 @@
     <string name="title_goals">Ziele</string>
     <string name="title_activity">Aktivität</string>
     <string name="title_activities">Aktivitäten</string>
-    <string name="start_date">Anfangsdatum</string>
-    <string name="date_deadline">Deadline</string>
-    <string name="error">Fehler</string>
-    <string name="challenge_count_made">Anzahl geschafft</string>
-    <string name="challenge_count_points">Punkte geschafft</string>
     <string name="date">Datum</string>
-    <string name="label_chart_goals_points_total">Punkte pro Ziel</string>
-    <string name="label_chart_goals_days_made">Tage geschafft</string>
-    <string name="analysis_chain">Folge</string>
     <string name="add_entry">Füge einen Skalenwert hinzu oder trage eine Aktivität als gemacht ein</string>
     <string name="menu_import">Import</string>
     <string name="export">Export</string>
@@ -140,18 +128,9 @@
     <string name="settings_start_home_title_on">zeige das Journal als Startseite</string>
     <string name="settings_start_home_title_off">zeige die Ziele und Kreise als Startseite</string>
     <string name="label_chk_is_integer">nure ganze Zahlen</string>
-    <string name="label_desired_value">Gewünschter Wert</string>
     <string name="help_activities_short">Aktivitäten sind die Möglichkeiten, wie du deine Ziele erreichen kannst. Beispielsweise für dein Ziel fit zu werden könntest du Sport, Spaziergang und Morgengymnastik als Aktivitäten definieren. Die Punkte einer Aktivität kannst du selbst festlegen, orientiere dich z.B. daran, wie schwer dir etwas fällt oder wieviel Zeit benötigt wird.
         Achte darauf, dass du mit verschiedenen Kombinationen an Aktivitäten die gewünschte Punktzahl des jeweiligen Ziels erreichen kannst.</string>
-    <string name="help_activities">Aktivitäten sind die Möglichkeiten, wie du deine Ziele erreichen kannst. Beispielsweise für dein Ziel fit zu werden könntest du Sport, Spaziergang und Morgengymnastik als Aktivitäten definieren. Die Punkte einer Aktivität kannst du selbst festlegen, orientiere dich z.B. daran, wie schwer dir etwas fällt oder wieviel Zeit benötigt wird.
-        Achte darauf, dass du mit verschiedenen Kombinationen an Aktivitäten die gewünschte Punktzahl des jeweiligen Ziels erreichen kannst. Es gibt auch tolle Aktivitäten, die keine Zeit mehr für anderes lassen, z.B. eine tolle Bergwanderung, diese Aktivität könnte dann die Punkte von allen Zielen zusammen bekommen.
-
-        </string>
-    <string name="help_challenges">Was möchtest du die nächste Woche oder bis zum Datum x erreichen? Dein Ziel fit 10 mal geschafft haben oder die Aktivität Sport 15 mal oder dein Gewicht unter 70 kg bringen? Stelle dich deinen eigenen Herausforderungen/Challenges.</string>
     <string name="help_scale">Mit Skalen kannst du alles quantitativ erfassen, Gewicht, Schlafqualität, Bauchumfang oder was auch immer du messen möchtest und dir im Diagramm anschauen möchtest. Vergib einen aussagekräftigen Titel und dann kannst du immer den Wert eintragen.</string>
-    <string name="help_challenge_deadline">Wann soll die Challenge auslaufen?</string>
-    <string name="help_add_challenge_startdate">Wann soll die Challenge starten?</string>
-    <string name="help_add_challenge_type">Challenges können sich auf ein Ziel, eine bestimmte Aktivität oder eine Skala beziehen, worauf möchtest du den Fokus legen?</string>
     <string name="help_home_fab">Füge Skalenwerte hinzu oder markiere eine Aktivität als absolviert.</string>
     <string name="help_home_goal">Tapp zeigt dir mit dem jeweiligen Ziel verknüpfte Aktivitäten, los geht\'s, sammel Punkte :)</string>
     <string name="help_home_challenges">Das sind deine laufenden Challenges. Unter Werkzeuge kannst du sie verwalten.</string>
@@ -162,7 +141,6 @@
     <string name="help_add_activity_points">Die Punkte geben die Schwierigkeit oder auch die Zeit wider, die eine Aktivität benötigt. Orientiere dich an der Punktzahl des Ziels und welchen Anteil diese Aktivität dafür hat.</string>
     <string name="help_journal_intro">Das Journal ist Teil der positiven Psychology, probiere es einfach aus.
         Suche nach \'5 Minuten Journal\' oder \'positive Affirmation\' im Web, mache dich mit der Methode vertraut und überzeuge dich selbst von der Wirksamkeit.</string>
-    <string name="help_journal_example_affirmations">Lass dich durch Beispiele inspirieren.</string>
     <string name="help_journal_picture">Füge ein Bild des Tages hinzu oder entferne es wieder.</string>
     <string name="help_goal_isOld">Markiere ein Ziel als alt, wenn du es nicht mehr täglich sehen möchtest, die Daten aber noch behalten möchtest.</string>
     <string name="help_help">Wähle das Fragezeichen in den Optionen, um eine Tour durch den jeweiligen Teil der Anwendung zu bekommen.</string>

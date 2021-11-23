@@ -15,9 +15,6 @@ interface ActivityDao {
     @Query("Select count(*) from Activity where activity.uid = :activityId")
     suspend fun isUsed(activityId: Long): Int
 
-    @Query("DELETE from Challenge where challenge.challenge_type=1 and challenge.id =:activityId")
-    suspend fun deleteRelatedChallenges(activityId: Long): Int
-
     @Insert
     suspend fun insert(activity: Activity): Long
 
@@ -30,9 +27,4 @@ interface ActivityDao {
     @Update
     suspend fun update(entryType: Activity)
 
-    @Transaction
-    suspend fun deleteActivityAndRelatedChallenges(activity: Activity) {
-        delete(activity)
-        deleteRelatedChallenges(activity.uid)
-    }
 }
