@@ -211,9 +211,8 @@ class HomeFragment : Fragment() {
         viewModel.goalEntryList.observe(viewLifecycleOwner, {
             it?.let {
                 goalAdapter.submitList(it)
-                binding.circlesView.circlesLabel =
-                    String.format(getString(R.string.ini_circle_value), viewModel.name)
-                binding.circlesView.setCirclesData(it)
+                binding.percentageView.label =  String.format(getString(R.string.ini_circle_value), viewModel.name)
+                binding.percentageView.setCirclesData(it)
 
                 activityData.clear()
                 it.forEach { goalEntry ->
