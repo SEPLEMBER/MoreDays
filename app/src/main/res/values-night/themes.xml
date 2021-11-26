@@ -13,5 +13,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/primaryDarkColor</item>
         <item name="colorControlNormal">@color/primaryColor</item>
+        <item name="colorSurface">#000000</item>
+        <item name="colorOnSurface">#ffffff</item>
+
     </style>
 </resources>

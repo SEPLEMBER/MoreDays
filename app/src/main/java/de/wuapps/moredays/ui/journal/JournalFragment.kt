@@ -36,7 +36,6 @@ class JournalFragment : Fragment() {
     private val REQUEST_IMAGE = 42
     private lateinit var exampleAffirmations: List<String>
     private var optionsMenuDelete: MenuItem? = null
-    private var optionsMenuDate: MenuItem? = null
     private var selectedMood = -1
 
     override fun onCreateView(
@@ -90,6 +89,7 @@ class JournalFragment : Fragment() {
         binding.buttonMood3.background = null
         binding.buttonMood4.background = null
         binding.buttonMood5.background = null
+        binding.buttonMoodNone.background = null
     }
 
     private fun updateUI() {
@@ -110,6 +110,7 @@ class JournalFragment : Fragment() {
             3 -> binding.buttonMood3.setBackgroundResource(R.drawable.circle_in_secondary)
             4 -> binding.buttonMood4.setBackgroundResource(R.drawable.circle_in_secondary)
             5 -> binding.buttonMood5.setBackgroundResource(R.drawable.circle_in_secondary)
+            -1 -> binding.buttonMoodNone.setBackgroundResource(R.drawable.circle_in_secondary)
         }
         viewModel.changeMood(selectedMood)
     }

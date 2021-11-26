@@ -2,6 +2,7 @@ package de.wuapps.moredays.ui.journal
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.*
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.emoji2.text.EmojiCompat
@@ -14,17 +15,11 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Journal
 import de.wuapps.moredays.databinding.FragmentJournalListBinding
-import de.wuapps.moredays.utilities.InjectorUtils
-import de.wuapps.moredays.utilities.getFlexboxLayoutManager
-import de.wuapps.moredays.utilities.setFabOnClickListener
-import de.wuapps.moredays.utilities.showFab
 import kotlinx.coroutines.InternalCoroutinesApi
 import java.text.SimpleDateFormat
 import java.util.*
 import com.github.mikephil.charting.data.PieData
-
-
-
+import de.wuapps.moredays.utilities.*
 
 
 class JournalListFragment : Fragment() {
@@ -37,7 +32,8 @@ class JournalListFragment : Fragment() {
     private var _adapter: JournalAdapter? = null
     private val adapter get() = _adapter!!
     private var isMoodChartVisible = false
-    @InternalCoroutinesApi
+    private var textColorPrimary = DEFAULT_COLOR
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +45,7 @@ class JournalListFragment : Fragment() {
         setFabOnClickListener{
             findNavController().navigate(R.id.navigation_journalList_journal)
         }
+        textColorPrimary = requireContext().getColorThemeRes(android.R.attr.textColorPrimary)
         subscribeUi()
         setHasOptionsMenu(true)
         return binding.root
@@ -108,6 +105,7 @@ class JournalListFragment : Fragment() {
             journal.mood.toFloat()
         ) }
         val xAxis: XAxis = lineChart.xAxis
+        xAxis.textColor = textColorPrimary
         val mFormat = SimpleDateFormat(getString(R.string.date_md))
         xAxis.valueFormatter = (object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String? {
@@ -128,6 +126,7 @@ class JournalListFragment : Fragment() {
         lineChart.axisRight.isEnabled = false
         lineChart.axisLeft.isEnabled = false
         lineChart.data = lineData
+        lineChart.legend.textColor = textColorPrimary
         lineChart.invalidate()
 
         val pieChart = binding.pieChartMood
@@ -153,6 +152,7 @@ class JournalListFragment : Fragment() {
         pieChart.data = pieData
         pieChart.getDescription().setEnabled(false)
         pieChart.legend.textSize = 20f
+        pieChart.isDrawHoleEnabled = false
         pieChart.invalidate()
     }
 }

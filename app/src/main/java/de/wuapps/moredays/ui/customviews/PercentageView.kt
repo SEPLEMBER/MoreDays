@@ -125,7 +125,7 @@ class PercentageView @JvmOverloads constructor(
                     startCirclePaint.color = item.getColor()
                     isStart = false
                 }
-                if (startAngle - START_ANGLE_OF_PERCENTAGE_BAR >=PERCENTAGE_TOTAL_ANGLE) //100% reached
+                if (angle > 0 && percentage >= 100) //100% reached
                     endCirclePaint.color = item.getColor()
             }
         }
@@ -135,7 +135,7 @@ class PercentageView @JvmOverloads constructor(
             val diffOuterCircleInnerCircle = radius - fillCircleRadius
             //start circle
             val angle = START_ANGLE_OF_PERCENTAGE_BAR.toDouble()
-            //y should be +, but due to the angle it's -- ...
+            //y should be +, but due to the obtuse angle it's -- ...
             canvas?.drawCircle(
                 rectF!!.centerX() - diffOuterCircleInnerCircle *
                         Math.sin(Math.toRadians(angle)).toFloat(),
@@ -174,11 +174,6 @@ class PercentageView @JvmOverloads constructor(
         )
     }
 
-
-    private fun setPercentage() {
-        this.percentage = percentage
-    }
-
     private fun getAngleToPercentage(percentage: Float): Float {
         return (percentage * PERCENTAGE_TOTAL_ANGLE) / 100
     }
@@ -186,6 +181,8 @@ class PercentageView @JvmOverloads constructor(
     fun setCirclesData(circleData: List<GoalEntry>) {
         goalEntries = circleData
         calcPercentage()
+        startCirclePaint.color = progressBackgroundPaint.color
+        endCirclePaint.color = progressBackgroundPaint.color
         this.requestLayout() //recalculate needed width/height
     }
 
@@ -195,7 +192,6 @@ class PercentageView @JvmOverloads constructor(
         percentage = sum * 100F / desiredTotal
         if (desiredTotal < sum)
             desiredTotal = sum //do not make the circle bigger than full
-        setPercentage()
         if (sum > 0)
             _label = String.format("%.1f %%", percentage)
     }

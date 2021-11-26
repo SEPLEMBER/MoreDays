@@ -76,9 +76,8 @@ fun getFlexboxLayoutManager(context: Context): FlexboxLayoutManager{
 }
 
 @ColorInt
-fun Context.getColorResCompat(@AttrRes id: Int): Int {
+fun Context.getColorThemeRes(@AttrRes id: Int): Int {
     val resolvedAttr = TypedValue()
     this.theme.resolveAttribute(id, resolvedAttr, true)
-    val colorRes = resolvedAttr.run { if (resourceId != 0) resourceId else data }
-    return ContextCompat.getColor(this, colorRes)
+    return this.getColor(resolvedAttr.resourceId)
 }

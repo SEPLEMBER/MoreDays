@@ -19,7 +19,7 @@
     <string name="lbl_points">Punkte</string>
     <string name="lbl_add_activity">Füge Aktivität(en) dazu</string>
     <string name="label_goals_question">Wie möchtest du sein?</string>
-    <string name="lbl_is_old">veraltet</string>
+    <string name="lbl_is_inactive">inaktiv</string>
     <string name="warning_field_is_required">Eingabe ist erforderlich</string>
     <string name="title_delete">Löschen</string>
     <string name="question_delete_goal">Möchtest du wirklich dieses Ziel und alle damit verbundenen Aktivitäten und Daten löschen? Du kannst es auch einfach als veraltet markieren.</string>

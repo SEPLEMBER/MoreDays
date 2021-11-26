@@ -1,5 +1,6 @@
 package de.wuapps.moredays.ui.charts
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -110,7 +111,14 @@ class GoalsChartsViewModel(
             for(goal in goals){
                 goalSumsDate.add(Pair(goal, day.value.filter{it.goal.uid == goal.uid}.sumBy { it.activity.points }))
             }
-            val hundredPercent = hundredPercentValue.filter { it.getDateAsCalendar().get(Calendar.YEAR) == day.key.first &&  it.getDateAsCalendar().get(Calendar.DAY_OF_YEAR) <= day.key.second}.firstOrNull()?.points
+//            if (hundredPercentValue.size > 0){
+//                val x = hundredPercentValue.get(0)
+//                Log.d("hun", x.getDateAsCalendar().get(Calendar.YEAR).toString())
+//                Log.d("day", day.key.first.toString())
+//                Log.d("hun", x.getDateAsCalendar().get(Calendar.DAY_OF_YEAR).toString())
+//                Log.d("day", day.key.second.toString())
+//            }
+            val hundredPercent = hundredPercentValue.filter { it.getDateAsCalendar().get(Calendar.YEAR) == day.key.first &&  day.key.second <= it.getDateAsCalendar().get(Calendar.DAY_OF_YEAR) }.firstOrNull()?.points
                 ?: currentHundredPercentValue
             val calendarDay = Calendar.getInstance()
             calendarDay.set(Calendar.YEAR, day.key.first)

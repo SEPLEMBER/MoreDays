@@ -24,6 +24,7 @@
         android:id="@+id/pieChartMood"
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_chart_height"
+        android:background="?colorSurface"
         android:visibility="gone"
         android:gravity="center" />
 

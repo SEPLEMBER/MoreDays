@@ -28,7 +28,7 @@ data class Journal(
         "",
         "",
         "",
-        4
+        -1
     )
 
     constructor(date: Date) : this() {

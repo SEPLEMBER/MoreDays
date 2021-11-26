@@ -25,14 +25,19 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.FragmentGoalsChartsBinding
 import de.wuapps.moredays.ui.customviews.SimpleMarkerView
+import de.wuapps.moredays.ui.customviews.StackedMarkerView
 import de.wuapps.moredays.utilities.InjectorUtils
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.Comparator
 import kotlin.collections.ArrayList
+import android.util.TypedValue
+import de.wuapps.moredays.R
+import de.wuapps.moredays.utilities.DEFAULT_COLOR
+import de.wuapps.moredays.utilities.getColorThemeRes
+
 
 class GoalsChartsFragment : Fragment() {
 
@@ -46,6 +51,7 @@ class GoalsChartsFragment : Fragment() {
     private val BAR_WIDTH = 0.9f
     private val TEXTSIZE_LEGEND = 12f
     private val NUMBER_VISIBLE_BARS = 10
+    private var textColorPrimary = DEFAULT_COLOR
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,8 +65,8 @@ class GoalsChartsFragment : Fragment() {
         binding.recyclerViewAnalysis.layoutManager = layoutManager
         _adapter = GoalSummaryAdapter()
         binding.recyclerViewAnalysis.adapter = adapter
+        textColorPrimary = requireContext().getColorThemeRes(android.R.attr.textColorPrimary)
         subscribeUi(adapter)
-
         return binding.root
     }
 
@@ -171,6 +177,7 @@ class GoalsChartsFragment : Fragment() {
         chart.setWebAlpha(100)
         val xAxis: XAxis = chart.getXAxis()
         xAxis.setTextSize(TEXTSIZE_LEGEND)
+        xAxis.textColor = textColorPrimary
         xAxis.setYOffset(0f)
         xAxis.setXOffset(0f)
         xAxis.setValueFormatter(object : ValueFormatter() {
@@ -181,17 +188,19 @@ class GoalsChartsFragment : Fragment() {
         val yAxis: YAxis = chart.getYAxis()
         yAxis.setLabelCount(names.size, false)
         yAxis.setTextSize(TEXTSIZE_LEGEND)
-        yAxis.setTextColor(getColor(this.requireContext(), R.color.accentColor))
+        yAxis.setTextColor(textColorPrimary)
         yAxis.setAxisMinimum(0f)
         yAxis.setDrawLabels(false)
         val l: Legend = chart.getLegend()
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP)
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT)
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL)
+        l.textColor = textColorPrimary
         l.setDrawInside(true)
         val radarData = RadarData(radarDataList)
         radarData.setValueTextSize(TEXTSIZE_LEGEND)
         radarData.setDrawValues(true)
+        radarData.setValueTextColor(textColorPrimary)
         radarData.setValueFormatter(object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String? {
                 return Math.floor(value.toDouble()).toInt().toString()
@@ -305,6 +314,12 @@ class GoalsChartsFragment : Fragment() {
         chart.getAxisLeft().setDrawLabels(false)
         chart.getAxisRight().setDrawLabels(false)
 
+        val mv = StackedMarkerView(this.requireContext(), R.layout.simple_marker_view)
+        mv.setChartView(chart) // For bounds control
+        chart.setDrawMarkers(true)
+        chart.setMarker(mv) // Set the marker to the chart
+        chart.setHighlightPerTapEnabled(true) //otherwise marker will not work
+
         val setLine = LineDataSet(hundredPercentLineValues, "100%")
         setLine.lineWidth = 2f
         setLine.color = Color.RED
@@ -345,6 +360,7 @@ class GoalsChartsFragment : Fragment() {
         chart.getAxisRight().setLabelCount(5)
 
         val l: Legend = chart.getLegend()
+        l.textColor = textColorPrimary
         l.isWordWrapEnabled = true
 
         if (data.size > 10) chart.moveViewToX(data.size.toFloat()) //got to today, calls invalidate already

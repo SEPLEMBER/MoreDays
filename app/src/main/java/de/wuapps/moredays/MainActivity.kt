@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.FragmentContainer
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -24,6 +26,8 @@ import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     private lateinit var fab: FloatingActionButton
+    private lateinit var fragmentContainerView : FragmentContainerView
+    private var fragmentContainerPaddingBottom = 0
     private lateinit var bottomAppBar: BottomAppBar
     private var bottomAppBarVerticalOffsetOrg = 0F
     private val app: MoreDaysApplication
@@ -53,6 +57,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_placeholder, R.id.navigation_home, R.id.navigation_charts
             )
         )
+        fragmentContainerView = findViewById<FragmentContainerView>(R.id.nav_host_fragment)
+        fragmentContainerPaddingBottom = fragmentContainerView.paddingBottom
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -76,11 +82,13 @@ class MainActivity : AppCompatActivity() {
     fun hideFab() {
         fab.hide()
         bottomAppBar.cradleVerticalOffset = 0F
+        fragmentContainerView.setPadding(fragmentContainerView.paddingLeft, fragmentContainerView.paddingTop, fragmentContainerView.paddingRight, 0)
     }
 
     fun showFab() {
         fab.show()
         bottomAppBar.cradleVerticalOffset = bottomAppBarVerticalOffsetOrg
+        fragmentContainerView.setPadding(fragmentContainerView.paddingLeft, fragmentContainerView.paddingTop, fragmentContainerView.paddingRight, fragmentContainerPaddingBottom)
     }
 
     override fun onSupportNavigateUp(): Boolean {

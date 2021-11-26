@@ -20,7 +20,7 @@
     <string name="lbl_points">Points</string>
     <string name="lbl_add_activity">add activity</string>
     <string name="label_goals_question">How do you want to be?</string>
-    <string name="lbl_is_old">is old</string>
+    <string name="lbl_is_inactive">is inactive</string>
     <string name="warning_field_is_required">field is required</string>
     <string name="title_delete">Delete</string>
     <string name="question_delete_goal">Do you really want to delete this goal and all data linked to it? Remember you may set it to old.</string>

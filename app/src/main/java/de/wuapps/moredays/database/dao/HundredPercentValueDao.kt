@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface HundredPercentValueDao {
-    @Query("SELECT * FROM hundredpercentvalue order by date desc")
+    @Query("SELECT * FROM hundredpercentvalue order by date asc")
     fun getAll(): Flow<List<HundredPercentValue>>
 
     @Query("INSERT INTO hundredpercentvalue SELECT :date as date, sum(goal.points) as points from goal where is_old = 0")

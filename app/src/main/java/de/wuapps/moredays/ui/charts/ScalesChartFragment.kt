@@ -22,7 +22,9 @@ import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.database.entity.ScaleData
 import de.wuapps.moredays.databinding.FragmentScalesChartBinding
+import de.wuapps.moredays.utilities.DEFAULT_COLOR
 import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.getColorThemeRes
 import kotlinx.coroutines.InternalCoroutinesApi
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,6 +41,7 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var selectedScale: Scale? = null
     private val data = ArrayList<ScaleData>()
     private val scaleNames = ArrayList<String>()
+    private var textColorPrimary = DEFAULT_COLOR
 
     @InternalCoroutinesApi
     override fun onCreateView(
@@ -53,6 +56,7 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.recyclerview.adapter = adapter
         val touchHelper = getItemTouchHelper(adapter)
         touchHelper.attachToRecyclerView(binding.recyclerview)
+        textColorPrimary = requireContext().getColorThemeRes(android.R.attr.textColorPrimary)
         subscribeUi()
         return binding.root
     }
@@ -114,6 +118,7 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 return mFormat.format(Date(value.toLong()))
             }
         })
+        xAxis.textColor = textColorPrimary
         val yAxis = chart.getAxisLeft()
         chart.getAxisRight().setEnabled(false)
         if (!selectedScale!!.isIntValue)
@@ -122,9 +127,11 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
         yAxis.setAxisMaximum(selectedScale!!.maxValue.toFloat())
         yAxis.setAxisMinimum(selectedScale!!.minValue.toFloat())
         chart.data = lineData
+        yAxis.textColor = textColorPrimary
         val description = Description()
         description.text = selectedScale!!.name
         description.textSize = 14f
+        description.textColor = textColorPrimary
         chart.description = description
         chart.invalidate()
     }
