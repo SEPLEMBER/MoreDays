@@ -140,7 +140,7 @@
     <string name="onboarding_desc3">In the menu you will find many ways to adapt and analyse your data, give it a try :) only what feels easy and light may be done daily …</string>
     <string name="msg_tutorial_complete">Tutorial completet, start using it :)</string>
     <string name="today">today</string>
-    <string name="ini_circle_value">let\'s start %s :)</string>
+    <string name="ini_circle_value">:)</string>
 
     <!-- tap help -->
     <string name="help_goal">Define your own goals. How do you want to be? What belongs to a balanced day? With the activities you define different ways to reach these goals.</string>

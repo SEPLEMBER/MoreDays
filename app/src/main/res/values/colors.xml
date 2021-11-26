@@ -14,5 +14,6 @@
     <color name="cardColor">#efefef</color>
     <color name="textOnCardColor">#3E3E3E</color>
     <color name="challenge_status_succeeded">#CDDC39</color>
+    <color name="lightGray">#BDBDBD</color>
 </resources>
 

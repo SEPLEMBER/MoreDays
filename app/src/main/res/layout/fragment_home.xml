@@ -50,6 +50,9 @@
             app:textSize="@dimen/textsize_percentage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:percentageWidth="60"
+            app:centerColor="@color/background"
+            app:progressBackgroundColor="@color/lightGray"
             app:layout_constraintBottom_toTopOf="@id/recyclerViewGoals"/>
 
         <androidx.recyclerview.widget.RecyclerView

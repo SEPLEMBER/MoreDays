@@ -20,5 +20,5 @@
     <dimen name="line_chart_height">300dp</dimen>
     <dimen name="min_accesible_textsize">12sp</dimen>
     <dimen name="textsize_larger">14sp</dimen>
-    <dimen name="textsize_percentage">48sp</dimen>
+    <dimen name="textsize_percentage">32sp</dimen>
 </resources>

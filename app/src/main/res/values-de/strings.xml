@@ -118,7 +118,7 @@
 
     <string name="msg_tutorial_complete">Tutorial beendet, los geht\'s :)</string>
     <string name="today">heute</string>
-    <string name="ini_circle_value">Los geht\'s %s :)</string>
+    <string name="ini_circle_value">:)</string>
     <string name="help_goal">Diesen Zielen möchtest du jeden Tag einen Schritt näher kommen. Lege selbst fest, was deine Ziele sind und wie du sie mit Aktivitäten erreichen kannst.</string>
     <string name="help_goal_points">Diese Anzahl von Punkten möchtest du täglich durch verschiedene Aktivitäten erreichen.</string>
     <string name="settings_personal_header">Persönliche Daten</string>
