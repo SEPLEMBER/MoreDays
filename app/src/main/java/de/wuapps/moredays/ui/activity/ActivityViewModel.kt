@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import de.wuapps.moredays.database.dao.ActivityDao
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
+import de.wuapps.moredays.database.entity.HundredPercentValue
 import kotlinx.coroutines.launch
 
 
@@ -13,17 +14,23 @@ class ActivityViewModel(
     _goal: Goal?,
     _activity: Activity?
 ) : ViewModel() {
-    val activity = _activity
+    var isNew = _activity == null
+    val activity = _activity ?: Activity()
     val goal = _goal!!
-    val isNew = activity == null
     val hasFab = false
 
-    fun insert(activity: Activity) = viewModelScope.launch {
-        activityDao.insert(activity)
-    }
-
-    fun update() = viewModelScope.launch {
-        activityDao.update(activity!!)
+    fun save() {
+        if (isNew) {
+            isNew = false
+            viewModelScope.launch {
+                activity.goalId = goal.uid
+                activity.uid = activityDao.insert(activity)
+            }
+        } else {
+            viewModelScope.launch {
+                activityDao.update(activity)
+            }
+        }
     }
 
     fun delete() = viewModelScope.launch {

@@ -45,13 +45,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="@dimen/min_accesible_size"
-            app:textColor="?colorOnBackground"
+            app:textColor="?colorOnSurface"
             app:textSize="@dimen/textsize_percentage"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:percentageWidth="60"
             app:centerColor="?colorSurface"
-            app:progressBackgroundColor="@color/lightGray"
+            app:progressBackgroundColor="@color/gray400"
             app:layout_constraintBottom_toTopOf="@id/recyclerViewGoals"/>
 
         <androidx.recyclerview.widget.RecyclerView

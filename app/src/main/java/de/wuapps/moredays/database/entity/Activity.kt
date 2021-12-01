@@ -30,7 +30,7 @@ class Activity(
     @ColumnInfo(name = "is_old") //old = formerly used, should not be able to be selected, but keep associated data and show it in bar chart
     var isOld: Boolean
 ) : Parcelable {
-    constructor() : this(0, "", 0, 0, false)
+    constructor() : this(0, "", 0, 1, false)
 
     @Ignore
     constructor(name: String, goalId: Long, points: Int) : this() {

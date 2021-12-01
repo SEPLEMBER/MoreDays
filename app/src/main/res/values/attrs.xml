@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="hintTextColor" format="color" />
+    <attr name="hintBackgroundColor" format="color" />
+    <attr name="textOnHelpCardColor" format="color" />
+    <attr name="helpCardColor" format="color" />
+    <attr name="trophyTextColor" format="color" />
+    <attr name="splashForegroundColor" format="color" />
+</resources>

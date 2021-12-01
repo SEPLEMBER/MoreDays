@@ -65,7 +65,7 @@
         Wie möchtest du sein? Definiere deine persönlichen Ziele und wie du diese jeden Tag erreichen kannst.
         Betrachte nur die Ziele, für die du jeden Tag etwas tun möchtest, vielleicht möchtest du fit, entspannt und schlank sein, dann sind das deine Ziele.
         Starte mit wenigen
-        Zielen und wenigen Punkten -- die Punkte dienen zur Gewichtung der Ziele.
+        Zielen und wenigen Punkten — die Punkte dienen zur Gewichtung der Ziele.
         <h1>Aktivitäten</h1>
         Aktivitäten sind die Möglichkeiten, Ziele zu erreichen. Es gibt immer mehr als einen Weg. Um fit zu werden, kannst du spazieren gehen oder dich richtig auspowern, an dem einen Tag das eine an dem
         anderen das andere oder eine Kombination aus verschiedenen Aktivitäten. Denke also verschiedene Tage durch und überlege, was jeweils möglich ist. Die Punkte spiegeln wieder, wie schwer es dir fällt oder wieviel Zeit du brauchst und natürlich den Anteil, um
@@ -77,8 +77,8 @@
         dazu gibt es genug im Netz, suche danach und schaue, was für dich passt.
         <h1>Diagramme</h1>
         Hier kannst du die alle Daten anschauen, analysieren, welche Ziele dir schon leicht gelingen, welche Aktivitäten oder wie sich dein Gewicht entwickelt.
-        ]]>
-    </string>
+
+    ]]></string>
     <string name="help_tips_title">Tipps &amp; Tricks</string>
     <string name="help_about_title">Über uns</string>
     <string name="help_about_content">Um Android-Entwicklung lehren zu können, habe ich diese App entwickelt, so dass ich in viele Fallen und Probleme reintapse ;-).</string>
@@ -124,9 +124,6 @@
     <string name="settings_personal_header">Persönliche Daten</string>
     <string name="settings_start_header">Start</string>
     <string name="settings_your_name_title">Dein Name</string>
-    <string name="settings_start_home_title">Startseite</string>
-    <string name="settings_start_home_title_on">zeige das Journal als Startseite</string>
-    <string name="settings_start_home_title_off">zeige die Ziele und Kreise als Startseite</string>
     <string name="label_chk_is_integer">nure ganze Zahlen</string>
     <string name="help_activities_short">Aktivitäten sind die Möglichkeiten, wie du deine Ziele erreichen kannst. Beispielsweise für dein Ziel fit zu werden könntest du Sport, Spaziergang und Morgengymnastik als Aktivitäten definieren. Die Punkte einer Aktivität kannst du selbst festlegen, orientiere dich z.B. daran, wie schwer dir etwas fällt oder wieviel Zeit benötigt wird.
         Achte darauf, dass du mit verschiedenen Kombinationen an Aktivitäten die gewünschte Punktzahl des jeweiligen Ziels erreichen kannst.</string>

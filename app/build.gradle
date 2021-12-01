@@ -17,8 +17,8 @@ android {
         applicationId "de.wuapps.moredays"
         minSdkVersion 24
         targetSdkVersion 31
-        versionCode 4
-        versionName '1.0.4'
+        versionCode 5
+        versionName '1.0.5'
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -63,6 +63,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.viewpager:viewpager:1.0.0'
     implementation 'androidx.preference:preference-ktx:1.1.1'
+    //androidx.preference:preference:1.0.0
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

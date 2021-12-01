@@ -116,7 +116,7 @@ class HomeFragment : Fragment() {
         if (calendar.isSameDay(Calendar.getInstance()))
             binding.textViewDate.background = null
         else
-            binding.textViewDate.setBackgroundColor(getColor(requireContext(), R.color.primaryDarkColor))
+            binding.textViewDate.setBackgroundColor(getColor(requireContext(), R.color.orange700))
     }
 
     private fun getDateStringToDate(dateCalendar: Calendar): String {

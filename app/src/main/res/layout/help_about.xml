@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/cardColor"
+    android:background="?helpCardColor"
     android:orientation="vertical">
 
     <com.github.florent37.expansionpanel.ExpansionHeader
@@ -30,7 +30,7 @@
                 android:gravity="center_vertical"
                 android:text="@string/help_about_title"
                 android:textAlignment="gravity"
-                android:textColor="@color/textOnCardColor" />
+                android:textColor="?textOnHelpCardColor" />
 
             <ImageView
                 android:id="@+id/headerIndicator"

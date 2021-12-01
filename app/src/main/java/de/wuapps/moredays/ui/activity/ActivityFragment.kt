@@ -11,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import de.wuapps.moredays.R
-import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.databinding.FragmentActivityBinding
 import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.handleFab
@@ -43,8 +42,7 @@ class ActivityFragment : Fragment() {
             view?.post {
                 findNavController().popBackStack()
             }
-        }
-        else {
+        } else {
             val alertDialog: AlertDialog.Builder =
                 AlertDialog.Builder(requireNotNull(this.activity))
             alertDialog.setTitle(getString(R.string.title_delete))
@@ -90,18 +88,11 @@ class ActivityFragment : Fragment() {
         }
         if (!isValid)
             return
-        if (viewModel.isNew) {
-            val activity = Activity()
-            activity.goalId = viewModel.goal.uid
-            activity.name = name
-            activity.points = points
-            activity.isOld = isOld
-            viewModel.insert(activity)
-        } else {
-            viewModel.activity!!.points = points //trick supports only one way binding!!!
-            viewModel.activity!!.goalId = viewModel.goal.uid
-            viewModel.update()
-        }
+        viewModel.activity!!.name = name
+        viewModel.activity!!.isOld = isOld
+        viewModel.activity!!.points = points //trick supports only one way binding!!!
+        viewModel.save()
+
         view?.post {
             findNavController().popBackStack()
         }

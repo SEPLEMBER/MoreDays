@@ -63,7 +63,7 @@
                 android:min="0"
                 android:padding="0dp"
                 android:progress="@{goalEntry.currentValue}"
-                android:progressTint="@color/secondaryColor"
+                android:progressTint="@color/lime500"
                 android:visibility="visible"
                  />
         </LinearLayout>

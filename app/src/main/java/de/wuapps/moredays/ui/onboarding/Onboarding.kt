@@ -13,9 +13,9 @@ class Onboarding : AppIntro() {
         addSlide(
             AppIntroFragment.newInstance(
 
-                backgroundColor = getColor(R.color.primaryColor),
-                titleColor = getColor(R.color.primaryTextColor),
-                descriptionColor = getColor(R.color.primaryTextColor),
+                backgroundColor = getColor(R.color.orange500),
+                titleColor = getColor(R.color.gray900),
+                descriptionColor = getColor(R.color.gray900),
                 title = getString(R.string.onboarding_title1),
                 description = getString(R.string.onboarding_desc1),
                 imageDrawable = R.drawable.ic_privacy
@@ -23,9 +23,9 @@ class Onboarding : AppIntro() {
         )
         addSlide(
             AppIntroFragment.newInstance(
-                backgroundColor = getColor(R.color.secondaryColor),
-                titleColor = getColor(R.color.secondaryTextColor),
-                descriptionColor = getColor(R.color.secondaryTextColor),
+                backgroundColor = getColor(R.color.lime500),
+                titleColor = getColor(R.color.gray600),
+                descriptionColor = getColor(R.color.gray600),
                 title = getString(R.string.onboarding_title2),
                 description = getString(R.string.onboarding_desc2),
                 imageDrawable = R.drawable.ic_intro_2
@@ -33,17 +33,17 @@ class Onboarding : AppIntro() {
         )
         addSlide(
             AppIntroFragment.newInstance(
-                backgroundColor = getColor(R.color.primaryVariantColor),
-                titleColor = getColor(R.color.primaryTextColor),
-                descriptionColor = getColor(R.color.primaryTextColor),
+                backgroundColor = getColor(R.color.orange100),
+                titleColor = getColor(R.color.gray900),
+                descriptionColor = getColor(R.color.gray900),
                 title = getString(R.string.onboarding_title3),
                 description = getString(R.string.onboarding_desc3),
                 imageDrawable = R.drawable.ic_intro_3
             )
         )
-        this.setColorDoneText(getColor(R.color.primaryTextColor))
-        this.setIndicatorColor(getColor(R.color.primaryTextColor), getColor(R.color.white))
-        this.setNextArrowColor(getColor(R.color.primaryTextColor))
+        this.setColorDoneText(getColor(R.color.gray900))
+        this.setIndicatorColor(getColor(R.color.gray900), getColor(R.color.white))
+        this.setNextArrowColor(getColor(R.color.gray900))
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {

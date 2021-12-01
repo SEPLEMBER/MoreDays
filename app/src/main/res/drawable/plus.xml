@@ -13,6 +13,6 @@
             android:name="plus_path"
             android:pathData="M12,0L12,24M0,12,L24,12"
             android:strokeWidth="3"
-            android:strokeColor="@color/secondaryTextColor" />
+            android:strokeColor="@color/gray600" />
     </group>
 </vector>

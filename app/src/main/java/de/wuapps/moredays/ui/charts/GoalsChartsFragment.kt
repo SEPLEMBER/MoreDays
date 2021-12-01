@@ -3,7 +3,6 @@ package de.wuapps.moredays.ui.charts
 import android.graphics.Color
 import android.graphics.RectF
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.charts.CombinedChart
 import com.github.mikephil.charting.charts.CombinedChart.DrawOrder
 import com.github.mikephil.charting.charts.RadarChart
 import com.github.mikephil.charting.components.Legend
@@ -25,18 +23,18 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.FragmentGoalsChartsBinding
 import de.wuapps.moredays.ui.customviews.SimpleMarkerView
 import de.wuapps.moredays.ui.customviews.StackedMarkerView
+import de.wuapps.moredays.utilities.DEFAULT_COLOR
 import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.getColorThemeRes
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.Comparator
 import kotlin.collections.ArrayList
-import android.util.TypedValue
-import de.wuapps.moredays.R
-import de.wuapps.moredays.utilities.DEFAULT_COLOR
-import de.wuapps.moredays.utilities.getColorThemeRes
+import kotlin.math.floor
 
 
 class GoalsChartsFragment : Fragment() {
@@ -98,8 +96,7 @@ class GoalsChartsFragment : Fragment() {
         val colorsGoals: MutableList<Int> = ArrayList()
         val goalNames: MutableList<String> = ArrayList()
         val activityNames: MutableList<String> = ArrayList()
-        var i = 0
-        for (goalData in data) {
+        for ((i, goalData) in data.withIndex()) {
             colorsGoals.add(goalData.goal.color)
             goalNames.add(goalData.goal.name)
             barEntriesGoalsTotal.add(
@@ -120,8 +117,7 @@ class GoalsChartsFragment : Fragment() {
             )
             radarEntriesSumPoints.add(RadarEntry(goalData.sumPoints.toFloat()))
             radarEntriesGoalsMade.add(RadarEntry(goalData.countDaysMade.toFloat()))
-            var j = 0
-            for (activityEntry in goalData.activitySummaries) {
+            for ((_, activityEntry) in goalData.activitySummaries.withIndex()) {
                 barEntriesActivity.add(
                     BarEntry(
                         activityNames.size.toFloat(),
@@ -132,9 +128,7 @@ class GoalsChartsFragment : Fragment() {
                 )
                 activityNames.add(activityEntry.activity.name)
                 colorsActivities.add(goalData.goal.color)
-                j++
             }
-            i++
         }
         adaptBarChart(
             barEntriesActivity,
@@ -142,7 +136,7 @@ class GoalsChartsFragment : Fragment() {
             colorsActivities,
             activityNames
         )
-        binding.barChartActivities.getXAxis().setDrawLabels(false)
+        binding.barChartActivities.xAxis.setDrawLabels(false)
         if (barEntriesActivity.size > NUMBER_VISIBLE_BARS) {
             binding.barChartActivities.moveViewToX(barEntriesActivity.size.toFloat()) //got to today, calls invalidate already
         } else {
@@ -160,41 +154,41 @@ class GoalsChartsFragment : Fragment() {
         radarDataSet: RadarDataSet,
         names: Array<String>
     ) {
-        radarDataSet.setColor(getColor(this.requireContext(), R.color.secondaryColor))
-        radarDataSet.setFillColor(getColor(this.requireContext(), R.color.secondaryVariantColor))
+        radarDataSet.color = getColor(this.requireContext(), R.color.lime500)
+        radarDataSet.fillColor = getColor(this.requireContext(), R.color.gray400)
         radarDataSet.setDrawFilled(true)
-        radarDataSet.setFillAlpha(180)
-        radarDataSet.setLineWidth(2f)
-        radarDataSet.setDrawHighlightCircleEnabled(true)
+        radarDataSet.fillAlpha = 180
+        radarDataSet.lineWidth = 2f
+        radarDataSet.isDrawHighlightCircleEnabled = true
         radarDataSet.setDrawHighlightIndicators(false)
-        val radarDataList: ArrayList<IRadarDataSet> = ArrayList<IRadarDataSet>()
+        val radarDataList: ArrayList<IRadarDataSet> = ArrayList()
         radarDataList.add(radarDataSet)
-        chart.getDescription().setEnabled(false)
-        chart.setWebLineWidth(1f)
-        chart.setWebColor(Color.LTGRAY)
-        chart.setWebLineWidthInner(1f)
-        chart.setWebColorInner(Color.LTGRAY)
-        chart.setWebAlpha(100)
-        val xAxis: XAxis = chart.getXAxis()
-        xAxis.setTextSize(TEXTSIZE_LEGEND)
+        chart.description.isEnabled = false
+        chart.webLineWidth = 1f
+        chart.webColor = Color.LTGRAY
+        chart.webLineWidthInner = 1f
+        chart.webColorInner = Color.LTGRAY
+        chart.webAlpha = 100
+        val xAxis: XAxis = chart.xAxis
+        xAxis.textSize = TEXTSIZE_LEGEND
         xAxis.textColor = textColorPrimary
-        xAxis.setYOffset(0f)
-        xAxis.setXOffset(0f)
-        xAxis.setValueFormatter(object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String? {
+        xAxis.yOffset = 0f
+        xAxis.xOffset = 0f
+        xAxis.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
                 return names[value.toInt() % names.size]
             }
-        })
-        val yAxis: YAxis = chart.getYAxis()
+        }
+        val yAxis: YAxis = chart.yAxis
         yAxis.setLabelCount(names.size, false)
-        yAxis.setTextSize(TEXTSIZE_LEGEND)
-        yAxis.setTextColor(textColorPrimary)
-        yAxis.setAxisMinimum(0f)
+        yAxis.textSize = TEXTSIZE_LEGEND
+        yAxis.textColor = textColorPrimary
+        yAxis.axisMinimum = 0f
         yAxis.setDrawLabels(false)
-        val l: Legend = chart.getLegend()
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP)
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT)
-        l.setOrientation(Legend.LegendOrientation.HORIZONTAL)
+        val l: Legend = chart.legend
+        l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+        l.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
+        l.orientation = Legend.LegendOrientation.HORIZONTAL
         l.textColor = textColorPrimary
         l.setDrawInside(true)
         val radarData = RadarData(radarDataList)
@@ -202,12 +196,12 @@ class GoalsChartsFragment : Fragment() {
         radarData.setDrawValues(true)
         radarData.setValueTextColor(textColorPrimary)
         radarData.setValueFormatter(object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String? {
-                return Math.floor(value.toDouble()).toInt().toString()
+            override fun getFormattedValue(value: Float): String {
+                return floor(value.toDouble()).toInt().toString()
             }
         }
         )
-        chart.setData(radarData)
+        chart.data = radarData
         chart.animateXY(1000, 1000)
     }
 
@@ -219,52 +213,52 @@ class GoalsChartsFragment : Fragment() {
         names: List<String>
     ) {
         val barDataSet = BarDataSet(entries, "")
-        barDataSet.setColors(colors)
+        barDataSet.colors = colors
         barDataSet.setDrawValues(false)
         val data = BarData(barDataSet)
-        data.setBarWidth(BAR_WIDTH)
-        chart.setData(data)
+        data.barWidth = BAR_WIDTH
+        chart.data = data
         val barRect = RectF()
         chart.getBarBounds(entries[0], barRect)
-        chart.getDescription().setEnabled(false)
+        chart.description.isEnabled = false
         chart.setVisibleXRangeMaximum(10f)
-        chart.getLegend().setEnabled(false)
-        val xAxis: XAxis = chart.getXAxis()
+        chart.legend.isEnabled = false
+        val xAxis: XAxis = chart.xAxis
         xAxis.setDrawAxisLine(false)
-        xAxis.setValueFormatter(IndexAxisValueFormatter(names))
+        xAxis.valueFormatter = IndexAxisValueFormatter(names)
         xAxis.setDrawLabels(true)
-        xAxis.setLabelCount(names.size)
-        xAxis.setTextSize(TEXTSIZE_LEGEND)
+        xAxis.labelCount = names.size
+        xAxis.textSize = TEXTSIZE_LEGEND
         chart.setDrawValueAboveBar(false)
         val intValueFormatter: ValueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String? {
-                return Math.floor(value.toDouble()).toInt().toString()
+            override fun getFormattedValue(value: Float): String {
+                return floor(value.toDouble()).toInt().toString()
             }
         }
-        val yAxisLeft: YAxis = chart.getAxisLeft()
-        val yAxisRight: YAxis = chart.getAxisRight()
-        yAxisLeft.setAxisMinimum(0f)
-        yAxisRight.setAxisMinimum(0f)
-        yAxisLeft.setValueFormatter(intValueFormatter)
-        yAxisRight.setValueFormatter(intValueFormatter)
-        yAxisLeft.setLabelCount(5)
-        yAxisRight.setLabelCount(5)
+        val yAxisLeft: YAxis = chart.axisLeft
+        val yAxisRight: YAxis = chart.axisRight
+        yAxisLeft.axisMinimum = 0f
+        yAxisRight.axisMinimum = 0f
+        yAxisLeft.valueFormatter = intValueFormatter
+        yAxisRight.valueFormatter = intValueFormatter
+        yAxisLeft.labelCount = 5
+        yAxisRight.labelCount = 5
         val mv = SimpleMarkerView(this.requireContext(), R.layout.simple_marker_view)
-        mv.setChartView(chart) // For bounds control
+        mv.chartView = chart // For bounds control
         chart.setDrawMarkers(true)
-        chart.setMarker(mv) // Set the marker to the chart
-        chart.setHighlightPerTapEnabled(true) //otherwise marker will not work
+        chart.marker = mv // Set the marker to the chart
+        chart.isHighlightPerTapEnabled = true //otherwise marker will not work
         val barWidth = barRect.right - barRect.left
 
-        chart.setExtraBottomOffset(20F)
+        chart.extraBottomOffset = 20F
         val longestLabelLength = Collections.max(
             names,
             Comparator.comparing { obj: String -> obj.length }).length
         if (longestLabelLength * 12 > barWidth) {
-            xAxis.setLabelRotationAngle(45F)
-            chart.setExtraBottomOffset(50F)
+            xAxis.labelRotationAngle = 45F
+            chart.extraBottomOffset = 50F
         }
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM)
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
         chart.animateXY(1000, 1000)
     }
 
@@ -273,9 +267,9 @@ class GoalsChartsFragment : Fragment() {
         val countGoals = data[0].goalPoints.size
         val chart = binding.combinedChartHistory
         chart.clear()
-        chart.setDrawOrder(arrayOf(DrawOrder.LINE, DrawOrder.BAR))
+        chart.drawOrder = arrayOf(DrawOrder.LINE, DrawOrder.BAR)
         val colors = ArrayList<Int>()
-        val labels = Array<String>(countGoals){ ""}
+        val labels = Array(countGoals){ ""}
         val barEntries: MutableList<BarEntry> = ArrayList()
         val hundredPercentLineValues = ArrayList<Entry>()
         val shortDateFormat = SimpleDateFormat(getString(R.string.date_md))
@@ -309,16 +303,16 @@ class GoalsChartsFragment : Fragment() {
             dates[barIndex] = ""
             barEntries.add(BarEntry(barIndex.toFloat(), null, ""))
         }
-        chart.getXAxis().setValueFormatter(IndexAxisValueFormatter(dates))
-        chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM)
-        chart.getAxisLeft().setDrawLabels(false)
-        chart.getAxisRight().setDrawLabels(false)
+        chart.xAxis.valueFormatter = IndexAxisValueFormatter(dates)
+        chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        chart.axisLeft.setDrawLabels(false)
+        chart.axisRight.setDrawLabels(false)
 
         val mv = StackedMarkerView(this.requireContext(), R.layout.simple_marker_view)
-        mv.setChartView(chart) // For bounds control
+        mv.chartView = chart // For bounds control
         chart.setDrawMarkers(true)
-        chart.setMarker(mv) // Set the marker to the chart
-        chart.setHighlightPerTapEnabled(true) //otherwise marker will not work
+        chart.marker = mv // Set the marker to the chart
+        chart.isHighlightPerTapEnabled = true //otherwise marker will not work
 
         val setLine = LineDataSet(hundredPercentLineValues, "100%")
         setLine.lineWidth = 2f
@@ -342,24 +336,24 @@ class GoalsChartsFragment : Fragment() {
         val combinedData = CombinedData()
         combinedData.setData(bar)
         combinedData.setData(dataTotalDesired)
-        chart.setData(combinedData)
+        chart.data = combinedData
 
 
-        chart.getDescription().setEnabled(false)
+        chart.description.isEnabled = false
 
         chart.setVisibleXRangeMaximum(10f)
-        chart.getAxisLeft().setAxisMinimum(0f)
-        chart.getAxisRight().setAxisMinimum(0f)
+        chart.axisLeft.axisMinimum = 0f
+        chart.axisRight.axisMinimum = 0f
 
-        chart.getAxisLeft().setValueFormatter(object : ValueFormatter() {
+        chart.axisLeft.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
-                return Math.floor(value.toDouble()).toInt().toString()
+                return floor(value.toDouble()).toInt().toString()
             }
-        })
-        chart.getAxisLeft().setLabelCount(5)
-        chart.getAxisRight().setLabelCount(5)
+        }
+        chart.axisLeft.labelCount = 5
+        chart.axisRight.labelCount = 5
 
-        val l: Legend = chart.getLegend()
+        val l: Legend = chart.legend
         l.textColor = textColorPrimary
         l.isWordWrapEnabled = true
 

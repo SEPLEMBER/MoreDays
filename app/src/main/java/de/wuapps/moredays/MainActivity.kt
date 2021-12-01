@@ -68,8 +68,6 @@ class MainActivity : AppCompatActivity() {
         navView.background = null
         val preferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(this)
-        if (preferences.getBoolean(getString(R.string.preferences_start_fragment_key), false))
-            navController.navigate(R.id.navigation_journalList)
         if (preferences.getBoolean(getString(R.string.preferences_dark_mode_key), false))
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         loadIconPack()
