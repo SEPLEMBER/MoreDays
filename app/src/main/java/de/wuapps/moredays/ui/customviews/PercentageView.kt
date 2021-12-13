@@ -4,16 +4,21 @@ import android.content.Context
 import android.graphics.*
 import android.text.TextPaint
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import de.wuapps.moredays.R
 import de.wuapps.moredays.ui.home.GoalEntry
+import java.util.logging.Logger
 import kotlin.math.abs
+import kotlin.math.log
 
 
-// based on https://github.com/turkergoksu/PercentageView
+// based on https://github.com/turkergoksu/PercentageView and https://tomkubasik.medium.com/enhance-your-android-app-with-custom-view-ad344d28b501
 class PercentageView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
+
+    private val TAG = "PercentageView"
 
     private val START_ANGLE_OF_PERCENTAGE_BAR = 135F
     private val PERCENTAGE_TOTAL_ANGLE = 270F
@@ -27,7 +32,7 @@ class PercentageView @JvmOverloads constructor(
 
     private var percentage = 33F
     private var textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-        style = Paint.Style.STROKE
+        style = Paint.Style.FILL
         textSize = 50.0f
     }
     private var hasRoundEnds = true
@@ -45,6 +50,7 @@ class PercentageView @JvmOverloads constructor(
 
 
     init {
+        Log.d(TAG, "ini")
         val typedArray = context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.PercentageView,
@@ -84,21 +90,33 @@ class PercentageView @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        rectF.left = 0F
-        rectF.top = 0F
-        rectF.right = width.coerceAtMost(height).toFloat()
-        rectF.bottom = width.coerceAtMost(height).toFloat()
+        val squareSize = Math.min(width, height).toFloat()
+        var marginLeft = 0F
+        var marginTop = 0F
+        if (width > height) { //center horizontally
+            marginLeft = (width - height)/2F
+        }
+        else {
+            marginTop = (height - width)/2F
+        }
+        rectF.left = marginLeft
+        rectF.top = marginTop
+        rectF.right = marginLeft + squareSize
+        rectF.bottom = marginTop + squareSize
+        Log.d(TAG, "onSizeChanged - height:"+height + ", width:"+width+", right:"+rectF.right + ", bottom"+rectF.bottom)
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-
-        val centerX = (measuredWidth / 2).toFloat()
-        val centerY = (measuredHeight / 2).toFloat()
+        if (canvas == null || goalEntries.isEmpty())
+            return
+        Log.d(TAG, "start onDraw")
+        val centerX = (width / 2).toFloat()
+        val centerY = (height / 2).toFloat()
         val radius = centerX.coerceAtMost(centerY)
-
+        Log.d(TAG, "x:"+centerX + "y:"+centerY + ", radius:"+radius + ", right:"+rectF.right + ", bottom"+rectF.bottom)
         // Percentage bar background
-        canvas?.drawArc(
+        canvas.drawArc(
             rectF,
             START_ANGLE_OF_PERCENTAGE_BAR,
             PERCENTAGE_TOTAL_ANGLE,
@@ -111,9 +129,9 @@ class PercentageView @JvmOverloads constructor(
         var isStart = true
         for (item in goalEntries) {
             if (item.getDesiredValue() > 0 && item.getCurrentValue() > 0) {
-                var angle = getAngleToPercentage(item.getCurrentValue() * 100F / desiredTotal)
+                val angle = getAngleToPercentage(item.getCurrentValue() * 100F / desiredTotal)
                 progressPaint.color = item.getColor()
-                canvas?.drawArc(
+                canvas.drawArc(
                     rectF,
                     startAngle,
                     angle,
@@ -136,19 +154,19 @@ class PercentageView @JvmOverloads constructor(
             //start circle
             val angle = START_ANGLE_OF_PERCENTAGE_BAR.toDouble()
             //y should be +, but due to the obtuse angle it's -- ...
-            canvas?.drawCircle(
-                rectF!!.centerX() - diffOuterCircleInnerCircle *
+            canvas.drawCircle(
+                rectF.centerX() - diffOuterCircleInnerCircle *
                         Math.sin(Math.toRadians(angle)).toFloat(),
-                rectF!!.centerY() - diffOuterCircleInnerCircle *
+                rectF.centerY() - diffOuterCircleInnerCircle *
                         Math.cos(Math.toRadians(angle)).toFloat(),
                 fillCircleRadius,
                 startCirclePaint
             )
             //end circle
-            canvas?.drawCircle(
-                rectF!!.centerX() + diffOuterCircleInnerCircle *
+            canvas.drawCircle(
+                rectF.centerX() + diffOuterCircleInnerCircle *
                         Math.sin(Math.toRadians(angle)).toFloat(),
-                rectF!!.centerY() - diffOuterCircleInnerCircle *
+                rectF.centerY() - diffOuterCircleInnerCircle *
                         Math.cos(Math.toRadians(angle)).toFloat(),
                 fillCircleRadius,
                 endCirclePaint
@@ -156,7 +174,7 @@ class PercentageView @JvmOverloads constructor(
         }
 
         // Center circle of percentage bar -- to have a width instead of a full circle
-        canvas?.drawCircle(
+        canvas.drawCircle(
             rectF.centerX(),
             rectF.centerY(),
             radius - percentageWidth,
@@ -166,12 +184,13 @@ class PercentageView @JvmOverloads constructor(
         // Draw Text
         val textSizeWidth =
             textPaint.measureText(label)
-        canvas?.drawText(
+        canvas.drawText(
             label,
             rectF.centerX() - textSizeWidth / 2,
             rectF.centerY() + textPaint.textSize / 2,
             textPaint
         )
+        Log.d(TAG, "end onDraw")
     }
 
     private fun getAngleToPercentage(percentage: Float): Float {
@@ -179,11 +198,12 @@ class PercentageView @JvmOverloads constructor(
     }
 
     fun setCirclesData(circleData: List<GoalEntry>) {
+        Log.d(TAG, "setcirclesDAta")
         goalEntries = circleData
         calcPercentage()
         startCirclePaint.color = progressBackgroundPaint.color
         endCirclePaint.color = progressBackgroundPaint.color
-        this.requestLayout() //recalculate needed width/height
+        invalidate() //force redraw
     }
 
     private fun calcPercentage() {

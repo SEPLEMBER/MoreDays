@@ -293,6 +293,6 @@ Usually, you write one assert per test. However the test preparation is relativ 
   - https://uxplanet.org/ui-design-resources-to-kickstart-your-project-ce2bea7a3740
   - https://undraw.co/illustrations oder https://www.drawkit.io/
   - https://blog.spoongraphics.co.uk/articles/25-classic-fonts-that-will-last-a-whole-design-career
-  - colors: from https://www.materialpalette.com/colors 500 or 600 for light theme, 200 for dark theme
+  - colors: from https://www.materialpalette.com/colors 500 or 600 for light theme, 200 for dark theme, theming names see https://material.io/develop/android/theming/color and https://material.io/design/color/the-color-system.html
 
 ## Thanks

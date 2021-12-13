@@ -4,8 +4,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.FragmentContainer
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -13,7 +11,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.preference.PreferenceManager
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,25 +27,29 @@ class MainActivity : AppCompatActivity() {
     private var fragmentContainerPaddingBottom = 0
     private lateinit var bottomAppBar: BottomAppBar
     private var bottomAppBarVerticalOffsetOrg = 0F
-    private val app: MoreDaysApplication
-        get() = this.application as MoreDaysApplication
     private lateinit var iconPackLoader: IconPackLoader
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        iconPackLoader = IconPackLoader(this)
-        val sharedPref: SharedPreferences = getSharedPreferences(
-            getString(R.string.preferences_file_key),
-            MODE_PRIVATE
-        )  //getPreferences(MODE_PRIVATE)
-        if (!sharedPref.getBoolean(getString(R.string.preferences_onboarding), false)) {
-            val intentOnboarding = Intent(this, Onboarding::class.java)
-            startActivity(intentOnboarding)
-        }
+
+        handleOnboarding()
+
         setContentView(R.layout.activity_main)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+
+        iconPackLoader = IconPackLoader(this)
+        loadIconPack()
+
         fab = findViewById(R.id.fabMain)
         bottomAppBar = findViewById(R.id.bottomAppBar)
         bottomAppBarVerticalOffsetOrg = bottomAppBar.cradleVerticalOffset
+        fragmentContainerView = findViewById<FragmentContainerView>(R.id.nav_host_fragment)
+        fragmentContainerPaddingBottom = fragmentContainerView.paddingBottom
+
+        wireUpNavigation()
+
+    }
+
+    private fun wireUpNavigation() {
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
@@ -57,8 +58,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_placeholder, R.id.navigation_home, R.id.navigation_charts
             )
         )
-        fragmentContainerView = findViewById<FragmentContainerView>(R.id.nav_host_fragment)
-        fragmentContainerPaddingBottom = fragmentContainerView.paddingBottom
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -66,12 +65,9 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
         navView.menu.getItem(4).isEnabled = false
         navView.background = null
-        val preferences: SharedPreferences =
-            PreferenceManager.getDefaultSharedPreferences(this)
-        if (preferences.getBoolean(getString(R.string.preferences_dark_mode_key), false))
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        loadIconPack()
     }
+
+
 
     fun getFab(): FloatingActionButton {
         return fab
@@ -107,6 +103,17 @@ class MainActivity : AppCompatActivity() {
                 MoreDaysApplication.loaded.postValue(true)
                 pack
             }
+        }
+    }
+
+    private fun handleOnboarding() {
+        val sharedPref: SharedPreferences = getSharedPreferences(
+            getString(R.string.preferences_file_key),
+            MODE_PRIVATE
+        )
+        if (!sharedPref.getBoolean(getString(R.string.preferences_onboarding), false)) {
+            val intentOnboarding = Intent(this, Onboarding::class.java)
+            startActivity(intentOnboarding)
         }
     }
 }

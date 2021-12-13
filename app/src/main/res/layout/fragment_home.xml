@@ -48,7 +48,7 @@
             app:textColor="?colorOnSurface"
             app:textSize="@dimen/textsize_percentage"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:percentageWidth="60"
             app:centerColor="?colorSurface"

@@ -5,7 +5,6 @@
         <item name="colorPrimary">@color/orange700</item>
         <item name="colorPrimaryVariant">@color/orange700</item>
         <item name="colorOnPrimary">@color/white</item>
-        <!--<item name="android:textColorPrimary">@android:color/white</item>-->
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/orangeBrown900</item>
         <item name="colorSecondaryVariant">@color/gray400</item>
@@ -21,8 +20,6 @@
         <item name="colorOnError">@color/white</item>
 
         <item name="android:textColorPrimary">@color/almostWhite</item>
-
-        <!--<item name="colorControlNormal">@color/orange500</item>-->
 
         <!-- defined in attrs.xml -->
         <item name="hintTextColor">@color/white</item>

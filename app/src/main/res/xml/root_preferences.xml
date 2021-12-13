@@ -1,4 +1,4 @@
-<androidx.preference.PreferenceScreen
+<PreferenceScreen
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -13,4 +13,4 @@
             app:summaryOff="@string/settings_dark_mode_off"
             app:summaryOn="@string/settings_dark_mode_on"/>
 
-</androidx.preference.PreferenceScreen>
+</PreferenceScreen>
