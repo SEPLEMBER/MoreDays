@@ -305,6 +305,7 @@ class GoalsChartsFragment : Fragment() {
         }
         chart.xAxis.valueFormatter = IndexAxisValueFormatter(dates)
         chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        chart.xAxis.textColor = textColorPrimary
         chart.axisLeft.setDrawLabels(false)
         chart.axisRight.setDrawLabels(false)
 
@@ -364,9 +365,6 @@ class GoalsChartsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _adapter = null
-//        binding.combinedChartHistory.data = null
-//        binding.barChartActivities.data = null
-//        binding.radarChartDaysMade.data = null
         _binding = null
 
     }

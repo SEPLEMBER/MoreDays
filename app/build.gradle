@@ -133,4 +133,6 @@ dependencies {
 
     //import/export
     implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.1.0")
+
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 }

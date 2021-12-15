@@ -11,6 +11,8 @@ import de.wuapps.moredays.database.dao.*
 import de.wuapps.moredays.database.entity.*
 import de.wuapps.moredays.utilities.DATABASE_NAME
 import de.wuapps.moredays.utilities.DATABASE_VERSION
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Database(
     entities = [Activity::class, ActivityEntry::class, Goal::class, Scale::class, ScaleEntry::class, Trophy::class, Journal::class, HundredPercentValue::class],
@@ -40,7 +42,13 @@ abstract class MoreDaysDatabase : RoomDatabase() {
 
         private val MIGRATION_22_23 = object : Migration(22, 23) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("Drop table Challenge")
+                database.execSQL("Drop table if exists Challenge")
+            }
+        }
+        private val MIGRATION_23_24 = object : Migration(23, 24) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                val today = SimpleDateFormat(Journal.DATE_FORMAT).format(Date())
+                database.execSQL("insert into HundredPercentValue (date, points) select '$today' as date, sum(points) as points from goal where is_old = 0")
             }
         }
 
@@ -56,7 +64,7 @@ abstract class MoreDaysDatabase : RoomDatabase() {
                     DATABASE_NAME
                 )
                     .createFromAsset(context.getString(R.string.db_ini_name))
-                    .addMigrations(MIGRATION_21_22, MIGRATION_22_23)
+                    .addMigrations(MIGRATION_21_22, MIGRATION_22_23, MIGRATION_23_24)
                     .build()
                 INSTANCE = instance
                 // return instance

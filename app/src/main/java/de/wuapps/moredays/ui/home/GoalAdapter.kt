@@ -45,7 +45,8 @@ class GoalAdapter(private val onGoalClickHandler: (goal: Goal, activity: Activit
             val dialogBuilder = AlertDialog.Builder(context)
             val stringList: MutableList<String> = mutableListOf()
             val activities = goalEntry.getActivities().sortedBy { activity -> activity.points }
-            activities.forEach { activity -> stringList.add(activity.toString()) }
+            val tick = "\u2713"
+            activities.forEach { activity -> stringList.add("$activity ${tick.repeat(goalEntry.countActivityDoneToday(activity.uid))}") }
             val values: Array<String> = stringList.toTypedArray()
             dialogBuilder.setTitle(goalEntry.getName()).setItems(values) { _, position ->
                 val activity = activities[position]

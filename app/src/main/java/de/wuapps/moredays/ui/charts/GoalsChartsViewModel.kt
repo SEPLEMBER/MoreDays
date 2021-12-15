@@ -101,23 +101,19 @@ class GoalsChartsViewModel(
         goalSummaries.postValue(tmpSummary)
     }
     private fun onUpdateHistory(){
-        if (activityEntries.size == 0 || goals.size == 0) return
+        if (activityEntries.size == 0 || goals.size == 0 || hundredPercentValue.size == 0) return
         goals.sortedBy { it.uid }
-        val currentHundredPercentValue = goals.sumBy { it.points }
+        val currentHundredPercentValue = goals.filter{it.isOld == false}.sumOf{ it.points  }
         var tmpHistory = ArrayList<GoalsDate>()
+        val a = activityEntries.sortedBy { it.activityEntry.timestamp }.groupBy { Pair(it.activityEntry.timestamp.get(Calendar.YEAR), it.activityEntry.timestamp.get(Calendar.DAY_OF_YEAR)) }
         for (day in activityEntries.sortedBy { it.activityEntry.timestamp }.groupBy { Pair(it.activityEntry.timestamp.get(Calendar.YEAR), it.activityEntry.timestamp.get(Calendar.DAY_OF_YEAR)) }){ //ignore days without entries!
             //select latest from 100% < date -->dao
             val goalSumsDate = ArrayList<Pair<Goal, Int>>()
             for(goal in goals){
-                goalSumsDate.add(Pair(goal, day.value.filter{it.goal.uid == goal.uid}.sumBy { it.activity.points }))
+                goalSumsDate.add(Pair(goal, day.value.filter{it.goal.uid == goal.uid}.sumOf { it.activity.points }))
             }
-//            if (hundredPercentValue.size > 0){
-//                val x = hundredPercentValue.get(0)
-//                Log.d("hun", x.getDateAsCalendar().get(Calendar.YEAR).toString())
-//                Log.d("day", day.key.first.toString())
-//                Log.d("hun", x.getDateAsCalendar().get(Calendar.DAY_OF_YEAR).toString())
-//                Log.d("day", day.key.second.toString())
-//            }
+            val x = hundredPercentValue.filter { it.getDateAsCalendar().get(Calendar.YEAR) == day.key.first &&  day.key.second <= it.getDateAsCalendar().get(Calendar.DAY_OF_YEAR) }
+            val y = hundredPercentValue.filter { it.getDateAsCalendar().get(Calendar.YEAR) == day.key.first &&  day.key.second <= it.getDateAsCalendar().get(Calendar.DAY_OF_YEAR) }.lastOrNull()
             val hundredPercent = hundredPercentValue.filter { it.getDateAsCalendar().get(Calendar.YEAR) == day.key.first &&  day.key.second <= it.getDateAsCalendar().get(Calendar.DAY_OF_YEAR) }.firstOrNull()?.points
                 ?: currentHundredPercentValue
             val calendarDay = Calendar.getInstance()

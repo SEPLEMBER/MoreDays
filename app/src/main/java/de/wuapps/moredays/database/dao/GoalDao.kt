@@ -31,6 +31,10 @@ interface GoalDao {
     @Query("SELECT count(*) from Activity where activity.goal_id =:goalId")
     suspend fun isUsed(goalId: Long): Int
 
+    @Query("SELECT sum(points) from goal where is_old = 0")
+    fun getSumOfActive(): Int
+
+
     @Insert(onConflict = REPLACE)
     suspend fun insert(goal: Goal): Long
 

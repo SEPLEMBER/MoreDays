@@ -28,6 +28,7 @@ class TrophyAdapter :
             binding.imageViewTrophy.setImageDrawable(
                 MoreDaysApplication.iconPack?.let { it.getIcon(Trophy.matchTrophyTypeToSymbol(item.trophy.type)) }?.drawable
             )
+            binding.imageViewTrophy.setColorFilter(item.goal.color)
             binding.textViewDate.text = dateFormatter.format(item.trophy.timestamp.time)
             binding.textViewTitle.text = matchTrophyTypeToText(item.trophy.type, item.trophy.value)
             binding.apply {

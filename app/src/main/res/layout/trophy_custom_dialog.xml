@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="210dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:padding="@dimen/activity_margin"
     android:background="@drawable/gradient_primary">
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/imageViewTrophy"
-        android:src="@drawable/ic_trophy"
-        android:importantForAccessibility="no"
-        />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieTrophy2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:lottie_fileName="trophy.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"/>
 
     <TextView
         android:layout_width="wrap_content"

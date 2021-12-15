@@ -24,6 +24,9 @@ data class HundredPercentValue(
         SimpleDateFormat(Journal.DATE_FORMAT).format(Date()), 0
     )
 
+    constructor(points: Int) : this() {
+        this.points = points
+    }
     constructor(date: Date) : this() {
         this.date = SimpleDateFormat(DATE_FORMAT).format(date)
     }

@@ -1,6 +1,7 @@
 package de.wuapps.moredays.ui.home
 
 import de.wuapps.moredays.database.entity.Activity
+import de.wuapps.moredays.database.entity.ActivityEntry
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.GoalAndRelatedData
 import java.util.*
@@ -13,9 +14,15 @@ class GoalEntry(private val goalData: GoalAndRelatedData) {
         get() = field
         private set(value) {
             field = value
+            year = date.get(YEAR)
+            day = date.get(DAY_OF_YEAR)
+            activityEntriesToday.clear()
             currentValue = -1
         }
+    private var year = -1
+    private var day = -1
     private var currentValue = -1
+    private var activityEntriesToday = mutableListOf<ActivityEntry>()
     private val goal: Goal = goalData.goal!!
     constructor(goalData: GoalAndRelatedData, date: Calendar) : this(goalData){
         this.date = date
@@ -26,15 +33,17 @@ class GoalEntry(private val goalData: GoalAndRelatedData) {
     }
     fun getCurrentValue(): Int {
         if (currentValue < 0) {
-            val year = date.get(YEAR)
-            val day = date.get(DAY_OF_YEAR)
-            currentValue = goalData.entries.filter { entry ->
+            activityEntriesToday.addAll(goalData.entries.filter { entry ->
                 entry.timestamp.get(YEAR) == year && entry.timestamp.get(DAY_OF_YEAR) == day
-            }.sumBy { entry -> entry.points }
+            })
+            currentValue = activityEntriesToday.sumOf{it.points}
         }
         return currentValue
     }
 
+    fun countActivityDoneToday(activityId: Long):Int{
+        return activityEntriesToday.filter{entry -> entry.activityId == activityId}.size
+    }
     fun getGoal(): Goal {
         return goal
     }

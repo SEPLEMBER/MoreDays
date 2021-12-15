@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -191,7 +192,8 @@ class HomeFragment : Fragment() {
         if (MoreDaysApplication.loaded.value != null && MoreDaysApplication.loaded.value!!) {
             subscribeUI()
         } else {
-            binding.progressBarCyclic.visibility = View.VISIBLE
+            binding.lottieLoading.visibility = View.VISIBLE
+            Log.d("progress", "show lottie")
             MoreDaysApplication.loaded.observe(viewLifecycleOwner, {
                 if (it) {
                     subscribeUI()
@@ -201,7 +203,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun subscribeUI() {
-        binding.progressBarCyclic.visibility = View.GONE
+        binding.lottieLoading.visibility = View.GONE
         viewModel.scales.observe(viewLifecycleOwner, {
             it?.let {
                 scales.clear()
@@ -238,7 +240,7 @@ class HomeFragment : Fragment() {
                             trophy.type,
                             trophy.value,
                             viewModel.latestGoal!!.name
-                        ), Trophy.matchTrophyTypeToSymbol(trophy.type)
+                        )
                     )
                 }
             }
@@ -289,13 +291,9 @@ class HomeFragment : Fragment() {
         return ""
     }
 
-    private fun showTrophyDialog(message: String, iconId: Int) {
+    private fun showTrophyDialog(message: String) {
         val dialogBuilder = AlertDialog.Builder(requireContext())
         val layoutView: View = layoutInflater.inflate(R.layout.trophy_custom_dialog, null)
-        val imageViewTrophy = layoutView.findViewById<ImageView>(R.id.imageViewTrophy)
-        imageViewTrophy.setImageDrawable(
-            MoreDaysApplication.iconPack?.let { it.getIcon(iconId) }?.drawable
-        )
         val textViewMessage = layoutView.findViewById<TextView>(R.id.textViewMessage)
         textViewMessage.setText(message)
         dialogBuilder.setView(layoutView)
@@ -307,7 +305,7 @@ class HomeFragment : Fragment() {
         )
         layoutView.startAnimation(animation)
         lifecycleScope.launch {
-            delay(3000)
+            delay(7000)
             trophytDialog.dismiss()
         }
         trophytDialog.show()

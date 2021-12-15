@@ -1,5 +1,6 @@
 package de.wuapps.moredays.database.dao
 
+import android.util.Log
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import de.wuapps.moredays.database.entity.HundredPercentValue
@@ -9,9 +10,6 @@ import kotlinx.coroutines.flow.Flow
 interface HundredPercentValueDao {
     @Query("SELECT * FROM hundredpercentvalue order by date asc")
     fun getAll(): Flow<List<HundredPercentValue>>
-
-    @Query("INSERT INTO hundredpercentvalue SELECT :date as date, sum(goal.points) as points from goal where is_old = 0")
-    suspend fun insert(date: String)
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(data: HundredPercentValue): Long
@@ -37,9 +35,4 @@ interface HundredPercentValueDao {
     @Update
     suspend fun update(data: List<HundredPercentValue>)
 
-    @Transaction
-    suspend fun update(date: String){
-        delete(date)
-        insert(date)
-    }
 }
