@@ -18,11 +18,11 @@ fun bindIsGone(view: View, isGone: Boolean) {
 @BindingAdapter("android:mood")
 fun setMood(emojiTextView: EmojiTextView, mood: Int) {
    when(mood){
-       1->emojiTextView.setText(emojiTextView.context.getText(R.string.mood_face_1))
-       2->emojiTextView.setText(emojiTextView.context.getText(R.string.mood_face_2))
-       3->emojiTextView.setText(emojiTextView.context.getText(R.string.mood_face_3))
-       4->emojiTextView.setText(emojiTextView.context.getText(R.string.mood_face_4))
-       5->emojiTextView.setText(emojiTextView.context.getText(R.string.mood_face_5))
-       else -> emojiTextView.setText("")
+       1-> emojiTextView.text = emojiTextView.context.getText(R.string.mood_face_1)
+       2-> emojiTextView.text = emojiTextView.context.getText(R.string.mood_face_2)
+       3-> emojiTextView.text = emojiTextView.context.getText(R.string.mood_face_3)
+       4-> emojiTextView.text = emojiTextView.context.getText(R.string.mood_face_4)
+       5-> emojiTextView.text = emojiTextView.context.getText(R.string.mood_face_5)
+       else -> emojiTextView.text = ""
    }
 }

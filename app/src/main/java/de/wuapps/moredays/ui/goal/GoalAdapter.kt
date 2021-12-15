@@ -11,7 +11,7 @@ import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.ListItemGoalBinding
 
 
-class GoalAdapter() :
+class GoalAdapter :
     ListAdapter<Goal, GoalAdapter.GoalViewHolder>(GoalDiffCallback) {
     class GoalViewHolder( private val binding: ListItemGoalBinding) :
         RecyclerView.ViewHolder(binding.root) {

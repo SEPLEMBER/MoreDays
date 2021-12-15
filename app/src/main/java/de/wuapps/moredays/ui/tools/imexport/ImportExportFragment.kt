@@ -97,7 +97,7 @@ class ImportExportFragment : Fragment() {
                 }
 
             Toast.makeText(context, getString(R.string.export_success), Toast.LENGTH_LONG).show()
-            val intent = csvFile?.let { getFileIntent(requireContext(), it) }
+            val intent = csvFile.let { getFileIntent(requireContext(), it) }
             startActivity(intent)
     }
 }

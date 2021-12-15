@@ -44,7 +44,7 @@ import java.util.*
 class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels {
-        InjectorUtils.provideHomeViewModelFactory(requireActivity().getApplication())
+        InjectorUtils.provideHomeViewModelFactory(requireActivity().application)
     }
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -306,7 +306,7 @@ class HomeFragment : Fragment() {
         val dialogBuilder = AlertDialog.Builder(requireContext())
         val layoutView: View = layoutInflater.inflate(R.layout.trophy_custom_dialog, null)
         val textViewMessage = layoutView.findViewById<TextView>(R.id.textViewMessage)
-        textViewMessage.setText(message)
+        textViewMessage.text = message
         dialogBuilder.setView(layoutView)
         val trophytDialog = dialogBuilder.create()
         trophytDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

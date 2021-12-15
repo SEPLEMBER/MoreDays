@@ -112,17 +112,17 @@ class JournalListFragment : Fragment() {
                 return mFormat.format(Date(value.toLong()))
             }
         })
-        val yAxis = lineChart.getAxisLeft()
+        val yAxis = lineChart.axisLeft
         val lineDataSet = LineDataSet(lineEntries, getString(R.string.mood))
         lineDataSet.enableDashedLine(10f, 5f, 0f)
-        lineDataSet.setLineWidth(1f)
-        lineDataSet.setCircleRadius(3f)
+        lineDataSet.lineWidth = 1f
+        lineDataSet.circleRadius = 3f
         lineDataSet.setCircleColor(Color.GREEN)
         lineDataSet.setDrawValues(false)
         val lineData = LineData(lineDataSet)
-        lineChart.getDescription().setEnabled(false)
-        yAxis.setAxisMaximum(5.0f)
-        yAxis.setAxisMinimum(0.0f)
+        lineChart.description.isEnabled = false
+        yAxis.axisMaximum = 5.0f
+        yAxis.axisMinimum = 0.0f
         lineChart.axisRight.isEnabled = false
         lineChart.axisLeft.isEnabled = false
         lineChart.data = lineData
@@ -150,7 +150,7 @@ class JournalListFragment : Fragment() {
         val pieData = PieData(pieDataSet)
         pieData.setValueTextSize(14f)
         pieChart.data = pieData
-        pieChart.getDescription().setEnabled(false)
+        pieChart.description.isEnabled = false
         pieChart.legend.textSize = 20f
         pieChart.isDrawHoleEnabled = false
         pieChart.invalidate()

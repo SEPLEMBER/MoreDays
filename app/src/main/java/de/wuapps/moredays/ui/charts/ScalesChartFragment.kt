@@ -119,13 +119,13 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
         })
         xAxis.textColor = textColorPrimary
-        val yAxis = chart.getAxisLeft()
-        chart.getAxisRight().setEnabled(false)
+        val yAxis = chart.axisLeft
+        chart.axisRight.isEnabled = false
         if (!selectedScale!!.isIntValue)
             yAxis.enableGridDashedLine(10f, 10f, 0f)
         // axis range
-        yAxis.setAxisMaximum(selectedScale!!.maxValue.toFloat())
-        yAxis.setAxisMinimum(selectedScale!!.minValue.toFloat())
+        yAxis.axisMaximum = selectedScale!!.maxValue.toFloat()
+        yAxis.axisMinimum = selectedScale!!.minValue.toFloat()
         chart.data = lineData
         yAxis.textColor = textColorPrimary
         val description = Description()

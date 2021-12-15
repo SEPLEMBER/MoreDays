@@ -11,7 +11,6 @@ import java.util.Calendar.YEAR
 
 class GoalEntry(private val goalData: GoalAndRelatedData) {
     var date: Calendar = Calendar.getInstance()
-        get() = field
         private set(value) {
             field = value
             year = date.get(YEAR)

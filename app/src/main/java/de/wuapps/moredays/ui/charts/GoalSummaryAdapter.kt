@@ -23,41 +23,33 @@ class GoalSummaryAdapter :
                 MoreDaysApplication.iconPack?.let { it.getIcon(item.goal.symbol) }?.drawable
             )
             binding.imageViewIcon.setColorFilter(item.goal.color)
-            binding.lblMade.setText(
-                HtmlCompat.fromHtml(
-                    String.format(
-                        "&#127941; %d %s",
-                        item.countDaysMade,
-                        itemView.context.getString(R.string.trophy_type_title_made_goal)
-                    ), HtmlCompat.FROM_HTML_MODE_LEGACY
-                )
+            binding.lblMade.text = HtmlCompat.fromHtml(
+                String.format(
+                    "&#127941; %d %s",
+                    item.countDaysMade,
+                    itemView.context.getString(R.string.trophy_type_title_made_goal)
+                ), HtmlCompat.FROM_HTML_MODE_LEGACY
             )
-            binding.lblPoints.setText(
-                HtmlCompat.fromHtml(
-                    String.format(
-                        "&sum; %d %s",
-                        item.sumPoints,
-                        itemView.context.getString(R.string.lbl_points)
-                    ), HtmlCompat.FROM_HTML_MODE_LEGACY
-                )
+            binding.lblPoints.text = HtmlCompat.fromHtml(
+                String.format(
+                    "&sum; %d %s",
+                    item.sumPoints,
+                    itemView.context.getString(R.string.lbl_points)
+                ), HtmlCompat.FROM_HTML_MODE_LEGACY
             )
-            binding.lblInfo.setText(
-                HtmlCompat.fromHtml(
-                    String.format(
-                        "&#9939; %d %s",
-                        item.countDaysInRow,
-                        itemView.context.getString(R.string.trophy_type_title_row)
-                    ), HtmlCompat.FROM_HTML_MODE_LEGACY
-                )
+            binding.lblInfo.text = HtmlCompat.fromHtml(
+                String.format(
+                    "&#9939; %d %s",
+                    item.countDaysInRow,
+                    itemView.context.getString(R.string.trophy_type_title_row)
+                ), HtmlCompat.FROM_HTML_MODE_LEGACY
             )
             val percent: Float =
                 item.sumPoints.toFloat() / (item.daysTotal * item.goal.points) * 100.0f
-            binding.layout.setBackground(
-                CircleDrawable(
-                    item.goal.color,
-                    percent,
-                    50
-                )
+            binding.layout.background = CircleDrawable(
+                item.goal.color,
+                percent,
+                50
             )
 
 
