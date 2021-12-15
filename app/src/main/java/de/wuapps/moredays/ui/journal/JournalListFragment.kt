@@ -2,9 +2,7 @@ package de.wuapps.moredays.ui.journal
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.*
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.emoji2.text.EmojiCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,11 +13,9 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Journal
 import de.wuapps.moredays.databinding.FragmentJournalListBinding
-import kotlinx.coroutines.InternalCoroutinesApi
+import de.wuapps.moredays.utilities.*
 import java.text.SimpleDateFormat
 import java.util.*
-import com.github.mikephil.charting.data.PieData
-import de.wuapps.moredays.utilities.*
 
 
 class JournalListFragment : Fragment() {

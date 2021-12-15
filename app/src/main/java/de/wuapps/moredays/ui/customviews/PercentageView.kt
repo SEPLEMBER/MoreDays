@@ -1,16 +1,17 @@
 package de.wuapps.moredays.ui.customviews
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.RectF
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import de.wuapps.moredays.R
 import de.wuapps.moredays.ui.home.GoalEntry
-import java.util.logging.Logger
 import kotlin.math.abs
-import kotlin.math.log
 
 
 // based on https://github.com/turkergoksu/PercentageView and https://tomkubasik.medium.com/enhance-your-android-app-with-custom-view-ad344d28b501

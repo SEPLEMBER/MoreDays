@@ -1,6 +1,5 @@
 package de.wuapps.moredays.database.dao
 
-import android.util.Log
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import de.wuapps.moredays.database.entity.HundredPercentValue

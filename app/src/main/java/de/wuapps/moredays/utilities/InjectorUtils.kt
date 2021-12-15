@@ -2,7 +2,10 @@ package de.wuapps.moredays.utilities
 
 import android.content.Context
 import de.wuapps.moredays.database.MoreDaysDatabase
-import de.wuapps.moredays.database.entity.*
+import de.wuapps.moredays.database.entity.Activity
+import de.wuapps.moredays.database.entity.Goal
+import de.wuapps.moredays.database.entity.Journal
+import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.ui.activity.ActivityViewModelFactory
 import de.wuapps.moredays.ui.charts.GoalsChartsViewModelFactory
 import de.wuapps.moredays.ui.charts.ScalesChartViewModelFactory

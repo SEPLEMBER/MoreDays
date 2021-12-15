@@ -1,6 +1,5 @@
 package de.wuapps.moredays.ui.goal
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope

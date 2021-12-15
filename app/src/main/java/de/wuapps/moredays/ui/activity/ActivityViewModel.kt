@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import de.wuapps.moredays.database.dao.ActivityDao
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
-import de.wuapps.moredays.database.entity.HundredPercentValue
 import kotlinx.coroutines.launch
 
 

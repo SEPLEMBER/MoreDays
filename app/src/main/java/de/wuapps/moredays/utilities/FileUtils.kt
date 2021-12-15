@@ -2,7 +2,6 @@ package de.wuapps.moredays.utilities
 
 import android.content.Context
 import android.content.Intent
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider
 import java.io.File
 
