@@ -1,10 +1,13 @@
 package de.wuapps.moredays.ui.onboarding
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.github.appintro.AppIntro
 import com.github.appintro.AppIntroFragment
+import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
 
 class Onboarding : AppIntro() {
@@ -48,18 +51,23 @@ class Onboarding : AppIntro() {
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-        val sharedPref: SharedPreferences = getSharedPreferences(
-            getString(R.string.preferences_file_key),
-            MODE_PRIVATE
-        )
+        startMainActivity()
+    }
+
+    private fun startMainActivity() {
+        val sharedPref: SharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(this.applicationContext)
         sharedPref.edit().putBoolean(getString(R.string.preferences_onboarding), true).apply()
-        finish()
+        val intent = Intent(this, MainActivity::class.java)
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent)
     }
 
     public override fun onSkipPressed(currentFragment: Fragment?) {
         super.onSkipPressed(currentFragment)
-        finish()
+        startMainActivity()
     }
+
 
 
 }

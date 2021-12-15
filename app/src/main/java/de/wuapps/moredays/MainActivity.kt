@@ -31,8 +31,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        handleOnboarding()
-
         setContentView(R.layout.activity_main)
 
         iconPackLoader = IconPackLoader(this)
@@ -106,14 +104,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleOnboarding() {
-        val sharedPref: SharedPreferences = getSharedPreferences(
-            getString(R.string.preferences_file_key),
-            MODE_PRIVATE
-        )
-        if (!sharedPref.getBoolean(getString(R.string.preferences_onboarding), false)) {
-            val intentOnboarding = Intent(this, Onboarding::class.java)
-            startActivity(intentOnboarding)
-        }
-    }
+
 }

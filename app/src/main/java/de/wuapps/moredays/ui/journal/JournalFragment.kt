@@ -34,7 +34,7 @@ class JournalFragment : Fragment() {
         InjectorUtils.provideJournalViewModelFactory(requireActivity(), args.journal)
     }
     private val REQUEST_IMAGE = 42
-    private lateinit var exampleAffirmations: List<String>
+    private lateinit var exampleAffirmations: Array<String>
     private var optionsMenuDelete: MenuItem? = null
     private var selectedMood = -1
 
@@ -53,7 +53,8 @@ class JournalFragment : Fragment() {
             binding.imageViewPictureOfTheDay.setImageDrawable(null)
             viewModel.journal.value!!.imageFilename = ""
         }
-        exampleAffirmations = getString(R.string.affirmation_examples).split("\\.".toRegex())
+        exampleAffirmations = resources.getStringArray(R.array.sayings)
+
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         viewModel.journal.observe(viewLifecycleOwner, {
@@ -118,7 +119,7 @@ class JournalFragment : Fragment() {
     private fun suggestAffirmation() {
         val builder = AlertDialog.Builder(this.activity)
         builder.setTitle(R.string.title_affirmation)
-            .setItems(exampleAffirmations.toTypedArray(),
+            .setItems(exampleAffirmations,
                 DialogInterface.OnClickListener { _, which ->
                     binding.editTextAffirmation.setText(exampleAffirmations.get(which))
                 })

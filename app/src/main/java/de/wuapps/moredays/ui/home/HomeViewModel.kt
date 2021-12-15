@@ -124,8 +124,8 @@ class HomeViewModel(
     }
 
     private fun calcPercentage(goalEntries: List<GoalEntry>) {
-        val sum = goalEntries.sumBy { goalEntry -> goalEntry.getCurrentValue() }
-        val desired = goalEntries.sumBy { goalEntry -> goalEntry.getDesiredValue() }
+        val sum = goalEntries.sumOf { goalEntry -> goalEntry.getCurrentValue() }
+        val desired = goalEntries.sumOf { goalEntry -> goalEntry.getDesiredValue() }
         if (sum > 0 && desired > 0) {
             if (sum >= desired && !was100Percent && latestActivity != null)
                 justReached100Percent.value = true

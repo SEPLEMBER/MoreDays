@@ -88,9 +88,9 @@ class ActivityFragment : Fragment() {
         }
         if (!isValid)
             return
-        viewModel.activity!!.name = name
-        viewModel.activity!!.isOld = isOld
-        viewModel.activity!!.points = points //trick supports only one way binding!!!
+        viewModel.activity.name = name
+        viewModel.activity.isOld = isOld
+        viewModel.activity.points = points //trick supports only one way binding!!!
         viewModel.save()
 
         view?.post {

@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
@@ -192,8 +194,7 @@ class HomeFragment : Fragment() {
         if (MoreDaysApplication.loaded.value != null && MoreDaysApplication.loaded.value!!) {
             subscribeUI()
         } else {
-            binding.lottieLoading.visibility = View.VISIBLE
-            Log.d("progress", "show lottie")
+            binding.progressBarCyclic.visibility = View.VISIBLE
             MoreDaysApplication.loaded.observe(viewLifecycleOwner, {
                 if (it) {
                     subscribeUI()
@@ -203,7 +204,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun subscribeUI() {
-        binding.lottieLoading.visibility = View.GONE
+        binding.progressBarCyclic.visibility = View.GONE
         viewModel.scales.observe(viewLifecycleOwner, {
             it?.let {
                 scales.clear()
@@ -235,28 +236,38 @@ class HomeFragment : Fragment() {
             it?.let {
                 if (it.isNotEmpty()) {
                     val trophy = it.last()
-                    showTrophyDialog(
-                        getTrophyMessage(
-                            trophy.type,
-                            trophy.value,
-                            viewModel.latestGoal!!.name
+                    if (trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL) {
+                        binding.viewKonfetti.build()
+                            .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                            .setDirection(0.0, 359.0)
+                            .setSpeed(1f, 5f)
+                            .setFadeOutEnabled(true)
+                            .setTimeToLive(1000L)
+                            .addShapes(Shape.Square, Shape.Circle)
+                            .addSizes(Size(12))
+                            .setPosition(-50f, binding.viewKonfetti.width + 50f, -50f, -50f)
+                            .streamFor(300, 2000L)
+                    }
+                    else {
+                        showTrophyDialog(
+                            getTrophyMessage(
+                                trophy.type,
+                                trophy.value,
+                                viewModel.latestGoal!!.name
+                            )
                         )
-                    )
+                    }
                 }
             }
         })
         viewModel.justReached100Percent.observe(viewLifecycleOwner, {
             if (it) {
-                binding.viewKonfetti.build()
-                    .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
-                    .setDirection(0.0, 359.0)
-                    .setSpeed(1f, 5f)
-                    .setFadeOutEnabled(true)
-                    .setTimeToLive(1000L)
-                    .addShapes(Shape.Square, Shape.Circle)
-                    .addSizes(Size(12))
-                    .setPosition(-50f, binding.viewKonfetti.width + 50f, -50f, -50f)
-                    .streamFor(300, 2000L)
+                binding.lottieTrophy.visibility = View.VISIBLE
+                binding.lottieTrophy.playAnimation()
+                Handler(Looper.getMainLooper()).postDelayed(({
+                    binding.lottieTrophy.visibility = View.GONE
+
+                }), 4000)
             }
             viewModel.justReached100Percent.postValue(false)
         })

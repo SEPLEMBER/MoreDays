@@ -84,18 +84,6 @@
     <string name="help_about_content">Um Android-Entwicklung lehren zu können, habe ich diese App entwickelt, so dass ich in viele Fallen und Probleme reintapse ;-).</string>
     <string name="help_thanks_title">Danke</string>
     <string name="help_credentials_title">Bibliotheken</string>
-    <string name="affirmation_examples">Ich bin in meiner Mitte.Ich bin wertvoll.Ich bin gut, so wie ich bin.Ich bin liebenswert.Ich bin offen und empfänglich für alles Gute von außen.Ich glaube an mich - jeden Tag mehr und mehr.Ich erlaube mir jeden Tag mehr, dem Leben zu vertrauen.
-        Ich achte auf gute Ernährung und ausreichend Bewegung.Meine Gesundheit ist mir das Wichtigste.Ich vermeide zuckerreiche Nahrungsmittel.Ich kann mein Gewicht mit gesunder Ernährung und Sport kontrollieren.Ich esse immer mehr Obst und Gemüse.Welches Essen würde mir und meinem Körper jetzt gut tun?.Jeden Tag werde ich ein bisschen schlanker und sportlicher.Ich fühle mich wohl in meinem Körper.Ich liebe meinen Körper.Ich achte meinen Körper und seine Bedürfnisse.Ich achte auf gesunde und frische Luft.
-        Ich werde von Tag zu Tag selbstbewusster sein.Ich bin ohne Angst und Zweifel.Ich bin stärker als meine Angst.Ich gehe respektvoll und freundlich mit meinen Mitmenschen um.Ich entwickle gute Ideen, die uns voranbringen.ICH komme jeden Tag besser und besser mit meiner Chef*in zurecht, egal was sie tut.Ich habe Vertrauen in meine Fähigkeiten. Ich habe keine Angst, Fehler zu machen.Ich bin in Gegenwart anderer selbstbewusst.
-    Auch außerhalb meiner Komfortzone fühle ich mich in meiner Haut wohl.Jede Herausforderung macht mich stärker.Ich denke gut über mich.Ich verliere nicht, ich lerne.Ich kann glücklich sein.Ich brauche keine anderen Leute, um glücklich zu sein.Ich nehme die Meinung anderer nicht persönlich - sie ist nur eine Offenbarung ihrer eigenen Probleme.Ich bin ein Diamant, es ist Zeit, dass ich scheine.Meine Meinung zählt.Ich werde geliebt und ich werde gebraucht.
-    Selbstmitleid hat bei mir keinen Platz.Ich gebe meinen Ängsten nicht nach - nehme sie war und mache dann weiter.Mein Körper, Geist und Seele sind stark.Ich entscheide mich für das Glück.Es ist Friede in mir.Gelassen gehe ich meinen Weg.Ich profitiere von meiner feinen Wahrnehmung.Ich werde meine Ziele erreichen.Ich habe mir erreichbare Ziele gesetzt und komme diesen Aktivität für Aktivität näher.
-        Ich bin flexibel und verändere mich - ich begrüße Veränderung.Ich bin achtsam - Achtsamkeit hilft mir im Alltag.Ich erfreue mich an den Kleinigkeiten, sie erfüllen meinen Tag.Je mehr ich gebe, desto mehr bekomme ich.Ich vertraue dem Leben und ich vertraue mir.
-        Gut ist gut genug.Mein Kind ist gesund und munter.Ich bin eine gute Mutter/Tochter/Sohn/Vater.Ich bin auch wichtig.Ich nehme mir Zeit für mich.
-        Ich bin auch stark, wenn ich Gefühle zeige.Ich darf um Hilfe bitten, ohne mein Gesicht zu verlieren.Ich darf mir Hilfe holen und sie annehmen.Ich darf offen sein für Zuwendung.
-       Gefühle zu zeigen ist erlaubt und ein Zeichen von Stärke.Ich bin vor allem wertvoll durch das, was ich bin.Ich darf auch Fehler machen und aus ihnen lernen.Ich muss gar nichts.
-        Ich darf meine Bedürfnisse und Standpunkte ernst nehmen.Ich darf es auch mir recht machen.Ich muss nicht bei allen beliebt sein.Wer \'Ja\' sagt, kann auch \'Nein\' sagen.Die Welt geht nicht unter, wenn ich Nein sage.Ich bin ok, auch wenn jemand unzufrieden mit mir ist.Ich akzeptiere, dass andere Menschen andere Meinungen haben.Ich formuliere meine Kritik konkret und wertschätzend und schlucke sie nicht hinunter.Ich lasse meine innere Anspannung jetzt los.Ich bin aufmerksam für das, was ist.Ich bin ganz bei mir.Ich schaue nach vorne.Ich lebe im Hier und Jetzt.Jeder neue Tag ist ein neuer Anfang.
-         Ich kann mich entscheiden, ob und wann ich mich beeile.Ich darf mir die Zeit geben, die ich brauche.
-        Ich darf etwas mit Gelassenheit tun und vollenden.Auch wenn es leicht geht, ist es wertvoll.Ich darf mich immer wieder auch entspannen und Fortschritte genießen. Meine Kraft gehört mir und ich darf sie mir so einteilen, wie es mir gut tut.Ich darf mir helfen lassen.Ich darf anderen meine Wünsche und Bedürfnisse mitteilen.Ich muss nicht alles alleine schaffen.80 Prozent sind super.Fehler machen ist sympathisch.Ich habe das Beste gegeben, was möglich war.</string>
     <string name="title_affirmation">Titel/Affirmation</string>
     <string name="title_challenge">Challenge</string>
     <string name="title_challenges">Challenges</string>
@@ -161,4 +149,96 @@
     <string name="mood_chart">Stimmungsverlauf anzeigen/verbergen</string>
     <string name="mood">Stimmung</string>
     <string name="no_mood_data">Bisher gibt es keine Stimmungsdaten, tracke deine Stimmung im nächsten Journaleintrag :)</string>
+    <string-array name="sayings">
+        <item>Ich bin in meiner Mitte.</item>
+        <item>Ich bin wertvoll.</item>
+        <item>Ich bin gut, so wie ich bin.</item>
+        <item>Ich bin liebenswert.</item>
+        <item>Ich bin offen und empfänglich für alles Gute von außen.</item>
+        <item>Ich glaube an mich - jeden Tag mehr und mehr.</item>
+        <item>Ich erlaube mir jeden Tag mehr, dem Leben zu vertrauen.</item>
+        <item>Ich achte auf gute Ernährung und ausreichend Bewegung.</item>
+        <item>Meine Gesundheit ist mir das Wichtigste.</item>
+        <item>Ich vermeide zuckerreiche Nahrungsmittel.</item>
+        <item>Ich kann mein Gewicht mit gesunder Ernährung und Sport kontrollieren.</item>
+        <item>Ich esse immer mehr Obst und Gemüse.</item>
+        <item>Welches Essen würde mir und meinem Körper jetzt gut tun?</item>
+        <item>Jeden Tag werde ich ein bisschen schlanker und sportlicher.</item>
+        <item>Ich fühle mich wohl in meinem Körper.</item>
+        <item>Ich liebe meinen Körper.</item>
+        <item>Ich achte meinen Körper und seine Bedürfnisse.</item>
+        <item>Ich achte auf gesunde und frische Luft.</item>
+        <item>Ich werde von Tag zu Tag selbstbewusster sein.</item>
+        <item>Ich bin ohne Angst und Zweifel.</item>
+        <item>Ich bin stärker als meine Angst.</item>
+        <item>Ich gehe respektvoll und freundlich mit meinen Mitmenschen um.</item>
+        <item>Ich entwickle gute Ideen, die uns voranbringen.</item>
+        <item>ICH komme jeden Tag besser und besser mit meiner Chef*in zurecht, egal was sie tut.</item>
+        <item>Ich habe Vertrauen in meine Fähigkeiten.</item>
+        <item>Ich habe keine Angst, Fehler zu machen.</item>
+        <item>Ich bin in Gegenwart anderer selbstbewusst.</item>
+        <item>Auch außerhalb meiner Komfortzone fühle ich mich in meiner Haut wohl.</item>
+        <item>Jede Herausforderung macht mich stärker.</item>
+        <item>Ich denke gut über mich.</item>
+        <item>Ich verliere nicht, ich lerne.</item>
+        <item>Ich kann glücklich sein.</item>
+        <item>Ich brauche keine anderen Leute, um glücklich zu sein.</item>
+        <item>Ich nehme die Meinung anderer nicht persönlich - sie ist nur eine Offenbarung ihrer eigenen Probleme.</item>
+        <item>Ich bin ein Diamant, es ist Zeit, dass ich scheine.</item>
+        <item>Meine Meinung zählt.</item>
+        <item>Ich werde geliebt und ich werde gebraucht.</item>
+        <item>Selbstmitleid hat bei mir keinen Platz.</item>
+        <item>Ich gebe meinen Ängsten nicht nach - nehme sie war und mache dann weiter.</item>
+        <item>Mein Körper, Geist und Seele sind stark.</item>
+        <item>Ich entscheide mich für das Glück.</item>
+        <item>Es ist Friede in mir.</item>
+        <item>Gelassen gehe ich meinen Weg.</item>
+        <item>Ich profitiere von meiner feinen Wahrnehmung.</item>
+        <item>Ich werde meine Ziele erreichen.</item>
+        <item>Ich habe mir erreichbare Ziele gesetzt und komme diesen Aktivität für Aktivität näher.</item>
+        <item>Ich bin flexibel und verändere mich - ich begrüße Veränderung.</item>
+        <item>Ich bin achtsam - Achtsamkeit hilft mir im Alltag.</item>
+        <item>Ich erfreue mich an den Kleinigkeiten, sie erfüllen meinen Tag.</item>
+        <item>Je mehr ich gebe, desto mehr bekomme ich.</item>
+        <item>Ich vertraue dem Leben und ich vertraue mir.</item>
+        <item>Gut ist gut genug.</item>
+        <item>Mein inneres Kind ist gesund und munter.</item>
+        <item>Ich bin eine gute Mutter/Tochter/Sohn/Vater.</item>
+        <item>Ich bin auch wichtig.</item>
+        <item>Ich nehme mir Zeit für mich.</item>
+        <item>Ich bin auch stark, wenn ich Gefühle zeige.</item>
+        <item>Ich darf um Hilfe bitten, ohne mein Gesicht zu verlieren.</item>
+        <item>Ich darf mir Hilfe holen und sie annehmen.</item>
+        <item>Ich darf offen sein für Zuwendung.</item>
+        <item>Gefühle zu zeigen ist erlaubt und ein Zeichen von Stärke.</item>
+        <item>Ich bin vor allem wertvoll durch das, was ich bin.</item>
+        <item>Ich darf auch Fehler machen und aus ihnen lernen.</item>
+        <item>Ich muss gar nichts.</item>
+        <item>Ich darf meine Bedürfnisse und Standpunkte ernst nehmen.</item>
+        <item>Ich darf es auch mir recht machen.</item>
+        <item>Ich muss nicht bei allen beliebt sein.</item>
+        <item>Wer \'Ja\' sagt, kann auch \'Nein\' sagen.</item>
+        <item>Die Welt geht nicht unter, wenn ich Nein sage.</item>
+        <item>Ich bin ok, auch wenn jemand unzufrieden mit mir ist.</item>
+        <item>Ich akzeptiere, dass andere Menschen andere Meinungen haben.</item>
+        <item>Ich formuliere meine Kritik konkret und wertschätzend und schlucke sie nicht hinunter.</item>
+        <item>Ich lasse meine innere Anspannung jetzt los.</item>
+        <item>Ich bin aufmerksam für das, was ist.</item>
+        <item>Ich bin ganz bei mir.</item>
+        <item>Ich schaue nach vorne.</item>
+        <item>Ich lebe im Hier und Jetzt.</item>
+        <item>Jeder neue Tag ist ein neuer Anfang.</item>
+        <item>Ich kann mich entscheiden, ob und wann ich mich beeile.</item>
+        <item>Ich darf mir die Zeit geben, die ich brauche.</item>
+        <item>Ich darf etwas mit Gelassenheit tun und vollenden.</item>
+        <item>Auch wenn es leicht geht, ist es wertvoll.</item>
+        <item>Ich darf mich immer wieder auch entspannen und Fortschritte genießen.</item>
+        <item>Meine Kraft gehört mir und ich darf sie mir so einteilen, wie es mir gut tut.</item>
+        <item>Ich darf mir helfen lassen.</item>
+        <item>Ich darf anderen meine Wünsche und Bedürfnisse mitteilen.</item>
+        <item>Ich muss nicht alles alleine schaffen.</item>
+        <item>80 Prozent sind super.</item>
+        <item>Fehler machen ist sympathisch.</item>
+        <item>Ich habe das Beste gegeben, was möglich war.</item>
+    </string-array>
 </resources>

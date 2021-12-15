@@ -32,6 +32,7 @@ I developed this app to learn Android better, hence you will find example code f
 - color picker using https://github.com/skydoves/ColorPickerView
 - glide to show pictures (better performance) https://github.com/bumptech/glide
 - konfetti using the library https://github.com/DanielMartinus/Konfetti
+- animations with lottie https://github.com/airbnb/lottie-android and from https://lottiefiles.com/
 
 ## Decisions
 
