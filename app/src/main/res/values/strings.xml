@@ -5,7 +5,7 @@
     <string name="date_ymd_day">E, yy-MM-dd</string>
     <string name="date_md">MM-dd</string>
     <string name="date_time">yy-MM-dd HH:mm</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">moreDays</string>
     <string name="title_chart">Charts</string>
     <string name="title_trophies">Trophies</string>
     <string name="title_journal">Journal</string>

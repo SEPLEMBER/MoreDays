@@ -265,7 +265,7 @@ class HomeFragment : Fragment() {
                 Handler(Looper.getMainLooper()).postDelayed(({
                     binding.lottieTrophy.visibility = View.GONE
 
-                }), 4000)
+                }), 4500)
             }
             viewModel.justReached100Percent.postValue(false)
         })
@@ -314,7 +314,7 @@ class HomeFragment : Fragment() {
         )
         layoutView.startAnimation(animation)
         lifecycleScope.launch {
-            delay(7000)
+            delay(6000)
             trophytDialog.dismiss()
         }
         trophytDialog.show()

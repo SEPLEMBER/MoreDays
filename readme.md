@@ -1,5 +1,34 @@
-# moreDays
+<h3 align="center">
+  moreDays
+  <img src="https://gitlab.com/wuapps/moredays/-/blob/master/app/src/main/res/mipmap-hdpi/ic_launcher_round.png?raw=true" alt="moreDays Logo" width="500">
+  </a>
+</h3>
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://gitlab.com/wuapps/moredays/-/blob/master/LICENSE)
+[![version](https://img.shields.io/gem/v/fastlane.svg?style=flat)](https://rubygems.org/gems/fastlane)
+[![PRs welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://gitlab.com/wuapps/moredays/-/blob/master/CONTRIBUTING.md)
+
+## Contribute to _moreDays_
+
+Check out [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to help with _moreDays_.
+
+## Code of Conduct
+
+Help us keep _moreDays_ open and inclusive. Please read and follow our [Code of Conduct](https://gitlab.com/wuapps/moredays/-/blob/master/CODE_OF_CONDUCT.md).
+
+## Vision
+
+<video src="https://youtu.be/xiJHfUTK0os" title="moreDays video"
+style="border: solid 5px #f0570a;
+margin: 0 0 2rem 0;
+margin-right: 0px;
+border-top-left-radius: 255px 15px;
+border-top-right-radius: 15px 225px;
+border-bottom-right-radius: 225px 15px;
+border-bottom-left-radius: 15px 255px;
+box-shadow: 2px 8px 4px -6px rgb(0,0,0,.1);"/>
+
+moreDays is an app (<a href="https://play.google.com/store/apps/details?id=de.wuapps.moredays">google app store</a>) to reach your individual goals, even if the day is strenuous.
 Make each day YOUR day, do what you really really want first and what you think you should do second.
 Take each day a picture and some notes to remember each day.
 
@@ -9,6 +38,7 @@ In addtion you may track your weight, your sleep quality or anything else you li
 
 With moreDays you can reflect your day in a personal journal, follow your goals, define challenges, everything is in your hand, just do it.
 Make every day a good day :)
+
 <img src="images/main.jpg" alt="home screen" width="100px"/>
 <img src="images/onboarding1.jpg" alt="onboarding" width="100px"/>
 <img src="images/journal.jpg" alt="diary" width="100px"/>
@@ -295,5 +325,3 @@ Usually, you write one assert per test. However the test preparation is relativ 
   - https://undraw.co/illustrations or https://www.drawkit.io/
   - https://blog.spoongraphics.co.uk/articles/25-classic-fonts-that-will-last-a-whole-design-career
   - colors: from https://www.materialpalette.com/colors 500 or 600 for light theme, 200 for dark theme, theming names see https://material.io/develop/android/theming/color and https://material.io/design/color/the-color-system.html
-
-## Thanks

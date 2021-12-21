@@ -6,7 +6,7 @@
     <string name="date_ymd_day">E, dd.MM.yy</string>
     <string name="date_md">dd.MM</string>
     <string name="date_time">dd.MM.yy HH:mm</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">moreDays</string>
     <string name="title_chart">Diagramme</string>
     <string name="title_trophies">Trophäen</string>
     <string name="title_journal">Journal</string>
@@ -240,5 +240,6 @@
         <item>80 Prozent sind super.</item>
         <item>Fehler machen ist sympathisch.</item>
         <item>Ich habe das Beste gegeben, was möglich war.</item>
+        <item>lächeln statt hecheln</item>
     </string-array>
 </resources>
