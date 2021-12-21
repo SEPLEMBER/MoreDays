@@ -16,17 +16,7 @@ Check out [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to help
 
 Help us keep _moreDays_ open and inclusive. Please read and follow our [Code of Conduct](https://gitlab.com/wuapps/moredays/-/blob/master/CODE_OF_CONDUCT.md).
 
-## Vision
-
-<video src="https://youtu.be/xiJHfUTK0os" title="moreDays video"
-style="border: solid 5px #f0570a;
-margin: 0 0 2rem 0;
-margin-right: 0px;
-border-top-left-radius: 255px 15px;
-border-top-right-radius: 15px 225px;
-border-bottom-right-radius: 225px 15px;
-border-bottom-left-radius: 15px 255px;
-box-shadow: 2px 8px 4px -6px rgb(0,0,0,.1);"/>
+## Vision -- [Video](https://youtu.be/xiJHfUTK0os)
 
 moreDays is an app (<a href="https://play.google.com/store/apps/details?id=de.wuapps.moredays">google app store</a>) to reach your individual goals, even if the day is strenuous.
 Make each day YOUR day, do what you really really want first and what you think you should do second.
@@ -92,8 +82,6 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
   - encrypt
     - https://github.com/hanjoongcho/aaf-easydiary
     - biometrics https://developer.android.com/jetpack/androidx/releases/biometric#1.0.1
-
-## Vision
 
 ## naming convention
 
