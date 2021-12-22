@@ -1,0 +1,17 @@
+moreDays let you define your goals and steps to reach them on good and on strenuous days as well as reflect and remember each day
+
+Features:
+
+* Individual goals, individual activities to reach them
+* Journaling with mood tracking and picture of the day
+* Weight tracking
+* Trophies
+* Open-source - The source code is distributed under GNU GPLv3
+* Your data on your phone only
+* 100% free and No ads and No registration - We do not charge any fee or sell ads
+
+Source Code:
+
+The source code is available at the following GitLab repository:
+[https://gitlab.com/wuapps/moredays]
+
