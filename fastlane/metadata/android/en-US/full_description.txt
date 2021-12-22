@@ -1,17 +1,22 @@
-moreDays let you define your goals and steps to reach them on good and on strenuous days as well as reflect and remember each day
+<p><i>moreDays</i> let you define your goals and steps to reach them on good and on strenuous days as well as reflect and remember each day</p>
 
+<p>
 Features:
-
-* Individual goals, individual activities to reach them
-* Journaling with mood tracking and picture of the day
-* Weight tracking
-* Trophies
-* Open-source - The source code is distributed under GNU GPLv3
-* Your data on your phone only
-* 100% free and No ads and No registration - We do not charge any fee or sell ads
-
-Source Code:
-
-The source code is available at the following GitLab repository:
-[https://gitlab.com/wuapps/moredays]
-
+<ul>
+<li>Individual goals, individual activities to reach them</li>
+<li>Journaling with mood tracking and picture of the day</li>
+<li>Weight tracking, sleep tracking, tracking any numbers</li>
+<li>Trophies</li>
+<li>Many charts to analyze your progress</li>
+<li>Open-source - The source code is distributed under GNU GPLv3</li>
+<li>Your data on your phone only</li>
+<li>100% free and no ads and no registration</li>
+</ul>
+</p>
+<p>
+Habit apps focus on specific activities and how to establish to do them each day or n times each week. However, there are strenuous days and days were you feel less fit. Often you start highly motivated and end up frustrated.
+With moreDays you focus on how you want to be (goals), e.g. fit or slim or smart or ecological or whatever is important for you. Then you define how you want to reach each goal. One day you are full of energy and may go on a long bike tour, the next day you feel exhausted but may go for a walk and focus a bit more on another goal, i.e. you define more than one way to reach each of your goals and hence ensure to be able to do a step towards your goals each day.
+In addition you reflect your days, take a picture of the day, add notes including emojis and remember each day, enjoy each day.
+Furthermore, you may track your weight, sleep quality or anything else you may measure. Different charts help you to adapt and reflect your goals, activities and scales.
+</p>
+<p>Video: https://youtu.be/xiJHfUTK0os</p>
