@@ -1,11 +1,11 @@
 package de.wuapps.moredays.ui.journal
 
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,14 +14,15 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
+import com.esafirm.imagepicker.features.*
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
-import com.opensooq.supernova.gligar.GligarPicker
 import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.FragmentJournalBinding
 import de.wuapps.moredays.utilities.DatePickerFragment
 import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.handleFab
+import java.io.File
 import java.util.*
 
 @GlideModule
@@ -33,10 +34,11 @@ class JournalFragment : Fragment() {
     private val viewModel: JournalViewModel by viewModels {
         InjectorUtils.provideJournalViewModelFactory(requireActivity(), args.journal)
     }
-    private val REQUEST_IMAGE = 42
     private lateinit var exampleAffirmations: Array<String>
     private var optionsMenuDelete: MenuItem? = null
     private var selectedMood = -1
+
+    private lateinit var imagePickerLauncher: ImagePickerLauncher
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,8 +46,22 @@ class JournalFragment : Fragment() {
     ): View? {
         viewModel.setDateFormat(getString(R.string.date_ymd_day))
         _binding = FragmentJournalBinding.inflate(inflater, container, false)
+        imagePickerLauncher = registerImagePicker {
+            val firstImage = it.firstOrNull() ?: return@registerImagePicker
+            viewModel.journal.value!!.imageFilename = fixImagePickerPath(firstImage.path, firstImage.name)
+            setImage()
+        }
         binding.imageButtonPickImage.setOnClickListener {
-            GligarPicker().requestCode(REQUEST_IMAGE).withFragment(this).show()
+            imagePickerLauncher.launch(
+                ImagePickerConfig {
+                    mode = ImagePickerMode.SINGLE
+                    returnMode =
+                        ReturnMode.ALL // set whether pick action or camera action should return immediate result or not. Only works in single mode for image picker
+                    imageTitle = getString(R.string.title_journal_picture) // image selection title
+                    doneButtonText = getString(R.string.ok) // done button text
+                    savePath= ImagePickerSavePath("", true)
+                }
+            )
         }
         handleFab(viewModel.hasFab)
         binding.imageButtonSuggestAffirmation.setOnClickListener { suggestAffirmation() }
@@ -82,6 +98,32 @@ class JournalFragment : Fragment() {
         binding.journalViewModel = viewModel
         setHasOptionsMenu(true)
         return binding.root
+    }
+
+    /**
+     * Fix problem in Android Q in iode -- seems to mix up Picture-Directory
+     *
+     * @param path -- full path and name
+     * @param name -- filename only
+     * @return fixed path to exisiting image
+     */
+    private fun fixImagePickerPath(path: String, name: String):String{
+        var f = File(path)
+        if (f.exists())
+            return path
+        var externalPath = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        if (externalPath != null) {
+            f = File(externalPath, name)
+            if (f.exists())
+                return f.absolutePath
+        }
+        externalPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+        if (externalPath != null) {
+            f = File(externalPath, name)
+            if (f.exists())
+                return f.absolutePath
+        }
+        return ""
     }
 
     private fun unselectAllMoodButtons() {
@@ -124,24 +166,6 @@ class JournalFragment : Fragment() {
                     binding.editTextAffirmation.setText(exampleAffirmations.get(which))
                 })
         builder.create().show()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode != Activity.RESULT_OK) {
-            return
-        }
-
-        when (requestCode) {
-            REQUEST_IMAGE -> {
-                val imagesList =
-                    data?.extras?.getStringArray(GligarPicker.IMAGES_RESULT)// return list of selected images paths.
-                if (!imagesList.isNullOrEmpty()) {
-                    viewModel.journal.value!!.imageFilename = imagesList.get(0)
-                    setImage()
-                }
-            }
-        }
     }
 
     private fun setImage() {

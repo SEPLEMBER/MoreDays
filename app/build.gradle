@@ -18,7 +18,7 @@ android {
         minSdkVersion 24
         targetSdkVersion 31
         versionCode 6
-        versionName '1.0.6'
+        versionName '1.0.7'
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -100,7 +100,8 @@ dependencies {
     implementation "com.google.android:flexbox:$flexBoxVersion"
     //implementation 'com.automayta:material-spinner:1.0.2'
       // image picker
-    implementation 'com.opensooq.supernova:gligar:1.1.0'
+    implementation 'com.github.esafirm:android-image-picker:3.0.0-beta1'
+
     // If you have a problem with Glide, please use the same Glide version or simply open an issue
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'

@@ -149,6 +149,7 @@
     <string name="mood_chart">Stimmungsverlauf anzeigen/verbergen</string>
     <string name="mood">Stimmung</string>
     <string name="no_mood_data">Bisher gibt es keine Stimmungsdaten, tracke deine Stimmung im nächsten Journaleintrag :)</string>
+    <string name="title_journal_picture">Bild des Tages</string>
     <string-array name="sayings">
         <item>Ich bin in meiner Mitte.</item>
         <item>Ich bin wertvoll.</item>
@@ -241,5 +242,6 @@
         <item>Fehler machen ist sympathisch.</item>
         <item>Ich habe das Beste gegeben, was möglich war.</item>
         <item>lächeln statt hecheln</item>
+        <item>sehen, was zu tun ist, erkennen, was ich tun kann</item>
     </string-array>
 </resources>
