@@ -44,11 +44,11 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         InjectorUtils.provideGoalViewModelFactory(requireActivity(), args.goal)
     }
 
-    @InternalCoroutinesApi
+    @OptIn(InternalCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentGoalBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.goalViewModel = viewModel
@@ -67,7 +67,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         setColor()
 
         binding.imageButtonColor.setImageDrawable(
-            MoreDaysApplication.iconPack?.let { it.getIcon(SELECT_COLOR_ICON_ID) }?.drawable
+            MoreDaysApplication.iconPack?.getIcon(SELECT_COLOR_ICON_ID)?.drawable
         )
         binding.imageButtonColor.setOnClickListener {
             colorPickerDialog()
@@ -104,13 +104,13 @@ class GoalFragment : Fragment(), IconDialog.Callback {
 
     @InternalCoroutinesApi
     private fun subscribeUi(adapter: ActivityAdapter) {
-        viewModel.goalAndRelatedActivities.observe(viewLifecycleOwner, {
+        viewModel.goalAndRelatedActivities.observe(viewLifecycleOwner) {
             it?.let {
                 if (it.activities.isNotEmpty())
                     adapter.submitList(it.activities.sortedBy { activity -> activity.points })
 
             }
-        })
+        }
     }
 
     private fun colorPickerDialog() {
@@ -195,7 +195,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     private fun setIcon() {
         if (selectedIconId > 0)
             binding.imageButtonIcon.setImageDrawable(
-                MoreDaysApplication.iconPack?.let { it.getIcon(selectedIconId) }?.drawable
+                MoreDaysApplication.iconPack?.getIcon(selectedIconId)?.drawable
             )
     }
 
@@ -206,11 +206,10 @@ class GoalFragment : Fragment(), IconDialog.Callback {
     /**
      * IconDialog.Callback
      */
-    @InternalCoroutinesApi
     override val iconDialogIconPack: IconPack?
         get() = MoreDaysApplication.iconPack
 
-    @InternalCoroutinesApi
+    @OptIn(InternalCoroutinesApi::class)
     override fun onIconDialogIconsSelected(dialog: IconDialog, icons: List<Icon>) {
         if (icons.isNotEmpty()) {
             selectedIconId = icons[0].id

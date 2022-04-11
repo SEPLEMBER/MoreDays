@@ -10,7 +10,7 @@ import de.wuapps.moredays.R
 
 class SimpleMarkerView(context: Context?, layoutResource: Int) :
     MarkerView(context, layoutResource) {
-    private val textViewData: TextView
+    private val textViewData: TextView = findViewById(R.id.textViewData)
     override fun refreshContent(e: Entry, highlight: Highlight) {
         textViewData.text = String.format(
             "%s: %.0f",
@@ -24,11 +24,4 @@ class SimpleMarkerView(context: Context?, layoutResource: Int) :
         return MPPointF((-(width / 2)).toFloat(), (-height).toFloat())
     }
 
-    /**
-     * Constructor. Sets up the MarkerView with a custom layout resource.
-     *
-     */
-    init {
-        textViewData = findViewById(R.id.textViewData)
-    }
 }

@@ -26,8 +26,6 @@ class SplashActivity : AppCompatActivity() {
             val sayings = resources.getStringArray(R.array.sayings)
             val random = Calendar.getInstance().timeInMillis % sayings.size
             txtSaying.text = sayings[random.toInt()]
-            val preferences: SharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(this.applicationContext)
             val txtGreeting = findViewById<TextView>(R.id.greeting)
             txtGreeting.text =
                 "Hi " + sharedPref.getString(getString(R.string.preferences_name_key), "")

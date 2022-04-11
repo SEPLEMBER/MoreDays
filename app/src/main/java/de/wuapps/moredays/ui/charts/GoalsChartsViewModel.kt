@@ -68,20 +68,20 @@ class GoalsChartsViewModel(
     private fun onUpdate() {
         val tmpSummary = ArrayList<GoalSummary>()
         if (activityEntries.size == 0 || goals.size == 0 || trophies.size == 0 ) return //not much to show
-        var daysTotal = activityEntries.groupBy { Pair(it.activityEntry.timestamp.get(Calendar.YEAR), it.activityEntry.timestamp.get(Calendar.DAY_OF_YEAR)) }.size
+        val daysTotal = activityEntries.groupBy { Pair(it.activityEntry.timestamp.get(Calendar.YEAR), it.activityEntry.timestamp.get(Calendar.DAY_OF_YEAR)) }.size
         for (goal in goals) {
             if (!goal.isOld) {
-                var trophiesOfThisGoal = trophies.filter { trophy -> trophy.goalId == goal.uid }
-                var activityEntriesOfThisGoal =
+                val trophiesOfThisGoal = trophies.filter { trophy -> trophy.goalId == goal.uid }
+                val activityEntriesOfThisGoal =
                     activityEntries.filter { activityEntry -> activityEntry.goal.uid == goal.uid }
-                var sumPoints =
+                val sumPoints =
                     activityEntriesOfThisGoal.sumOf { activityEntry -> activityEntry.activity.points }
-                var countDaysMade =
+                val countDaysMade =
                     trophiesOfThisGoal.filter { trophy -> trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL }.size
-                var countDaysInRow =
+                val countDaysInRow =
                     trophiesOfThisGoal.filter { trophy -> trophy.type == Trophy.TROPHY_TYPE_GOAL_DAYS_IN_ROW }
                         .sortedByDescending { trophy -> trophy.timestamp }.firstOrNull()?.value ?: 0
-                var activitySummaries = ArrayList<ActivitySummary>()
+                val activitySummaries = ArrayList<ActivitySummary>()
                 for (entry in activityEntriesOfThisGoal.groupBy { it.activity }) {
                     activitySummaries.add(ActivitySummary(entry.key, entry.value.size))
                 }
@@ -102,8 +102,8 @@ class GoalsChartsViewModel(
     private fun onUpdateHistory(){
         if (activityEntries.size == 0 || goals.size == 0 || hundredPercentValue.size == 0) return
         goals.sortedBy { it.uid }
-        val currentHundredPercentValue = goals.filter{it.isOld == false}.sumOf{ it.points  }
-        var tmpHistory = ArrayList<GoalsDate>()
+        val currentHundredPercentValue = goals.filter{ !it.isOld }.sumOf{ it.points  }
+        val tmpHistory = ArrayList<GoalsDate>()
         for (day in activityEntries.sortedBy { it.activityEntry.timestamp }.groupBy { Pair(it.activityEntry.timestamp.get(Calendar.YEAR), it.activityEntry.timestamp.get(Calendar.DAY_OF_YEAR)) }){ //ignore days without entries!
             //select latest from 100% < date -->dao
             val goalSumsDate = ArrayList<Pair<Goal, Int>>()

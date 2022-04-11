@@ -54,7 +54,7 @@ class GoalsChartsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentGoalsChartsBinding.inflate(inflater, container, false)
         val layoutManager = FlexboxLayoutManager(this.requireContext())
         layoutManager.flexWrap = FlexWrap.WRAP
@@ -69,21 +69,21 @@ class GoalsChartsFragment : Fragment() {
     }
 
     private fun subscribeUi(adapter: GoalSummaryAdapter) {
-        viewModel.goalSummaries.observe(viewLifecycleOwner, {
+        viewModel.goalSummaries.observe(viewLifecycleOwner) {
             it?.let {
                 if (it.isNotEmpty()) {
                     fillCharts(it)
                     adapter.submitList(it)
                 }
             }
-        })
-        viewModel.goalHistory.observe(viewLifecycleOwner, {
+        }
+        viewModel.goalHistory.observe(viewLifecycleOwner) {
             it?.let {
                 if (it.isNotEmpty()) {
                     stackedBarChart(it)
                 }
             }
-        })
+        }
     }
 
     private fun fillCharts(data: List<GoalsChartsViewModel.GoalSummary>) {
@@ -117,7 +117,7 @@ class GoalsChartsFragment : Fragment() {
             )
             radarEntriesSumPoints.add(RadarEntry(goalData.sumPoints.toFloat()))
             radarEntriesGoalsMade.add(RadarEntry(goalData.countDaysMade.toFloat()))
-            for ((_, activityEntry) in goalData.activitySummaries.withIndex()) {
+            for (activityEntry in goalData.activitySummaries) {
                 barEntriesActivity.add(
                     BarEntry(
                         activityNames.size.toFloat(),

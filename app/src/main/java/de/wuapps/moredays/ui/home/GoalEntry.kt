@@ -26,9 +26,9 @@ class GoalEntry(private val goalData: GoalAndRelatedData) {
     constructor(goalData: GoalAndRelatedData, date: Calendar) : this(goalData){
         this.date = date
     }
-    fun getCopy(copyDate:Calendar):GoalEntry {
-        val goalEntry = GoalEntry(goalData, copyDate)
-        return goalEntry
+
+    fun getCopy(copyDate: Calendar): GoalEntry {
+        return GoalEntry(goalData, copyDate)
     }
     fun getCurrentValue(): Int {
         if (currentValue < 0) {

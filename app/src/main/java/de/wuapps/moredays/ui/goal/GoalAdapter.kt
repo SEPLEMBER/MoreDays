@@ -24,7 +24,7 @@ class GoalAdapter :
 
         fun bind(item: Goal) {
             binding.imageViewIcon.setImageDrawable(
-                MoreDaysApplication.iconPack?.let {it.getIcon(item.symbol)}?.drawable
+                MoreDaysApplication.iconPack?.getIcon(item.symbol)?.drawable
             )
             binding.imageViewIcon.setColorFilter(item.color)
             binding.apply {

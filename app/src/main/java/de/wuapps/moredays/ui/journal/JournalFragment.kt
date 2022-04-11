@@ -2,8 +2,6 @@ package de.wuapps.moredays.ui.journal
 
 
 import android.app.AlertDialog
-import android.content.DialogInterface
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.view.*
@@ -43,7 +41,7 @@ class JournalFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         viewModel.setDateFormat(getString(R.string.date_ymd_day))
         _binding = FragmentJournalBinding.inflate(inflater, container, false)
         imagePickerLauncher = registerImagePicker {
@@ -73,9 +71,9 @@ class JournalFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        viewModel.journal.observe(viewLifecycleOwner, {
+        viewModel.journal.observe(viewLifecycleOwner) {
             updateUI()
-        })
+        }
         //mood bar
         binding.buttonMood1.setOnClickListener {
             setMood(1)
@@ -161,10 +159,10 @@ class JournalFragment : Fragment() {
     private fun suggestAffirmation() {
         val builder = AlertDialog.Builder(this.activity)
         builder.setTitle(R.string.title_affirmation)
-            .setItems(exampleAffirmations,
-                DialogInterface.OnClickListener { _, which ->
-                    binding.editTextAffirmation.setText(exampleAffirmations.get(which))
-                })
+            .setItems(exampleAffirmations
+            ) { _, which ->
+                binding.editTextAffirmation.setText(exampleAffirmations[which])
+            }
         builder.create().show()
     }
 
@@ -219,7 +217,7 @@ class JournalFragment : Fragment() {
     }
 
     private fun showDatePicker() {
-        var iniDate = viewModel.journal.value!!.getDateAsCalendar()
+        val iniDate = viewModel.journal.value!!.getDateAsCalendar()
         val newFragment = DatePickerFragment(iniDate, this::handleDateSelected)
         newFragment.show(childFragmentManager, "datePicker")
     }

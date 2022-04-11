@@ -43,11 +43,11 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val scaleNames = ArrayList<String>()
     private var textColorPrimary = DEFAULT_COLOR
 
-    @InternalCoroutinesApi
+    @OptIn(InternalCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentScalesChartBinding.inflate(inflater, container, false)
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -62,7 +62,7 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun subscribeUi() {
-        viewModel.scaleData.observe(viewLifecycleOwner, {
+        viewModel.scaleData.observe(viewLifecycleOwner) {
             it?.let {
                 if (it.isNotEmpty()) {
                     data.clear()
@@ -70,7 +70,7 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     prepareSpinner()
                 }
             }
-        })
+        }
     }
 
     private fun prepareSpinner() {
@@ -89,7 +89,7 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
         } else {
             binding.spinnerScale.visibility = View.GONE
             if (scaleNames.size == 1) {
-                selectedScale = getScaleToName(scaleNames.get(0))
+                selectedScale = getScaleToName(scaleNames[0])
                 fillChart()
             }
         }
@@ -170,7 +170,7 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     //AdapterView.OnItemSelectedListener
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        selectedScale = getScaleToName(scaleNames.get(position))
+        selectedScale = getScaleToName(scaleNames[position])
         fillChart()
     }
 

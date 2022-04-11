@@ -27,11 +27,11 @@ class GoalListFragment : Fragment() {
         InjectorUtils.provideGoalListViewModelFactory(requireActivity())
     }
 
-    @InternalCoroutinesApi
+    @OptIn(InternalCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentGoalListBinding.inflate(inflater, container, false)
         binding.recyclerviewGoals.layoutManager = getFlexboxLayoutManager(requireContext())
         _adapter = GoalAdapter()
@@ -47,11 +47,11 @@ class GoalListFragment : Fragment() {
     }
 
     private fun subscribeUi() {
-        viewModel.goals.observe(viewLifecycleOwner, {
+        viewModel.goals.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it as MutableList<Goal>)
             }
-        })
+        }
     }
 
     override fun onDestroyView() {

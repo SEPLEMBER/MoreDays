@@ -21,7 +21,7 @@ class ChartsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentChartsBinding.inflate(inflater, container, false)
         handleFab(false)
         wireUpTabView()
@@ -59,7 +59,7 @@ class ChartsFragment : Fragment() {
         }
     }
 
-    fun replaceFragment(fragment: Fragment) {
+    private fun replaceFragment(fragment: Fragment) {
         val fm: FragmentManager = childFragmentManager
         val ft: FragmentTransaction = fm.beginTransaction()
         ft.replace(binding.fragmentContainer.id, fragment)

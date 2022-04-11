@@ -2,6 +2,8 @@ package de.wuapps.moredays.ui.customviews
 
 import android.graphics.*
 import android.graphics.drawable.Drawable
+import kotlin.math.abs
+import kotlin.math.min
 
 class CircleDrawable(
     private var color: Int,
@@ -9,7 +11,7 @@ class CircleDrawable(
     private val strokeWidth: Int
 ) :
     Drawable() {
-    private val paint: Paint
+    private val paint: Paint = Paint()
     private val rectF: RectF
     fun setColor(color: Int) {
         this.color = color
@@ -19,9 +21,9 @@ class CircleDrawable(
     override fun draw(canvas: Canvas) {
         canvas.save()
         val bounds = bounds
-        val size = (Math.min(
-            Math.abs(bounds.top - bounds.bottom),
-            Math.abs(bounds.right - bounds.left)
+        val size = (min(
+            abs(bounds.top - bounds.bottom),
+            abs(bounds.right - bounds.left)
         ) - strokeWidth - 10) / 2 //10 ist margin
         rectF[(bounds.width() / 2 - size).toFloat(), (bounds.height() / 2 - size).toFloat(), (bounds.width() / 2 + size).toFloat()] =
             (bounds.height() / 2 + size).toFloat()
@@ -43,7 +45,6 @@ class CircleDrawable(
     }
 
     init {
-        paint = Paint()
         paint.color = color
         paint.style = Paint.Style.FILL
         paint.isAntiAlias = true

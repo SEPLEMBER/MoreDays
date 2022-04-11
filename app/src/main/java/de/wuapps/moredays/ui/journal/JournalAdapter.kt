@@ -46,7 +46,7 @@ class JournalAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JournalViewHolder {
-        return JournalAdapter.JournalViewHolder(
+        return JournalViewHolder(
             ListItemJournalBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,

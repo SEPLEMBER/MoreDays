@@ -36,6 +36,7 @@ import nl.dionsegijn.konfetti.models.Shape
 import nl.dionsegijn.konfetti.models.Size
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.floor
 
 
 @InternalCoroutinesApi
@@ -55,7 +56,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.textViewDate.text = getString(R.string.today)
         val layoutManagerGoals = LinearLayoutManager(context)
@@ -106,7 +107,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showDatePicker() {
-        var iniDate = viewModel.date
+        val iniDate = viewModel.date
         val newFragment = DatePickerFragment(iniDate, this::handleDateSelected)
         newFragment.show(childFragmentManager, "datePicker")
     }
@@ -140,10 +141,10 @@ class HomeFragment : Fragment() {
             ) { _, which ->
                 run {
                     if (which < countScales) {
-                        val scale = viewModel.scales.value!!.get(which)
+                        val scale = viewModel.scales.value!![which]
                         showAddScaleEntryDialog(scale)
                     } else {
-                        val pair = sortedByPoints.get(which - countScales)
+                        val pair = sortedByPoints[which - countScales]
                         viewModel.addGoalEntry(pair.first, pair.second)
                     }
                 }
@@ -159,7 +160,7 @@ class HomeFragment : Fragment() {
         val fractionView = layout.findViewById<NumberPicker>(R.id.numberPickerFraction)
         fractionView.value = 0
         val latestValue = viewModel.getLatestValueToScale(scale)
-        val decimalValue = Math.floor(latestValue.toDouble()).toInt()
+        val decimalValue = floor(latestValue.toDouble()).toInt()
         if (scale.isIntValue) {
             fractionView.visibility = View.GONE
         } else {
@@ -193,26 +194,27 @@ class HomeFragment : Fragment() {
             subscribeUI()
         } else {
             binding.progressBarCyclic.visibility = View.VISIBLE
-            MoreDaysApplication.loaded.observe(viewLifecycleOwner, {
+            MoreDaysApplication.loaded.observe(viewLifecycleOwner) {
                 if (it) {
                     subscribeUI()
                 }
-            })
+            }
         }
     }
 
     private fun subscribeUI() {
         binding.progressBarCyclic.visibility = View.GONE
-        viewModel.scales.observe(viewLifecycleOwner, {
+        viewModel.scales.observe(viewLifecycleOwner) {
             it?.let {
                 scales.clear()
                 scales.addAll(it)
             }
-        })
-        viewModel.goalEntryList.observe(viewLifecycleOwner, {
+        }
+        viewModel.goalEntryList.observe(viewLifecycleOwner) {
             it?.let {
                 goalAdapter.submitList(it)
-                binding.percentageView.label =  String.format(getString(R.string.ini_circle_value), viewModel.name)
+                binding.percentageView.label =
+                    String.format(getString(R.string.ini_circle_value), viewModel.name)
                 binding.percentageView.setCirclesData(it)
 
                 activityData.clear()
@@ -228,9 +230,9 @@ class HomeFragment : Fragment() {
                 }
                 activityData.toList().sortedBy { (_, activity) -> activity.points }
             }
-        })
+        }
 
-        viewModel.newTrophies.observe(viewLifecycleOwner, {
+        viewModel.newTrophies.observe(viewLifecycleOwner) {
             it?.let {
                 if (it.isNotEmpty()) {
                     val trophy = it.last()
@@ -245,8 +247,7 @@ class HomeFragment : Fragment() {
                             .addSizes(Size(12))
                             .setPosition(-50f, binding.viewKonfetti.width + 50f, -50f, -50f)
                             .streamFor(300, 2000L)
-                    }
-                    else {
+                    } else {
                         showTrophyDialog(
                             getTrophyMessage(
                                 trophy.type,
@@ -257,8 +258,8 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
-        })
-        viewModel.justReached100Percent.observe(viewLifecycleOwner, {
+        }
+        viewModel.justReached100Percent.observe(viewLifecycleOwner) {
             if (it) {
                 binding.lottieTrophy.visibility = View.VISIBLE
                 binding.lottieTrophy.playAnimation()
@@ -268,7 +269,7 @@ class HomeFragment : Fragment() {
                 }), 4500)
             }
             viewModel.justReached100Percent.postValue(false)
-        })
+        }
     }
 
     private fun getTrophyMessage(trophyType: Int, value: Int, goalName: String): String {

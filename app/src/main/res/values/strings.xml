@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">moreDays</string>
     <string name="db_ini_name">moredays_initial_database.db</string>
     <string name="date_ymd">yy-MM-dd</string>
@@ -43,14 +43,14 @@
     <string name="trophy_type_title_total">total</string>
     <string name="trophy_type_title_times_per_week">in week</string>
     <string name="trophy_type_title_made_goal">made it</string>
-    <string name="trophy_type_msg_row">Super %1$s! You made %2$s %3$d days in row :)</string>
-    <string name="trophy_type_msg_total">Super %1$s! you made %2$s %3$d times :)</string>
-    <string name="trophy_type_msg_times_per_week">Super %1$s! you made %2$s %3$d times in this week :)</string>
+    <string name="trophy_type_msg_row" tools:ignore="PluralsCandidate">Super %1$s! You made %2$s %3$d days in row :)</string>
+    <string name="trophy_type_msg_total" tools:ignore="PluralsCandidate">Super %1$s! you made %2$s %3$d times :)</string>
+    <string name="trophy_type_msg_times_per_week" tools:ignore="PluralsCandidate">Super %1$s! you made %2$s %3$d times in this week :)</string>
     <string name="help_privacy_content">All data is stored in a local folder, were only this app may access it. App data isn\'t included in your backup
         unless client-side encryption is enabled. </string>
     <string name="help_privacy_title">Privacy</string>
     <string name="expand">expand</string>
-    <string name="help_tips_content">
+    <string name="help_tips_content" tools:ignore="Typos">
         <![CDATA[
         Make each day YOUR day, do what you really really want first and what you think you should do second.
         Take each day a picture and some notes to remember each day.
@@ -138,7 +138,7 @@
     <string name="help_home_fab">Add scale values or track the just finished activity.</string>
     <string name="help_home_goal">Tap shows you the related activities for the given goals, start collecting points :)</string>
     <string name="help_home_challenges">These are your running challenges. Select tools to manage them.</string>
-    <string name="help_nav_tools">Here you may define and adapt your goals, scales and settings. You will find several lists like the list of entries and trophies -- swiping an entry will delete it. You may find additional tipps and help. Use the settings to let the app use your name or define how to start the app.</string>
+    <string name="help_nav_tools">Here you may define and adapt your goals, scales and settings. You will find several lists like the list of entries and trophies — swiping an entry will delete it. You may find additional tipps and help. Use the settings to let the app use your name or define how to start the app.</string>
     <string name="help_nav_tools_first">Adapt the suggested goals, activities and scales to your needs, i.e. delete some goals, more than 4 are difficult to manage ;) </string>
     <string name="help_nav_charts">Analyze your data :)</string>
     <string name="help_add_activity">Define an activity to reach this goal, e.g. for the goal to become fit you could define activities like sports, walk. There should be more than one way to reach this goal, what can you do on easy what on strenuous days?</string>
@@ -180,11 +180,11 @@
     <string name="mood_3">neutral, no opinion, open minded, everything is still possible</string>
     <string name="mood_4">satisfied, balanced, harmonious, can let go</string>
     <string name="mood_5">joyful, happy, inspiring, funny, perfect moment</string>
-    <string name="mood_face_1" translatable="false">&#x1F616;</string>
-    <string name="mood_face_2" translatable="false">&#x1F614;</string>
+    <string name="mood_face_1" translatable="false">😖</string> <!-- &#x1F616; ? -->
+    <string name="mood_face_2" translatable="false">😔</string> <!-- &#x1F614; ??-->
     <string name="mood_face_3" translatable="false">&#x1F610;</string>
-    <string name="mood_face_4" translatable="false">&#x1F60C;</string>
-    <string name="mood_face_5" translatable="false">&#x1F973;</string>
+    <string name="mood_face_4" translatable="false">😌</string> <!-- &#x1F60C; -->
+    <string name="mood_face_5" translatable="false">🥳</string> <!-- &#x1F973;-->
     <string name="no_mood">none</string>
     <string name="mood_chart">show/hide mood chart</string>
     <string name="mood">Mood</string>

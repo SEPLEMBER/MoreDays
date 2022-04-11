@@ -1,12 +1,13 @@
 <h3 align="center">
   moreDays
   <img src="https://gitlab.com/wuapps/moredays/-/blob/master/app/src/main/res/mipmap-hdpi/ic_launcher_round.png?raw=true" alt="moreDays Logo" width="500">
-  </a>
 </h3>
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://gitlab.com/wuapps/moredays/-/blob/master/LICENSE)
 [![version](https://img.shields.io/gem/v/fastlane.svg?style=flat)](https://rubygems.org/gems/fastlane)
 [![PRs welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://gitlab.com/wuapps/moredays/-/blob/master/CONTRIBUTING.md)
+
+<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="75">
 
 ## Contribute to _moreDays_
 

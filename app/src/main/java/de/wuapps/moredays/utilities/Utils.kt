@@ -18,11 +18,11 @@ import java.util.concurrent.Executors
 fun Fragment.handleFab(isFabUsed: Boolean) = if (isFabUsed) showFab() else hideFab()
 
 fun Fragment.showFab() {
-    (activity as MainActivity).let { it.showFab() }
+    (activity as MainActivity).showFab()
 }
 
 fun Fragment.hideFab() {
-    (activity as MainActivity).let { it.hideFab() }
+    (activity as MainActivity).hideFab()
 }
 
 fun Fragment.setFabOnClickListener(l: View.OnClickListener?) {

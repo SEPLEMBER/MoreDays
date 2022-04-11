@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MoreDays">
+        android:theme="@style/Theme.MoreDays"
+        >
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -24,12 +25,10 @@
         </activity>
         <activity
             android:name=".ui.onboarding.Onboarding"
-            android:label="@string/app_name"
             android:theme="@style/SplashTheme" />
         <activity
             android:name=".MainActivity"
-            android:configChanges="uiMode"
-            android:label="@string/app_name"></activity>
+            android:configChanges="uiMode"></activity>
     </application>
 
 </manifest>

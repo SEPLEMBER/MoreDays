@@ -20,7 +20,7 @@ class ActivityEntryAdapter :
 
         fun bind(item: ActivityEntryAndRelatedData) {
             binding.imageViewGoal.setImageDrawable(
-                MoreDaysApplication.iconPack?.let { it.getIcon(item.goal.symbol) }?.drawable
+                MoreDaysApplication.iconPack?.getIcon(item.goal.symbol)?.drawable
             )
             binding.imageViewGoal.setColorFilter(item.goal.color)
             binding.textViewDate.text = dateFormatter.format(item.activityEntry.timestamp.time)
@@ -32,7 +32,7 @@ class ActivityEntryAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActivityEntryViewHolder {
-        return ActivityEntryAdapter.ActivityEntryViewHolder(
+        return ActivityEntryViewHolder(
             ListItemActivityEntryBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,

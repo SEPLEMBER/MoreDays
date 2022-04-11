@@ -26,7 +26,7 @@ class ActivityFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentActivityBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.activityViewModel = viewModel

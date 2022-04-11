@@ -108,8 +108,8 @@ class AnalysisTest : TestCase() {
     @Test
     fun testCheckForNewTrophies() {
         val goal = Goal()
-        var entryId = 1L
-        var date = today
+        val entryId = 1L
+        val date = today
         val trophies = ArrayList<Trophy>()
         val activityEntries = ArrayList<ActivityEntry>()
 
@@ -129,7 +129,7 @@ class AnalysisTest : TestCase() {
         activityEntries.add(ActivityEntry(Activity("test", 1, 2))) //should be taken
         actual = analysis.checkForNewTrophies(goal, entryId, date, trophies, activityEntries)
         assertEquals("new trophy for goal made", 1, actual.size)
-        assertEquals("new trophy for goal made, type made goal", Trophy.TROPHY_TYPE_MADE_GOAL, actual.get(0).type)
+        assertEquals("new trophy for goal made, type made goal", Trophy.TROPHY_TYPE_MADE_GOAL, actual[0].type)
         //check for 3 times this week
         trophies.clear()
         val startOfWeek = Calendar.getInstance()
@@ -153,8 +153,8 @@ class AnalysisTest : TestCase() {
         trophies.add(Trophy(Trophy.TROPHY_TYPE_MADE_GOAL, 1, 1, endOfWeek)) //should be considered
         actual = analysis.checkForNewTrophies(goal, entryId, date, trophies, activityEntries)
         assertEquals("new trophies for 3 times in week", 2, actual.size)
-        assertEquals("new trophy  for 3 times in week, type made goal", Trophy.TROPHY_TYPE_MADE_GOAL, actual.get(0).type)
-        assertEquals("new trophy  for 3 times in week, type n times in week", Trophy.TROPHY_TYPE_MADE_GOAL_N_TIMES_IN_WEEK, actual.get(1).type)
+        assertEquals("new trophy  for 3 times in week, type made goal", Trophy.TROPHY_TYPE_MADE_GOAL, actual[0].type)
+        assertEquals("new trophy  for 3 times in week, type n times in week", Trophy.TROPHY_TYPE_MADE_GOAL_N_TIMES_IN_WEEK, actual[1].type)
 
         //check for 3 days in row -- depending on todays day, trophies may match 3times per week too
         trophies.clear()
@@ -167,8 +167,8 @@ class AnalysisTest : TestCase() {
         actual = analysis.checkForNewTrophies(goal, entryId, date, trophies, activityEntries)
         actual = actual.filter { trophy -> trophy.type == Trophy.TROPHY_TYPE_GOAL_DAYS_IN_ROW }
         assertEquals("new trophy  for 3 times in row, type days in row", 1, actual.size)
-        if (actual.size > 0)
-            assertEquals("new trophy  for 3 times in row, value 3", 3, actual.get(0).value)
+        if (actual.isNotEmpty())
+            assertEquals("new trophy  for 3 times in row, value 3", 3, actual[0].value)
         trophies.clear()
         //check for total == 5
         val dateBefore42Days = Calendar.getInstance()
@@ -184,7 +184,7 @@ class AnalysisTest : TestCase() {
         actual = analysis.checkForNewTrophies(goal, entryId, date, trophies, activityEntries)
         actual = actual.filter { trophy -> trophy.type == Trophy.TROPHY_TYPE_GOAL_TOTAL }
         assertEquals("new trophy for total of five, type total", 1, actual.size)
-        if (actual.size > 0)
-            assertEquals("new trophy for total of five, value 3", 5, actual.get(0).value)
+        if (actual.isNotEmpty())
+            assertEquals("new trophy for total of five, value 3", 5, actual[0].value)
     }
 }

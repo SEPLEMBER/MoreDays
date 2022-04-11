@@ -27,11 +27,11 @@ class ScaleListFragment : Fragment() {
         InjectorUtils.provideScaleListViewModelFactory(requireActivity())
     }
 
-    @InternalCoroutinesApi
+    @OptIn(InternalCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentScaleListBinding.inflate(inflater, container, false)
         binding.recyclerviewScales.layoutManager = getFlexboxLayoutManager(requireContext())
         _adapter = ScaleAdapter()
@@ -47,11 +47,11 @@ class ScaleListFragment : Fragment() {
     }
 
     private fun subscribeUi() {
-        viewModel.scales.observe(viewLifecycleOwner, {
+        viewModel.scales.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it as MutableList<Scale>)
             }
-        })
+        }
     }
     override fun onDestroyView() {
         super.onDestroyView()

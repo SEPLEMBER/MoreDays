@@ -29,9 +29,7 @@ class GoalAdapter(private val onGoalClickHandler: (goal: Goal, activity: Activit
 
         fun bind(item: GoalEntry) {
             binding.imageViewSymbol.setImageDrawable(
-                MoreDaysApplication.iconPack?.let {
-                    it.getIcon(item.getGoal().symbol)
-                }?.drawable
+                MoreDaysApplication.iconPack?.getIcon(item.getGoal().symbol)?.drawable
             )
             binding.imageViewSymbol.setColorFilter(item.getGoal().color)
             binding.apply {

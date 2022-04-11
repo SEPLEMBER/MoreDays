@@ -22,11 +22,11 @@ class TrophyAdapter :
 
         fun bind(item: TrophyAndRelatedGoal) {
             binding.imageViewGoal.setImageDrawable(
-                MoreDaysApplication.iconPack?.let { it.getIcon(item.goal.symbol) }?.drawable
+                MoreDaysApplication.iconPack?.getIcon(item.goal.symbol)?.drawable
             )
             binding.imageViewGoal.setColorFilter(item.goal.color)
             binding.imageViewTrophy.setImageDrawable(
-                MoreDaysApplication.iconPack?.let { it.getIcon(Trophy.matchTrophyTypeToSymbol(item.trophy.type)) }?.drawable
+                MoreDaysApplication.iconPack?.getIcon(Trophy.matchTrophyTypeToSymbol(item.trophy.type))?.drawable
             )
             binding.imageViewTrophy.setColorFilter(item.goal.color)
             binding.textViewDate.text = dateFormatter.format(item.trophy.timestamp.time)
@@ -50,7 +50,7 @@ class TrophyAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrophyViewHolder {
-        return TrophyAdapter.TrophyViewHolder(
+        return TrophyViewHolder(
             ListItemTrophyBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,

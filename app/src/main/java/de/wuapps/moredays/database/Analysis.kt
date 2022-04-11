@@ -27,7 +27,7 @@ class Analysis {
         trophies: List<Trophy>,
         activityEntries: List<ActivityEntry>
     ): List<Trophy> {
-        var newTrophies = ArrayList<Trophy>()
+        val newTrophies = ArrayList<Trophy>()
         var trophy: Trophy?
         //check for trophy for given date for goal
         val trophiesOfGivenDateAndGoal = trophies.filter { t ->  t.goalId == goal.uid && t.type == Trophy.TROPHY_TYPE_MADE_GOAL && t.timestamp.isSameDay(date)}
@@ -50,9 +50,8 @@ class Analysis {
             val trophiesOfGivenGoalOfTypeGoalMade = trophies.filter { t ->  t.goalId == goal.uid && t.type == Trophy.TROPHY_TYPE_MADE_GOAL}
             val trophiesOfGivenGoalMadeInThisWeek = trophiesOfGivenGoalOfTypeGoalMade.filter { t -> t.timestamp.isSameWeek(date)}
             var currentInDb: Int
-            var current: Int
             //check if at least 3 times in this week
-            current = trophiesOfGivenGoalMadeInThisWeek.size
+            var current: Int = trophiesOfGivenGoalMadeInThisWeek.size
             if (current >= 3) {
                 trophy = Trophy(
                     Trophy.TROPHY_TYPE_MADE_GOAL_N_TIMES_IN_WEEK,
@@ -101,7 +100,7 @@ class Analysis {
         var interval = 1 //trophy just made (type made goal) is not part of this list, hence start with yesterday
         val today = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
         var i = 0
-        while ( i<sortedTrophiesrelevantTrophies.size && sortedTrophiesrelevantTrophies.get(i).timestamp.get(Calendar.DAY_OF_YEAR) == (today - interval) ){
+        while ( i<sortedTrophiesrelevantTrophies.size && sortedTrophiesrelevantTrophies[i].timestamp.get(Calendar.DAY_OF_YEAR) == (today - interval) ){
             interval++
             i++
         }

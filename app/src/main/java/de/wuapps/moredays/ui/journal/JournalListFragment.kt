@@ -33,7 +33,7 @@ class JournalListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentJournalListBinding.inflate(inflater, container, false)
         binding.recyclerviewJournal.layoutManager = getFlexboxLayoutManager(requireContext())
         _adapter = JournalAdapter()
@@ -53,12 +53,13 @@ class JournalListFragment : Fragment() {
     }
 
     private fun subscribeUi() {
-        viewModel.journalList.observe(viewLifecycleOwner, {
+        viewModel.journalList.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it as MutableList<Journal>)
-                binding.textViewToday.text = it.firstOrNull()?.affirmation ?: getString(R.string.label_journal_list_today)
+                binding.textViewToday.text =
+                    it.firstOrNull()?.affirmation ?: getString(R.string.label_journal_list_today)
             }
-        })
+        }
     }
     override fun onDestroyView() {
         super.onDestroyView()
@@ -90,7 +91,7 @@ class JournalListFragment : Fragment() {
 
     private fun showMoodChart(){
         val data = adapter.currentList.filter{it.mood != -1}.sortedBy{it.date}
-        if (data.size == 0) {
+        if (data.isEmpty()) {
             binding.textViewNoMoodData.visibility = View.VISIBLE
             return
         }
@@ -132,13 +133,13 @@ class JournalListFragment : Fragment() {
         //group.key.toString()
         val pieDataSorted = data.groupBy{it.mood}.toSortedMap()
         val pieEntries = pieDataSorted.map { group -> PieEntry(group.value.size.toFloat() / data.size,
-            labels.get(group.key - 1).toString()
+            labels[group.key - 1].toString()
         ) }
         val allPieColors = listOf(Color.GRAY, Color.parseColor("#E2DDD9"), Color.parseColor("#0153B6"), Color.parseColor("#9D00F1"), Color.parseColor("#FF8201"))
         val usedPieColors = ArrayList<Int>()
-        for(i in 0..allPieColors.size-1){
+        for(i in allPieColors.indices){
             if (pieDataSorted.keys.contains(i+1))
-                usedPieColors.add(allPieColors.get(i))
+                usedPieColors.add(allPieColors[i])
         }
         val pieDataSet = PieDataSet(pieEntries, "")
         pieDataSet.colors = usedPieColors

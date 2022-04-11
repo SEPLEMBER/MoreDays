@@ -26,7 +26,7 @@ class HomeViewModel(
     var name = ""
     val newTrophies = MutableLiveData<MutableList<Trophy>>()
     val justReached100Percent = MutableLiveData<Boolean>()
-    val percent = MutableLiveData<Float>()
+    private val percent = MutableLiveData<Float>()
     var date: Calendar = Calendar.getInstance()
     private val _scales = scaleDao.getAll()
     val scales = _scales.asLiveData()
@@ -47,7 +47,7 @@ class HomeViewModel(
     private val trophyList = ArrayList<Trophy>()
 
     init {
-        newTrophies.value = ArrayList<Trophy>()
+        newTrophies.value = ArrayList()
         justReached100Percent.value = false
         percent.value = 0F
         //goalEntryList.value = ArrayList<GoalEntry>()
@@ -145,7 +145,7 @@ class HomeViewModel(
     }
 
     fun getLatestValueToScale(scale: Scale): Float {
-        return scaleEntriesList.filter { it.scaleId == scale.uid }.lastOrNull()?.value
+        return scaleEntriesList.lastOrNull { it.scaleId == scale.uid }?.value
             ?: (scale.maxValue - scale.minValue) / 2.0F
     }
 }

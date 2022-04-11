@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         fab = findViewById(R.id.fabMain)
         bottomAppBar = findViewById(R.id.bottomAppBar)
         bottomAppBarVerticalOffsetOrg = bottomAppBar.cradleVerticalOffset
-        fragmentContainerView = findViewById<FragmentContainerView>(R.id.nav_host_fragment)
+        fragmentContainerView = findViewById(R.id.nav_host_fragment)
         fragmentContainerPaddingBottom = fragmentContainerView.paddingBottom
 
         wireUpNavigation()

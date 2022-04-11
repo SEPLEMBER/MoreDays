@@ -15,7 +15,7 @@ class IntListTypeConverter {
     @TypeConverter
     fun toIntList(joinedValue: String): List<Int> {
         if (joinedValue.isBlank()) {
-            return ArrayList<Int>()
+            return ArrayList()
         }
         val intList = ArrayList<Int>()
         joinedValue.split(SEPARATOR).map{ intList.add(it.toInt())}

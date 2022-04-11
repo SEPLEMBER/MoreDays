@@ -20,7 +20,7 @@ class GoalSummaryAdapter :
 
         fun bind(item: GoalsChartsViewModel.GoalSummary) {
             binding.imageViewIcon.setImageDrawable(
-                MoreDaysApplication.iconPack?.let { it.getIcon(item.goal.symbol) }?.drawable
+                MoreDaysApplication.iconPack?.getIcon(item.goal.symbol)?.drawable
             )
             binding.imageViewIcon.setColorFilter(item.goal.color)
             binding.lblMade.text = HtmlCompat.fromHtml(

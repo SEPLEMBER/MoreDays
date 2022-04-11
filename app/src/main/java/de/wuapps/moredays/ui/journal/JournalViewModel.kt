@@ -75,7 +75,7 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
             }
             else {
                 _isNew = false
-                _journal.postValue(tmp!!)
+                _journal.postValue(tmp)
             }
         }
     }
@@ -85,9 +85,9 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
     }
 
     fun getCurrentDate(): String {
-        if (_journal.value != null)
-            return _dateFormatter.format(convertStringToDate(_journal.value!!.date))
+        return if (_journal.value != null)
+            _dateFormatter.format(convertStringToDate(_journal.value!!.date))
         else
-            return _dateFormatter.format(Date())
+            _dateFormatter.format(Date())
     }
 }

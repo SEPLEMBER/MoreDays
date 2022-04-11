@@ -15,13 +15,13 @@ import de.wuapps.moredays.utilities.getFileIntent
 
 class ImportExportFragment : Fragment() {
 
-    val CSV_FILENAME = "MoreDaysExport.txt" //.csv might cause trouble to open it, if there is no appropriate app
+    private val CSV_FILENAME = "MoreDaysExport.txt" //.csv might cause trouble to open it, if there is no appropriate app
     private lateinit var binding: FragmentImportExportBinding
     private var goals: MutableList<Goal>? = null
     private val viewModel: ImportExportViewModel by viewModels {
         InjectorUtils.provideImportExportViewModelFactory(requireActivity())
     }
-        private val columnHeaders = listOf<String>(
+        private val columnHeaders = listOf(
         "DataName",
         "GoalName",
         "GoalColor",
@@ -48,7 +48,7 @@ class ImportExportFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentImportExportBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
         subscribeUi()
@@ -56,9 +56,9 @@ class ImportExportFragment : Fragment() {
     }
 
     private fun subscribeUi() {
-        viewModel.goals.observe(viewLifecycleOwner, {
-            it?.let {goals = it as MutableList<Goal>}
-        })
+        viewModel.goals.observe(viewLifecycleOwner) {
+            it?.let { goals = it as MutableList<Goal> }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -97,7 +97,7 @@ class ImportExportFragment : Fragment() {
                 }
 
             Toast.makeText(context, getString(R.string.export_success), Toast.LENGTH_LONG).show()
-            val intent = csvFile.let { getFileIntent(requireContext(), it) }
+            val intent = getFileIntent(requireContext(), csvFile)
             startActivity(intent)
     }
 }

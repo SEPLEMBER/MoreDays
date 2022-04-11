@@ -13,9 +13,12 @@
         <entry key="..\:/repos/gitlab/moredays/app/src/main/res/drawable/splash_foreground.xml" value="0.18518518518518517" />
         <entry key="..\:/repos/gitlab/moredays/app/src/main/res/layout/activity_main.xml" value="0.20572916666666666" />
         <entry key="..\:/repos/gitlab/moredays/app/src/main/res/layout/activity_splash.xml" value="0.20572916666666666" />
+        <entry key="..\:/repos/gitlab/moredays/app/src/main/res/layout/fragment_activity.xml" value="0.297554347826087" />
+        <entry key="..\:/repos/gitlab/moredays/app/src/main/res/layout/fragment_goal.xml" value="0.297554347826087" />
         <entry key="..\:/repos/gitlab/moredays/app/src/main/res/layout/fragment_home.xml" value="0.20572916666666666" />
         <entry key="..\:/repos/gitlab/moredays/app/src/main/res/layout/fragment_import_export.xml" value="0.20572916666666666" />
         <entry key="..\:/repos/gitlab/moredays/app/src/main/res/layout/fragment_journal.xml" value="0.335" />
+        <entry key="..\:/repos/gitlab/moredays/app/src/main/res/layout/list_item_goal_summary.xml" value="0.297554347826087" />
         <entry key="..\:/repos/gitlab/moredays/app/src/main/res/layout/list_item_journal.xml" value="0.20625" />
         <entry key="..\:/repos/gitlab/moredays/app/src/main/res/layout/sample_mood_bar.xml" value="0.11322463768115942" />
         <entry key="..\:/repos/gitlab/moredays/app/src/main/res/layout/sample_percentage_view.xml" value="0.296195652173913" />

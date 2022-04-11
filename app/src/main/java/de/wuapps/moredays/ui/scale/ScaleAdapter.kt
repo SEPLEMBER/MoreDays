@@ -32,7 +32,7 @@ class ScaleAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScaleViewHolder {
-        return ScaleAdapter.ScaleViewHolder(
+        return ScaleViewHolder(
             ListItemScaleBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,

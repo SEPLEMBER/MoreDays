@@ -31,7 +31,7 @@ class GoalViewModel(
                 goalDao.update(goal)
             }
             val points = goalDao.getSumOfActive()
-            var hundredPercentValue = HundredPercentValue(points)
+            val hundredPercentValue = HundredPercentValue(points)
             hundredPercentValueDao.insert(hundredPercentValue)
         }
     }

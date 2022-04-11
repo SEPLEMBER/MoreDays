@@ -26,11 +26,11 @@ class ActivityEntryListFragment : Fragment() {
         InjectorUtils.provideActivityEntryListViewModelFactory(requireActivity())
     }
 
-    @InternalCoroutinesApi
+    @OptIn(InternalCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentActivityEntryListBinding.inflate(inflater, container, false)
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -46,11 +46,11 @@ class ActivityEntryListFragment : Fragment() {
 
     @InternalCoroutinesApi
     private fun subscribeUi() {
-        viewModel.activityEntries.observe(viewLifecycleOwner, {
+        viewModel.activityEntries.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it as MutableList<ActivityEntryAndRelatedData>)
             }
-        })
+        }
     }
 
     @InternalCoroutinesApi

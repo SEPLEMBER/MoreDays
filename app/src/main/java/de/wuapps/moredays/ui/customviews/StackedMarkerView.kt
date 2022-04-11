@@ -12,7 +12,7 @@ import java.util.*
 
 class StackedMarkerView(context: Context?, layoutResource: Int) :
     MarkerView(context, layoutResource) {
-    private val textViewData: TextView
+    private val textViewData: TextView = findViewById(R.id.textViewData)
     override fun refreshContent(e: Entry, highlight: Highlight) {
         if (context != null && e.data is GregorianCalendar) {
             val date = e.data as GregorianCalendar
@@ -30,11 +30,4 @@ class StackedMarkerView(context: Context?, layoutResource: Int) :
         return MPPointF((-(width / 2)).toFloat(), (-height).toFloat())
     }
 
-    /**
-     * Constructor. Sets up the MarkerView with a custom layout resource.
-     *
-     */
-    init {
-        textViewData = findViewById(R.id.textViewData)
-    }
 }

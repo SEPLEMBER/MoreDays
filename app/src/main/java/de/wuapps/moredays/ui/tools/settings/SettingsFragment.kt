@@ -6,7 +6,7 @@ import de.wuapps.moredays.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
     companion object{
-        val defaultIsDarkMode = true
+        const val defaultIsDarkMode = true
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

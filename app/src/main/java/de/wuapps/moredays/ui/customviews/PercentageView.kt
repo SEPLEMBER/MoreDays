@@ -12,6 +12,9 @@ import android.view.View
 import de.wuapps.moredays.R
 import de.wuapps.moredays.ui.home.GoalEntry
 import kotlin.math.abs
+import kotlin.math.cos
+import kotlin.math.min
+import kotlin.math.sin
 
 
 // based on https://github.com/turkergoksu/PercentageView and https://tomkubasik.medium.com/enhance-your-android-app-with-custom-view-ad344d28b501
@@ -91,7 +94,7 @@ class PercentageView @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        val squareSize = Math.min(width, height).toFloat()
+        val squareSize = min(width, height).toFloat()
         var marginLeft = 0F
         var marginTop = 0F
         if (width > height) { //center horizontally
@@ -157,18 +160,18 @@ class PercentageView @JvmOverloads constructor(
             //y should be +, but due to the obtuse angle it's -- ...
             canvas.drawCircle(
                 rectF.centerX() - diffOuterCircleInnerCircle *
-                        Math.sin(Math.toRadians(angle)).toFloat(),
+                        sin(Math.toRadians(angle)).toFloat(),
                 rectF.centerY() - diffOuterCircleInnerCircle *
-                        Math.cos(Math.toRadians(angle)).toFloat(),
+                        cos(Math.toRadians(angle)).toFloat(),
                 fillCircleRadius,
                 startCirclePaint
             )
             //end circle
             canvas.drawCircle(
                 rectF.centerX() + diffOuterCircleInnerCircle *
-                        Math.sin(Math.toRadians(angle)).toFloat(),
+                        sin(Math.toRadians(angle)).toFloat(),
                 rectF.centerY() - diffOuterCircleInnerCircle *
-                        Math.cos(Math.toRadians(angle)).toFloat(),
+                        cos(Math.toRadians(angle)).toFloat(),
                 fillCircleRadius,
                 endCirclePaint
             )
@@ -208,8 +211,8 @@ class PercentageView @JvmOverloads constructor(
     }
 
     private fun calcPercentage() {
-        val sum = goalEntries.sumOf<GoalEntry>({ goalEntry -> goalEntry.getCurrentValue() })
-        desiredTotal = goalEntries.sumOf<GoalEntry>({ goalEntry -> goalEntry.getDesiredValue() })
+        val sum = goalEntries.sumOf { goalEntry -> goalEntry.getCurrentValue() }
+        desiredTotal = goalEntries.sumOf { goalEntry -> goalEntry.getDesiredValue() }
         percentage = sum * 100F / desiredTotal
         if (desiredTotal < sum)
             desiredTotal = sum //do not make the circle bigger than full

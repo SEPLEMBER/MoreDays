@@ -25,11 +25,11 @@ class TrophyListFragment : Fragment() {
         InjectorUtils.provideTrophyListViewModelFactory(requireActivity())
     }
 
-    @InternalCoroutinesApi
+    @OptIn(InternalCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentTrophyListBinding.inflate(inflater, container, false)
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -45,11 +45,11 @@ class TrophyListFragment : Fragment() {
 
     @InternalCoroutinesApi
     private fun subscribeUi() {
-        viewModel.trophies.observe(viewLifecycleOwner, {
+        viewModel.trophies.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it as MutableList<TrophyAndRelatedGoal>)
             }
-        })
+        }
     }
 
     @InternalCoroutinesApi

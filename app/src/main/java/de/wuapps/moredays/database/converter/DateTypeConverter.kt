@@ -18,8 +18,7 @@ class DateTypeConverter {
 
         @TypeConverter
         fun convertDateToString(date: Date): String {
-            val tmp = SimpleDateFormat("yyMMdd").format(date)
-            return tmp
+            return SimpleDateFormat("yyMMdd").format(date)
         }
 
         @TypeConverter
