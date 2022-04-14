@@ -5,7 +5,6 @@ import junit.framework.TestCase
 import org.junit.Before
 import org.junit.Test
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AnalysisTest : TestCase() {
 

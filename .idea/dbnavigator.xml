@@ -24,11 +24,15 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="40c0d103-5c42-430f-8791-7ed76fda4f62">
+        <schema name="main" object-types="table, view, constraint, index, column, dataset trigger" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="40c0d103-5c42-430f-8791-7ed76fda4f62">
-      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[drop table "Challenge"]]></console>
+      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[INSERT OR REPLACE INTO `HundredPercentValue` (`date`,`points`) VALUES ('20211214',19);]]></console>
     </connection>
     <connection id="8f69767a-67c4-4def-a516-c106818d4f3f">
       <console name="moreDays-de" type="STANDARD" schema="main" session="Main"><![CDATA[drop table "Challenge"]]></console>

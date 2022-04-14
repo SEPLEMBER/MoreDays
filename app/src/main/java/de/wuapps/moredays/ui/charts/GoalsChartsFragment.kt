@@ -32,8 +32,6 @@ import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.getColorThemeRes
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.Comparator
-import kotlin.collections.ArrayList
 import kotlin.math.floor
 
 

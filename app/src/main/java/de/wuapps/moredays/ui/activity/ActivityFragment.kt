@@ -69,7 +69,6 @@ class ActivityFragment : Fragment() {
         var isValid = true
         val name = binding.editTextName.text.toString().trim()
         val pointsAsString = binding.editTextPoints.text.toString().trim()
-        //val goal = binding.spinnerGoal.tag
         var points = 0
         val isOld = binding.checkboxIsOld.isChecked
         if (name.isBlank()) {
@@ -83,7 +82,7 @@ class ActivityFragment : Fragment() {
         try {
             points = parseInt(pointsAsString)
         } catch (e: NumberFormatException) {
-            binding.editTextName.error = getString(R.string.warning_not_an_int)
+            binding.editTextPoints.error = getString(R.string.warning_not_an_int)
             isValid = false
         }
         if (!isValid)

@@ -45,7 +45,7 @@
                 android:id="@+id/editTextPoints"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/min_accesible_size"
-                android:digits="0123456789"
+
                 android:inputType="numberSigned|numberDecimal"
                 android:text="@={`` + activityViewModel.activity.points}"
                 app:layout_constraintStart_toStartOf="parent"

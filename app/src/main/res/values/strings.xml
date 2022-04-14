@@ -35,7 +35,7 @@
     <string name="question_delete_scale" >Do you really want to delete this scale and all related entries?</string>
     <string name="save">save</string>
     <string name="delete">delete</string>
-    <string name="help">help</string>
+    <string name="help">Help &amp; Credits</string>
     <string name="lists">Lists</string>
     <string name="activity_entries">Activity entries</string>
     <string name="import_export">import/export</string>
@@ -180,9 +180,9 @@
     <string name="mood_3">neutral, no opinion, open minded, everything is still possible</string>
     <string name="mood_4">satisfied, balanced, harmonious, can let go</string>
     <string name="mood_5">joyful, happy, inspiring, funny, perfect moment</string>
-    <string name="mood_face_1" translatable="false">😖</string> <!-- &#x1F616; ? -->
-    <string name="mood_face_2" translatable="false">😔</string> <!-- &#x1F614; ??-->
-    <string name="mood_face_3" translatable="false">&#x1F610;</string>
+    <string name="mood_face_1" translatable="false">😖</string> <!-- &#x1F616;  -->
+    <string name="mood_face_2" translatable="false">😔</string> <!-- &#x1F614; -->
+    <string name="mood_face_3" translatable="false">😐</string><!-- &#x1F610; -->
     <string name="mood_face_4" translatable="false">😌</string> <!-- &#x1F60C; -->
     <string name="mood_face_5" translatable="false">🥳</string> <!-- &#x1F973;-->
     <string name="no_mood">none</string>

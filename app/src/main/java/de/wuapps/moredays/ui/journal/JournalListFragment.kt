@@ -3,7 +3,6 @@ package de.wuapps.moredays.ui.journal
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
-import androidx.emoji2.text.EmojiCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -129,7 +128,7 @@ class JournalListFragment : Fragment() {
         val pieChart = binding.pieChartMood
         pieChart.clear()
         pieChart.visibility = View.VISIBLE
-        val labels = listOf(EmojiCompat.get().process(getString(R.string.mood_face_1)), EmojiCompat.get().process(getString(R.string.mood_face_2)), EmojiCompat.get().process(getString(R.string.mood_face_3)), EmojiCompat.get().process(getString(R.string.mood_face_4)), EmojiCompat.get().process(getString(R.string.mood_face_5)))
+        val labels = listOf(getString(R.string.mood_face_1), getString(R.string.mood_face_2), getString(R.string.mood_face_3), getString(R.string.mood_face_4), getString(R.string.mood_face_5))
         //group.key.toString()
         val pieDataSorted = data.groupBy{it.mood}.toSortedMap()
         val pieEntries = pieDataSorted.map { group -> PieEntry(group.value.size.toFloat() / data.size,

@@ -1,5 +1,6 @@
 package de.wuapps.moredays.ui.goal
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -22,7 +23,13 @@ class GoalViewModel(
     val goalAndRelatedActivities = goalDao.getGoalAndRelatedActivities(goal.uid).asLiveData()
 
     fun save() {
-        viewModelScope.launch(Dispatchers.IO){
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val pointsOther = goalDao.getSumOfOtherActive(goal.uid)
+            val points = if (goal.isOld) pointsOther else pointsOther + goal.points
+            val hundredPercentValue = HundredPercentValue(points)
+            hundredPercentValueDao.insert(hundredPercentValue)
+            Log.d("oki", "oki1")
             if (isNew) {
                 isNew = false
                 goal.uid = goalDao.insert(goal)
@@ -30,9 +37,9 @@ class GoalViewModel(
             } else {
                 goalDao.update(goal)
             }
-            val points = goalDao.getSumOfActive()
-            val hundredPercentValue = HundredPercentValue(points)
-            hundredPercentValueDao.insert(hundredPercentValue)
+            Log.d("oki", "oki2")
+
+
         }
     }
 

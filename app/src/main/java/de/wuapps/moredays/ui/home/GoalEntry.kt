@@ -31,7 +31,7 @@ class GoalEntry(private val goalData: GoalAndRelatedData) {
         return GoalEntry(goalData, copyDate)
     }
     fun getCurrentValue(): Int {
-        if (currentValue < 0) {
+        if (activityEntriesToday.isEmpty() ) {
             activityEntriesToday.addAll(goalData.entries.filter { entry ->
                 entry.timestamp.get(YEAR) == year && entry.timestamp.get(DAY_OF_YEAR) == day
             })

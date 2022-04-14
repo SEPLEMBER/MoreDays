@@ -6,7 +6,6 @@ import de.wuapps.moredays.database.entity.Trophy
 import de.wuapps.moredays.utilities.isSameDay
 import de.wuapps.moredays.utilities.isSameWeek
 import java.util.*
-import kotlin.collections.ArrayList
 
 class Analysis {
 
