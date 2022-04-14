@@ -30,6 +30,13 @@ In addtion you may track your weight, your sleep quality or anything else you li
 With moreDays you can reflect your day in a personal journal, follow your goals, define challenges, everything is in your hand, just do it.
 Make every day a good day :)
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/de.wuapps.moredays/)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+     alt="Get it on Google Play"
+     height="80">](https://play.google.com/store/apps/details?id=de.wuapps.moredays)
+
 <img src="images/main.jpg" alt="home screen" width="100px"/>
 <img src="images/onboarding1.jpg" alt="onboarding" width="100px"/>
 <img src="images/journal.jpg" alt="diary" width="100px"/>
