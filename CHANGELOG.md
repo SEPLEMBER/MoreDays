@@ -13,7 +13,16 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 
 ## [Unreleased]
 
--
+## [1.0.7] - 2022-04-14 - 🏁-Release
+
+### Fixed
+
+- 100% line after editing goal points or activate/inactivate a goal
+- update libs and fix code inspection issues
+
+### Added
+
+- support negative points in activities
 
 ## [1.0.6] - 2021-12-15 - 🏁-Release
 
