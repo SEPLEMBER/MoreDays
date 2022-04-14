@@ -7,8 +7,6 @@
 [![version](https://img.shields.io/gem/v/fastlane.svg?style=flat)](https://rubygems.org/gems/fastlane)
 [![PRs welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://gitlab.com/wuapps/moredays/-/blob/master/CONTRIBUTING.md)
 
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="75">](https://f-droid.org/de/packages/de.wuapps.moredays/)
-
 ## Contribute to _moreDays_
 
 Check out [CONTRIBUTING.md](CONTRIBUTING.md) for more information on how to help with _moreDays_.
