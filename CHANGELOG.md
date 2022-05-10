@@ -13,16 +13,29 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 
 ## [Unreleased]
 
-## [1.0.7] - 2022-04-14 - 🏁-Release
+## [1.0.10] - 2022-05-22 - 🏁-Release
 
 ### Fixed
 
-- 100% line after editing goal points or activate/inactivate a goal
+- FDROID lint error #1
+
+## [1.0.9] - 2022-04-14 - 🏁-Release
+
+### Fixed
+
+- 100% line after editing goal points or activate/inactivate a goal 
 - update libs and fix code inspection issues
 
 ### Added
 
 - support negative points in activities
+
+## [1.0.8] - 2022-01-13 - 🏁-Release
+
+### Added
+
+- Prepare release for FDROID
+
 
 ## [1.0.6] - 2021-12-15 - 🏁-Release
 
