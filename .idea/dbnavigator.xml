@@ -18,6 +18,7 @@
       <destination value="FILE" />
       <format value="EXCEL" />
       <charset value="windows-1252" />
+      <charset value="windows-1252" />
     </export-instructions>
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -32,10 +33,10 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="40c0d103-5c42-430f-8791-7ed76fda4f62">
-      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[INSERT OR REPLACE INTO `HundredPercentValue` (`date`,`points`) VALUES ('20211214',19);]]></console>
+      <console name="Connection" type="STANDARD" schema="main" session="Main">INSERT OR REPLACE INTO `HundredPercentValue` (`date`,`points`) VALUES ('20211214',19);</console>
     </connection>
     <connection id="8f69767a-67c4-4def-a516-c106818d4f3f">
-      <console name="moreDays-de" type="STANDARD" schema="main" session="Main"><![CDATA[drop table "Challenge"]]></console>
+      <console name="moreDays-de" type="STANDARD" schema="main" session="Main">drop table &quot;Challenge&quot;</console>
     </connection>
     <connection id="97e0c235-1348-4081-84db-8970e5ef34e0">
       <console name="moredays-en" type="STANDARD" schema="main" session="Main" />
@@ -145,7 +146,7 @@
           <alternative-statement-delimiter value="" />
         </details>
         <object-filters hide-empty-schemas="false" hide-pseudo-columns="false">
-          <object-type-filter use-master-settings="true">
+          <object-type-filter>
             <object-type name="SCHEMA" enabled="true" />
             <object-type name="USER" enabled="true" />
             <object-type name="ROLE" enabled="true" />
@@ -232,7 +233,7 @@
           <alternative-statement-delimiter value="" />
         </details>
         <object-filters hide-empty-schemas="false" hide-pseudo-columns="false">
-          <object-type-filter use-master-settings="true">
+          <object-type-filter>
             <object-type name="SCHEMA" enabled="true" />
             <object-type name="USER" enabled="true" />
             <object-type name="ROLE" enabled="true" />
@@ -319,7 +320,7 @@
           <alternative-statement-delimiter value="" />
         </details>
         <object-filters hide-empty-schemas="false" hide-pseudo-columns="false">
-          <object-type-filter use-master-settings="true">
+          <object-type-filter>
             <object-type name="SCHEMA" enabled="true" />
             <object-type name="USER" enabled="true" />
             <object-type name="ROLE" enabled="true" />
