@@ -21,25 +21,39 @@
         android:label="@string/title_tools" >
         <action
             android:id="@+id/navigation_tools_goals"
-            app:destination="@id/goalListFragment" />
+            app:destination="@id/goalListFragment"
+            app:popUpTo="@id/navigation_tools"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/navigation_tools_scales"
-            app:destination="@id/scaleListFragment" />
+            app:destination="@id/scaleListFragment"
+            app:popUpTo="@id/navigation_tools"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/navigation_tools_help"
-            app:destination="@id/helpFragment" />
+            app:destination="@id/helpFragment"
+            app:popUpTo="@id/navigation_tools"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/navigation_tools_trophies"
-            app:destination="@id/trophyListFragment" />
+            app:destination="@id/trophyListFragment"
+            app:popUpTo="@id/navigation_tools"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/navigation_tools_history"
-            app:destination="@id/activityEntryListFragment" />
+            app:destination="@id/activityEntryListFragment"
+            app:popUpTo="@id/navigation_tools"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/navigation_tools_settings"
-            app:destination="@id/settingsFragment" />
+            app:destination="@id/settingsFragment"
+            app:popUpTo="@id/navigation_tools"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/navigation_tools_import_export"
-            app:destination="@id/importExportFragment" />
+            app:destination="@id/importExportFragment"
+            app:popUpTo="@id/navigation_tools"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/activityFragment"
@@ -113,7 +127,9 @@
         tools:layout="@layout/fragment_journal_list" >
         <action
             android:id="@+id/navigation_journalList_journal"
-            app:destination="@id/journalFragment" />
+            app:destination="@id/journalFragment"
+            app:popUpTo="@id/navigation_journalList"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/journalFragment"
