@@ -14,7 +14,6 @@ import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.getFlexboxLayoutManager
 import de.wuapps.moredays.utilities.setFabOnClickListener
 import de.wuapps.moredays.utilities.showFab
-import kotlinx.coroutines.InternalCoroutinesApi
 
 
 class GoalListFragment : Fragment() {

@@ -1,6 +1,9 @@
 package de.wuapps.moredays.database
 
-import de.wuapps.moredays.database.entity.*
+import de.wuapps.moredays.database.entity.Activity
+import de.wuapps.moredays.database.entity.ActivityEntry
+import de.wuapps.moredays.database.entity.Goal
+import de.wuapps.moredays.database.entity.Trophy
 import junit.framework.TestCase
 import org.junit.Before
 import org.junit.Test
