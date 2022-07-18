@@ -17,6 +17,7 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 
 ### Fixed
 - delete goal and answering the dialog with no deleted the goal anyhow, fixed.
+- bottom navigation showed wrong selection after going deeper into the app, see issue #3, fixed.
 
 ### Refactored
 - updated to new libs
