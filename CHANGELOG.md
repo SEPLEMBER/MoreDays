@@ -13,6 +13,14 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 
 ## [Unreleased]
 
+## [1.0.11] - 2022-07-18 - 🏁-Release
+
+### Fixed
+- delete goal and answering the dialog with no deleted the goal anyhow, fixed.
+
+### Refactored
+- updated to new libs
+
 ## [1.0.10] - 2022-05-22 - 🏁-Release
 
 ### Fixed

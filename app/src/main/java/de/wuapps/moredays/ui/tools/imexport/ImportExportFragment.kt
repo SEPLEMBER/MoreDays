@@ -3,8 +3,11 @@ package de.wuapps.moredays.ui.tools.imexport
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Goal
@@ -13,7 +16,7 @@ import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.generateFile
 import de.wuapps.moredays.utilities.getFileIntent
 
-class ImportExportFragment : Fragment() {
+class ImportExportFragment : Fragment(), MenuProvider {
 
     private val CSV_FILENAME = "MoreDaysExport.txt" //.csv might cause trouble to open it, if there is no appropriate app
     private lateinit var binding: FragmentImportExportBinding
@@ -50,7 +53,8 @@ class ImportExportFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentImportExportBinding.inflate(inflater, container, false)
-        setHasOptionsMenu(true)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         subscribeUi()
         return binding.root
     }
@@ -61,11 +65,11 @@ class ImportExportFragment : Fragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.import_export_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onMenuItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_export -> {
                 export()

@@ -13,8 +13,11 @@ import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,7 +43,7 @@ import kotlin.math.floor
 
 
 @InternalCoroutinesApi
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), MenuProvider {
 
     private val viewModel: HomeViewModel by viewModels {
         InjectorUtils.provideHomeViewModelFactory(requireActivity().application)
@@ -69,7 +72,8 @@ class HomeFragment : Fragment() {
         _goalAdapter = GoalAdapter(viewModel::addGoalEntry)
         binding.recyclerViewGoals.adapter = goalAdapter
         handleLoading()
-        setHasOptionsMenu(true)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         if (!preferences.getBoolean(getString(R.string.preferences_showed_first_help), false))
             showFirstHelp()
         setFabOnClickListener { showAddOptions() }
@@ -88,11 +92,11 @@ class HomeFragment : Fragment() {
         super.onPause()
         viewModel.timeLatestActive = Calendar.getInstance()
     }
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.help_calendar_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onMenuItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_help -> {
                 showHelp()

@@ -27,7 +27,6 @@ class ScaleListFragment : Fragment() {
         InjectorUtils.provideScaleListViewModelFactory(requireActivity())
     }
 
-    @OptIn(InternalCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

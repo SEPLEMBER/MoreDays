@@ -3,8 +3,11 @@ package de.wuapps.moredays.ui.journal
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
@@ -17,7 +20,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class JournalListFragment : Fragment() {
+class JournalListFragment : Fragment(), MenuProvider {
 
     private val viewModel: JournalListViewModel by viewModels {
         InjectorUtils.provideJournalListViewModelFactory(requireActivity())
@@ -42,7 +45,8 @@ class JournalListFragment : Fragment() {
         }
         textColorPrimary = requireContext().getColorThemeRes(android.R.attr.textColorPrimary)
         subscribeUi()
-        setHasOptionsMenu(true)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return binding.root
     }
 
@@ -66,11 +70,11 @@ class JournalListFragment : Fragment() {
         _binding = null
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.journallist_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onMenuItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_mood_chart -> {
                 if (isMoodChartVisible) {
@@ -132,7 +136,7 @@ class JournalListFragment : Fragment() {
         //group.key.toString()
         val pieDataSorted = data.groupBy{it.mood}.toSortedMap()
         val pieEntries = pieDataSorted.map { group -> PieEntry(group.value.size.toFloat() / data.size,
-            labels[group.key - 1].toString()
+            labels[group.key - 1]
         ) }
         val allPieColors = listOf(Color.GRAY, Color.parseColor("#E2DDD9"), Color.parseColor("#0153B6"), Color.parseColor("#9D00F1"), Color.parseColor("#FF8201"))
         val usedPieColors = ArrayList<Int>()

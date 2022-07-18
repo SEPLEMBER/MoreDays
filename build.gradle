@@ -2,7 +2,7 @@
 buildscript {
     ext {
         gradleVersion = '7.2.1'
-        kotlinVersion = '1.6.20'
+        kotlinVersion = '1.6.21'
         coreVersion = '1.8.0'
         materialVersion = '1.6.1'
         constraintLayoutVersion = '2.1.4'
@@ -13,10 +13,10 @@ buildscript {
         colorPickerVersion = '2.2.4'
         aboutVersion = '10.3.0'
         emojiVersion = '1.1.0'
-        coroutinesVersion = '1.6.1-native-mt'
-        archLifecycleVersion = '2.4.1'
+        coroutinesVersion = '1.6.4'
+        archLifecycleVersion = '2.5.0'
         archVersion = '2.1.0'
-        navigationVersion = '2.4.2'
+        navigationVersion = '2.5.0'
         lottieVersion = '5.2.0'
         dataBindingCompilerVersion = gradleVersion // Always need to be the same.
     }

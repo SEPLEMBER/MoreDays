@@ -5,8 +5,11 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Environment
 import android.view.*
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +27,7 @@ import java.io.File
 import java.util.*
 
 @GlideModule
-class JournalFragment : Fragment() {
+class JournalFragment : Fragment(), MenuProvider {
 
     private var _binding: FragmentJournalBinding? = null
     private val binding get() = _binding!!
@@ -94,7 +97,8 @@ class JournalFragment : Fragment() {
             setMood(-1)
         }
         binding.journalViewModel = viewModel
-        setHasOptionsMenu(true)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return binding.root
     }
 
@@ -188,7 +192,7 @@ class JournalFragment : Fragment() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onMenuItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_help -> {
                 showHelp()
@@ -210,7 +214,7 @@ class JournalFragment : Fragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.help_calendar_delete_save_menu, menu)
         optionsMenuDelete = menu.findItem(R.id.menu_delete)
         optionsMenuDelete!!.isVisible = viewModel.hasDeleteOption

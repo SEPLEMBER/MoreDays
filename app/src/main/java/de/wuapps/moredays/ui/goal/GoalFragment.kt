@@ -3,8 +3,11 @@ package de.wuapps.moredays.ui.goal
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -31,7 +34,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import java.lang.Integer.parseInt
 
 
-class GoalFragment : Fragment(), IconDialog.Callback {
+class GoalFragment : Fragment(), MenuProvider, IconDialog.Callback {
     private val SELECT_COLOR_ICON_ID = 502
     private var selectedIconId: Int = 0
     private var selectedColor: Int = 0
@@ -97,7 +100,8 @@ class GoalFragment : Fragment(), IconDialog.Callback {
             subscribeUi(adapter)
         }
         handleFab(viewModel.hasFab)
-        setHasOptionsMenu(true)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return view
 
     }
@@ -137,10 +141,6 @@ class GoalFragment : Fragment(), IconDialog.Callback {
 
     private fun delete() {
         if (!viewModel.isNew) {
-            viewModel.delete()
-            view?.post {
-                findNavController().popBackStack()
-            }
             val alertDialog: AlertDialog.Builder =
                 AlertDialog.Builder(requireNotNull(this.activity))
             alertDialog.setTitle(getString(R.string.title_delete))
@@ -217,7 +217,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onMenuItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_help -> {
                 showHelp()
@@ -236,7 +236,7 @@ class GoalFragment : Fragment(), IconDialog.Callback {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.help_delete_save_menu, menu)
         if (viewModel.isNew)
             menu.findItem(R.id.menu_delete).isVisible = false

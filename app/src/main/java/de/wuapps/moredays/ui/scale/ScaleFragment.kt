@@ -4,8 +4,11 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.getkeepsafe.taptargetview.TapTarget
@@ -16,7 +19,7 @@ import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.handleFab
 import java.lang.Integer.parseInt
 
-class ScaleFragment : Fragment() {
+class ScaleFragment : Fragment(), MenuProvider {
     private val args: ScaleFragmentArgs by navArgs()
     private val viewModel: ScaleViewModel by viewModels {
         InjectorUtils.provideScaleViewModelFactory(requireActivity(), args.scale)
@@ -31,7 +34,8 @@ class ScaleFragment : Fragment() {
         val view = binding.root
         binding.scaleViewModel = viewModel
         handleFab(viewModel.hasFab)
-        setHasOptionsMenu(true)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return view
 
     }
@@ -111,7 +115,7 @@ class ScaleFragment : Fragment() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onMenuItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_help -> {
                 showHelp()
@@ -129,7 +133,7 @@ class ScaleFragment : Fragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.help_delete_save_menu, menu)
         if (viewModel.isNew)
             menu.findItem(R.id.menu_delete).isVisible = false
