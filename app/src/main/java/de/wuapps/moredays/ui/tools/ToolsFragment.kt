@@ -4,35 +4,43 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import de.wuapps.moredays.R
-import de.wuapps.moredays.utilities.hideFab
+import de.wuapps.moredays.databinding.FragmentToolsBinding
+import de.wuapps.moredays.utilities.handleFab
 
 class ToolsFragment : Fragment() {
+
+
+    private var _binding: FragmentToolsBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_tools, container, false)
-
-        view.findViewById<Button>(R.id.buttonGoals)
+        _binding = FragmentToolsBinding.inflate(inflater, container, false)
+        binding.buttonGoals
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_goals) }
-        view.findViewById<Button>(R.id.buttonScales)
+        binding.buttonScales
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_scales) }
-        view.findViewById<Button>(R.id.buttonHelp)
+        binding.buttonHelp
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_help) }
-        view.findViewById<Button>(R.id.buttonTrophies)
+        binding.buttonTrophies
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_trophies) }
-        view.findViewById<Button>(R.id.buttonActivityEntries)
+        binding.buttonActivityEntries
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_history) }
-        view.findViewById<Button>(R.id.buttonSettings)
+        binding.buttonSettings
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_settings) }
-        view.findViewById<Button>(R.id.buttonImportExport)
+        binding.buttonImportExport
             .setOnClickListener { findNavController().navigate(R.id.navigation_tools_import_export) }
-        hideFab()
-        return view
+        handleFab(false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
