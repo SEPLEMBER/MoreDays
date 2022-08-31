@@ -133,7 +133,7 @@ dependencies {
     implementation "androidx.emoji2:emoji2-views:$emojiVersion"
 
     //import/export
-    implementation('com.github.doyaaaaaken:kotlin-csv-jvm:1.4.0')
+    implementation('com.github.doyaaaaaken:kotlin-csv-jvm:1.6.0')
 
     implementation "com.airbnb.android:lottie:$lottieVersion"
 }
