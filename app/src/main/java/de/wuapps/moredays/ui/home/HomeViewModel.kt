@@ -22,6 +22,8 @@ class HomeViewModel(
 ) : ViewModel() {
 
     val hasFab = true
+    var hideConfetti = false
+    var hidePocalAnimation = false
     var name = ""
     val newTrophies = MutableLiveData<MutableList<Trophy>>()
     val justReached100Percent = MutableLiveData<Boolean>()

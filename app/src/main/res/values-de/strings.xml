@@ -46,6 +46,7 @@
     <string name="trophy_type_title_total">insgesamt</string>
     <string name="trophy_type_title_times_per_week">pro Woche</string>
     <string name="trophy_type_title_made_goal">geschafft</string>
+    <string name="trophy_msg_hundred_percent">Super, toller Tag, du hast es heute geschafft :)</string>
     <string name="trophy_type_msg_row">Super %1$s! Du hast %2$s %3$d Tage hintereinander geschafft :)</string>
     <string name="trophy_type_msg_total">Super %1$s! Du hast %2$s %3$d mal geschafft :)</string>
     <string name="trophy_type_msg_times_per_week">Super %1$s! Du hast %2$s %3$d mal in der Woche geschafft :)</string>
@@ -140,6 +141,12 @@
     <string name="settings_dark_mode">Dark-Mode (erfordert Neustart) </string>
     <string name="settings_dark_mode_off">aus</string>
     <string name="settings_dark_mode_on">an</string>
+    <string name="settings_hide_confetti">Konfetti nicht anzeigen</string>
+    <string name="settings_hide_confetti_off">Ja</string>
+    <string name="settings_hide_confetti_on">Nein</string>
+    <string name="settings_hide_completed_animation">Pokal-Animation nicht anzeigen</string>
+    <string name="settings_hide_completed_animation_off">Ja</string>
+    <string name="settings_hide_completed_animation_on">Nein</string>
     <string name="goal_charts_web_days_made">Radardiagramm Tage geschafft</string>
     <string name="expand">ausklappen</string>
     <string name="mood_1">kurz vorm Heulen, kurz vor der Explosion, verkrampft, Augen geschlossen, sehr frustriert</string>

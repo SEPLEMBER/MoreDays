@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.NumberPicker
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
@@ -76,6 +78,14 @@ class HomeFragment : Fragment(), MenuProvider {
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         if (!preferences.getBoolean(getString(R.string.preferences_showed_first_help), false))
             showFirstHelp()
+        viewModel.hideConfetti = preferences.getBoolean(
+            getString(R.string.preferences_hide_confetti_key),
+            viewModel.hideConfetti
+        )
+        viewModel.hidePocalAnimation = preferences.getBoolean(
+            getString(R.string.preferences_hide_completed_animation_key),
+            viewModel.hidePocalAnimation
+        )
         setFabOnClickListener { showAddOptions() }
         return binding.root
     }
@@ -84,7 +94,7 @@ class HomeFragment : Fragment(), MenuProvider {
         super.onResume()
         showFab()
         val now = Calendar.getInstance()
-        if (viewModel.timeLatestActive != null && now.timeInMillis - viewModel.timeLatestActive!!.timeInMillis > 1000*60*1)
+        if (viewModel.timeLatestActive != null && now.timeInMillis - viewModel.timeLatestActive!!.timeInMillis > 1000 * 60 * 1)
             handleDateSelected(now)
     }
 
@@ -92,6 +102,7 @@ class HomeFragment : Fragment(), MenuProvider {
         super.onPause()
         viewModel.timeLatestActive = Calendar.getInstance()
     }
+
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.help_calendar_menu, menu)
     }
@@ -116,7 +127,7 @@ class HomeFragment : Fragment(), MenuProvider {
         newFragment.show(childFragmentManager, "datePicker")
     }
 
-    private fun handleDateSelected(calendar: Calendar){
+    private fun handleDateSelected(calendar: Calendar) {
         viewModel.changeDate(calendar)
         binding.textViewDate.text = getDateStringToDate(calendar)
         if (calendar.isSameDay(Calendar.getInstance()))
@@ -136,7 +147,7 @@ class HomeFragment : Fragment(), MenuProvider {
         val items = ArrayList<String>()
         scales.forEach { scale -> items.add(scale.name) }
         val countScales = scales.size
-        val sortedByPoints = activityData.sortedBy {(_, activity) -> activity.points}
+        val sortedByPoints = activityData.sortedBy { (_, activity) -> activity.points }
         sortedByPoints.forEach { (_, activity) -> items.add(activity.toString()) }
         val builder = AlertDialog.Builder(this.activity)
         builder.setTitle(R.string.add_entry)
@@ -241,16 +252,18 @@ class HomeFragment : Fragment(), MenuProvider {
                 if (it.isNotEmpty()) {
                     val trophy = it.last()
                     if (trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL) {
-                        binding.viewKonfetti.build()
-                            .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
-                            .setDirection(0.0, 359.0)
-                            .setSpeed(1f, 5f)
-                            .setFadeOutEnabled(true)
-                            .setTimeToLive(1000L)
-                            .addShapes(Shape.Square, Shape.Circle)
-                            .addSizes(Size(12))
-                            .setPosition(-50f, binding.viewKonfetti.width + 50f, -50f, -50f)
-                            .streamFor(300, 2000L)
+                        Log.d("prefs", viewModel.hideConfetti.toString())
+                        if (!viewModel.hideConfetti)
+                            binding.viewKonfetti.build()
+                                .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                                .setDirection(0.0, 359.0)
+                                .setSpeed(1f, 5f)
+                                .setFadeOutEnabled(true)
+                                .setTimeToLive(1000L)
+                                .addShapes(Shape.Square, Shape.Circle)
+                                .addSizes(Size(12))
+                                .setPosition(-50f, binding.viewKonfetti.width + 50f, -50f, -50f)
+                                .streamFor(300, 2000L)
                     } else {
                         showTrophyDialog(
                             getTrophyMessage(
@@ -265,12 +278,21 @@ class HomeFragment : Fragment(), MenuProvider {
         }
         viewModel.justReached100Percent.observe(viewLifecycleOwner) {
             if (it) {
-                binding.lottieTrophy.visibility = View.VISIBLE
-                binding.lottieTrophy.playAnimation()
-                Handler(Looper.getMainLooper()).postDelayed(({
-                    binding.lottieTrophy.visibility = View.GONE
+                if (viewModel.hidePocalAnimation) {
+                    Snackbar.make(
+                        requireActivity().findViewById(R.id.container),
+                        getString(R.string.trophy_msg_hundred_percent),
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+                else {
+                    binding.lottieTrophy.visibility = View.VISIBLE
+                    binding.lottieTrophy.playAnimation()
+                    Handler(Looper.getMainLooper()).postDelayed(({
+                        binding.lottieTrophy.visibility = View.GONE
 
-                }), 4500)
+                    }), 4500)
+                }
             }
             viewModel.justReached100Percent.postValue(false)
         }
@@ -307,22 +329,31 @@ class HomeFragment : Fragment(), MenuProvider {
 
     private fun showTrophyDialog(message: String) {
         val dialogBuilder = AlertDialog.Builder(requireContext())
-        val layoutView: View = layoutInflater.inflate(R.layout.trophy_custom_dialog, null)
-        val textViewMessage = layoutView.findViewById<TextView>(R.id.textViewMessage)
-        textViewMessage.text = message
-        dialogBuilder.setView(layoutView)
-        val trophytDialog = dialogBuilder.create()
-        trophytDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        val animation = AnimationUtils.loadAnimation(
-            requireContext(),
-            R.anim.trophy_dialog
-        )
-        layoutView.startAnimation(animation)
-        lifecycleScope.launch {
-            delay(6000)
-            trophytDialog.dismiss()
+        if (viewModel.hidePocalAnimation) {
+            Snackbar.make(
+                requireActivity().findViewById(R.id.container),
+                message,
+                Snackbar.LENGTH_LONG
+            ).show()
+        } else {
+            val layoutView: View = layoutInflater.inflate(R.layout.trophy_custom_dialog, null)
+            val textViewMessage = layoutView.findViewById<TextView>(R.id.textViewMessage)
+            textViewMessage.text = message
+            dialogBuilder.setView(layoutView)
+            val trophytDialog = dialogBuilder.create()
+            trophytDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            val animation = AnimationUtils.loadAnimation(
+                requireContext(),
+                R.anim.trophy_dialog
+            )
+            layoutView.startAnimation(animation)
+            lifecycleScope.launch {
+                delay(6000)
+                trophytDialog.dismiss()
+            }
+            trophytDialog.show()
         }
-        trophytDialog.show()
+
 
     }
 
@@ -355,7 +386,8 @@ class HomeFragment : Fragment(), MenuProvider {
                 override fun onSequenceFinish() {
                     val preferences: SharedPreferences =
                         PreferenceManager.getDefaultSharedPreferences(requireContext())
-                    preferences.edit().putBoolean(getString(R.string.preferences_showed_first_help), true).apply()
+                    preferences.edit()
+                        .putBoolean(getString(R.string.preferences_showed_first_help), true).apply()
                     Toast.makeText(
                         requireContext(), getString(R.string.msg_tutorial_complete),
                         Toast.LENGTH_LONG
@@ -401,6 +433,6 @@ class HomeFragment : Fragment(), MenuProvider {
     override fun onDestroyView() {
         super.onDestroyView()
         _goalAdapter = null
-         _binding = null
+        _binding = null
     }
 }

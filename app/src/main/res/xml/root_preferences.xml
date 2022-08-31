@@ -13,4 +13,17 @@
             app:summaryOff="@string/settings_dark_mode_off"
             app:summaryOn="@string/settings_dark_mode_on"/>
 
+        <SwitchPreferenceCompat
+            app:key="@string/preferences_hide_confetti_key"
+            app:title="@string/settings_hide_confetti"
+            app:summaryOff="@string/settings_hide_confetti_off"
+            app:summaryOn="@string/settings_hide_confetti_on"/>
+
+        <SwitchPreferenceCompat
+            app:key="@string/preferences_hide_completed_animation_key"
+            app:title="@string/settings_hide_completed_animation"
+            app:summaryOff="@string/settings_hide_completed_animation_off"
+            app:summaryOn="@string/settings_hide_completed_animation_on"/>
+
+
 </PreferenceScreen>
