@@ -39,6 +39,7 @@
     <string name="label_max_value">maximaler Wert</string>
     <string name="help">Hilfe &amp; Quellen</string>
     <string name="lists">Listen</string>
+    <string name="skip">Überspringen</string>
     <string name="activity_entries">Einträge zu Aktivitäten</string>
     <string name="import_export">Import/Export</string>
     <string name="trophy_type_title_row">Folge</string>

@@ -37,6 +37,7 @@
     <string name="delete">delete</string>
     <string name="help">Help &amp; Credits</string>
     <string name="lists">Lists</string>
+    <string name="skip">Skip</string>
     <string name="activity_entries">Activity entries</string>
     <string name="import_export">import/export</string>
     <string name="trophy_type_title_row">row</string>
