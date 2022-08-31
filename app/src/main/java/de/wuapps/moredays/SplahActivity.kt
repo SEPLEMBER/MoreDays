@@ -17,6 +17,8 @@ import java.util.*
 //see https://www.bignerdranch.com/blog/splash-screens-the-right-way/
 
 class SplashActivity : AppCompatActivity() {
+    private lateinit var runnable: Runnable
+    private lateinit var handler: Handler
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -32,9 +34,9 @@ class SplashActivity : AppCompatActivity() {
             txtGreeting.text =
                 "Hi " + sharedPref.getString(getString(R.string.preferences_name_key), "")
             findViewById<Button>(R.id.btnSkip).setOnClickListener{stopSplash()}
-            Handler(Looper.getMainLooper()).postDelayed(({
-                startHomeScreen()
-            }), 4000)
+            handler = Handler(Looper.getMainLooper())
+            runnable = Runnable { startHomeScreen() }
+            handler.postDelayed(runnable, 4000)
         }
         else {
             val intentOnboarding = Intent(this, Onboarding::class.java)
@@ -44,10 +46,12 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun stopSplash(){
+        handler.removeCallbacks(runnable)
         startHomeScreen()
     }
 
     private fun startHomeScreen() {
+        Log.d("splash", "start main activity")
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
