@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.wuapps.moredays">
+    package="de.wuapps.moredays"
+	android:installLocation="auto">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".MoreDaysApplication"
@@ -10,14 +14,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MoreDays"
-        >
+        android:theme="@style/Theme.MoreDays">
+        <service
+            android:name=".ExportService"
+            android:exported="false"></service>
+
         <activity
             android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"
+                <action
+                    android:name="android.intent.action.MAIN"
                     android:configChanges="uiMode" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -28,7 +36,7 @@
             android:theme="@style/SplashTheme" />
         <activity
             android:name=".MainActivity"
-            android:configChanges="uiMode"></activity>
+            android:configChanges="uiMode" />
     </application>
 
 </manifest>
