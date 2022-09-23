@@ -141,14 +141,16 @@
     <string name="settings_dark_mode">Dark-Mode (erfordert Neustart) </string>
     <string name="settings_dark_mode_off">aus</string>
     <string name="settings_dark_mode_on">an</string>
-    <string name="settings_hide_confetti">Konfetti nicht anzeigen</string>
+    <string name="settings_hide_confetti">Konfetti anzeigen</string>
     <string name="settings_hide_confetti_off">Ja</string>
     <string name="settings_hide_confetti_on">Nein</string>
-    <string name="settings_hide_completed_animation">Pokal-Animation nicht anzeigen</string>
+    <string name="settings_hide_completed_animation">Pokal-Animation anzeigen</string>
     <string name="settings_hide_completed_animation_off">Ja</string>
     <string name="settings_hide_completed_animation_on">Nein</string>
     <string name="goal_charts_web_days_made">Radardiagramm Tage geschafft</string>
     <string name="expand">ausklappen</string>
+    <string name="error_permssion_denied">Erlaubnis nicht erteilt</string>
+    <string name="error_unknown">unbekannter Fehler, bitte informieren Sie die Entwicklerin</string>
     <string name="mood_1">kurz vorm Heulen, kurz vor der Explosion, verkrampft, Augen geschlossen, sehr frustriert</string>
     <string name="mood_2">niedergeschlagen, nachdenklich, in sich gekehrt, zurückgezogen</string>
     <string name="mood_3">neutral, keine Meinung, aber offen, alles noch möglich</string>
@@ -158,7 +160,7 @@
     <string name="mood_chart">Stimmungsverlauf anzeigen/verbergen</string>
     <string name="mood">Stimmung</string>
     <string name="no_mood_data">Bisher gibt es keine Stimmungsdaten, tracke deine Stimmung im nächsten Journaleintrag :)</string>
-    <string name="export_success">Export erfolgreich</string>
+    <string name="export_success">Export erfolgreich: </string>
     <string name="create_export_file_error">Fehler beim Erzeugen der Export-Datei</string>
     <string name="title_journal_picture">Bild des Tages</string>
     <string-array name="sayings">

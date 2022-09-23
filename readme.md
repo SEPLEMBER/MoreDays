@@ -60,6 +60,14 @@ I developed this app to learn Android better, hence you will find example code f
 - konfetti using the library https://github.com/DanielMartinus/Konfetti
 - animations with lottie https://github.com/airbnb/lottie-android and from https://lottiefiles.com/
 
+### libs to be evaluated
+- Calendar (show in calendar view successful days or days with journal entries or ...): https://github.com/kizitonwose/CalendarView
+- more pretty charts
+  - https://github.com/AnyChart/AnyChart-Android
+  - https://github.com/diogobernardino/WilliamChart
+- permission handling https://github.com/VMadalin/easypermissions-ktx
+- alerter to remind for todos https://github.com/Tapadoo/Alerter
+
 ## Decisions
 
 After playing with flows, repositories, livedata and reading about viewmodel life cycles, the following architecture seems to be the best for this app:

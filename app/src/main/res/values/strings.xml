@@ -103,6 +103,10 @@
         <li>https://undraw.co/</li>
         <li>lottie animations: thanks to Brett Bertola, Alexandra Fuchs</li>
         </ul>
+        <h3>Code Snippets</h3>
+        <ul style="list-style-type: ' - '">
+        <li>Export Excel: https://github.com/androidmads/SQLite2XL</li>
+        </ul>
         ]]>
     </string>
     <string name="help_credentials_title">Libraries</string>
@@ -178,13 +182,15 @@
     <string name="settings_dark_mode">Dark Mode (requires restart)</string>
     <string name="settings_dark_mode_off">off</string>
     <string name="settings_dark_mode_on">on</string>
-    <string name="settings_hide_confetti">hide confetti animation</string>
-    <string name="settings_hide_confetti_off">no</string>
-    <string name="settings_hide_confetti_on">yes</string>
-    <string name="settings_hide_completed_animation">hide pocal animation</string>
-    <string name="settings_hide_completed_animation_off">no</string>
-    <string name="settings_hide_completed_animation_on">yes</string>
+    <string name="settings_hide_confetti">show confetti animation</string>
+    <string name="settings_hide_confetti_off">yes</string>
+    <string name="settings_hide_confetti_on">no</string>
+    <string name="settings_hide_completed_animation">show pocal animation</string>
+    <string name="settings_hide_completed_animation_off">yes</string>
+    <string name="settings_hide_completed_animation_on">no</string>
 
+    <string name="error_permssion_denied">permission denied</string>
+    <string name="error_unknown">unknown error, please report to developer</string>
     <string name="mood_1">quivering in frustration or holding back tears, irritated, frustrated, disgusted, sad, furious, cramped</string>
     <string name="mood_2">droopy, thoughtful, pensive, solitary, furrowed eyebrows</string>
     <string name="mood_3">neutral, no opinion, open minded, everything is still possible</string>
@@ -199,7 +205,7 @@
     <string name="mood_chart">show/hide mood chart</string>
     <string name="mood">Mood</string>
     <string name="no_mood_data">No mood data so far, start tracking your mood in the journal :)</string>
-    <string name="export_success">exported data successfully</string>
+    <string name="export_success">exported data successfully to </string>
     <string name="create_export_file_error">error creating file for export</string>
     <string name="title_journal_picture">Picture of the Day</string>
     <string-array name="sayings">

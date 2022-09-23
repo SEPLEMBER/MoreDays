@@ -15,10 +15,10 @@ android {
     }
     defaultConfig {
         applicationId "de.wuapps.moredays"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 33
-        versionCode 11
-        versionName '1.0.11'
+        versionCode 12
+        versionName '1.0.12'
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -133,7 +133,10 @@ dependencies {
     implementation "androidx.emoji2:emoji2-views:$emojiVersion"
 
     //import/export
-    implementation('com.github.doyaaaaaken:kotlin-csv-jvm:1.6.0')
+    //implementation 'org.apache.poi:poi.5.2.2'
+    //implementation 'org.apache.poi:poi-ooxml.5.2.2'
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.3'
 
+    //animation
     implementation "com.airbnb.android:lottie:$lottieVersion"
 }

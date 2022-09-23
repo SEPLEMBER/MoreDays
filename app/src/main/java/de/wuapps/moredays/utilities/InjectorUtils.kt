@@ -17,7 +17,6 @@ import de.wuapps.moredays.ui.journal.JournalViewModelFactory
 import de.wuapps.moredays.ui.scale.ScaleListViewModelFactory
 import de.wuapps.moredays.ui.scale.ScaleViewModelFactory
 import de.wuapps.moredays.ui.tools.history.ActivityEntryListViewModelFactory
-import de.wuapps.moredays.ui.tools.imexport.ImportExportViewModelFactory
 import de.wuapps.moredays.ui.tools.trophy.TrophyListViewModelFactory
 
 /**
@@ -106,10 +105,4 @@ object InjectorUtils {
         return ScalesChartViewModelFactory(db.scaleEntryDao)
     }
 
-    fun provideImportExportViewModelFactory(
-        context: Context
-    ): ImportExportViewModelFactory {
-        val db = MoreDaysDatabase.getInstance(context.applicationContext)
-        return ImportExportViewModelFactory(db.goalDao, db.activityDao, db.scaleDao, db.activityEntryDao, db.scaleEntryDao, db.journalDao, db.trophyDao)
-    }
 }

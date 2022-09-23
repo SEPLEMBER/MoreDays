@@ -3,11 +3,11 @@ buildscript {
     ext {
         gradleVersion = '7.2.1'
         kotlinVersion = '1.6.21'
-        coreVersion = '1.8.0'
+        coreVersion = '1.9.0'
         materialVersion = '1.6.1'
         constraintLayoutVersion = '2.1.4'
         gridLayoutVersion = '1.1.0'
-        appCompatVersion = '1.5.0'
+        appCompatVersion = '1.5.1'
         roomVersion = '2.4.3'
         iconPickerVersion = '3.3.0'
         colorPickerVersion = '2.2.4'
@@ -16,20 +16,21 @@ buildscript {
         coroutinesVersion = '1.6.4'
         archLifecycleVersion = '2.5.1'
         archVersion = '2.1.0'
-        navigationVersion = '2.5.1'
+        navigationVersion = '2.5.2'
         lottieVersion = '5.2.0'
         dataBindingCompilerVersion = gradleVersion // Always need to be the same.
     }
     repositories {
         google()
         mavenCentral()
-        //maven { url 'https://jitpack.io' }
+        // for apache poi
+        maven { url 'https://jitpack.io' }
         //for aboutlibrary
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
         classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:$aboutVersion"
         // NOTE: Do not place your application dependencies here; they belong

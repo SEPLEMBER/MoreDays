@@ -12,6 +12,15 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 -->
 
 ## [Unreleased]
+## [1.0.12] - 2022-09-23 - 🏁-Release
+### Added
+- make welcome screen skippable
+- add settings to switch off animations
+- export data (no journal images) to excel --> needs min sdk version 26 for the whole app!
+- support to install/move to sd card
+
+### Refactored
+- updated to new libs
 
 ## [1.0.11] - 2022-07-18 - 🏁-Release
 

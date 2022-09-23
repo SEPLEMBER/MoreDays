@@ -46,9 +46,4 @@ class ActivityEntry {
         this.points = activity.points
         this.activityId = activity.uid
     }
-
-    fun getFormattedtTimestamp(format: String): String {
-        val formatter = SimpleDateFormat(format)
-        return formatter.format(timestamp.time)
-    }
 }
