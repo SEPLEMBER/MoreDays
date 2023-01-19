@@ -1,7 +1,6 @@
 package de.wuapps.moredays.database.dao
 
 import androidx.room.*
-import androidx.room.OnConflictStrategy.REPLACE
 import de.wuapps.moredays.database.entity.HundredPercentValue
 import kotlinx.coroutines.flow.Flow
 
@@ -10,7 +9,7 @@ interface HundredPercentValueDao {
     @Query("SELECT * FROM hundredpercentvalue order by date asc")
     fun getAll(): Flow<List<HundredPercentValue>>
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(data: HundredPercentValue): Long
 
     @Insert

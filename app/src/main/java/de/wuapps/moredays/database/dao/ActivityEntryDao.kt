@@ -1,7 +1,6 @@
 package de.wuapps.moredays.database.dao
 
 import androidx.room.*
-import androidx.room.OnConflictStrategy.REPLACE
 import de.wuapps.moredays.database.entity.ActivityEntry
 import de.wuapps.moredays.database.entity.ActivityEntryAndRelatedData
 import kotlinx.coroutines.flow.Flow
@@ -23,7 +22,7 @@ interface ActivityEntryDao {
     @Query("SELECT timestamp from ActivityEntry order by timestamp asc limit 1")
     suspend fun  dateOfFirstActivityEntry(): Calendar
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(activityEntry: ActivityEntry): Long
 
     @Delete

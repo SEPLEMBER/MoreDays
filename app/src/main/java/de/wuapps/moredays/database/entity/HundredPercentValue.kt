@@ -6,7 +6,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import de.wuapps.moredays.database.converter.DateTypeConverter
 import kotlinx.parcelize.Parcelize
-import org.jetbrains.annotations.NotNull
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -15,9 +14,7 @@ import java.util.*
 @Entity
 data class HundredPercentValue(
     @PrimaryKey
-    @NotNull
     var date: String,
-    @NotNull
     var points: Int
 ) : Parcelable {
     constructor() : this(

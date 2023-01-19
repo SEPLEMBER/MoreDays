@@ -1,7 +1,6 @@
 package de.wuapps.moredays.database.dao
 
 import androidx.room.*
-import androidx.room.OnConflictStrategy.REPLACE
 import de.wuapps.moredays.database.entity.Scale
 import kotlinx.coroutines.flow.Flow
 
@@ -16,7 +15,7 @@ interface ScaleDao {
     @Query("SELECT count(*) from ScaleEntry where scale_id =:scaleId")
     suspend fun isUsed(scaleId: Long): Int
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(scale: Scale): Long
 
     @Query("Delete from scale")

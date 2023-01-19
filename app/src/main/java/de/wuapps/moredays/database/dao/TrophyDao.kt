@@ -1,7 +1,6 @@
 package de.wuapps.moredays.database.dao
 
 import androidx.room.*
-import androidx.room.OnConflictStrategy.REPLACE
 import de.wuapps.moredays.database.entity.Trophy
 import de.wuapps.moredays.database.entity.TrophyAndRelatedGoal
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +20,7 @@ interface TrophyDao {
     @Query("SELECT count(*) FROM trophy ")
     suspend fun getCountTrophies(): Int
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: Trophy): Long
 
     @Insert

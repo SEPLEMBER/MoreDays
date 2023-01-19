@@ -1,7 +1,6 @@
 package de.wuapps.moredays.database.dao
 
 import androidx.room.*
-import androidx.room.OnConflictStrategy.REPLACE
 import de.wuapps.moredays.database.entity.Journal
 import kotlinx.coroutines.flow.Flow
 
@@ -13,7 +12,7 @@ interface JournalDao {
     @Query("SELECT * FROM Journal where date = :givenDate order by date desc LIMIT 1")
     suspend fun getLatestForGivenDate(givenDate: String): Journal?
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(journalEntry: Journal): Long
 
     @Delete

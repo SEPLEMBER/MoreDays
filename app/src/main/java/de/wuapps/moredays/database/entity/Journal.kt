@@ -7,14 +7,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import de.wuapps.moredays.database.converter.DateTypeConverter
 import kotlinx.parcelize.Parcelize
-import org.jetbrains.annotations.NotNull
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Parcelize
 @Entity
 data class Journal(
-    @NotNull
     @PrimaryKey
     var date: String,
     var affirmation: String,

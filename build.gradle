@@ -1,14 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        gradleVersion = '7.2.1'
-        kotlinVersion = '1.6.21'
+        gradleVersion = '7.4.0'
+        kotlinVersion = '1.7.21'
         coreVersion = '1.9.0'
-        materialVersion = '1.6.1'
+        materialVersion = '1.7.0'
         constraintLayoutVersion = '2.1.4'
         gridLayoutVersion = '1.1.0'
-        appCompatVersion = '1.5.1'
-        roomVersion = '2.4.3'
+        appCompatVersion = '1.6.0'
+        roomVersion = '2.5.0'
         iconPickerVersion = '3.3.0'
         colorPickerVersion = '2.2.4'
         aboutVersion = '10.3.0'
@@ -16,7 +16,7 @@ buildscript {
         coroutinesVersion = '1.6.4'
         archLifecycleVersion = '2.5.1'
         archVersion = '2.1.0'
-        navigationVersion = '2.5.2'
+        navigationVersion = '2.5.3'
         lottieVersion = '5.2.0'
         dataBindingCompilerVersion = gradleVersion // Always need to be the same.
     }

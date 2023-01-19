@@ -2,7 +2,7 @@ package de.wuapps.moredays.database.entity
 
 import android.os.Parcelable
 import androidx.room.*
-import androidx.room.ForeignKey.CASCADE
+import androidx.room.ForeignKey.Companion.CASCADE
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

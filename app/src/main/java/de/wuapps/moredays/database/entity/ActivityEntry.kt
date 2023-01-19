@@ -1,8 +1,7 @@
 package de.wuapps.moredays.database.entity
 
 import androidx.room.*
-import androidx.room.ForeignKey.CASCADE
-import java.text.SimpleDateFormat
+import androidx.room.ForeignKey.Companion.CASCADE
 import java.util.*
 
 @Entity(

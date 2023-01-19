@@ -1,7 +1,6 @@
 package de.wuapps.moredays.database.dao
 
 import androidx.room.*
-import androidx.room.OnConflictStrategy.REPLACE
 import de.wuapps.moredays.database.entity.ScaleData
 import de.wuapps.moredays.database.entity.ScaleEntry
 import kotlinx.coroutines.flow.Flow
@@ -22,7 +21,7 @@ interface ScaleEntryDao {
     @Query("SELECT * FROM scaleentry where scale_id = :scaleId order by timestamp ASC ")
     suspend fun getAllByScaleId(scaleId: Long): List<ScaleEntry>
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entry: ScaleEntry): Long
 
     @Delete
