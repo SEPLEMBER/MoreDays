@@ -25,5 +25,10 @@
             app:summaryOff="@string/settings_hide_completed_animation_off"
             app:summaryOn="@string/settings_hide_completed_animation_on"/>
 
+        <SwitchPreferenceCompat
+            app:key="@string/preferences_show_percentage_key"
+            app:title="@string/settings_style_inner_circle"
+            app:summaryOff="@string/settings_style_inner_circle_off"
+            app:summaryOn="@string/settings_style_inner_circle_on"/>
 
 </PreferenceScreen>

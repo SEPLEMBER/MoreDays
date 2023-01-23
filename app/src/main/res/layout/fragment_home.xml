@@ -1,84 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layoutHome"
+    <data>
+
+        <variable
+            name="usePercentageStyle"
+            type="boolean" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="4dp">
+        tools:context=".ui.home.HomeFragment">
 
-        <ProgressBar
-            android:id="@+id/progressBar_cyclic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:minWidth="40dp"
-            android:minHeight="40dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textSize="@dimen/textsize_larger"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewHelper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <de.wuapps.moredays.ui.customviews.PercentageView
-            android:id="@+id/percentageView"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutHome"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="@dimen/min_accesible_size"
-            app:textColor="?colorOnSurface"
-            app:textSize="@dimen/textsize_percentage"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:percentageWidth="60"
-            app:centerColor="?colorSurface"
-            app:progressBackgroundColor="@color/gray400"
-            app:layout_constraintBottom_toTopOf="@id/recyclerViewGoals"/>
+            android:layout_height="match_parent"
+            android:padding="4dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewGoals"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:padding="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-             />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ProgressBar
+                android:id="@+id/progressBar_cyclic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minWidth="40dp"
+                android:minHeight="40dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textsize_larger"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewHelper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.wuapps.moredays.ui.customviews.PercentageView
+                android:id="@+id/percentageView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/min_accesible_size"
+                app:centerColor="?colorSurface"
+                app:layout_constraintBottom_toTopOf="@id/recyclerViewGoals"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:percentageWidth="60"
+                app:progressBackgroundColor="@color/gray400"
+                app:textColor="?colorOnSurface"
+                app:usePercentageStyle="@{usePercentageStyle}"
+                app:textSize="@dimen/textsize_percentage" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewGoals"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:padding="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+        <nl.dionsegijn.konfetti.KonfettiView
+            android:id="@+id/viewKonfetti"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <nl.dionsegijn.konfetti.KonfettiView
-        android:id="@+id/viewKonfetti"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieTrophy"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:lottie_fileName="trophy100.json"
-        android:visibility="gone"
-        app:lottie_autoPlay="false"
-        app:lottie_loop="false"/>
-</FrameLayout>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieTrophy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:lottie_autoPlay="false"
+            app:lottie_fileName="trophy100.json"
+            app:lottie_loop="false" />
+    </FrameLayout>
+</layout>

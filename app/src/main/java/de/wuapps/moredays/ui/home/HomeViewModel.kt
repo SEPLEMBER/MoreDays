@@ -24,6 +24,7 @@ class HomeViewModel(
     val hasFab = true
     var hideConfetti = false
     var hidePocalAnimation = false
+    var showProgressAsPercentInCircle = true
     var name = ""
     val newTrophies = MutableLiveData<MutableList<Trophy>>()
     val justReached100Percent = MutableLiveData<Boolean>()

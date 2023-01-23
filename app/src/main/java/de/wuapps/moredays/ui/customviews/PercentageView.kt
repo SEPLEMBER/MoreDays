@@ -34,7 +34,8 @@ class PercentageView @JvmOverloads constructor(
     private val startCirclePaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val endCirclePaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-    private var percentage = 33F
+    private var percentage = 0F
+    private var sum = 0
     private var textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
         textSize = 50.0f
@@ -42,7 +43,7 @@ class PercentageView @JvmOverloads constructor(
     private var hasRoundEnds = true
     private var _label: String = ":)"
     private var percentageWidth: Float = 50f
-
+    private var _usePercentageStyle = true
     private var goalEntries: List<GoalEntry> = ArrayList()
     private var desiredTotal = 10
 
@@ -52,6 +53,12 @@ class PercentageView @JvmOverloads constructor(
             _label = value
         }
 
+    // provide public/setter/getter for data binding
+    var usePercentageStyle: Boolean
+        get() = _usePercentageStyle
+        set(value) {
+            _usePercentageStyle = value
+        }
 
     init {
         Log.d(TAG, "ini")
@@ -89,6 +96,7 @@ class PercentageView @JvmOverloads constructor(
                 getDimensionPixelSize(R.styleable.PercentageView_textSize, 32).toFloat()
 
             hasRoundEnds = getBoolean(R.styleable.PercentageView_roundEnds,true )
+            usePercentageStyle = getBoolean(R.styleable.PercentageView_usePercentageStyle,true )
         }
     }
 
@@ -211,12 +219,16 @@ class PercentageView @JvmOverloads constructor(
     }
 
     private fun calcPercentage() {
-        val sum = goalEntries.sumOf { goalEntry -> goalEntry.getCurrentValue() }
+        sum = goalEntries.sumOf { goalEntry -> goalEntry.getCurrentValue() }
         desiredTotal = goalEntries.sumOf { goalEntry -> goalEntry.getDesiredValue() }
         percentage = sum * 100F / desiredTotal
         if (desiredTotal < sum)
             desiredTotal = sum //do not make the circle bigger than full
-        if (sum > 0)
-            _label = String.format("%.1f %%", percentage)
+        if (sum > 0) {
+            if (usePercentageStyle)
+                _label = String.format("%.1f %%", percentage)
+            else
+                _label = String.format("%d / %d", sum, desiredTotal)
+        }
     }
 }

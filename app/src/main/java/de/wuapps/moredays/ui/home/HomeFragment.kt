@@ -56,6 +56,9 @@ class HomeFragment : Fragment(), MenuProvider {
     private val goalAdapter get() = _goalAdapter!!
     private val scales = ArrayList<Scale>()
     private val activityData = ArrayList<Pair<Goal, de.wuapps.moredays.database.entity.Activity>>()
+    private var preferencesListener =
+        SharedPreferences.OnSharedPreferenceChangeListener() { sharedPreferences: SharedPreferences, key: String -> handlePreferences() };
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,14 +71,22 @@ class HomeFragment : Fragment(), MenuProvider {
         layoutManagerGoals.orientation = LinearLayoutManager.HORIZONTAL
         binding.recyclerViewGoals.layoutManager =
             getFlexboxLayoutManager(requireContext()) //layoutManagerGoals
-        val preferences: SharedPreferences =
+        preferences =
             PreferenceManager.getDefaultSharedPreferences(requireContext())
-        viewModel.name = preferences.getString(getString(R.string.preferences_name_key), null) ?: ""
+        handlePreferences()
+
+        preferences.registerOnSharedPreferenceChangeListener(preferencesListener)
         _goalAdapter = GoalAdapter(viewModel::addGoalEntry)
         binding.recyclerViewGoals.adapter = goalAdapter
         handleLoading()
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        setFabOnClickListener { showAddOptions() }
+        return binding.root
+    }
+
+    private fun handlePreferences() {
+        viewModel.name = preferences.getString(getString(R.string.preferences_name_key), null) ?: ""
         if (!preferences.getBoolean(getString(R.string.preferences_showed_first_help), false))
             showFirstHelp()
         viewModel.hideConfetti = preferences.getBoolean(
@@ -86,9 +97,12 @@ class HomeFragment : Fragment(), MenuProvider {
             getString(R.string.preferences_hide_completed_animation_key),
             viewModel.hidePocalAnimation
         )
-        setFabOnClickListener { showAddOptions() }
-        return binding.root
+        viewModel.showProgressAsPercentInCircle = preferences.getBoolean(
+            getString(R.string.preferences_show_percentage_key),
+            viewModel.showProgressAsPercentInCircle
+        )
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -96,6 +110,7 @@ class HomeFragment : Fragment(), MenuProvider {
         val now = Calendar.getInstance()
         if (viewModel.timeLatestActive != null && now.timeInMillis - viewModel.timeLatestActive!!.timeInMillis > 1000 * 60 * 1)
             handleDateSelected(now)
+        binding.usePercentageStyle = viewModel.showProgressAsPercentInCircle
     }
 
     override fun onPause() {
@@ -284,8 +299,7 @@ class HomeFragment : Fragment(), MenuProvider {
                         getString(R.string.trophy_msg_hundred_percent),
                         Snackbar.LENGTH_LONG
                     ).show()
-                }
-                else {
+                } else {
                     binding.lottieTrophy.visibility = View.VISIBLE
                     binding.lottieTrophy.playAnimation()
                     Handler(Looper.getMainLooper()).postDelayed(({

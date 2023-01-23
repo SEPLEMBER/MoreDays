@@ -172,6 +172,7 @@
     <string name="preferences_dark_mode_key" translatable="false">dark_mode</string>
     <string name="preferences_hide_confetti_key" translatable="false">hide_confetti</string>
     <string name="preferences_hide_completed_animation_key" translatable="false">hide_completed_animation</string>
+    <string name="preferences_show_percentage_key" translatable="false">show_percentage</string>
 
     <!-- Preference Titles -->
     <string name="settings_personal_header">Personal</string>
@@ -188,6 +189,9 @@
     <string name="settings_hide_completed_animation">show pocal animation</string>
     <string name="settings_hide_completed_animation_off">yes</string>
     <string name="settings_hide_completed_animation_on">no</string>
+    <string name="settings_style_inner_circle">style circle</string>
+    <string name="settings_style_inner_circle_off">e.g. 8/10 -- meaning you have 8 of 10 desired points</string>
+    <string name="settings_style_inner_circle_on">e.g. 80%</string>
 
     <string name="error_permssion_denied">permission denied</string>
     <string name="error_unknown">unknown error, please report to developer</string>
