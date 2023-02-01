@@ -37,13 +37,18 @@ class GoalSummaryAdapter :
                     itemView.context.getString(R.string.lbl_points)
                 ), HtmlCompat.FROM_HTML_MODE_LEGACY
             )
-            binding.lblInfo.text = HtmlCompat.fromHtml(
-                String.format(
-                    "&#9939; %d %s",
-                    item.countDaysInRow,
-                    itemView.context.getString(R.string.trophy_type_title_row)
-                ), HtmlCompat.FROM_HTML_MODE_LEGACY
-            )
+            if ( item.countDaysInRow > 0) {
+                binding.lblInfo.text = HtmlCompat.fromHtml(
+                    String.format(
+                        "&#9939; %d %s",
+                        item.countDaysInRow,
+                        itemView.context.getString(R.string.trophy_type_title_row)
+                    ), HtmlCompat.FROM_HTML_MODE_LEGACY
+                )
+            }
+            else {
+                binding.lblInfo.text = ""
+            }
             val percent: Float =
                 item.sumPoints.toFloat() / (item.daysTotal * item.goal.points) * 100.0f
             binding.layout.background = CircleDrawable(

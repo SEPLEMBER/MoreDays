@@ -164,7 +164,8 @@
     <string name="lbl_scales_question">What do you want to meassure?</string>
     <string name="notes">Notes/emojis</string>
     <string name="goal_charts_web_days_made">Radar chart days made</string>
-
+    <string name="help_goal_chart_circles">For each goal you get detailed information such as sum of all points, number of days made, record of days made in row and the background circle illustrates
+    the sum of points in relation of the desired points for this goal, i.e. sumOfPoints / (trackedDays * desiredPointsOfThisGoal) in percent.</string>
     <!-- SahredPreferences -->
     <string name="preferences_onboarding" translatable="false">onboarding</string>
     <string name="preferences_showed_first_help" translatable="false">showed_first_help</string>

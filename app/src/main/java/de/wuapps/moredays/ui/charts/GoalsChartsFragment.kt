@@ -69,35 +69,6 @@ class GoalsChartsFragment : Fragment() {
         return binding.root
     }
 
-    public fun showHelp(){
-        TapTargetSequence(requireActivity())
-            .targets(
-//                TapTarget.forView(
-//                    binding.recyclerViewAnalysis,
-//                    getString(R.string.title_goal),
-//                    getString(R.string.help_home_goal)
-//                )
-//                    .cancelable(false).transparentTarget(false).targetRadius(70),
-                TapTarget.forView(
-                    binding.radarChartDaysMade,
-                    getString(R.string.title_goal),
-                    getString(R.string.help_home_goal)
-                )
-                    .cancelable(false).transparentTarget(true).targetRadius(70)
-//                TapTarget.forView(
-//                    binding.barChartActivities,
-//                    getString(R.string.title_goal),
-//                    getString(R.string.help_home_goal)
-//                )
-//                    .cancelable(false).transparentTarget(true).targetRadius(70),
-//                TapTarget.forView(
-//                    binding.combinedChartHistory,
-//                    getString(R.string.title_goal),
-//                    getString(R.string.help_home_goal)
-//                )
-//                    .cancelable(false).transparentTarget(true).targetRadius(70)
-            ).start()
-    }
     private fun subscribeUi(adapter: GoalSummaryAdapter) {
         viewModel.goalSummaries.observe(viewLifecycleOwner) {
             it?.let {

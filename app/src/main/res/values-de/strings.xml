@@ -138,6 +138,8 @@
     <string name="label_journal_list_today">Starte mit deinem ersten Eintrag :)</string>
     <string name="help_journal_title">Gib deinem Eintrag einen schönen Titel oder eine Affirmation.</string>
     <string name="help_journal_button_affirmation">Lass dich von Beispielaffirmationen inspirieren.</string>
+    <string name="help_goal_chart_circles">Für jedes Ziel werden hier detaillierte Informationen angezeigt: Summe der Punkte, Anzahl der geschafften Tage, längste Folge der geschafften Tage (in Bezug auf Meilensteine wie 5 Tage, ...), der Hintergrundkreis
+        visualisiert das Verhältnis der Summe der Punkte zur erwünschten Punktzahl, d.h. summePunkte / (TageMitEintragungen * gewünschtePunktZahlDiesesZiels) in Prozent.</string>
     <string name="notes">Notizen/Emojis</string>
     <string name="settings_dark_mode">Dark-Mode (erfordert Neustart) </string>
     <string name="settings_dark_mode_off">aus</string>
