@@ -21,7 +21,7 @@
 
         <item name="android:textColorPrimary">@color/almostWhite</item>
 
-        <!-- defined in attrs.xml -->
+        <!-- named colors of this app, defined in attrs.xml -->
         <item name="hintTextColor">@color/white</item>
         <item name="hintBackgroundColor">@color/gray900</item>
         <item name="textOnHelpCardColor">@color/white</item>

@@ -6,4 +6,5 @@
     <attr name="helpCardColor" format="color" />
     <attr name="trophyTextColor" format="color" />
     <attr name="splashForegroundColor" format="color" />
+    <attr name="journalEmojiBackground" format="color" />
 </resources>

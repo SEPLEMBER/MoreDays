@@ -21,7 +21,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/orange700</item>
 
-        <!-- defined in attrs.xml -->
+        <!-- named colors of this app, defined in attrs.xml -->
         <item name="hintTextColor">@color/gray600</item>
         <item name="hintBackgroundColor">@color/almostWhite</item>
         <item name="textOnHelpCardColor">@color/gray900</item>

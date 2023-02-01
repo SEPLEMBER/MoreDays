@@ -41,11 +41,12 @@
             <androidx.emoji2.widget.EmojiTextView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="42dp"
                 android:mood="@{journal.mood}"
+                android:background="@drawable/circle_in_surface"
+                android:textAlignment="center"
                 android:textSize="@dimen/mood_button_text_size"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/imageViewPictureOfTheDay" />
+                app:layout_constraintBottom_toBottomOf="@id/textViewDate" />
 
             <TextView
                 android:id="@+id/textViewDate"
