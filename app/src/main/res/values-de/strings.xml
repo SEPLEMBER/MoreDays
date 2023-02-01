@@ -34,6 +34,7 @@
     <string name="title_color_picker_dialog">Farbauswahl</string>
     <string name="decimal_symbol">.</string>
     <string name="warning_not_an_int">keine ganze Zahl</string>
+    <string name="warning_not_zero">sollte ungleich 0 sein</string>
     <string name="question_delete_scale">Möchtest du wirklich diese Skala und alle damit verbundenen Einträge löschen?</string>
     <string name="label_min_value">minimaler Wert</string>
     <string name="label_max_value">maximaler Wert</string>

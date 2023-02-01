@@ -32,6 +32,7 @@
     <string name="title_color_picker_dialog">Color Picker Dialog</string>
     <string name="decimal_symbol">,</string>
     <string name="warning_not_an_int">not an int</string>
+    <string name="warning_not_zero">should be not 0</string>
     <string name="question_delete_scale" >Do you really want to delete this scale and all related entries?</string>
     <string name="save">save</string>
     <string name="delete">delete</string>
