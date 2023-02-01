@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:installLocation="auto">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MoreDaysApplication"
@@ -11,9 +11,9 @@
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.MoreDays">
         <activity
             android:name=".SplashActivity"
@@ -33,6 +33,10 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="uiMode" />
+        <activity
+            android:name="com.app.imagepickerlibrary.ui.activity.ImagePickerActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/SSImagePicker" />
     </application>
 
 </manifest>

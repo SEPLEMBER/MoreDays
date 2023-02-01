@@ -2,6 +2,7 @@ package de.wuapps.moredays.ui.journal
 
 
 import android.app.AlertDialog
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.*
@@ -13,16 +14,21 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.imagepickerlibrary.ImagePicker
+import com.app.imagepickerlibrary.ImagePicker.Companion.registerImagePicker
+import com.app.imagepickerlibrary.model.PickExtension
+import com.app.imagepickerlibrary.model.PickerType
 import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
-import com.esafirm.imagepicker.features.*
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
+import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.FragmentJournalBinding
 import de.wuapps.moredays.utilities.DatePickerFragment
 import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.handleFab
+import de.wuapps.moredays.utilities.isAtLeast11
 import java.io.File
 import java.util.*
 
@@ -38,8 +44,7 @@ class JournalFragment : Fragment(), MenuProvider {
     private lateinit var exampleAffirmations: Array<String>
     private var optionsMenuDelete: MenuItem? = null
     private var selectedMood = -1
-
-    private lateinit var imagePickerLauncher: ImagePickerLauncher
+    private lateinit var imagePickerMain: ImagePicker
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,22 +52,11 @@ class JournalFragment : Fragment(), MenuProvider {
     ): View {
         viewModel.setDateFormat(getString(R.string.date_ymd_day))
         _binding = FragmentJournalBinding.inflate(inflater, container, false)
-        imagePickerLauncher = registerImagePicker {
-            val firstImage = it.firstOrNull() ?: return@registerImagePicker
-            viewModel.journal.value!!.imageFilename = fixImagePickerPath(firstImage.path, firstImage.name)
-            setImage()
-        }
+
+        configureImagePicker()
         binding.imageButtonPickImage.setOnClickListener {
-            imagePickerLauncher.launch(
-                ImagePickerConfig {
-                    mode = ImagePickerMode.SINGLE
-                    returnMode =
-                        ReturnMode.ALL // set whether pick action or camera action should return immediate result or not. Only works in single mode for image picker
-                    imageTitle = getString(R.string.title_journal_picture) // image selection title
-                    doneButtonText = getString(R.string.ok) // done button text
-                    savePath= ImagePickerSavePath("", true)
-                }
-            )
+
+            imagePickerMain.open(PickerType.GALLERY)
         }
         handleFab(viewModel.hasFab)
         binding.imageButtonSuggestAffirmation.setOnClickListener { suggestAffirmation() }
@@ -100,6 +94,27 @@ class JournalFragment : Fragment(), MenuProvider {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return binding.root
+    }
+
+    private fun configureImagePicker(){
+        val mainActivity = requireActivity() as MainActivity
+        imagePickerMain = mainActivity.imagePicker
+
+        imagePickerMain
+                .title(getString(R.string.title_journal))
+                .multipleSelection(enable = false)
+                .showFolder(true)
+                .cameraIcon(true)
+                .doneIcon(true)
+                .allowCropping(true)
+                .compressImage(false)
+                .maxImageSize(2)
+                .extension(PickExtension.JPEG)
+
+        if (isAtLeast11()) {
+            imagePickerMain.systemPicker(true)
+        }
+        mainActivity.setImagePickerCallback{ uri -> onImagePick(uri)}
     }
 
     /**
@@ -267,5 +282,16 @@ class JournalFragment : Fragment(), MenuProvider {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+//        val registry = registryOwner.savedStateRegistry
+//        registry.registerSavedStateProvider(PickerConfigManager.PICKER_CONFIG_MANAGER
+        (requireActivity() as MainActivity).unsetImagePickerCallback()
     }
+
+    fun onImagePick(uri: Uri) {
+        if (uri.path != null) {
+            viewModel.journal.value!!.imageFilename = uri.path!!
+            setImage()
+        }
+    }
+
 }

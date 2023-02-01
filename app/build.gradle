@@ -17,7 +17,7 @@ android {
         applicationId "de.wuapps.moredays"
         minSdkVersion 26
         targetSdkVersion 33
-        versionCode 12
+        versionCode 14
         versionName '1.0.12'
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -98,10 +98,6 @@ dependencies {
     implementation "com.maltaisn:icondialog:$iconPickerVersion"
     implementation "com.maltaisn:iconpack-default:1.1.0"
     implementation "com.github.skydoves:colorpickerview:$colorPickerVersion"
-    //implementation "com.google.android:flexbox:$flexBoxVersion"
-    //implementation 'com.automayta:material-spinner:1.0.2'
-      // image picker
-    implementation 'com.github.esafirm:android-image-picker:3.0.0-beta1'
 
     // If you have a problem with Glide, please use the same Glide version or simply open an issue
     implementation 'com.github.bumptech.glide:glide:4.14.2'
@@ -109,6 +105,8 @@ dependencies {
     // https://github.com/PhilJay/MPAndroidChart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     //Alternative: https://github.com/AnyChart/AnyChart-Android
+
+    implementation 'com.github.SimformSolutionsPvtLtd:SSImagePicker:2.0'
 
     //for help
     implementation 'com.github.florent37:expansionpanel:1.2.4'

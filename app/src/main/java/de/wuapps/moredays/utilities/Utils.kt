@@ -1,6 +1,7 @@
 package de.wuapps.moredays.utilities
 
 import android.content.Context
+import android.os.Build
 import android.util.TypedValue
 import android.view.View
 import androidx.annotation.AttrRes
@@ -80,3 +81,5 @@ fun Context.getColorThemeRes(@AttrRes id: Int): Int {
     this.theme.resolveAttribute(id, resolvedAttr, true)
     return this.getColor(resolvedAttr.resourceId)
 }
+
+fun isAtLeast11() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R

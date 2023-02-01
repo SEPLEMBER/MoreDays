@@ -1,5 +1,6 @@
 package de.wuapps.moredays
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
@@ -9,6 +10,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.app.imagepickerlibrary.ImagePicker
+import com.app.imagepickerlibrary.ImagePicker.Companion.registerImagePicker
+import com.app.imagepickerlibrary.listener.ImagePickerResultListener
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -18,13 +22,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ImagePickerResultListener {
     private lateinit var fab: FloatingActionButton
     private lateinit var fragmentContainerView : FragmentContainerView
     private var fragmentContainerPaddingBottom = 0
     private lateinit var bottomAppBar: BottomAppBar
     private var bottomAppBarVerticalOffsetOrg = 0F
     private lateinit var iconPackLoader: IconPackLoader
+    // work around as instance of imagepicker is registered in its constructor ...
+    // when I used the imagePicker in the fragment I got the error java.lang.IllegalArgumentException: SavedStateProvider with the given key is already registered
+    public val imagePicker: ImagePicker by lazy {
+        registerImagePicker(this@MainActivity)
+    }
+    private var imagePickerCallback : ((Uri) -> Unit)? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         wireUpNavigation()
 
     }
+
 
     private fun wireUpNavigation() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
@@ -84,6 +95,14 @@ class MainActivity : AppCompatActivity() {
         return findNavController(R.id.nav_host_fragment).navigateUp()
     }
 
+    public fun setImagePickerCallback(callback: (Uri) -> Unit){
+        imagePickerCallback = callback
+    }
+
+    public fun unsetImagePickerCallback(){
+        imagePickerCallback = null
+    }
+
     private fun loadIconPack() {
         if (MoreDaysApplication.iconPack != null) {
             // Icon pack is already loaded.
@@ -99,6 +118,15 @@ class MainActivity : AppCompatActivity() {
                 pack
             }
         }
+    }
+
+    override fun onImagePick(uri: Uri?) {
+        if (uri != null)
+            imagePickerCallback?.let { it(uri) }
+    }
+
+    override fun onMultiImagePick(uris: List<Uri>?) {
+        //not used
     }
 
 
