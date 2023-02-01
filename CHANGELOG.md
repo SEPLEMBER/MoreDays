@@ -17,7 +17,7 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 ### Fixed
 
 
-## [1.0.14] - 2023-02-01 - 🏁-Release
+## [1.0.15] - 2023-02-01 - 🏁-Release
 ### Added
 - setting to choose if % or n/m (=n of m points) should be shown
 - add explanation to circles in analyse
