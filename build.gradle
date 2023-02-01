@@ -2,9 +2,9 @@
 buildscript {
     ext {
         gradleVersion = '7.4.0'
-        kotlinVersion = '1.7.21'
+        kotlinVersion = '1.8.0'
         coreVersion = '1.9.0'
-        materialVersion = '1.7.0'
+        materialVersion = '1.8.0'
         constraintLayoutVersion = '2.1.4'
         gridLayoutVersion = '1.1.0'
         appCompatVersion = '1.6.0'
@@ -30,7 +30,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
         classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:$aboutVersion"
         // NOTE: Do not place your application dependencies here; they belong
