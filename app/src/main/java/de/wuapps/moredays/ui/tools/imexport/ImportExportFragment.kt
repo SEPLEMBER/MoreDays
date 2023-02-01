@@ -34,20 +34,23 @@ class ImportExportFragment : Fragment() {
     ): View {
         _binding = FragmentImportExportBinding.inflate(inflater, container, false)
         val view = binding.root
-        binding.btnExport.setOnClickListener{
+        binding.btnExport.setOnClickListener {
             if (hasWritePermission(requireContext()))
-            export()
-        else
-            exportFailed(getString(R.string.error_permssion_denied))}
+                export()
+            else
+                exportFailed(getString(R.string.error_permssion_denied))
+        }
         return view
     }
 
-    private fun import(){}
+    private fun import() {}
 
-    private fun export(){
+    private fun export() {
         val formatter = SimpleDateFormat(getString(R.string.date_time))
         val calendar = Calendar.getInstance()
-        val exportFileName = "MoreDaysExport" + formatter.format(calendar.time).replace(".","").replace(":", "").replace(" ", "").replace(",", "")+".xls"
+        val exportFileName =
+            "MoreDaysExport" + formatter.format(calendar.time).replace(".", "").replace(":", "")
+                .replace(" ", "").replace(",", "") + ".xls"
         val sqliteToExcel = SQLiteToExcel(
             requireContext(),
             DATABASE_NAME,
@@ -56,10 +59,9 @@ class ImportExportFragment : Fragment() {
         sqliteToExcel.setCustomFormatter(object : ExportCustomFormatter {
             override fun process(columnName: String?, value: String?): String? {
                 var value = value
-                if (columnName.equals("timestamp") && !value.isNullOrBlank())
-                {
-                        calendar.apply { timeInMillis = value!!.toLong() }
-                        value = formatter.format(calendar.time)
+                if (columnName.equals("timestamp") && !value.isNullOrBlank()) {
+                    calendar.apply { timeInMillis = value!!.toLong() }
+                    value = formatter.format(calendar.time)
 
                 }
                 return value
@@ -71,16 +73,22 @@ class ImportExportFragment : Fragment() {
             override fun onStart() {
                 binding.progressBarCyclic.visibility = View.VISIBLE
             }
+
             override fun onCompleted(filePath: String?) {
                 binding.progressBarCyclic.visibility = View.GONE
-                Snackbar.make(requireActivity().findViewById(R.id.container), getString(R.string.export_success) + "Downloads/" + exportFileName, Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    requireActivity().findViewById(R.id.container),
+                    getString(R.string.export_success) + "Downloads/" + exportFileName,
+                    Snackbar.LENGTH_LONG
+                ).show()
 
             }
 
             override fun onError(e: java.lang.Exception?) {
                 binding.progressBarCyclic.visibility = View.GONE
                 if (e != null) {
-                    e!!.message?.let { Log.e(TAG, it)
+                    e!!.message?.let {
+                        Log.e(TAG, it)
                         exportFailed(it)
                     }
                 }
@@ -89,11 +97,12 @@ class ImportExportFragment : Fragment() {
         })
     }
 
-    private fun exportFailed(msg: String = ""){
+    private fun exportFailed(msg: String = "") {
         if (msg.isEmpty())
-            Toast.makeText(requireContext(), getString(R.string.error_unknown), Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.error_unknown), Toast.LENGTH_LONG)
+                .show()
         else
-        Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show()
 
     }
 

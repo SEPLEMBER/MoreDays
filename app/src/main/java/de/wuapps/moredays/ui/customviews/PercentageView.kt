@@ -139,7 +139,7 @@ class PercentageView @JvmOverloads constructor(
         // Percentage bar
         var startAngle = START_ANGLE_OF_PERCENTAGE_BAR
         var isStart = true
-        val pointsFullCircle = if (sum < desiredTotal) desiredTotal else sum;
+        val pointsFullCircle = if (sum < desiredTotal) desiredTotal else sum
         for (item in goalEntries) {
             if (item.getDesiredValue() > 0 && item.getCurrentValue() > 0) {
                 val angle = getAngleToPercentage(item.getCurrentValue() * 100F / pointsFullCircle)

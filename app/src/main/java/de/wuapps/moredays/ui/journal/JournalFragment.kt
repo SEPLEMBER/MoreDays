@@ -15,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.imagepickerlibrary.ImagePicker
-import com.app.imagepickerlibrary.ImagePicker.Companion.registerImagePicker
 import com.app.imagepickerlibrary.model.PickExtension
 import com.app.imagepickerlibrary.model.PickerType
 import com.bumptech.glide.Glide
