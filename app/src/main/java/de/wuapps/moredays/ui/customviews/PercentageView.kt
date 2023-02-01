@@ -139,9 +139,10 @@ class PercentageView @JvmOverloads constructor(
         // Percentage bar
         var startAngle = START_ANGLE_OF_PERCENTAGE_BAR
         var isStart = true
+        val pointsFullCircle = if (sum < desiredTotal) desiredTotal else sum;
         for (item in goalEntries) {
             if (item.getDesiredValue() > 0 && item.getCurrentValue() > 0) {
-                val angle = getAngleToPercentage(item.getCurrentValue() * 100F / desiredTotal)
+                val angle = getAngleToPercentage(item.getCurrentValue() * 100F / pointsFullCircle)
                 progressPaint.color = item.getColor()
                 canvas.drawArc(
                     rectF,
@@ -222,8 +223,8 @@ class PercentageView @JvmOverloads constructor(
         sum = goalEntries.sumOf { goalEntry -> goalEntry.getCurrentValue() }
         desiredTotal = goalEntries.sumOf { goalEntry -> goalEntry.getDesiredValue() }
         percentage = sum * 100F / desiredTotal
-        if (desiredTotal < sum)
-            desiredTotal = sum //do not make the circle bigger than full
+        //if (desiredTotal < sum)
+        //    desiredTotal = sum //do not make the circle bigger than full
         if (sum > 0) {
             if (usePercentageStyle)
                 _label = String.format("%.1f %%", percentage)

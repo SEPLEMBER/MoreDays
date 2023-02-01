@@ -145,7 +145,7 @@
     <fragment
         android:id="@+id/helpFragment"
         android:name="de.wuapps.moredays.ui.tools.HelpFragment"
-        android:label="@string/help"
+        android:label="@string/help_credits"
         tools:layout="@layout/fragment_help" >
         <action
             android:id="@+id/navigation_help_about"

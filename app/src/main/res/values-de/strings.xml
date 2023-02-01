@@ -37,7 +37,8 @@
     <string name="question_delete_scale">Möchtest du wirklich diese Skala und alle damit verbundenen Einträge löschen?</string>
     <string name="label_min_value">minimaler Wert</string>
     <string name="label_max_value">maximaler Wert</string>
-    <string name="help">Hilfe &amp; Quellen</string>
+    <string name="help">Hilfe</string>
+    <string name="help_credits">Hilfe &amp; Quellen</string>
     <string name="lists">Listen</string>
     <string name="skip">Überspringen</string>
     <string name="activity_entries">Einträge zu Aktivitäten</string>

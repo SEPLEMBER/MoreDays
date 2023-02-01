@@ -3,12 +3,13 @@ package de.wuapps.moredays.ui.charts
 import android.graphics.Color
 import android.graphics.RectF
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.getkeepsafe.taptargetview.TapTarget
+import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.CombinedChart.DrawOrder
 import com.github.mikephil.charting.charts.RadarChart
@@ -23,6 +24,8 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.FragmentGoalsChartsBinding
 import de.wuapps.moredays.ui.customviews.SimpleMarkerView
@@ -66,6 +69,35 @@ class GoalsChartsFragment : Fragment() {
         return binding.root
     }
 
+    public fun showHelp(){
+        TapTargetSequence(requireActivity())
+            .targets(
+//                TapTarget.forView(
+//                    binding.recyclerViewAnalysis,
+//                    getString(R.string.title_goal),
+//                    getString(R.string.help_home_goal)
+//                )
+//                    .cancelable(false).transparentTarget(false).targetRadius(70),
+                TapTarget.forView(
+                    binding.radarChartDaysMade,
+                    getString(R.string.title_goal),
+                    getString(R.string.help_home_goal)
+                )
+                    .cancelable(false).transparentTarget(true).targetRadius(70)
+//                TapTarget.forView(
+//                    binding.barChartActivities,
+//                    getString(R.string.title_goal),
+//                    getString(R.string.help_home_goal)
+//                )
+//                    .cancelable(false).transparentTarget(true).targetRadius(70),
+//                TapTarget.forView(
+//                    binding.combinedChartHistory,
+//                    getString(R.string.title_goal),
+//                    getString(R.string.help_home_goal)
+//                )
+//                    .cancelable(false).transparentTarget(true).targetRadius(70)
+            ).start()
+    }
     private fun subscribeUi(adapter: GoalSummaryAdapter) {
         viewModel.goalSummaries.observe(viewLifecycleOwner) {
             it?.let {
@@ -83,6 +115,7 @@ class GoalsChartsFragment : Fragment() {
             }
         }
     }
+
 
     private fun fillCharts(data: List<GoalsChartsViewModel.GoalSummary>) {
         val barEntriesGoalsTotal: MutableList<BarEntry> = ArrayList()

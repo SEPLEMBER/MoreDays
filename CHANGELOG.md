@@ -13,15 +13,21 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 
 ## [Unreleased]
 ### Added
-- setting to choose if % or n/m (=n of m points) should be shown
 - add crop to image selection in journal
 - add explanation/help to circles in analyse
 
 ### Fixed
 - improve visibility of emoji in journal
 - image library does not show all images
-- scroll did not work in bar chart (analyse)
 - circles in analyse showed 0 in row, although there were more, but simply the minimum was not reached
+
+
+## [1.0.13] - 2023-01-30 - 🏁-Release
+### Added
+- setting to choose if % or n/m (=n of m points) should be shown
+
+### Fixed
+- scroll did not work in bar chart (analyse)
 
 ### Refactored
 - updated to new libs

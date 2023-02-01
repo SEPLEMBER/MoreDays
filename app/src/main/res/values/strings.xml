@@ -35,7 +35,8 @@
     <string name="question_delete_scale" >Do you really want to delete this scale and all related entries?</string>
     <string name="save">save</string>
     <string name="delete">delete</string>
-    <string name="help">Help &amp; Credits</string>
+    <string name="help_credits">Help &amp; Credits</string>
+    <string name="help">Help</string>
     <string name="lists">Lists</string>
     <string name="skip">Skip</string>
     <string name="activity_entries">Activity entries</string>
