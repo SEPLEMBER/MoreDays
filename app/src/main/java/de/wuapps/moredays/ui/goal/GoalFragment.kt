@@ -182,6 +182,10 @@ class GoalFragment : Fragment(), MenuProvider, IconDialog.Callback {
             binding.editTextName.error = getString(R.string.warning_not_an_int)
             isValid = false
         }
+        if (points == 0){
+            binding.editTextPoints.error = getString(R.string.warning_not_zero)
+            isValid = false
+        }
         if (!isValid)
             return false
         viewModel.goal.points = points //trick supports only one way binding!!!
