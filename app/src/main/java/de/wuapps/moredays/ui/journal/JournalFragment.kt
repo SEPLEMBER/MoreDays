@@ -4,7 +4,6 @@ package de.wuapps.moredays.ui.journal
 import android.app.AlertDialog
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.view.*
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -13,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.imagepickerlibrary.ImagePicker
 import com.app.imagepickerlibrary.model.PickExtension
@@ -23,12 +23,12 @@ import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
+import de.wuapps.moredays.database.entity.Journal
 import de.wuapps.moredays.databinding.FragmentJournalBinding
 import de.wuapps.moredays.utilities.DatePickerFragment
 import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.handleFab
 import de.wuapps.moredays.utilities.isAtLeast11
-import java.io.File
 import java.util.*
 
 @GlideModule
@@ -49,7 +49,18 @@ class JournalFragment : Fragment(), MenuProvider {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel.setDateFormat(getString(R.string.date_ymd_day))
+        val preferences =
+            PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val journalDBFormat = preferences.getString(
+            getString(R.string.preferences_frequency_journal_entries_key),
+            Journal.DATE_FORMAT
+        ) ?: Journal.DATE_FORMAT
+        viewModel.setDateFormatDb(journalDBFormat)
+        if (journalDBFormat != Journal.DATE_FORMAT)
+            viewModel.setDateFormatView(getString(R.string.date_time))
+        else
+            viewModel.setDateFormatView(getString(R.string.date_ymd_day))
+
         _binding = FragmentJournalBinding.inflate(inflater, container, false)
 
         configureImagePicker()
@@ -95,51 +106,25 @@ class JournalFragment : Fragment(), MenuProvider {
         return binding.root
     }
 
-    private fun configureImagePicker(){
+    private fun configureImagePicker() {
         val mainActivity = requireActivity() as MainActivity
         imagePickerMain = mainActivity.imagePicker
 
         imagePickerMain
-                .title(getString(R.string.title_journal))
-                .multipleSelection(enable = false)
-                .showFolder(true)
-                .cameraIcon(true)
-                .doneIcon(true)
-                .allowCropping(true)
-                .compressImage(false)
-                .maxImageSize(2)
-                .extension(PickExtension.JPEG)
+            .title(getString(R.string.title_journal))
+            .multipleSelection(enable = false)
+            .showFolder(true)
+            .cameraIcon(true)
+            .doneIcon(true)
+            .allowCropping(true)
+            .compressImage(false)
+            .maxImageSize(2)
+            .extension(PickExtension.JPEG)
 
         if (isAtLeast11()) {
             imagePickerMain.systemPicker(true)
         }
-        mainActivity.setImagePickerCallback{ uri -> onImagePick(uri)}
-    }
-
-    /**
-     * Fix problem in Android Q in iode -- seems to mix up Picture-Directory
-     *
-     * @param path -- full path and name
-     * @param name -- filename only
-     * @return fixed path to exisiting image
-     */
-    private fun fixImagePickerPath(path: String, name: String):String{
-        var f = File(path)
-        if (f.exists())
-            return path
-        var externalPath = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        if (externalPath != null) {
-            f = File(externalPath, name)
-            if (f.exists())
-                return f.absolutePath
-        }
-        externalPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-        if (externalPath != null) {
-            f = File(externalPath, name)
-            if (f.exists())
-                return f.absolutePath
-        }
-        return ""
+        mainActivity.setImagePickerCallback { uri -> onImagePick(uri) }
     }
 
     private fun unselectAllMoodButtons() {
@@ -177,7 +162,8 @@ class JournalFragment : Fragment(), MenuProvider {
     private fun suggestAffirmation() {
         val builder = AlertDialog.Builder(this.activity)
         builder.setTitle(R.string.title_affirmation)
-            .setItems(exampleAffirmations
+            .setItems(
+                exampleAffirmations
             ) { _, which ->
                 binding.editTextAffirmation.setText(exampleAffirmations[which])
             }
@@ -286,7 +272,7 @@ class JournalFragment : Fragment(), MenuProvider {
         (requireActivity() as MainActivity).unsetImagePickerCallback()
     }
 
-    fun onImagePick(uri: Uri) {
+    private fun onImagePick(uri: Uri) {
         if (uri.path != null) {
             viewModel.journal.value!!.imageFilename = uri.path!!
             setImage()

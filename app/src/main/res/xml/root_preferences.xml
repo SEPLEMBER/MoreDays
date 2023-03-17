@@ -1,5 +1,5 @@
-<PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
 <EditTextPreference
@@ -30,5 +30,13 @@
             app:title="@string/settings_style_inner_circle"
             app:summaryOff="@string/settings_style_inner_circle_off"
             app:summaryOn="@string/settings_style_inner_circle_on"/>
+        <DropDownPreference
+                app:key="@string/preferences_frequency_journal_entries_key"
+                app:title="@string/settings_frequency_journal_entries"
+            android:entries="@array/entriesFrequencyJournal"
+            app:useSimpleSummaryProvider="true"
+            android:entryValues="@array/valuesFrequencyJournal"
+            />
+
 
 </PreferenceScreen>

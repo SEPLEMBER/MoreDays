@@ -29,12 +29,12 @@ data class Journal(
         -1
     )
 
-    constructor(date: Date) : this() {
-        this.date = SimpleDateFormat(DATE_FORMAT).format(date)
+    constructor(date: Date, useFormat:String=DATE_FORMAT) : this() {
+        this.date = SimpleDateFormat(useFormat).format(date)
     }
 
     fun getDateAsCalendar(): Calendar {
-        if (date.isEmpty() || date.length != DATE_FORMAT.length) {
+        if (date.isEmpty() || date.length < DATE_FORMAT.length) {
             Log.e("Journal", "date is invalid:$date")
             return Calendar.getInstance()
         }
@@ -63,5 +63,7 @@ data class Journal(
 
     companion object {
         const val DATE_FORMAT = "yyMMdd"
+        const val DATE_FORMAT_HOUR = "yyMMddHH"
+        const val DATE_FORMAT_MINUTE = "yyMMddHHmm"
     }
 }

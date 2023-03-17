@@ -3,6 +3,7 @@ package de.wuapps.moredays.ui.journal
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -18,9 +19,17 @@ class JournalAdapter :
     ListAdapter<Journal, JournalAdapter.JournalViewHolder>(JournalDiffCallback) {
 
     class JournalViewHolder(private val binding: ListItemJournalBinding) :  RecyclerView.ViewHolder(binding.root) {
-        private val formatter = SimpleDateFormat(binding.root.context.getString(R.string.date_ymd))
+        private var formatter = SimpleDateFormat(binding.root.context.getString(R.string.date_ymd))
 
         init {
+            val preferences =
+                PreferenceManager.getDefaultSharedPreferences(binding.root.context)
+            val journalDBFormat = preferences.getString(
+                binding.root.context.getString(R.string.preferences_frequency_journal_entries_key),
+                Journal.DATE_FORMAT
+            ) ?: Journal.DATE_FORMAT
+            if (journalDBFormat.length > 6 )
+                formatter = SimpleDateFormat(binding.root.context.getString(R.string.date_time))
             binding.setClickListener {
                 it.findNavController()
                     .navigate(

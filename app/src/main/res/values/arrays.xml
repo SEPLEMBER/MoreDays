@@ -1,2 +1,12 @@
 <resources>
+    <string-array name="entriesFrequencyJournal">
+        <item>daily</item>
+        <item>hourly</item>
+        <item>every minute</item>
+    </string-array>
+    <string-array name="valuesFrequencyJournal">
+        <item>yyMMdd</item>
+        <item>yyMMddHH</item>
+        <item>yyMMddHHmm</item>
+    </string-array>
 </resources>

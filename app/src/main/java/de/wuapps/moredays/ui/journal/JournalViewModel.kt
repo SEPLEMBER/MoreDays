@@ -1,5 +1,6 @@
 package de.wuapps.moredays.ui.journal
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,7 +18,8 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
     ViewModel() {
     private var _isNew = pJournal == null
     private val _journal = MutableLiveData<Journal>()
-    private var _dateFormatter = SimpleDateFormat("yy-MM-dd")
+    private var _dateFormatterView = SimpleDateFormat("yy-MM-dd")
+    private var _dateFormatDb = Journal.DATE_FORMAT
     val journal: LiveData<Journal>
         get() = _journal
     val hasFab = false
@@ -67,27 +69,36 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
     }
     private fun iniJournalWithGivenDate(date: Date){
         viewModelScope.launch {
-            val dateAsString = DateTypeConverter.convertDateToString(date)
+            val dateAsString = DateTypeConverter.convertDateToString(date, _dateFormatDb)
+            Log.d("JournalViewModel", "use date " + dateAsString)
             val tmp = journalDao.getLatestForGivenDate(dateAsString)
             if (tmp==null) {
-                _journal.postValue(Journal(date))
+                Log.d("JournalViewModel", "new entry!!")
+                _journal.postValue(Journal(date, dateAsString))
                 _isNew = true
             }
             else {
+                Log.d("JournalViewModel", "continue with" + tmp.toString())
                 _isNew = false
                 _journal.postValue(tmp!!)
             }
         }
     }
 
-    fun setDateFormat(dateFormat: String){
-        _dateFormatter = SimpleDateFormat(dateFormat)
+    fun setDateFormatView(dateFormat: String){
+        _dateFormatterView = SimpleDateFormat(dateFormat)
+        if (_isNew)
+            iniJournalWithGivenDate(Date())
+    }
+
+    fun setDateFormatDb(dateFormat: String){
+        _dateFormatDb = dateFormat;
     }
 
     fun getCurrentDate(): String {
         return if (_journal.value != null)
-            _dateFormatter.format(convertStringToDate(_journal.value!!.date))
+            _dateFormatterView.format(convertStringToDate(_journal.value!!.date))
         else
-            _dateFormatter.format(Date())
+            _dateFormatterView.format(Date())
     }
 }
