@@ -7,17 +7,17 @@ buildscript {
         materialVersion = '1.8.0'
         constraintLayoutVersion = '2.1.4'
         gridLayoutVersion = '1.1.0'
-        appCompatVersion = '1.6.0'
+        appCompatVersion = '1.6.1'
         roomVersion = '2.5.0'
         iconPickerVersion = '3.3.0'
         colorPickerVersion = '2.2.4'
-        aboutVersion = '10.3.0'
+        aboutVersion = '10.6.1'
         emojiVersion = '1.2.0'
         coroutinesVersion = '1.6.4'
-        archLifecycleVersion = '2.5.1'
+        archLifecycleVersion = '2.6.0'
         archVersion = '2.1.0'
         navigationVersion = '2.5.3'
-        lottieVersion = '5.2.0'
+        lottieVersion = '6.0.0'
         dataBindingCompilerVersion = gradleVersion // Always need to be the same.
     }
     repositories {

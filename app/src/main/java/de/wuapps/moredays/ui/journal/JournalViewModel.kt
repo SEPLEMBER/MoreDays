@@ -1,6 +1,5 @@
 package de.wuapps.moredays.ui.journal
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -70,15 +69,12 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
     private fun iniJournalWithGivenDate(date: Date){
         viewModelScope.launch {
             val dateAsString = DateTypeConverter.convertDateToString(date, _dateFormatDb)
-            Log.d("JournalViewModel", "use date " + dateAsString)
             val tmp = journalDao.getLatestForGivenDate(dateAsString)
             if (tmp==null) {
-                Log.d("JournalViewModel", "new entry!!")
                 _journal.postValue(Journal(date, dateAsString))
                 _isNew = true
             }
             else {
-                Log.d("JournalViewModel", "continue with" + tmp.toString())
                 _isNew = false
                 _journal.postValue(tmp!!)
             }
