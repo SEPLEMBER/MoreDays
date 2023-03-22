@@ -16,6 +16,12 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 
 ### Fixed
 
+## [1.0.16] - 2023-03-23 - 🏁-Release
+### Added
+- option to enter journal entries more than once a day, you may choose between day/hour/minute
+
+### Refactored
+- updated to new libs
 
 ## [1.0.15] - 2023-02-01 - 🏁-Release
 ### Added
