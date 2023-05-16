@@ -57,10 +57,8 @@ class HomeFragment : Fragment(), MenuProvider {
     private val scales = ArrayList<Scale>()
     private val activityData = ArrayList<Pair<Goal, de.wuapps.moredays.database.entity.Activity>>()
     private var preferencesListener =
-        SharedPreferences.OnSharedPreferenceChangeListener() { sharedPreferences: SharedPreferences, key: String -> handlePreferences() }
-    private lateinit var preferences: SharedPreferences
-
-    override fun onCreateView(
+        SharedPreferences.OnSharedPreferenceChangeListener() { sharedPreferences: SharedPreferences, key: String -> handlePreferences(sharedPreferences) }
+        override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,9 +69,9 @@ class HomeFragment : Fragment(), MenuProvider {
         layoutManagerGoals.orientation = LinearLayoutManager.HORIZONTAL
         binding.recyclerViewGoals.layoutManager =
             getFlexboxLayoutManager(requireContext()) //layoutManagerGoals
-        preferences =
+        val preferences =
             PreferenceManager.getDefaultSharedPreferences(requireContext())
-        handlePreferences()
+        handlePreferences(preferences)
 
         preferences.registerOnSharedPreferenceChangeListener(preferencesListener)
         _goalAdapter = GoalAdapter(viewModel::addGoalEntry)
@@ -85,7 +83,7 @@ class HomeFragment : Fragment(), MenuProvider {
         return binding.root
     }
 
-    private fun handlePreferences() {
+    private fun handlePreferences(preferences: SharedPreferences) {
         viewModel.name = preferences.getString(getString(R.string.preferences_name_key), null) ?: ""
         if (!preferences.getBoolean(getString(R.string.preferences_showed_first_help), false))
             showFirstHelp()
@@ -110,7 +108,6 @@ class HomeFragment : Fragment(), MenuProvider {
         val now = Calendar.getInstance()
         if (viewModel.timeLatestActive != null && now.timeInMillis - viewModel.timeLatestActive!!.timeInMillis > 1000 * 60 * 1)
             handleDateSelected(now)
-        binding.usePercentageStyle = viewModel.showProgressAsPercentInCircle
     }
 
     override fun onPause() {
@@ -245,7 +242,7 @@ class HomeFragment : Fragment(), MenuProvider {
                 goalAdapter.submitList(it)
                 binding.percentageView.label =
                     String.format(getString(R.string.ini_circle_value), viewModel.name)
-                binding.percentageView.setCirclesData(it)
+                binding.percentageView.setCirclesData(it, viewModel.showProgressAsPercentInCircle)
 
                 activityData.clear()
                 it.forEach { goalEntry ->

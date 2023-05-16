@@ -62,7 +62,6 @@
                 app:percentageWidth="60"
                 app:progressBackgroundColor="@color/gray400"
                 app:textColor="?colorOnSurface"
-                app:usePercentageStyle="@{usePercentageStyle}"
                 app:textSize="@dimen/textsize_percentage" />
 
             <androidx.recyclerview.widget.RecyclerView

@@ -52,14 +52,6 @@ class PercentageView @JvmOverloads constructor(
         set(value) {
             _label = value
         }
-
-    // provide public/setter/getter for data binding
-    var usePercentageStyle: Boolean
-        get() = _usePercentageStyle
-        set(value) {
-            _usePercentageStyle = value
-        }
-
     init {
         Log.d(TAG, "ini")
         val typedArray = context.theme.obtainStyledAttributes(
@@ -96,7 +88,6 @@ class PercentageView @JvmOverloads constructor(
                 getDimensionPixelSize(R.styleable.PercentageView_textSize, 32).toFloat()
 
             hasRoundEnds = getBoolean(R.styleable.PercentageView_roundEnds,true )
-            usePercentageStyle = getBoolean(R.styleable.PercentageView_usePercentageStyle,true )
         }
     }
 
@@ -210,8 +201,9 @@ class PercentageView @JvmOverloads constructor(
         return (percentage * PERCENTAGE_TOTAL_ANGLE) / 100
     }
 
-    fun setCirclesData(circleData: List<GoalEntry>) {
+    fun setCirclesData(circleData: List<GoalEntry>, usePercentageStyle: Boolean) {
         Log.d(TAG, "setcirclesDAta")
+        _usePercentageStyle = usePercentageStyle
         goalEntries = circleData
         calcPercentage()
         startCirclePaint.color = progressBackgroundPaint.color
@@ -226,7 +218,7 @@ class PercentageView @JvmOverloads constructor(
         //if (desiredTotal < sum)
         //    desiredTotal = sum //do not make the circle bigger than full
         if (sum > 0) {
-            if (usePercentageStyle)
+            if (_usePercentageStyle)
                 _label = String.format("%.1f %%", percentage)
             else
                 _label = String.format("%d / %d", sum, desiredTotal)

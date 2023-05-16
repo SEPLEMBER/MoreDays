@@ -17,8 +17,8 @@ android {
         applicationId "de.wuapps.moredays"
         minSdkVersion 26
         targetSdkVersion 33
-        versionCode 16
-        versionName '1.0.16'
+        versionCode 17
+        versionName '1.0.17'
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -102,7 +102,7 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     //Alternative: https://github.com/AnyChart/AnyChart-Android
 
-    implementation 'com.github.SimformSolutionsPvtLtd:SSImagePicker:2.0'
+    implementation 'com.github.SimformSolutionsPvtLtd:SSImagePicker:2.1'
 
     //for help
     implementation 'com.github.florent37:expansionpanel:1.2.4'
@@ -113,7 +113,7 @@ dependencies {
     implementation 'nl.dionsegijn:konfetti:1.3.2'
 
     //onboarding
-    implementation 'com.github.AppIntro:AppIntro:6.1.0'
+    implementation 'com.github.AppIntro:AppIntro:6.2.0'
 
     //tap help
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'

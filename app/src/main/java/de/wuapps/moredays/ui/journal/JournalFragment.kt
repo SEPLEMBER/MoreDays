@@ -118,8 +118,6 @@ class JournalFragment : Fragment(), MenuProvider {
             .doneIcon(true)
             .allowCropping(true)
             .compressImage(false)
-            .maxImageSize(2)
-            .extension(PickExtension.JPEG)
 
         if (isAtLeast11()) {
             imagePickerMain.systemPicker(true)
