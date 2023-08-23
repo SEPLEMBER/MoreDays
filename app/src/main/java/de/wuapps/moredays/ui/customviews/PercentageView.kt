@@ -109,7 +109,7 @@ class PercentageView @JvmOverloads constructor(
         Log.d(TAG, "onSizeChanged - height:"+height + ", width:"+width+", right:"+rectF.right + ", bottom"+rectF.bottom)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         if (canvas == null || goalEntries.isEmpty())
             return

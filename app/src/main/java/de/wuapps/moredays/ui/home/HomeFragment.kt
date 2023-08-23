@@ -57,7 +57,7 @@ class HomeFragment : Fragment(), MenuProvider {
     private val scales = ArrayList<Scale>()
     private val activityData = ArrayList<Pair<Goal, de.wuapps.moredays.database.entity.Activity>>()
     private var preferencesListener =
-        SharedPreferences.OnSharedPreferenceChangeListener() { sharedPreferences: SharedPreferences, key: String -> handlePreferences(sharedPreferences) }
+        SharedPreferences.OnSharedPreferenceChangeListener() { sharedPreferences: SharedPreferences, _: String? -> handlePreferences(sharedPreferences) }
         override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
