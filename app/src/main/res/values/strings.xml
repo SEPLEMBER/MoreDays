@@ -175,6 +175,7 @@
     <string name="preferences_dark_mode_key" translatable="false">dark_mode</string>
     <string name="preferences_hide_confetti_key" translatable="false">hide_confetti</string>
     <string name="preferences_hide_completed_animation_key" translatable="false">hide_completed_animation</string>
+    <string name="preferences_hide_affirmation_key" translatable="false">hide_affirmation</string>
     <string name="preferences_show_percentage_key" translatable="false">show_percentage</string>
     <string name="preferences_frequency_journal_entries_key" translatable="false">frequency_journal_entries</string>
 
@@ -191,6 +192,7 @@
     <string name="settings_hide_confetti_off">yes</string>
     <string name="settings_hide_confetti_on">no</string>
     <string name="settings_hide_completed_animation">show pocal animation</string>
+    <string name="settings_hide_affirmation">show affirmation on app start</string>
     <string name="settings_hide_completed_animation_off">yes</string>
     <string name="settings_hide_completed_animation_on">no</string>
     <string name="settings_style_inner_circle">style circle</string>

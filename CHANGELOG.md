@@ -10,11 +10,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ################################################################################
 e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moredays/-/issues/600)
 -->
-
 ## [Unreleased]
 ### Added
+### Fixed
+### Refactored
+
+## [1.0.18] - 2023-08-23 - 🏁-Release
+### Added
+- add option to show motivation at start or not
 
 ### Fixed
+### Refactored
+- updated to new libs
 
 ## [1.0.17] - 2023-05-16 - 🏁-Release
 ### Fixed

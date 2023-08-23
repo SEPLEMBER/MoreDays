@@ -149,6 +149,7 @@
     <string name="settings_hide_confetti_off">Ja</string>
     <string name="settings_hide_confetti_on">Nein</string>
     <string name="settings_hide_completed_animation">Pokal-Animation anzeigen</string>
+    <string name="settings_hide_affirmation">Affirmation bei Start der App anzeigen</string>
     <string name="settings_hide_completed_animation_off">Ja</string>
     <string name="settings_hide_completed_animation_on">Nein</string>
     <string name="settings_style_inner_circle">Darstellung im Kreis</string>

@@ -24,6 +24,11 @@
             app:title="@string/settings_hide_completed_animation"
             app:summaryOff="@string/settings_hide_completed_animation_off"
             app:summaryOn="@string/settings_hide_completed_animation_on"/>
+        <SwitchPreferenceCompat
+            app:key="@string/preferences_hide_affirmation_key"
+            app:title="@string/settings_hide_affirmation"
+            app:summaryOff="@string/settings_hide_completed_animation_off"
+            app:summaryOn="@string/settings_hide_completed_animation_on"/>
 
         <SwitchPreferenceCompat
             app:key="@string/preferences_show_percentage_key"
