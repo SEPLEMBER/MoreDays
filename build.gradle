@@ -16,7 +16,9 @@ buildscript {
         coroutinesVersion = '1.7.1'
         archLifecycleVersion = '2.6.1'
         archVersion = '2.1.0'
-        navigationVersion = '2.5.3'
+        //@ToDo: update navigation version
+        navigationVersion = '2.6.0'
+        //stick to 2.6, as 2.7 caused compile problems, see https://developer.android.com/jetpack/androidx/releases/navigation#groovy
         lottieVersion = '6.1.0'
         dataBindingCompilerVersion = gradleVersion // Always need to be the same.
     }
