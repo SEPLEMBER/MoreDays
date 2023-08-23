@@ -54,6 +54,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun stopSplash(){
+        findViewById<Button>(R.id.btnSkip).visibility = View.INVISIBLE
         handler.removeCallbacks(runnable)
         startHomeScreen()
     }
