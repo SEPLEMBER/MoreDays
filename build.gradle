@@ -17,7 +17,7 @@ buildscript {
         archLifecycleVersion = '2.6.1'
         archVersion = '2.1.0'
         navigationVersion = '2.5.3'
-        lottieVersion = '6.0.0'
+        lottieVersion = '6.1.0'
         dataBindingCompilerVersion = gradleVersion // Always need to be the same.
     }
     repositories {
