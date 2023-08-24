@@ -2,18 +2,18 @@
 buildscript {
     ext {
         gradleVersion = '8.1.1'
-        kotlinVersion = '1.8.21'
+        kotlinVersion = '1.9.0'
         coreVersion = '1.10.1'
         materialVersion = '1.9.0'
         constraintLayoutVersion = '2.1.4'
         gridLayoutVersion = '1.1.0'
         appCompatVersion = '1.6.1'
-        roomVersion = '2.5.1'
+        roomVersion = '2.5.2'
         iconPickerVersion = '3.3.0'
         colorPickerVersion = '2.2.4'
         aboutVersion = '10.6.3'
         emojiVersion = '1.4.0'
-        coroutinesVersion = '1.7.1'
+        coroutinesVersion = '1.7.3'
         archLifecycleVersion = '2.6.1'
         archVersion = '2.1.0'
         //@ToDo: update navigation version
