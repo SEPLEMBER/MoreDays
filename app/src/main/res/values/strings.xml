@@ -59,6 +59,8 @@
         unless client-side encryption is enabled. </string>
     <string name="help_privacy_title">Privacy</string>
     <string name="expand">expand</string>
+    <string name="backup_dialog_text">backup</string>
+    <string name="restore_dialog_text">restore</string>
     <string name="help_tips_content" tools:ignore="Typos">
         <![CDATA[
         Make each day YOUR day, do what you really really want first and what you think you should do second.

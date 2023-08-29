@@ -34,6 +34,8 @@
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="ok">Ok</string>
+    <string name="backup_dialog_text">backup</string>
+    <string name="restore_dialog_text">restore</string>
     <string name="save">speichern</string>
     <string name="delete">löschen</string>
     <string name="cancel">Abbrechen</string>

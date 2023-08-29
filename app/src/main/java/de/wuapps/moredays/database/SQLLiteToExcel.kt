@@ -22,6 +22,7 @@ class SQLiteToExcel constructor(
     private var mCustomFormatter: ExportCustomFormatter? = null
 
 
+
     /**
      * Set a the custom formatter for the column value output
      * @param customFormatter

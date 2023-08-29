@@ -2,11 +2,11 @@ package de.wuapps.moredays.ui.tools.imexport
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.sqlite.SQLiteDatabase
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -18,30 +18,34 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
+import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.SQLiteToExcel
 import de.wuapps.moredays.database.SQLiteToExcel.ExportCustomFormatter
 import de.wuapps.moredays.databinding.FragmentImportExportBinding
 import de.wuapps.moredays.utilities.DATABASE_NAME
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
+import java.nio.channels.FileChannel
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import com.google.common.io.Files.copy
-import de.wuapps.moredays.database.MoreDaysDatabase
-import java.io.FileOutputStream
-import java.time.LocalDateTime
 
 
 class ImportExportFragment : Fragment(), ExportListener {
 
     private val TAG = "ImportExportFragment"
-    private val BACKUP_LOCATION_KEY = "backupLocation"
     private var _binding: FragmentImportExportBinding? = null
     private val binding get() = _binding!!
     private var hasPermissions = false
+
+    companion object {
+        private val handler = Handler(Looper.getMainLooper())
+    }
+
     private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
@@ -60,7 +64,18 @@ class ImportExportFragment : Fragment(), ExportListener {
         registerForActivityResult(ActivityResultContracts.OpenDocument()) { result ->
             if (result != null) {
                 val inputstream = requireContext().contentResolver.openInputStream(result)!!
-                doRestore(inputstream)
+                binding.progressBarCyclic.visibility = View.VISIBLE
+                Thread {
+                    try {
+                        doRestore(inputstream)
+                        handler.post { this.onCompleted() }
+                    } catch (e: Exception) {
+                        if (inputstream != null) {
+                            inputstream!!.close()
+                        }
+                        handler.post { this.onError(e) }
+                    }
+                }.start()
             }
         }
     private val openFileCreator = registerForActivityResult(
@@ -70,7 +85,6 @@ class ImportExportFragment : Fragment(), ExportListener {
             Log.d(TAG, requireContext().getDatabasePath(DATABASE_NAME).toString())
             val out = requireContext().contentResolver.openOutputStream(result)!!
             binding.progressBarCyclic.visibility = View.VISIBLE
-            val handler = Handler(Looper.getMainLooper())
             Thread {
                 try {
                     doWithCreatedFile(out)
@@ -116,49 +130,28 @@ class ImportExportFragment : Fragment(), ExportListener {
             return
         }
         requestedMimeType = "text/markdown"
-
+        doWithCreatedFile = { out: OutputStream -> doExportToMd(out, isDescOrder) }
+        openFileCreator.launch(getExportFileBaseName("export") + ".md")
     }
 
+    private fun doExportToMd(out: OutputStream, isDescOrder: Boolean){
+
+    }
     private fun backup() {
         if (!hasPermissions) {
             actionFailed(getString(R.string.error_permssion_denied))
             return
         }
-        requestedMimeType = "application/octet-stream"
-        doWithCreatedFile = { out: OutputStream -> doBackup(out) }
-        openFileCreator.launch(getExportFileBaseName("backup") + ".db")
-    }
-
-    private fun doBackup(out: OutputStream) {
-        Log.i(TAG, "in dobackup")
-        copy(File(requireContext().getDatabasePath(DATABASE_NAME).toString()), out)
-        out.close()
-    }
-
-    private fun restore() {
-        if (!hasPermissions) {
-            actionFailed(getString(R.string.error_permssion_denied))
-            return
-        }
-        openRestoreFileChooser.launch(arrayOf("application/octet-stream"))
-    }
-
-    private fun doRestore(source: InputStream) {
-        Log.i(TAG, "in do restore")
         val alertDialog: AlertDialog.Builder =
             AlertDialog.Builder(requireNotNull(this.activity))
         alertDialog.setTitle(getString(R.string.title_delete))
-        alertDialog.setMessage(getString(R.string.question_delete_goal))
+        alertDialog.setMessage(getString(R.string.backup_dialog_text))
         alertDialog.setPositiveButton(
             getString(R.string.yes)
         ) { _, _ ->
-            source.use { input ->
-                val dbUri = requireContext().getDatabasePath(DATABASE_NAME).toURI()
-                MoreDaysDatabase.getInstance(requireContext().applicationContext).close()
-                File(dbUri).outputStream().use { output ->
-                    input.copyTo(output)
-                }
-            }
+            requestedMimeType = "application/octet-stream"
+            doWithCreatedFile = { out: OutputStream -> doBackup(out) }
+            openFileCreator.launch(getExportFileBaseName("backup") + ".db")
         }
         alertDialog.setNegativeButton(
             getString(R.string.no)
@@ -166,6 +159,64 @@ class ImportExportFragment : Fragment(), ExportListener {
         val alert: AlertDialog = alertDialog.create()
         alert.setCanceledOnTouchOutside(false)
         alert.show()
+
+    }
+
+    //Thanks to https://medium.com/dwarsoft/how-to-provide-backup-restore-feature-for-room-database-in-android-d87f111d9c64
+    private fun doBackup(savedb: OutputStream) {
+        Log.i(TAG, "in dobackup")
+        //close the db to make sure all journaling is run and in the single db file see https://www.sqlite.org/wal.html
+        MoreDaysDatabase.getInstance(requireContext().applicationContext).close()
+        val dbfile = requireContext().applicationContext.getDatabasePath(DATABASE_NAME)
+        val buffersize = 8 * 1024
+        val buffer = ByteArray(buffersize)
+        var bytes_read = buffersize
+        val indb: InputStream = FileInputStream(dbfile)
+        while (indb.read(buffer, 0, buffersize).also { bytes_read = it } > 0) {
+            savedb.write(buffer, 0, bytes_read)
+        }
+        savedb.flush()
+        indb.close()
+        savedb.close()
+        //exit Application as the viewmodels need to refresh and this would be a hassle, it is not
+        //easy to reopen the datbase and refresh the models automatically
+        restartApp()
+    }
+
+
+    private fun restore() {
+        if (!hasPermissions) {
+            actionFailed(getString(R.string.error_permssion_denied))
+            return
+        }
+        val alertDialog: AlertDialog.Builder =
+            AlertDialog.Builder(requireNotNull(this.activity))
+        alertDialog.setTitle(getString(R.string.title_delete))
+        alertDialog.setMessage(getString(R.string.restore_dialog_text))
+        alertDialog.setPositiveButton(
+            getString(R.string.yes)
+        ) { _, _ ->
+            openRestoreFileChooser.launch(arrayOf("application/octet-stream"))
+        }
+        alertDialog.setNegativeButton(
+            getString(R.string.no)
+        ) { _, _ -> }
+        val alert: AlertDialog = alertDialog.create()
+        alert.setCanceledOnTouchOutside(false)
+        alert.show()
+    }
+
+    private fun doRestore(source: InputStream) {
+        Log.i(TAG, "in do restore")
+        source.use { input ->
+            val dbUri = requireContext().getDatabasePath(DATABASE_NAME).toURI()
+            MoreDaysDatabase.getInstance(requireContext().applicationContext).close()
+            File(dbUri).outputStream().use { output ->
+                input.copyTo(output)
+            }
+
+        }
+        restartApp()
     }
 
     private fun getExportFileBaseName(suffix: String): String {
@@ -259,9 +310,36 @@ class ImportExportFragment : Fragment(), ExportListener {
         }
     }
 
+    private fun restartApp() {
+//        restartIntent!!.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//        context.startActivity(restartIntent)
+        val intent = Intent(requireActivity(), MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        requireActivity().finish()
+        Runtime.getRuntime().exit(0)
+    }
 }
 
 interface ExportListener {
     fun onCompleted()
     fun onError(e: Exception?)
+}
+
+fun copyFile(fromFile: FileInputStream, toFile: FileOutputStream) {
+    var fromChannel: FileChannel? = null
+    var toChannel: FileChannel? = null
+    try {
+        fromChannel = fromFile.channel
+        toChannel = toFile.channel
+        fromChannel.transferTo(0, fromChannel.size(), toChannel)
+    } finally {
+        try {
+            fromChannel?.close()
+        } finally {
+            toChannel?.close()
+        }
+    }
+
+
 }
