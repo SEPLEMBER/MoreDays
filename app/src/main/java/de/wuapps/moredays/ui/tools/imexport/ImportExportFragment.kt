@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Build
 import android.os.Bundle
@@ -17,12 +18,16 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.SQLiteToExcel
 import de.wuapps.moredays.database.SQLiteToExcel.ExportCustomFormatter
+import de.wuapps.moredays.database.converter.DateTypeConverter
+import de.wuapps.moredays.database.converter.DateTypeConverter.Companion.convertDateToString
+import de.wuapps.moredays.database.converter.DateTypeConverter.Companion.convertStringToDate
 import de.wuapps.moredays.databinding.FragmentImportExportBinding
 import de.wuapps.moredays.utilities.DATABASE_NAME
 import java.io.File
@@ -32,7 +37,9 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.nio.channels.FileChannel
 import java.text.SimpleDateFormat
+import java.util.ArrayList
 import java.util.Calendar
+import java.util.Date
 
 
 class ImportExportFragment : Fragment(), ExportListener {
@@ -134,8 +141,130 @@ class ImportExportFragment : Fragment(), ExportListener {
         openFileCreator.launch(getExportFileBaseName("export") + ".md")
     }
 
+    private fun getMoodEmoji(mood: Int): String {
+        when(mood) {
+            1 -> return getString(R.string.mood_face_1)
+            2 -> return getString(R.string.mood_face_2)
+            3 -> return getString(R.string.mood_face_3)
+            4 -> return getString(R.string.mood_face_4)
+            5 -> return getString(R.string.mood_face_5)
+            else -> return ""
+        }
+    }
     private fun doExportToMd(out: OutputStream, isDescOrder: Boolean){
+        val db = SQLiteDatabase.openOrCreateDatabase(
+            requireContext().getDatabasePath(DATABASE_NAME).absolutePath,
+            null
+        )
+        val journalEntries = HashMap<String, Pair<String, String>>()
+        val scaleEntries = ArrayList<Triple<String, String, Float>>()
+        val activityEntries = ArrayList<ActivityEntry>()
+        val hundredPercentValue = HashMap<String, Int>()
+        //goal.name, goal.points, symbol, Activity.name, Activity.points, timestamp
+        var formatter = SimpleDateFormat(binding.root.context.getString(R.string.date_ymd))
+        var c = db.rawQuery("select date, points from HundredPercentValue order by date asc", null)
+        try {
+            if (c.moveToFirst()) {
+                do {
+                    val date: String = c.getString(0)
+                    val points: Int = c.getInt(1)
+                    hundredPercentValue.put(formatter.format(convertStringToDate(date)), points)
+                } while (c.moveToNext())
+            }
+            c.close()
 
+            c = db.rawQuery("SELECT date,note,mood FROM Journal", null)
+            if (c.moveToFirst()) {
+                do {
+                    val date: String = c.getString(0)
+                    val note: String = c.getString(1)
+                    val mood: Int = c.getInt(2)
+                    journalEntries.put(
+                        formatter.format(convertStringToDate(date)),
+                        Pair(note, getMoodEmoji(mood))
+                    )
+                } while (c.moveToNext())
+            }
+            c.close()
+            c = db.rawQuery(
+                "SELECT name, value, timestamp FROM ScaleEntry INNER JOIN Scale ON ScaleEntry.scale_id = Scale.uid",
+                null
+            )
+            if (c.moveToFirst()) {
+                do {
+                    val name: String = c.getString(0)
+                    val value: Float = c.getFloat(1)
+                    val time: Long = c.getLong(2)
+                    scaleEntries.add(
+                        Triple(
+                            formatter.format(Calendar.getInstance().apply { timeInMillis = time }),
+                            name, value
+                        )
+                    )
+                } while (c.moveToNext())
+            }
+            c.close()
+            c = db.rawQuery(
+                "select goal.name, goal.points, symbol, Activity.name, Activity.points, timestamp from Goal, Activity, ActivityEntry where goal.uid=Activity.goal_id AND Activity.uid=ActivityEntry.activity_id and goal.is_old = 0",
+                null
+            )
+            if (c.moveToFirst()) {
+                do {
+                    val goalName: String = c.getString(0)
+                    val goalPoints: Int = c.getInt(1)
+                    val activityName: String = c.getString(2)
+                    val activityPoints: Int = c.getInt(3)
+                    val timestamp: Long = c.getLong(4)
+                    activityEntries.add(
+                        ActivityEntry(
+                            formatter.format(
+                                Calendar.getInstance().apply { timeInMillis = timestamp }),
+                            goalName, goalPoints, activityName, activityPoints
+                        )
+                    )
+                } while (c.moveToNext())
+            }
+            c.close()
+            db.close()
+            val history = StringBuffer()
+            val allDates = mutableSetOf<String>()
+            allDates.addAll(journalEntries.keys)
+            allDates.addAll(hundredPercentValue.keys)
+            activityEntries.forEach { allDates.add(it.date) }
+            val sortedDays = if (isDescOrder) allDates.sortedDescending() else allDates.sorted()
+            for (day in sortedDays) {//default ascending
+                val journalNote = journalEntries.get(day)?.first ?: ""
+                val journalMood = journalEntries.get(day)?.first ?: ""
+                var scale = StringBuffer()
+                scaleEntries.filter { it.first.equals(day) }
+                    .forEach { scale.append("- ${it.second}: ${it.third}") }
+                var sumPoints = 0
+                var activity = StringBuffer()
+                val hundredPercentPoints =
+                    hundredPercentValue.get(hundredPercentValue.keys.filter { it <= day }.first())
+                        ?: hundredPercentValue.values.first()
+                activityEntries.filter { it.date.equals(day) }.forEach {
+                    sumPoints += it.activityPoints
+                    activity.append("- ${it.activityName} (${it.activityPoints})")
+                }
+                val reached = "- ${sumPoints} / ${hundredPercentPoints}"
+                history.append("## ${day} ${journalMood}")
+                if (sumPoints > 0) {
+                    history.append(reached)
+                    history.append("- ${activity.toString()}")
+                }
+                if (scale.isNotEmpty()) history.append("- ${scale.toString()}")
+                if (journalNote.isNotEmpty()) history.append("- ${journalNote}")
+                history.append(history.toString())
+            }
+            val bf = out.bufferedWriter(Charsets.UTF_8)
+            bf.use { out -> out.write(history.toString()) }
+        }
+        catch(ex: Exception){
+            c.close()
+            if(db.isOpen) db.close()
+            onError(ex)
+        }
     }
     private fun backup() {
         if (!hasPermissions) {
@@ -325,21 +454,10 @@ interface ExportListener {
     fun onCompleted()
     fun onError(e: Exception?)
 }
-
-fun copyFile(fromFile: FileInputStream, toFile: FileOutputStream) {
-    var fromChannel: FileChannel? = null
-    var toChannel: FileChannel? = null
-    try {
-        fromChannel = fromFile.channel
-        toChannel = toFile.channel
-        fromChannel.transferTo(0, fromChannel.size(), toChannel)
-    } finally {
-        try {
-            fromChannel?.close()
-        } finally {
-            toChannel?.close()
-        }
-    }
-
-
-}
+data class ActivityEntry(
+    val date: String,
+    val goalName: String,
+    val goalPoints: Int,
+    val activityName: String,
+    val activityPoints: Int
+)
