@@ -6,30 +6,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.tools.imexport.ImportExportFragment">
 
+    <ProgressBar
+        android:id="@+id/progressBarCyclic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="gone"
+        />
+    <Button
+        android:id="@+id/btnExportExcel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/export_excel"
+        app:layout_constraintTop_toBottomOf="@id/progressBarCyclic"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/activity_margin"
+        />
+    <Button
+        android:id="@+id/btnExportMd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/export_md"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnExportExcel"
+        android:layout_marginTop="@dimen/activity_margin"
+        />
+    <RadioGroup
+        android:id="@+id/radioSortOrder"
+        app:layout_constraintStart_toEndOf="@id/btnExportMd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnExportMd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton android:id="@+id/radioAsc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/asc" />
+        <RadioButton android:id="@+id/radioDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/desc" />
+    </RadioGroup>
 
 
     <Button
-        android:id="@+id/btnExport"
+        android:id="@+id/btnBackup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/export"
-        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/backup"
+        app:layout_constraintTop_toBottomOf="@id/radioSortOrder"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/activity_margin"
         />
-    <ProgressBar
-        android:id="@+id/progressBar_cyclic"
+
+    <Button
+        android:id="@+id/btnRestore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:minWidth="40dp"
-        android:minHeight="40dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/restore"
+        app:layout_constraintTop_toBottomOf="@id/btnBackup"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

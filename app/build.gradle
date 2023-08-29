@@ -138,4 +138,7 @@ dependencies {
 
     //animation
     implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    //db backup
+    implementation "com.google.guava:guava:32.1.2-jre"
 }

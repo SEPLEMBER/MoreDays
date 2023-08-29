@@ -41,7 +41,12 @@
     <string name="lists">Lists</string>
     <string name="skip">Skip</string>
     <string name="activity_entries">Activity entries</string>
-    <string name="import_export">import/export</string>
+    <string name="import_export">export/backup/restore</string>
+    <string name="export_excel">export to excel</string>
+    <string name="export_md">export to markdown</string>
+    <string name="backup">backup</string>
+    <string name="asc">ascending</string>
+    <string name="desc">descending</string>
     <string name="trophy_type_title_row">row</string>
     <string name="trophy_type_title_total">total</string>
     <string name="trophy_type_title_times_per_week">in week</string>
@@ -216,9 +221,10 @@
     <string name="mood_chart">show/hide mood chart</string>
     <string name="mood">Mood</string>
     <string name="no_mood_data">No mood data so far, start tracking your mood in the journal :)</string>
-    <string name="export_success">exported data successfully to </string>
+    <string name="export_success">exported data successfully</string>
     <string name="create_export_file_error">error creating file for export</string>
     <string name="title_journal_picture">Picture of the Day</string>
+    <string name="restore">restore</string>
     <string-array name="sayings">
         <item>I believe I can lose weight.</item>
         <item>My health is the most important thing to me.</item>

@@ -5,42 +5,22 @@ import android.database.sqlite.SQLiteDatabase
 import android.os.Environment
 import android.os.Handler
 import android.os.Looper
+import de.wuapps.moredays.ui.tools.imexport.ExportListener
 import org.apache.poi.hssf.usermodel.*
 import java.io.File
 import java.io.FileOutputStream
+import java.io.OutputStream
 
 
 // thanks to https://github.com/androidmads/SQLite2XL
 
-class SQLiteToExcel @JvmOverloads constructor(
-    context: Context,
-    dbName: String?,
-    private val mExportPath: String = Environment.getExternalStorageDirectory()
-        .toString() + File.separator
+class SQLiteToExcel constructor(
+    val database: SQLiteDatabase,
+    val outPutStream: OutputStream
 ) {
-    private var database: SQLiteDatabase? = null
     private var workbook: HSSFWorkbook? = null
-    private var mExcludeColumns: List<String?>? = null
-    private var mPrettyNameMapping: HashMap<String?, String>? = null
     private var mCustomFormatter: ExportCustomFormatter? = null
 
-    /**
-     * Set the exclude columns list
-     *
-     * @param excludeColumns
-     */
-    fun setExcludeColumns(excludeColumns: List<String?>?) {
-        mExcludeColumns = excludeColumns
-    }
-
-    /**
-     * Set the pretty name mapping
-     *
-     * @param prettyNameMapping
-     */
-    fun setPrettyNameMapping(prettyNameMapping: HashMap<String?, String>?) {
-        mPrettyNameMapping = prettyNameMapping
-    }
 
     /**
      * Set a the custom formatter for the column value output
@@ -74,71 +54,34 @@ class SQLiteToExcel @JvmOverloads constructor(
         return columns
     }
 
-    @Throws(Exception::class)
-    private fun exportTables(tables: List<String>, fileName: String) {
+    private fun exportTables(tables: List<String>) {
         workbook = HSSFWorkbook()
         for (i in tables.indices) {
             if (tables[i] != "android_metadata") {
-                val sheet: HSSFSheet = workbook!!.createSheet(prettyNameMapping(tables[i]))
+                val sheet: HSSFSheet = workbook!!.createSheet(tables[i])
                 createSheet(tables[i], sheet)
             }
         }
-        val file = File(mExportPath, fileName)
-        val fos = FileOutputStream(file)
-        workbook!!.write(fos)
-        fos.flush()
-        fos.close()
+        workbook!!.write(outPutStream)
+        outPutStream.flush()
+        outPutStream.close()
         workbook!!.close()
         database!!.close()
     }
 
-    fun exportSingleTable(table: String, fileName: String, listener: ExportListener?) {
-        val tables: MutableList<String> = ArrayList()
-        tables.add(table)
-        startExportTables(tables, fileName, listener)
+    fun exportAllTables() {
+        exportTables(allTables)
     }
-
-    fun exportSpecificTables(tables: List<String>, fileName: String, listener: ExportListener?) {
-        startExportTables(tables, fileName, listener)
-    }
-
-    fun exportAllTables(fileName: String, listener: ExportListener?) {
-        val tables = allTables
-        startExportTables(tables, fileName, listener)
-    }
-
-    private fun startExportTables(
-        tables: List<String>,
-        fileName: String,
-        listener: ExportListener?
-    ) {
-        listener?.onStart()
-        Thread {
-            try {
-                exportTables(tables, fileName)
-                if (listener != null) {
-                    handler.post { listener.onCompleted(mExportPath + fileName) }
-                }
-            } catch (e: Exception) {
-                if (database != null && database!!.isOpen()) {
-                    database!!.close()
-                }
-                if (listener != null) handler.post { listener.onError(e) }
-            }
-        }.start()
-    }
-
     private fun createSheet(table: String, sheet: HSSFSheet) {
         val rowA: HSSFRow = sheet.createRow(0)
         val columns = getColumns(table)
         var cellIndex = 0
         for (i in columns.indices) {
-            val columnName = prettyNameMapping("" + columns[i])
-            if (!excludeColumn(columnName)) {
-                val cellA: HSSFCell = rowA.createCell(cellIndex)
-                cellA.setCellValue(HSSFRichTextString(columnName))
-                cellIndex++
-            }
+            val columnName = columns[i]
+            val cellA: HSSFCell = rowA.createCell(cellIndex)
+            cellA.setCellValue(HSSFRichTextString(columnName))
+            cellIndex++
+
         }
         insertItemToSheet(table, sheet, columns)
     }
@@ -153,15 +96,14 @@ class SQLiteToExcel @JvmOverloads constructor(
             var cellIndex = 0
             for (j in columns.indices) {
                 val columnName = "" + columns[j]
-                if (!excludeColumn(columnName)) {
-                    val cellA: HSSFCell = rowA.createCell(cellIndex)
-                    var value = cursor.getString(j)
-                    if (null != mCustomFormatter) {
-                        value = mCustomFormatter!!.process(columnName, value)
-                    }
-                    cellA.setCellValue(HSSFRichTextString(value))
-                    cellIndex++
+                val cellA: HSSFCell = rowA.createCell(cellIndex)
+                var value = cursor.getString(j)
+                if (null != mCustomFormatter) {
+                    value = mCustomFormatter!!.process(columnName, value)
                 }
+                cellA.setCellValue(HSSFRichTextString(value))
+                cellIndex++
+
             }
             n++
             cursor.moveToNext()
@@ -169,61 +111,10 @@ class SQLiteToExcel @JvmOverloads constructor(
         cursor.close()
     }
 
-    /**
-     * Do we exclude the specified column from the export
-     *
-     * @param column
-     * @return boolean
-     */
-    private fun excludeColumn(column: String?): Boolean {
-        val exclude = false
-        return if (null != mExcludeColumns) {
-            mExcludeColumns!!.contains(column)
-        } else exclude
-    }
-
-    /**
-     * Convert the specified name to a `pretty` name if a mapping exists
-     *
-     * @param name
-     * @return
-     */
-    private fun prettyNameMapping(name: String): String? {
-        var name: String? = name
-        if (null != mPrettyNameMapping) {
-            if (mPrettyNameMapping!!.containsKey(name)) {
-                name = mPrettyNameMapping!![name]
-            }
-        }
-        return name
-    }
-
-    interface ExportListener {
-        fun onStart()
-        fun onCompleted(filePath: String?)
-        fun onError(e: Exception?)
-    }
-
-    /**
-     * Interface class for the custom formatter
-     */
     interface ExportCustomFormatter {
         fun process(columnName: String?, value: String?): String?
     }
 
-    companion object {
-        private val handler = Handler(Looper.getMainLooper())
-    }
 
-    init {
-        try {
-            database = SQLiteDatabase.openOrCreateDatabase(
-                context.getDatabasePath(dbName).absolutePath,
-                null
-            )
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 }
 

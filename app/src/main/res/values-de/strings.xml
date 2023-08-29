@@ -12,7 +12,13 @@
     <string name="title_journal">Journal</string>
     <string name="title_settings">Einstellungen</string>
     <string name="title_tools">Werkzeuge</string>
-    <string name="title_import_export">Import/Export</string>
+    <string name="title_import_export">Export/Backup/Restore</string>
+    <string name="export_excel">export to excel</string>
+    <string name="export_md">export to markdown</string>
+    <string name="backup">backup</string>
+    <string name="restore">restore</string>
+    <string name="asc">ascending</string>
+    <string name="desc">descending</string>
     <string name="base_data">Basisdaten</string>
     <string name="lbl_question_activity_to_goal">Wie möchtest du dieses Ziel erreichen? Definiere verschiedene Aktivitäten unterschiedlicher Schwierigkeit.</string>
     <string name="hint_update_points_activity">Anpassungen beziehen sich auch auf Daten in der Vergangenheit.</string>
