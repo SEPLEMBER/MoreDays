@@ -45,7 +45,6 @@
     <string name="export_excel">export to excel</string>
     <string name="export_md">export to markdown</string>
     <string name="backup">backup</string>
-    <string name="asc">ascending</string>
     <string name="desc">descending</string>
     <string name="trophy_type_title_row">row</string>
     <string name="trophy_type_title_total">total</string>
@@ -59,8 +58,6 @@
         unless client-side encryption is enabled. </string>
     <string name="help_privacy_title">Privacy</string>
     <string name="expand">expand</string>
-    <string name="backup_dialog_text">backup</string>
-    <string name="restore_dialog_text">restore</string>
     <string name="help_tips_content" tools:ignore="Typos">
         <![CDATA[
         Make each day YOUR day, do what you really really want first and what you think you should do second.
@@ -227,6 +224,12 @@
     <string name="create_export_file_error">error creating file for export</string>
     <string name="title_journal_picture">Picture of the Day</string>
     <string name="restore">restore</string>
+    <string name="all_tables">all tables</string>
+    <string name="explain_export_excel">You may export your complete database data to excel for further analysis. The first two table starting with 1- contain all data of your scales and activities. All other tables follow the structure of the database and might be difficult to understand. Check the checkbox all tables if you like to have this data in excel too.</string>
+    <string name="explain_export_md">Markdown is a widely used text format. Generate a kind of a readable diary with all your activities, scales and journal (sorry, no images). You may edit and view this generated md-file with another app, just search for markdown viewer in the app store of your choice or use a viewer on your desktop. Check the checkbox descending if you want to start with today and going back to the first usage of the app -- default is ascending, i.e. start with the first entry until today.</string>
+    <string name="explain_backup">All data is stored in a local sql lite database. You may create a copy of this database in your download folder or on your sd card as a backup. The journal images are not in the database and hence are not part of this backup. However, after creating the backup file, the app will automatically restart.</string>
+    <string name="explain_restore">You may restore a previously generated backup (database). However, all data of moredays as you see it now will be completely (!) replaced.</string>
+    <string name="question_continue">Do you want to continue?</string>
     <string-array name="sayings">
         <item>I believe I can lose weight.</item>
         <item>My health is the most important thing to me.</item>

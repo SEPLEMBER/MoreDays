@@ -110,10 +110,10 @@ class ImportExportFragment : Fragment(), ExportListener {
         _binding = FragmentImportExportBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.btnExportExcel.setOnClickListener {
-            exportToExcel()
+            exportToExcel(binding.cbAllTables.isChecked)
         }
         binding.btnExportMd.setOnClickListener {
-            exportToMd(binding.radioDesc.isChecked)
+            exportToMd(binding.cbDesc.isChecked)
         }
         binding.btnBackup.setOnClickListener {
             backup();
@@ -241,12 +241,19 @@ class ImportExportFragment : Fragment(), ExportListener {
                     .forEach { scale.append("${it.second}: ${it.third}; ") }
                 var sumPoints = 0
                 var activity = StringBuffer()
+                var goals = StringBuffer()
                 val hundredPercentPoints =
                     hundredPercentValue.get(hundredPercentValue.keys.filter { it <= day }.first())
                         ?: hundredPercentValue.values.first()
                 activityEntries.filter { it.date.equals(day) }.forEach {
                     sumPoints += it.activityPoints
                     activity.append("${it.activityName} (${it.activityPoints}); ")
+                }
+                activityEntries.filter { it.date.equals(day) }.groupBy {it.goalName}.forEach{
+                    goals.appendLine("${it.value} ${it.key}")
+                    it.value.forEach{
+                        goals.appendLine("${it.goalName} ${it.goalPoints} ${it.activityPoints}")
+                    }
                 }
                 val reached = "- ${sumPoints} / ${hundredPercentPoints}"
                 val trophy = if (sumPoints >= hundredPercentPoints) "🏆" else ""
@@ -255,6 +262,7 @@ class ImportExportFragment : Fragment(), ExportListener {
                     history.appendLine(reached)
                     history.appendLine("- ${activity.toString()}")
                 }
+                history.append(goals.toString())
                 if (scale.isNotEmpty()) {
                     history.append("- ${scale.toString()}")
                     history.appendLine()
@@ -282,8 +290,8 @@ class ImportExportFragment : Fragment(), ExportListener {
         }
         val alertDialog: AlertDialog.Builder =
             AlertDialog.Builder(requireNotNull(this.activity))
-        alertDialog.setTitle(getString(R.string.title_delete))
-        alertDialog.setMessage(getString(R.string.backup_dialog_text))
+        alertDialog.setTitle(getString(R.string.backup))
+        alertDialog.setMessage("${getString(R.string.explain_backup)} ${getString(R.string.question_continue)}")
         alertDialog.setPositiveButton(
             getString(R.string.yes)
         ) { _, _ ->
@@ -329,8 +337,8 @@ class ImportExportFragment : Fragment(), ExportListener {
         }
         val alertDialog: AlertDialog.Builder =
             AlertDialog.Builder(requireNotNull(this.activity))
-        alertDialog.setTitle(getString(R.string.title_delete))
-        alertDialog.setMessage(getString(R.string.restore_dialog_text))
+        alertDialog.setTitle(getString(R.string.restore))
+        alertDialog.setMessage("${getString(R.string.explain_restore)} ${getString(R.string.question_continue)}")
         alertDialog.setPositiveButton(
             getString(R.string.yes)
         ) { _, _ ->
@@ -362,18 +370,18 @@ class ImportExportFragment : Fragment(), ExportListener {
         return "MoreDays_${suffix}_${SimpleDateFormat("yyyy-MM-dd-HH_mm_ss").format(Calendar.getInstance().time)}"
     }
 
-    private fun exportToExcel() {
+    private fun exportToExcel(allTables: Boolean) {
         if (!hasPermissions) {
             actionFailed(getString(R.string.error_permssion_denied))
             return
         }
         requestedMimeType = "application/octet-stream"
-        doWithCreatedFile = { out: OutputStream -> doExportToExcel(out) }
+        doWithCreatedFile = { out: OutputStream -> doExportToExcel(out, allTables) }
         openFileCreator.launch(getExportFileBaseName("export") + ".xls")
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun doExportToExcel(out: OutputStream) {
+    private fun doExportToExcel(out: OutputStream, allTables: Boolean) {
         var database: SQLiteDatabase? = null
         try {
             val formatter = SimpleDateFormat(getString(R.string.date_time))
@@ -399,7 +407,7 @@ class ImportExportFragment : Fragment(), ExportListener {
             })
 
 
-            sqliteToExcel.exportAllTables()
+            sqliteToExcel.exportAllTables(allTables)
         } catch (ex: Exception) {
             if (database != null && database.isOpen()) {
                 database.close()

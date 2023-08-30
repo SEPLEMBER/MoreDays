@@ -17,8 +17,16 @@
     <string name="export_md">export to markdown</string>
     <string name="backup">backup</string>
     <string name="restore">restore</string>
-    <string name="asc">ascending</string>
-    <string name="desc">descending</string>
+    <string name="all_tables">alle Tabellen</string>
+    <string name="explain_export_excel">Exportiere deine Daten nach Excel, um Sie mit weiteren Charts zu analysieren oder mit anderen Daten von dir zusammen zu führen.
+        Die ersten Tabellen mit 1- enthalten alle Daten deiner Skalen, Aktivitäten und Journal-Einträge (sorry, ohne Bilder). Wenn du wirklich alle Daten haben möchtest, so wie sie in der Datenbank hinterlegt sind, dann checke alle Tabellen.
+    </string>
+    <string name="explain_export_md">Markdown ist ein weitverbreitestes einfaches Textformat. Hiermit kannst du dir eine Art Tagebuch mit all deinen Aktivitäten, Skalen und Journal-Einträge (sorry, ohne Bilder) erstellen.
+        Suche im App-Store deiner Wahl nach Markdown Viewer, um dir die hiermit generierte Datei anzusehen. Wähle absteigend, falls du mit heute beginnen und dann zurück bis zur ersten Nutzung der App gehen möchtest -- die normale Sortierung startet mit dem ersten Eintrag und geht dann weiter bis zu heute.</string>
+    <string name="explain_backup">Alle Daten der App befinden sich in einer SQL-Lite-Datenbank auf deinem Gerät. Mit Backup kannst du dir diese Datei z.B. nach Downloads oder auf deine SD-Karte sichern (ohne Bilder). Nach dem Erstellen der Backup-Datei wird die App automatisch neu gestartet.</string>
+    <string name="explain_restore">Mit restore kannst du den Stand eines zuvor erstellten Backups wieder herstellen. Achtung, alle Daten, wie du sie momentan in moreDays siehst, werden komplett (!) überschrieben. Nach dem Einspielen des Backups wird die App automatisch neu gestartet. </string>
+    <string name="question_continue">Möchtest du weiter machen?</string>
+    <string name="desc">absteigend</string>
     <string name="base_data">Basisdaten</string>
     <string name="lbl_question_activity_to_goal">Wie möchtest du dieses Ziel erreichen? Definiere verschiedene Aktivitäten unterschiedlicher Schwierigkeit.</string>
     <string name="hint_update_points_activity">Anpassungen beziehen sich auch auf Daten in der Vergangenheit.</string>
@@ -34,8 +42,6 @@
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="ok">Ok</string>
-    <string name="backup_dialog_text">backup</string>
-    <string name="restore_dialog_text">restore</string>
     <string name="save">speichern</string>
     <string name="delete">löschen</string>
     <string name="cancel">Abbrechen</string>
