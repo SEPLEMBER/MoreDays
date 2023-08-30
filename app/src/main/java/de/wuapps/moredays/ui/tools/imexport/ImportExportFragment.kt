@@ -151,7 +151,7 @@ class ImportExportFragment : Fragment(), ExportListener {
         val activityEntries = ArrayList<ActivityEntry>()
         val hundredPercentValue = HashMap<String, Int>()
         //goal.name, goal.points, symbol, Activity.name, Activity.points, timestamp
-        val formatter = SimpleDateFormat(getString(R.string.date_ymd))
+        val formatter = SimpleDateFormat("yyMMdd")
         var c = db.rawQuery("select date, points from HundredPercentValue order by date asc", null)
         try {
             if (c.moveToFirst()) {
@@ -226,6 +226,8 @@ class ImportExportFragment : Fragment(), ExportListener {
             allDates.addAll(journalEntries.keys)
             activityEntries.forEach { allDates.add(it.date) }
             val sortedDays = if (isDescOrder) allDates.sortedDescending() else allDates.sorted()
+            history.appendLine("# moreDays")
+            val localizedFormatter = SimpleDateFormat(getString(R.string.date_ymd))
             for (day in sortedDays) {//default ascending
                 val journalTitle = journalEntries[day]?.first ?: ""
                 val journalNote = journalEntries[day]?.second ?: ""
@@ -246,9 +248,10 @@ class ImportExportFragment : Fragment(), ExportListener {
                 activityEntries.filter { it.date == day }.groupBy {it.goalName}.forEach{
                     goals.append("${it.key}: ${it.value.sumOf { item -> item.activityPoints }}/${it.value.maxOf { item->item.goalPoints }}; ")
                 }
-                val reached = "- $sumPoints / $hundredPercentPoints"
+                val reached = "- $sumPoints/$hundredPercentPoints"
                 val trophy = if (sumPoints >= hundredPercentPoints) "🏆" else ""
-                history.appendLine("## ${trophy}${day} $journalMood")
+                val localizedDate = localizedFormatter.format(convertStringToDate(day))
+                history.appendLine("## ${trophy}${localizedDate} $journalMood")
                 if (sumPoints > 0) {
                     history.appendLine(reached)
                     history.appendLine("- $goals")
@@ -263,6 +266,7 @@ class ImportExportFragment : Fragment(), ExportListener {
                 if (journalNote.isNotEmpty()) {
                     history.appendLine("- $journalNote")
                 }
+                history.appendLine()
             }
             val bf = out.bufferedWriter(Charsets.UTF_8)
             bf.use { bfw -> bfw.write(history.toString()) }
@@ -390,6 +394,9 @@ class ImportExportFragment : Fragment(), ExportListener {
                         calendar.apply { timeInMillis = value.toLong() }
                         formattedValue = formatter.format(calendar.time)
 
+                    }
+                    if (columnName.equals("mood") && value == "-1") {
+                        formattedValue = ""
                     }
                     return formattedValue
                 }

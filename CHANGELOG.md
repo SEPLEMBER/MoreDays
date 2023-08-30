@@ -15,11 +15,15 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 ### Fixed
 ### Refactored
 
-## [1.0.18] - 2023-08-23 - 🏁-Release
+## [1.0.18] - 2023-08-30 - 🏁-Release
 ### Added
 - add option to show motivation at start or not
+- add export to markdown format
+- add more tables to excel export
+- backup/restore db-file
 
 ### Fixed
+- show confetti once
 ### Refactored
 - updated to new libs
 

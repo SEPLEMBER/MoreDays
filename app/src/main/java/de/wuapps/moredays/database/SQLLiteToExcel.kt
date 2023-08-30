@@ -33,7 +33,7 @@ class SQLiteToExcel constructor(
     private val allTables: ArrayList<String>
         private get() {
             val tables = ArrayList<String>()
-            val cursor = database!!.rawQuery(
+            val cursor = database.rawQuery(
                 "select name from sqlite_master where type='table' order by name",
                 null
             )
@@ -46,7 +46,7 @@ class SQLiteToExcel constructor(
 
     private fun getColumns(table: String): ArrayList<String> {
         val columns = ArrayList<String>()
-        val cursor = database!!.rawQuery("PRAGMA table_info($table)", null)
+        val cursor = database.rawQuery("PRAGMA table_info($table)", null)
         while (cursor.moveToNext()) {
             columns.add(cursor.getString(1))
         }
@@ -97,20 +97,11 @@ class SQLiteToExcel constructor(
         outPutStream.flush()
         outPutStream.close()
         workbook!!.close()
-        database!!.close()
+        database.close()
     }
     private fun createSheet(table: String, sheet: HSSFSheet) {
-        val rowA: HSSFRow = sheet.createRow(0)
         val columns = getColumns(table)
-        var cellIndex = 0
-        for (i in columns.indices) {
-            val columnName = columns[i]
-            val cellA: HSSFCell = rowA.createCell(cellIndex)
-            cellA.setCellValue(HSSFRichTextString(columnName))
-            cellIndex++
-
-        }
-        val cursor = database!!.rawQuery("select * from $table", null)
+        val cursor = database.rawQuery("select * from $table", null)
         insertQueryRows(cursor, sheet, columns)
     }
     private fun insertQueryRows(
@@ -118,11 +109,21 @@ class SQLiteToExcel constructor(
         sheet: HSSFSheet,
         columns: List<String>
     ) {
+        val headerRow: HSSFRow = sheet.createRow(0)
+        var cellIndex = 0
+        for (i in columns.indices) {
+            val columnName = columns[i]
+            val cellA: HSSFCell = headerRow.createCell(cellIndex)
+            cellA.setCellValue(HSSFRichTextString(columnName))
+            cellIndex++
+
+        }
+
         cursor.moveToFirst()
         var n = 1
         while (!cursor.isAfterLast) {
             val rowA: HSSFRow = sheet.createRow(n)
-            var cellIndex = 0
+            cellIndex = 0
             for (j in columns.indices) {
                 val columnName = "" + columns[j]
                 val cellA: HSSFCell = rowA.createCell(cellIndex)
