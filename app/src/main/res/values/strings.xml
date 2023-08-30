@@ -223,7 +223,7 @@
     <string name="mood_chart">show/hide mood chart</string>
     <string name="mood">Mood</string>
     <string name="no_mood_data">No mood data so far, start tracking your mood in the journal :)</string>
-    <string name="export_success">exported data successfully</string>
+    <string name="action_success">action completed successfully</string>
     <string name="create_export_file_error">error creating file for export</string>
     <string name="title_journal_picture">Picture of the Day</string>
     <string name="restore">restore</string>

@@ -1,10 +1,10 @@
 package de.wuapps.moredays.ui.tools.imexport
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Build
 import android.os.Bundle
@@ -18,26 +18,20 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.SQLiteToExcel
 import de.wuapps.moredays.database.SQLiteToExcel.ExportCustomFormatter
-import de.wuapps.moredays.database.converter.DateTypeConverter
-import de.wuapps.moredays.database.converter.DateTypeConverter.Companion.convertDateToString
 import de.wuapps.moredays.database.converter.DateTypeConverter.Companion.convertStringToDate
 import de.wuapps.moredays.databinding.FragmentImportExportBinding
 import de.wuapps.moredays.utilities.DATABASE_NAME
 import java.io.File
 import java.io.FileInputStream
-import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
-import java.nio.channels.FileChannel
 import java.text.SimpleDateFormat
-import java.util.ArrayList
 import java.util.Calendar
 import java.util.Date
 
@@ -78,7 +72,7 @@ class ImportExportFragment : Fragment(), ExportListener {
                         handler.post { this.onCompleted() }
                     } catch (e: Exception) {
                         if (inputstream != null) {
-                            inputstream!!.close()
+                            inputstream.close()
                         }
                         handler.post { this.onError(e) }
                     }
@@ -98,7 +92,7 @@ class ImportExportFragment : Fragment(), ExportListener {
                     handler.post { this.onCompleted() }
                 } catch (e: Exception) {
                     if (out != null) {
-                        out!!.close()
+                        out.close()
                     }
                     handler.post { this.onError(e) }
                 }
@@ -142,7 +136,7 @@ class ImportExportFragment : Fragment(), ExportListener {
     }
 
     private fun getMoodEmoji(mood: Int): String {
-        when(mood) {
+        when (mood) {
             1 -> return getString(R.string.mood_face_1)
             2 -> return getString(R.string.mood_face_2)
             3 -> return getString(R.string.mood_face_3)
@@ -151,17 +145,19 @@ class ImportExportFragment : Fragment(), ExportListener {
             else -> return ""
         }
     }
-    private fun doExportToMd(out: OutputStream, isDescOrder: Boolean){
+
+    @SuppressLint("SimpleDateFormat")
+    private fun doExportToMd(out: OutputStream, isDescOrder: Boolean) {
         val db = SQLiteDatabase.openOrCreateDatabase(
             requireContext().getDatabasePath(DATABASE_NAME).absolutePath,
             null
         )
-        val journalEntries = HashMap<String, Pair<String, String>>()
+        val journalEntries = HashMap<String, Triple<String, String, String>>()
         val scaleEntries = ArrayList<Triple<String, String, Float>>()
         val activityEntries = ArrayList<ActivityEntry>()
         val hundredPercentValue = HashMap<String, Int>()
         //goal.name, goal.points, symbol, Activity.name, Activity.points, timestamp
-        var formatter = SimpleDateFormat(binding.root.context.getString(R.string.date_ymd))
+        val formatter = SimpleDateFormat(getString(R.string.date_ymd))
         var c = db.rawQuery("select date, points from HundredPercentValue order by date asc", null)
         try {
             if (c.moveToFirst()) {
@@ -173,19 +169,21 @@ class ImportExportFragment : Fragment(), ExportListener {
             }
             c.close()
 
-            c = db.rawQuery("SELECT date,note,mood FROM Journal", null)
+            c = db.rawQuery("SELECT date,note,mood, affirmation FROM Journal", null)
             if (c.moveToFirst()) {
                 do {
                     val date: String = c.getString(0)
                     val note: String = c.getString(1)
                     val mood: Int = c.getInt(2)
+                    val title: String = c.getString(3)
                     journalEntries.put(
                         formatter.format(convertStringToDate(date)),
-                        Pair(note, getMoodEmoji(mood))
+                        Triple(title, note, getMoodEmoji(mood))
                     )
                 } while (c.moveToNext())
             }
             c.close()
+
             c = db.rawQuery(
                 "SELECT name, value, timestamp FROM ScaleEntry INNER JOIN Scale ON ScaleEntry.scale_id = Scale.uid",
                 null
@@ -197,15 +195,16 @@ class ImportExportFragment : Fragment(), ExportListener {
                     val time: Long = c.getLong(2)
                     scaleEntries.add(
                         Triple(
-                            formatter.format(Calendar.getInstance().apply { timeInMillis = time }),
+                            formatter.format(Date(time)),
                             name, value
                         )
                     )
                 } while (c.moveToNext())
             }
             c.close()
+
             c = db.rawQuery(
-                "select goal.name, goal.points, symbol, Activity.name, Activity.points, timestamp from Goal, Activity, ActivityEntry where goal.uid=Activity.goal_id AND Activity.uid=ActivityEntry.activity_id and goal.is_old = 0",
+                "select goal.name, goal.points, Activity.name, Activity.points, timestamp from Goal, Activity, ActivityEntry where goal.uid=Activity.goal_id AND Activity.uid=ActivityEntry.activity_id and goal.is_old = 0",
                 null
             )
             if (c.moveToFirst()) {
@@ -218,7 +217,8 @@ class ImportExportFragment : Fragment(), ExportListener {
                     activityEntries.add(
                         ActivityEntry(
                             formatter.format(
-                                Calendar.getInstance().apply { timeInMillis = timestamp }),
+                                Date(timestamp)
+                            ),
                             goalName, goalPoints, activityName, activityPoints
                         )
                     )
@@ -226,18 +226,19 @@ class ImportExportFragment : Fragment(), ExportListener {
             }
             c.close()
             db.close()
+            Log.d(TAG, "after all queries")
             val history = StringBuffer()
             val allDates = mutableSetOf<String>()
             allDates.addAll(journalEntries.keys)
-            allDates.addAll(hundredPercentValue.keys)
             activityEntries.forEach { allDates.add(it.date) }
             val sortedDays = if (isDescOrder) allDates.sortedDescending() else allDates.sorted()
             for (day in sortedDays) {//default ascending
-                val journalNote = journalEntries.get(day)?.first ?: ""
-                val journalMood = journalEntries.get(day)?.first ?: ""
+                val journalTitle = journalEntries.get(day)?.first ?: ""
+                val journalNote = journalEntries.get(day)?.second ?: ""
+                val journalMood = journalEntries.get(day)?.third ?: ""
                 var scale = StringBuffer()
                 scaleEntries.filter { it.first.equals(day) }
-                    .forEach { scale.append("- ${it.second}: ${it.third}") }
+                    .forEach { scale.append("${it.second}: ${it.third}; ") }
                 var sumPoints = 0
                 var activity = StringBuffer()
                 val hundredPercentPoints =
@@ -245,27 +246,35 @@ class ImportExportFragment : Fragment(), ExportListener {
                         ?: hundredPercentValue.values.first()
                 activityEntries.filter { it.date.equals(day) }.forEach {
                     sumPoints += it.activityPoints
-                    activity.append("- ${it.activityName} (${it.activityPoints})")
+                    activity.append("${it.activityName} (${it.activityPoints}); ")
                 }
                 val reached = "- ${sumPoints} / ${hundredPercentPoints}"
-                history.append("## ${day} ${journalMood}")
+                val trophy = if (sumPoints >= hundredPercentPoints) "🏆" else ""
+                history.appendLine("## ${trophy}${day} ${journalMood}")
                 if (sumPoints > 0) {
-                    history.append(reached)
-                    history.append("- ${activity.toString()}")
+                    history.appendLine(reached)
+                    history.appendLine("- ${activity.toString()}")
                 }
-                if (scale.isNotEmpty()) history.append("- ${scale.toString()}")
-                if (journalNote.isNotEmpty()) history.append("- ${journalNote}")
-                history.append(history.toString())
+                if (scale.isNotEmpty()) {
+                    history.append("- ${scale.toString()}")
+                    history.appendLine()
+                }
+                if (journalNote.isNotEmpty()) {
+                    if (journalTitle.isEmpty())
+                        history.appendLine("- ${journalNote}")
+                    else
+                        history.appendLine("- ${journalTitle}: ${journalNote}")
+                }
             }
             val bf = out.bufferedWriter(Charsets.UTF_8)
             bf.use { out -> out.write(history.toString()) }
-        }
-        catch(ex: Exception){
+        } catch (ex: Exception) {
             c.close()
-            if(db.isOpen) db.close()
-            onError(ex)
+            if (db.isOpen) db.close()
+            throw Exception(ex.message)
         }
     }
+
     private fun backup() {
         if (!hasPermissions) {
             actionFailed(getString(R.string.error_permssion_denied))
@@ -348,6 +357,7 @@ class ImportExportFragment : Fragment(), ExportListener {
         restartApp()
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun getExportFileBaseName(suffix: String): String {
         return "MoreDays_${suffix}_${SimpleDateFormat("yyyy-MM-dd-HH_mm_ss").format(Calendar.getInstance().time)}"
     }
@@ -362,6 +372,7 @@ class ImportExportFragment : Fragment(), ExportListener {
         openFileCreator.launch(getExportFileBaseName("export") + ".xls")
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun doExportToExcel(out: OutputStream) {
         var database: SQLiteDatabase? = null
         try {
@@ -390,10 +401,10 @@ class ImportExportFragment : Fragment(), ExportListener {
 
             sqliteToExcel.exportAllTables()
         } catch (ex: Exception) {
-            if (database != null && database!!.isOpen()) {
-                database!!.close()
+            if (database != null && database.isOpen()) {
+                database.close()
             }
-            onError(ex)
+            throw Exception(ex.message)
         }
     }
 
@@ -407,9 +418,11 @@ class ImportExportFragment : Fragment(), ExportListener {
     }
 
     private fun checkPermissions() {
-        var permission = Manifest.permission.READ_MEDIA_IMAGES
+        var permission = ""
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
             permission = Manifest.permission.READ_EXTERNAL_STORAGE
+        else
+            permission = Manifest.permission.READ_MEDIA_IMAGES
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 permission
@@ -424,15 +437,16 @@ class ImportExportFragment : Fragment(), ExportListener {
         binding.progressBarCyclic.visibility = View.GONE
         Snackbar.make(
             requireActivity().findViewById(R.id.container),
-            getString(R.string.export_success),
+            getString(R.string.action_success),
             Snackbar.LENGTH_LONG
         ).show()
 
     }
 
     override fun onError(e: Exception?) {
+        binding.progressBarCyclic.visibility = View.GONE
         if (e != null) {
-            e!!.message?.let {
+            e.message?.let {
                 Log.e(TAG, it)
                 actionFailed(it)
             }
@@ -454,6 +468,7 @@ interface ExportListener {
     fun onCompleted()
     fun onError(e: Exception?)
 }
+
 data class ActivityEntry(
     val date: String,
     val goalName: String,

@@ -177,7 +177,7 @@
     <string name="mood_chart">Stimmungsverlauf anzeigen/verbergen</string>
     <string name="mood">Stimmung</string>
     <string name="no_mood_data">Bisher gibt es keine Stimmungsdaten, tracke deine Stimmung im nächsten Journaleintrag :)</string>
-    <string name="export_success">Export erfolgreich: </string>
+    <string name="action_success">Export erfolgreich: </string>
     <string name="create_export_file_error">Fehler beim Erzeugen der Export-Datei</string>
     <string name="title_journal_picture">Bild des Tages</string>
     <string-array name="sayings">
