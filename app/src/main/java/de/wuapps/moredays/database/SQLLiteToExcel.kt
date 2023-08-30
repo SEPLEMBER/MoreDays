@@ -1,14 +1,13 @@
 package de.wuapps.moredays.database
 
-import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.os.Environment
-import android.os.Handler
-import android.os.Looper
-import de.wuapps.moredays.ui.tools.imexport.ExportListener
-import org.apache.poi.hssf.usermodel.*
-import java.io.File
-import java.io.FileOutputStream
+import org.apache.poi.hssf.usermodel.HSSFCell
+import org.apache.poi.hssf.usermodel.HSSFPatriarch
+import org.apache.poi.hssf.usermodel.HSSFRichTextString
+import org.apache.poi.hssf.usermodel.HSSFRow
+import org.apache.poi.hssf.usermodel.HSSFSheet
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import java.io.OutputStream
 
 
@@ -55,12 +54,43 @@ class SQLiteToExcel constructor(
         return columns
     }
 
-    private fun exportTables(tables: List<String>) {
+    private fun insertScaleEntriesForChart(){
+        val sheet: HSSFSheet = workbook!!.createSheet("1-scale-data")
+        val columns=listOf("name", "value", "timestamp")
+        val cursor = database.rawQuery(
+            "SELECT ${columns.joinToString(separator=", ")} FROM ScaleEntry INNER JOIN Scale ON ScaleEntry.scale_id = Scale.uid",
+            null
+        )
+        insertQueryRows(cursor, sheet, columns)
+    }
+
+    private fun insertPlainJournal(){
+        val sheet: HSSFSheet = workbook!!.createSheet("1-scale-data")
+        val columns=listOf("date", "note", "mood", "affirmation")
+        val cursor = database.rawQuery("SELECT ${columns.joinToString(separator=", ")} FROM Journal", null)
+        insertQueryRows(cursor, sheet, columns)
+    }
+    private fun insertActivityEntriesForChart(){
+        val sheet: HSSFSheet = workbook!!.createSheet("1-activity-data")
+        val columns=listOf<String>("goal.name", "goal.points", "Activity.name", "Activity.points", "timestamp")
+        val cursor = database.rawQuery(
+            "select ${columns.joinToString(separator=", ")} from Goal, Activity, ActivityEntry where goal.uid=Activity.goal_id AND Activity.uid=ActivityEntry.activity_id and goal.is_old = 0",
+            null
+        )
+        insertQueryRows(cursor, sheet, columns)
+    }
+    fun exportAllTables(complete: Boolean) {
         workbook = HSSFWorkbook()
-        for (i in tables.indices) {
-            if (tables[i] != "android_metadata") {
-                val sheet: HSSFSheet = workbook!!.createSheet(tables[i])
-                createSheet(tables[i], sheet)
+        insertActivityEntriesForChart()
+        insertScaleEntriesForChart()
+        insertPlainJournal()
+        if (complete) {
+            val tables = allTables
+            for (i in tables.indices) {
+                if (tables[i] != "android_metadata") {
+                    val sheet: HSSFSheet = workbook!!.createSheet(tables[i])
+                    createSheet(tables[i], sheet)
+                }
             }
         }
         workbook!!.write(outPutStream)
@@ -68,10 +98,6 @@ class SQLiteToExcel constructor(
         outPutStream.close()
         workbook!!.close()
         database!!.close()
-    }
-
-    fun exportAllTables() {
-        exportTables(allTables)
     }
     private fun createSheet(table: String, sheet: HSSFSheet) {
         val rowA: HSSFRow = sheet.createRow(0)
@@ -84,12 +110,14 @@ class SQLiteToExcel constructor(
             cellIndex++
 
         }
-        insertItemToSheet(table, sheet, columns)
-    }
-
-    private fun insertItemToSheet(table: String, sheet: HSSFSheet, columns: ArrayList<String>) {
-        val patriarch: HSSFPatriarch = sheet.createDrawingPatriarch()
         val cursor = database!!.rawQuery("select * from $table", null)
+        insertQueryRows(cursor, sheet, columns)
+    }
+    private fun insertQueryRows(
+        cursor: Cursor,
+        sheet: HSSFSheet,
+        columns: List<String>
+    ) {
         cursor.moveToFirst()
         var n = 1
         while (!cursor.isAfterLast) {
