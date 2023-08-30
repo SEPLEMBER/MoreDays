@@ -55,7 +55,7 @@ class SQLiteToExcel constructor(
     }
 
     private fun insertScaleEntriesForChart(){
-        val sheet: HSSFSheet = workbook!!.createSheet("1-scale-data")
+        val sheet: HSSFSheet = workbook!!.createSheet("1-scale")
         val columns=listOf("name", "value", "timestamp")
         val cursor = database.rawQuery(
             "SELECT ${columns.joinToString(separator=", ")} FROM ScaleEntry INNER JOIN Scale ON ScaleEntry.scale_id = Scale.uid",
@@ -65,13 +65,13 @@ class SQLiteToExcel constructor(
     }
 
     private fun insertPlainJournal(){
-        val sheet: HSSFSheet = workbook!!.createSheet("1-scale-data")
+        val sheet: HSSFSheet = workbook!!.createSheet("1-journal")
         val columns=listOf("date", "note", "mood", "affirmation")
         val cursor = database.rawQuery("SELECT ${columns.joinToString(separator=", ")} FROM Journal", null)
         insertQueryRows(cursor, sheet, columns)
     }
     private fun insertActivityEntriesForChart(){
-        val sheet: HSSFSheet = workbook!!.createSheet("1-activity-data")
+        val sheet: HSSFSheet = workbook!!.createSheet("1-activities")
         val columns=listOf<String>("goal.name", "goal.points", "Activity.name", "Activity.points", "timestamp")
         val cursor = database.rawQuery(
             "select ${columns.joinToString(separator=", ")} from Goal, Activity, ActivityEntry where goal.uid=Activity.goal_id AND Activity.uid=ActivityEntry.activity_id and goal.is_old = 0",

@@ -23,6 +23,7 @@ class HomeViewModel(
 
     val hasFab = true
     var hideConfetti = false
+    var confettiShownFor = -1L
     var hidePocalAnimation = false
     var showProgressAsPercentInCircle = true
     var name = ""

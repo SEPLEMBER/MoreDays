@@ -51,12 +51,12 @@ class ImportExportFragment : Fragment(), ExportListener {
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
-            if (isGranted) {
+            hasPermissions = if (isGranted) {
                 Log.i("Permission: ", "Granted")
-                hasPermissions = true
+                true
             } else {
                 Log.i("Permission: ", "Denied")
-                hasPermissions = false
+                false
             }
         }
 
@@ -64,16 +64,14 @@ class ImportExportFragment : Fragment(), ExportListener {
     private val openRestoreFileChooser =
         registerForActivityResult(ActivityResultContracts.OpenDocument()) { result ->
             if (result != null) {
-                val inputstream = requireContext().contentResolver.openInputStream(result)!!
+                val inputStream = requireContext().contentResolver.openInputStream(result)!!
                 binding.progressBarCyclic.visibility = View.VISIBLE
                 Thread {
                     try {
-                        doRestore(inputstream)
+                        doRestore(inputStream)
                         handler.post { this.onCompleted() }
                     } catch (e: Exception) {
-                        if (inputstream != null) {
-                            inputstream.close()
-                        }
+                        inputStream.close()
                         handler.post { this.onError(e) }
                     }
                 }.start()
@@ -91,18 +89,14 @@ class ImportExportFragment : Fragment(), ExportListener {
                     doWithCreatedFile(out)
                     handler.post { this.onCompleted() }
                 } catch (e: Exception) {
-                    if (out != null) {
-                        out.close()
-                    }
+                    out.close()
                     handler.post { this.onError(e) }
                 }
             }.start()
 
         }
     }
-    private var doWithCreatedFile = { out: OutputStream -> Unit }
-    private var x: Unit? = null
-
+    private var doWithCreatedFile = { _: OutputStream -> }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -116,10 +110,10 @@ class ImportExportFragment : Fragment(), ExportListener {
             exportToMd(binding.cbDesc.isChecked)
         }
         binding.btnBackup.setOnClickListener {
-            backup();
+            backup()
         }
         binding.btnRestore.setOnClickListener {
-            restore();
+            restore()
         }
         checkPermissions()
         return view
@@ -136,13 +130,13 @@ class ImportExportFragment : Fragment(), ExportListener {
     }
 
     private fun getMoodEmoji(mood: Int): String {
-        when (mood) {
-            1 -> return getString(R.string.mood_face_1)
-            2 -> return getString(R.string.mood_face_2)
-            3 -> return getString(R.string.mood_face_3)
-            4 -> return getString(R.string.mood_face_4)
-            5 -> return getString(R.string.mood_face_5)
-            else -> return ""
+        return when (mood) {
+            1 -> getString(R.string.mood_face_1)
+            2 -> getString(R.string.mood_face_2)
+            3 -> getString(R.string.mood_face_3)
+            4 -> getString(R.string.mood_face_4)
+            5 -> getString(R.string.mood_face_5)
+            else -> ""
         }
     }
 
@@ -233,49 +227,45 @@ class ImportExportFragment : Fragment(), ExportListener {
             activityEntries.forEach { allDates.add(it.date) }
             val sortedDays = if (isDescOrder) allDates.sortedDescending() else allDates.sorted()
             for (day in sortedDays) {//default ascending
-                val journalTitle = journalEntries.get(day)?.first ?: ""
-                val journalNote = journalEntries.get(day)?.second ?: ""
-                val journalMood = journalEntries.get(day)?.third ?: ""
-                var scale = StringBuffer()
-                scaleEntries.filter { it.first.equals(day) }
+                val journalTitle = journalEntries[day]?.first ?: ""
+                val journalNote = journalEntries[day]?.second ?: ""
+                val journalMood = journalEntries[day]?.third ?: ""
+                val scale = StringBuffer()
+                scaleEntries.filter { it.first == day }
                     .forEach { scale.append("${it.second}: ${it.third}; ") }
                 var sumPoints = 0
-                var activity = StringBuffer()
-                var goals = StringBuffer()
+                val activity = StringBuffer()
+                val goals = StringBuffer()
                 val hundredPercentPoints =
-                    hundredPercentValue.get(hundredPercentValue.keys.filter { it <= day }.first())
+                    hundredPercentValue[hundredPercentValue.keys.last { it <= day }]
                         ?: hundredPercentValue.values.first()
-                activityEntries.filter { it.date.equals(day) }.forEach {
+                activityEntries.filter { it.date == day }.forEach {
                     sumPoints += it.activityPoints
                     activity.append("${it.activityName} (${it.activityPoints}); ")
                 }
-                activityEntries.filter { it.date.equals(day) }.groupBy {it.goalName}.forEach{
-                    goals.appendLine("${it.value} ${it.key}")
-                    it.value.forEach{
-                        goals.appendLine("${it.goalName} ${it.goalPoints} ${it.activityPoints}")
-                    }
+                activityEntries.filter { it.date == day }.groupBy {it.goalName}.forEach{
+                    goals.append("${it.key}: ${it.value.sumOf { item -> item.activityPoints }}/${it.value.maxOf { item->item.goalPoints }}; ")
                 }
-                val reached = "- ${sumPoints} / ${hundredPercentPoints}"
+                val reached = "- $sumPoints / $hundredPercentPoints"
                 val trophy = if (sumPoints >= hundredPercentPoints) "🏆" else ""
-                history.appendLine("## ${trophy}${day} ${journalMood}")
+                history.appendLine("## ${trophy}${day} $journalMood")
                 if (sumPoints > 0) {
                     history.appendLine(reached)
-                    history.appendLine("- ${activity.toString()}")
+                    history.appendLine("- $goals")
+                    history.appendLine("- $activity")
                 }
-                history.append(goals.toString())
                 if (scale.isNotEmpty()) {
-                    history.append("- ${scale.toString()}")
+                    history.append("- $scale")
                     history.appendLine()
                 }
+                if (journalTitle.isNotEmpty())
+                    history.appendLine("- ${journalTitle}")
                 if (journalNote.isNotEmpty()) {
-                    if (journalTitle.isEmpty())
-                        history.appendLine("- ${journalNote}")
-                    else
-                        history.appendLine("- ${journalTitle}: ${journalNote}")
+                    history.appendLine("- $journalNote")
                 }
             }
             val bf = out.bufferedWriter(Charsets.UTF_8)
-            bf.use { out -> out.write(history.toString()) }
+            bf.use { bfw -> bfw.write(history.toString()) }
         } catch (ex: Exception) {
             c.close()
             if (db.isOpen) db.close()
@@ -309,23 +299,22 @@ class ImportExportFragment : Fragment(), ExportListener {
     }
 
     //Thanks to https://medium.com/dwarsoft/how-to-provide-backup-restore-feature-for-room-database-in-android-d87f111d9c64
-    private fun doBackup(savedb: OutputStream) {
-        Log.i(TAG, "in dobackup")
+    private fun doBackup(backupOutputStream: OutputStream) {
         //close the db to make sure all journaling is run and in the single db file see https://www.sqlite.org/wal.html
         MoreDaysDatabase.getInstance(requireContext().applicationContext).close()
-        val dbfile = requireContext().applicationContext.getDatabasePath(DATABASE_NAME)
-        val buffersize = 8 * 1024
-        val buffer = ByteArray(buffersize)
-        var bytes_read = buffersize
-        val indb: InputStream = FileInputStream(dbfile)
-        while (indb.read(buffer, 0, buffersize).also { bytes_read = it } > 0) {
-            savedb.write(buffer, 0, bytes_read)
+        val dbFile = requireContext().applicationContext.getDatabasePath(DATABASE_NAME)
+        val bufferSize = 8 * 1024
+        val buffer = ByteArray(bufferSize)
+        var bytesRead: Int
+        val dbInputStream: InputStream = FileInputStream(dbFile)
+        while (dbInputStream.read(buffer, 0, bufferSize).also { bytesRead = it } > 0) {
+            backupOutputStream.write(buffer, 0, bytesRead)
         }
-        savedb.flush()
-        indb.close()
-        savedb.close()
-        //exit Application as the viewmodels need to refresh and this would be a hassle, it is not
-        //easy to reopen the datbase and refresh the models automatically
+        backupOutputStream.flush()
+        dbInputStream.close()
+        backupOutputStream.close()
+        //exit Application as the view models need to refresh and this would be a hassle, it is not
+        //easy to reopen the database and refresh the models automatically
         restartApp()
     }
 
@@ -396,20 +385,20 @@ class ImportExportFragment : Fragment(), ExportListener {
             )
             sqliteToExcel.setCustomFormatter(object : ExportCustomFormatter {
                 override fun process(columnName: String?, value: String?): String? {
-                    var value = value
+                    var formattedValue = value
                     if (columnName.equals("timestamp") && !value.isNullOrBlank()) {
-                        calendar.apply { timeInMillis = value!!.toLong() }
-                        value = formatter.format(calendar.time)
+                        calendar.apply { timeInMillis = value.toLong() }
+                        formattedValue = formatter.format(calendar.time)
 
                     }
-                    return value
+                    return formattedValue
                 }
             })
 
 
             sqliteToExcel.exportAllTables(allTables)
         } catch (ex: Exception) {
-            if (database != null && database.isOpen()) {
+            if (database != null && database.isOpen) {
                 database.close()
             }
             throw Exception(ex.message)
@@ -426,7 +415,7 @@ class ImportExportFragment : Fragment(), ExportListener {
     }
 
     private fun checkPermissions() {
-        var permission = ""
+        val permission: String
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
             permission = Manifest.permission.READ_EXTERNAL_STORAGE
         else

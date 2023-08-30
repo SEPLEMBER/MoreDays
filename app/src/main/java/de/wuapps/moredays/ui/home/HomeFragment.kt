@@ -1,5 +1,6 @@
 package de.wuapps.moredays.ui.home
 
+import android.animation.Animator
 import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.graphics.Color
@@ -265,7 +266,8 @@ class HomeFragment : Fragment(), MenuProvider {
                     val trophy = it.last()
                     if (trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL) {
                         Log.d("prefs", viewModel.hideConfetti.toString())
-                        if (!viewModel.hideConfetti)
+                        if (!viewModel.hideConfetti && viewModel.confettiShownFor != trophy.uid) {
+                            viewModel.confettiShownFor = trophy.uid
                             binding.viewKonfetti.build()
                                 .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
                                 .setDirection(0.0, 359.0)
@@ -276,6 +278,8 @@ class HomeFragment : Fragment(), MenuProvider {
                                 .addSizes(Size(12))
                                 .setPosition(-50f, binding.viewKonfetti.width + 50f, -50f, -50f)
                                 .streamFor(300, 2000L)
+
+                        }
                     } else {
                         showTrophyDialog(
                             getTrophyMessage(
@@ -302,7 +306,7 @@ class HomeFragment : Fragment(), MenuProvider {
                     Handler(Looper.getMainLooper()).postDelayed(({
                         binding.lottieTrophy.visibility = View.GONE
 
-                    }), 4500)
+                    }), 3000)
                 }
             }
             viewModel.justReached100Percent.postValue(false)
@@ -443,6 +447,7 @@ class HomeFragment : Fragment(), MenuProvider {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.lottieTrophy.cancelAnimation()
         _goalAdapter = null
         _binding = null
     }

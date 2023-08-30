@@ -86,6 +86,7 @@
             android:layout_height="match_parent"
             android:visibility="gone"
             app:lottie_autoPlay="false"
+            app:lottie_speed="1.5"
             app:lottie_fileName="trophy100.json"
             app:lottie_loop="false" />
     </FrameLayout>
