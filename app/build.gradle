@@ -93,7 +93,7 @@ dependencies {
     // UI
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "com.google.android.material:material:$materialVersion"
-    implementation 'androidx.recyclerview:recyclerview:1.3.1'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
 
     implementation "com.maltaisn:icondialog:$iconPickerVersion"
     implementation "com.maltaisn:iconpack-default:1.1.0"
@@ -134,7 +134,7 @@ dependencies {
     //import/export
     //implementation 'org.apache.poi:poi.5.2.2'
     //implementation 'org.apache.poi:poi-ooxml.5.2.2'
-    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.3'
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.5'
 
     //animation
     implementation "com.airbnb.android:lottie:$lottieVersion"
