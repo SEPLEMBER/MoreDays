@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
@@ -26,7 +27,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -90,6 +93,26 @@ class HomeFragment : Fragment(), MenuProvider {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         setFabOnClickListener { showAddOptions() }
+            var x1: Float = 0.0F
+            var x2: Float = 0.0F
+            binding.root.setOnTouchListener(fun(v: View, event: MotionEvent): Boolean {
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        x1 = event.x
+                    }
+
+                    MotionEvent.ACTION_UP -> {
+                        x2 = event.x
+                        val deltaX: Float = x2 - x1
+                        if (deltaX > 0) {
+                            dayBack()
+                        } else if (deltaX < 0) {
+                            dayForward()
+                        }
+                    }
+                }
+                return true
+            })
         return binding.root
     }
 
@@ -158,6 +181,16 @@ class HomeFragment : Fragment(), MenuProvider {
             binding.textViewDate.setBackgroundColor(getColor(requireContext(), R.color.orange700))
     }
 
+    private fun dayBack(){
+        val dayBack = viewModel.date.clone() as Calendar
+        dayBack.add(Calendar.DAY_OF_YEAR, -1)
+        handleDateSelected(dayBack)
+    }
+    private fun dayForward(){
+        val dayForward = viewModel.date.clone() as Calendar
+        dayForward.add(Calendar.DAY_OF_YEAR, 1)
+        handleDateSelected(dayForward)
+    }
     private fun getDateStringToDate(dateCalendar: Calendar): String {
         val today = Calendar.getInstance()
         if (today.isSameDay(dateCalendar))
@@ -453,6 +486,7 @@ class HomeFragment : Fragment(), MenuProvider {
                     .tintTarget(true)
             ).start()
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
