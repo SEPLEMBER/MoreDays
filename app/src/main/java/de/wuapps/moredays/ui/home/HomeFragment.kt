@@ -1,6 +1,5 @@
 package de.wuapps.moredays.ui.home
 
-import android.animation.Animator
 import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.graphics.Color
@@ -9,7 +8,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.NumberPicker
 import android.widget.TextView
@@ -34,14 +38,19 @@ import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.database.entity.Trophy
 import de.wuapps.moredays.databinding.FragmentHomeBinding
-import de.wuapps.moredays.utilities.*
+import de.wuapps.moredays.utilities.DatePickerFragment
+import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.getFlexboxLayoutManager
+import de.wuapps.moredays.utilities.isSameDay
+import de.wuapps.moredays.utilities.setFabOnClickListener
+import de.wuapps.moredays.utilities.showFab
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import nl.dionsegijn.konfetti.models.Shape
 import nl.dionsegijn.konfetti.models.Size
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
 import kotlin.math.floor
 
 
@@ -75,7 +84,7 @@ class HomeFragment : Fragment(), MenuProvider {
         handlePreferences(preferences)
 
         preferences.registerOnSharedPreferenceChangeListener(preferencesListener)
-        _goalAdapter = GoalAdapter(viewModel::addGoalEntry)
+        _goalAdapter = GoalAdapter(viewModel::addGoalEntry, viewModel::deleteLatestGoalEntry)
         binding.recyclerViewGoals.adapter = goalAdapter
         handleLoading()
         val menuHost: MenuHost = requireActivity()

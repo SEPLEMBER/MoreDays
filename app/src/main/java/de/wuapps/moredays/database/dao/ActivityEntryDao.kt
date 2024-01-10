@@ -36,4 +36,7 @@ interface ActivityEntryDao {
 
     @Query("Delete from ActivityEntry")
     suspend fun deleteAll()
+
+    @Query("Delete from ActivityEntry where uid IN (SELECT uid from ActivityEntry WHERE activity_id = :activityId and DATE(timestamp / 1000, 'unixepoch') = DATE(:givenDate / 1000, 'unixepoch') ORDER BY timestamp desc LIMIT 1)")
+    suspend fun deleteLatestOfDate(activityId: Long, givenDate: Calendar)
 }

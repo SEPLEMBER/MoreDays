@@ -115,6 +115,12 @@ class HomeViewModel(
         latestActivity = activity
     }
 
+    fun deleteLatestGoalEntry(activity: Activity) {
+        viewModelScope.launch(Dispatchers.IO){
+            activityEntryDao.deleteLatestOfDate(activity.uid, date)
+        }
+    }
+
     fun addScaleEntry(scaleId: Long, value: Float) {
         viewModelScope.launch(Dispatchers.IO) {
             val scaleEntry = ScaleEntry(scaleId, value)

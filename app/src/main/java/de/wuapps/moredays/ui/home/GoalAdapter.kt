@@ -3,27 +3,35 @@ package de.wuapps.moredays.ui.home
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.MoreDaysApplication
+import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.databinding.ListItemGoalHomeBinding
 
 
-class GoalAdapter(private val onGoalClickHandler: (goal: Goal, activity: Activity) -> Unit) :
+class GoalAdapter(
+    private val onGoalClickHandler: (goal: Goal, activity: Activity) -> Unit,
+    private val onDeleteActivityClickHandler: (activity: Activity) -> Unit
+) :
     ListAdapter<GoalEntry, GoalAdapter.GoalViewHolder>(GoalDiffCallback) {
 
     class GoalViewHolder(
         private val binding: ListItemGoalHomeBinding,
-        private val onGoalClickHandler: (goal: Goal, activity: Activity) -> Unit
+        private val onGoalClickHandler: (goal: Goal, activity: Activity) -> Unit,
+        private val onDeleteActivityClickHandler: (activity: Activity) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener { view ->
-                showInputDialog(binding.goalEntry!!, view.context)
+                showCustomDialog(binding.goalEntry!!, view.context)
             }
         }
 
@@ -39,19 +47,30 @@ class GoalAdapter(private val onGoalClickHandler: (goal: Goal, activity: Activit
 
         }
 
-        private fun showInputDialog(goalEntry: GoalEntry, context: Context) {
+        private fun showCustomDialog(goalEntry: GoalEntry, context: Context) {
             val dialogBuilder = AlertDialog.Builder(context)
-            val stringList: MutableList<String> = mutableListOf()
+            val layoutView: View =
+                LayoutInflater.from(context).inflate(R.layout.goal_entry_custom_dialog, null)
+            val itemList: MutableList<Pair<Activity, Int>> = mutableListOf()
             val activities = goalEntry.getActivities().sortedBy { activity -> activity.points }
-            val tick = "\u2713"
-            activities.forEach { activity -> stringList.add("$activity ${tick.repeat(goalEntry.countActivityDoneToday(activity.uid))}") }
-            val values: Array<String> = stringList.toTypedArray()
-            dialogBuilder.setTitle(goalEntry.getName()).setItems(values) { _, position ->
-                val activity = activities[position]
-                onGoalClickHandler(goalEntry.getGoal(), activity)
+            activities.forEach { activity ->
+                itemList.add(Pair(activity, goalEntry.countActivityDoneToday(activity.uid)))
             }
-            val alertDialog = dialogBuilder.create()
-            alertDialog.show()
+            layoutView.findViewById<TextView>(R.id.textViewGoalName).text = goalEntry.getName()
+            val recyclerView =
+                layoutView.findViewById<RecyclerView>(R.id.recyclerviewActivityEntries)
+            recyclerView.layoutManager = LinearLayoutManager(context)
+
+            dialogBuilder.setView(layoutView)
+            val goalEntryDialog = dialogBuilder.create()
+            recyclerView.adapter = GoalEntryAdapter(
+                itemList,
+                goalEntry.getGoal(),
+                onGoalClickHandler,
+                onDeleteActivityClickHandler,
+                goalEntryDialog
+            )
+            goalEntryDialog.show()
         }
 
     }
@@ -62,7 +81,7 @@ class GoalAdapter(private val onGoalClickHandler: (goal: Goal, activity: Activit
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ), onGoalClickHandler
+            ), onGoalClickHandler, onDeleteActivityClickHandler
         )
     }
 
@@ -73,7 +92,7 @@ class GoalAdapter(private val onGoalClickHandler: (goal: Goal, activity: Activit
 
 object GoalDiffCallback : DiffUtil.ItemCallback<GoalEntry>() {
     override fun areItemsTheSame(oldItem: GoalEntry, newItem: GoalEntry): Boolean {
-        return  oldItem.getId() == newItem.getId()
+        return oldItem.getId() == newItem.getId()
     }
 
     override fun areContentsTheSame(oldItem: GoalEntry, newItem: GoalEntry): Boolean {
