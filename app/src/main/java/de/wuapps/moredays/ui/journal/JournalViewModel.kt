@@ -89,7 +89,7 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
     }
 
     fun setDateFormatDb(dateFormat: String){
-        _dateFormatDb = dateFormat;
+        _dateFormatDb = dateFormat
     }
 
     fun getCurrentDate(): String {

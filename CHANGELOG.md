@@ -15,7 +15,7 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 ### Fixed
 ### Refactored
 
-## [1.0.19] - 2024-01-10 - 🏁-Release
+## [1.0.20] - 2024-01-14 - 🏁-Release
 ### Added
 - add x to cancel an activity of a day directly in the home screen (issue # 5)
 - swipe through days (issue # 6)
