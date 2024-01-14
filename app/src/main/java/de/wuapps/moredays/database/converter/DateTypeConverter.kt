@@ -5,7 +5,8 @@ import androidx.room.TypeConverter
 import de.wuapps.moredays.database.entity.Journal
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 class DateTypeConverter {
     @TypeConverter

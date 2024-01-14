@@ -10,7 +10,8 @@ import de.wuapps.moredays.database.dao.JournalDao
 import de.wuapps.moredays.database.entity.Journal
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 
 class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :

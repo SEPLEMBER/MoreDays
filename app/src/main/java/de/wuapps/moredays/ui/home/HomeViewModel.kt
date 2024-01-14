@@ -5,13 +5,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import de.wuapps.moredays.database.Analysis
-import de.wuapps.moredays.database.dao.*
-import de.wuapps.moredays.database.entity.*
+import de.wuapps.moredays.database.dao.ActivityEntryDao
+import de.wuapps.moredays.database.dao.GoalDao
+import de.wuapps.moredays.database.dao.ScaleDao
+import de.wuapps.moredays.database.dao.ScaleEntryDao
+import de.wuapps.moredays.database.dao.TrophyDao
+import de.wuapps.moredays.database.entity.Activity
+import de.wuapps.moredays.database.entity.ActivityEntry
+import de.wuapps.moredays.database.entity.Goal
+import de.wuapps.moredays.database.entity.GoalAndRelatedData
+import de.wuapps.moredays.database.entity.Scale
+import de.wuapps.moredays.database.entity.ScaleEntry
+import de.wuapps.moredays.database.entity.Trophy
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Calendar
 
 class HomeViewModel(
     goalDao: GoalDao,

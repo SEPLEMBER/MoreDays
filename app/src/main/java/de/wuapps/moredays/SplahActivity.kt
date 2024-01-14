@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import de.wuapps.moredays.ui.onboarding.Onboarding
-import java.util.*
+import java.util.Calendar
 
 
 //see https://www.bignerdranch.com/blog/splash-screens-the-right-way/

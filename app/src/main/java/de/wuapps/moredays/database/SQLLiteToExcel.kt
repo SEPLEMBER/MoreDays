@@ -3,7 +3,6 @@ package de.wuapps.moredays.database
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import org.apache.poi.hssf.usermodel.HSSFCell
-import org.apache.poi.hssf.usermodel.HSSFPatriarch
 import org.apache.poi.hssf.usermodel.HSSFRichTextString
 import org.apache.poi.hssf.usermodel.HSSFRow
 import org.apache.poi.hssf.usermodel.HSSFSheet

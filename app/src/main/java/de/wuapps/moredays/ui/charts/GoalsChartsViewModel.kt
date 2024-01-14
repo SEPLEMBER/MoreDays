@@ -7,12 +7,16 @@ import de.wuapps.moredays.database.dao.ActivityEntryDao
 import de.wuapps.moredays.database.dao.GoalDao
 import de.wuapps.moredays.database.dao.HundredPercentValueDao
 import de.wuapps.moredays.database.dao.TrophyDao
-import de.wuapps.moredays.database.entity.*
+import de.wuapps.moredays.database.entity.Activity
+import de.wuapps.moredays.database.entity.ActivityEntryAndRelatedData
+import de.wuapps.moredays.database.entity.Goal
+import de.wuapps.moredays.database.entity.HundredPercentValue
+import de.wuapps.moredays.database.entity.Trophy
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Calendar
 
 class GoalsChartsViewModel(
     goalDao: GoalDao,

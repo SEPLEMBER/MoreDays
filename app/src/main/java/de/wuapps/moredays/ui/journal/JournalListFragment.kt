@@ -2,7 +2,12 @@ package de.wuapps.moredays.ui.journal
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -10,14 +15,24 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Journal
 import de.wuapps.moredays.databinding.FragmentJournalListBinding
-import de.wuapps.moredays.utilities.*
+import de.wuapps.moredays.utilities.DEFAULT_COLOR
+import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.getColorThemeRes
+import de.wuapps.moredays.utilities.getFlexboxLayoutManager
+import de.wuapps.moredays.utilities.setFabOnClickListener
+import de.wuapps.moredays.utilities.showFab
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 
 class JournalListFragment : Fragment(), MenuProvider {

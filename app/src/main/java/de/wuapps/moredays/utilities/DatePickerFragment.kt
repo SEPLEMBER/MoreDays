@@ -5,7 +5,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
-import java.util.*
+import java.util.Calendar
 
 class DatePickerFragment(private val iniDate: Calendar, private val onDateSelectedHandler: (calendar: Calendar) -> Unit): DialogFragment(), DatePickerDialog.OnDateSetListener {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

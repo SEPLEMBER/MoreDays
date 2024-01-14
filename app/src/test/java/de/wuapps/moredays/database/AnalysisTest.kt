@@ -7,7 +7,7 @@ import de.wuapps.moredays.database.entity.Trophy
 import junit.framework.TestCase
 import org.junit.Before
 import org.junit.Test
-import java.util.*
+import java.util.Calendar
 
 class AnalysisTest : TestCase() {
 

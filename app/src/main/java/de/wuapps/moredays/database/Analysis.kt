@@ -5,7 +5,7 @@ import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.Trophy
 import de.wuapps.moredays.utilities.isSameDay
 import de.wuapps.moredays.utilities.isSameWeek
-import java.util.*
+import java.util.Calendar
 
 class Analysis {
 

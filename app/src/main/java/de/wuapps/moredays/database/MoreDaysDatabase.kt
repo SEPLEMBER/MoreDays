@@ -10,12 +10,26 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.converter.DateTypeConverter
 import de.wuapps.moredays.database.converter.IntListTypeConverter
-import de.wuapps.moredays.database.dao.*
-import de.wuapps.moredays.database.entity.*
+import de.wuapps.moredays.database.dao.ActivityDao
+import de.wuapps.moredays.database.dao.ActivityEntryDao
+import de.wuapps.moredays.database.dao.GoalDao
+import de.wuapps.moredays.database.dao.HundredPercentValueDao
+import de.wuapps.moredays.database.dao.JournalDao
+import de.wuapps.moredays.database.dao.ScaleDao
+import de.wuapps.moredays.database.dao.ScaleEntryDao
+import de.wuapps.moredays.database.dao.TrophyDao
+import de.wuapps.moredays.database.entity.Activity
+import de.wuapps.moredays.database.entity.ActivityEntry
+import de.wuapps.moredays.database.entity.Goal
+import de.wuapps.moredays.database.entity.HundredPercentValue
+import de.wuapps.moredays.database.entity.Journal
+import de.wuapps.moredays.database.entity.Scale
+import de.wuapps.moredays.database.entity.ScaleEntry
+import de.wuapps.moredays.database.entity.Trophy
 import de.wuapps.moredays.utilities.DATABASE_NAME
 import de.wuapps.moredays.utilities.DATABASE_VERSION
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 @Database(
     entities = [Activity::class, ActivityEntry::class, Goal::class, Scale::class, ScaleEntry::class, Trophy::class, Journal::class, HundredPercentValue::class],

@@ -4,7 +4,12 @@ package de.wuapps.moredays.ui.journal
 import android.app.AlertDialog
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -15,7 +20,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.imagepickerlibrary.ImagePicker
-import com.app.imagepickerlibrary.model.PickExtension
 import com.app.imagepickerlibrary.model.PickerType
 import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
@@ -29,7 +33,7 @@ import de.wuapps.moredays.utilities.DatePickerFragment
 import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.handleFab
 import de.wuapps.moredays.utilities.isAtLeast11
-import java.util.*
+import java.util.Calendar
 
 @GlideModule
 class JournalFragment : Fragment(), MenuProvider {

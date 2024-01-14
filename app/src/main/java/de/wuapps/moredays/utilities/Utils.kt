@@ -12,7 +12,7 @@ import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import de.wuapps.moredays.MainActivity
-import java.util.*
+import java.util.Calendar
 import java.util.concurrent.Executors
 
 

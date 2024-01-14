@@ -8,7 +8,7 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.utils.MPPointF
 import de.wuapps.moredays.R
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.GregorianCalendar
 
 class StackedMarkerView(context: Context?, layoutResource: Int) :
     MarkerView(context, layoutResource) {

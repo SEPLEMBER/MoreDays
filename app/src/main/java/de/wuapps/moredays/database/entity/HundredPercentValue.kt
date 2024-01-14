@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey
 import de.wuapps.moredays.database.converter.DateTypeConverter
 import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 
 @Parcelize

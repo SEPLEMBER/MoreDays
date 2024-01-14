@@ -1,6 +1,6 @@
 package de.wuapps.moredays.database.data
 
-import java.util.*
+import java.util.Calendar
 
 data class SimpleActivity (
     val date: Calendar,
