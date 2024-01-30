@@ -1,0 +1,7 @@
+<resources>
+    <string-array name="entriesFrequencyJournal">
+        <item>giornalmente</item>
+        <item>ogni ora</item>
+        <item>ogni minuto</item>
+    </string-array>
+</resources>
