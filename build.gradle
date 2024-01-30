@@ -14,7 +14,7 @@ buildscript {
         aboutVersion = '10.10.0'
         emojiVersion = '1.4.0'
         coroutinesVersion = '1.7.3'
-        archLifecycleVersion = '2.6.2'
+        archLifecycleVersion = '2.7.0'
         archVersion = '2.1.0'
         navigationVersion = '2.7.6'
         //stick to 2.6, as 2.7 caused compile problems, see https://developer.android.com/jetpack/androidx/releases/navigation#groovy
