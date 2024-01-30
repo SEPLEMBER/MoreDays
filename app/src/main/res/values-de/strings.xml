@@ -39,6 +39,7 @@
     <string name="title_delete">Löschen</string>
     <string name="question_delete_goal">Möchtest du wirklich dieses Ziel und alle damit verbundenen Aktivitäten und Daten löschen? Du kannst es auch einfach als veraltet markieren.</string>
     <string name="question_delete_activity">Möchtest du wirklich dieses Aktivität und alle damit verbundenen Einträge löschen? Du kannst sie auch einfach als veraltet markieren.</string>
+    <string name="question_delete_journal">Möchtest du wirklich diesen Journal-Eintrag löschen?</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="ok">Ok</string>

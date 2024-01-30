@@ -25,6 +25,7 @@
     <string name="title_delete">Elimina</string>
     <string name="question_delete_goal">Si vuole davvero eliminare questo obiettivo e tutti i dati ad esso collegati? Ricordate che potete impostarlo come vecchio.</string>
     <string name="question_delete_activity">Si desidera davvero eliminare questa attività e tutti i dati ad essa collegati? Ricordate che potete impostarla come vecchia.</string>
+    <string name="question_delete_journal">Vuoi davvero eliminare questa voce del diario?</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
     <string name="ok">OK</string>

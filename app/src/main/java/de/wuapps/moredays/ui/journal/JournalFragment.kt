@@ -188,11 +188,26 @@ class JournalFragment : Fragment(), MenuProvider {
     }
 
     private fun delete() {
-        viewModel.delete()
-        view?.post {
-            findNavController().popBackStack()
+        val alertDialog: AlertDialog.Builder =
+        AlertDialog.Builder(requireNotNull(this.activity))
+        alertDialog.setTitle(getString(R.string.title_delete))
+        alertDialog.setMessage(getString(R.string.question_delete_journal))
+        alertDialog.setPositiveButton(
+            getString(R.string.yes)
+        ) { _, _ ->
+            viewModel.delete()
+            view?.post {
+                findNavController().popBackStack()
+            }
         }
+        alertDialog.setNegativeButton(
+            getString(R.string.no)
+        ) { _, _ -> }
+        val alert: AlertDialog = alertDialog.create()
+        alert.setCanceledOnTouchOutside(false)
+        alert.show()
     }
+
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

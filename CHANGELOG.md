@@ -14,12 +14,16 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 ### Added
 ### Fixed
 ### Refactored
-- update libs
 
 ## [1.0.21] - Unreleased
 ### Added
+- add italian, feat #10, thanks to [RAMAR RAR](https://gitlab.com/RAMAR-RAR) for the translation
+- auto capitalize sentences in journal, feat #14
+- add delete confirmation for journal entries, feat #13
 ### Fixed
 ### Refactored
+- update libs
+
 
 ## [1.0.20] - 2024-01-14 - 🏁-Release
 ### Added
