@@ -43,18 +43,18 @@
     <string name="activity_entries">Voci di attività</string>
     <string name="import_export">esporta/backup/ripristina</string>
     <string name="export_excel">esporta in excel</string>
-    <string name="export_md">esporta in markdownstring>
+    <string name="export_md">esporta in markdown</string>
     <string name="backup">backup</string>
     <string name="desc">decrescente</string>
     <string name="trophy_type_title_row">righa</string>
     <string name="trophy_type_title_total">totale</string>
     <string name="trophy_type_title_times_per_week">in settimana</string>
     <string name="trophy_type_title_made_goal">fatto</string>
-    <string name="trophy_msg_hundred_percent">Super, ce l'hai fatta per oggi :)</string>
+    <string name="trophy_msg_hundred_percent">Super, ce l\'hai fatta per oggi :)</string>
     <string name="trophy_type_msg_row" tools:ignore="PluralsCandidate">Super %1$s! Hai fatto %2$s %3$d giorni di fila :)</string>
     <string name="trophy_type_msg_total" tools:ignore="PluralsCandidate">Super %1$s! Hai fatto %2$s %3$d volte :)</string>
     <string name="trophy_type_msg_times_per_week" tools:ignore="PluralsCandidate">Super %1$s! hai fatto %2$s %3$d volte in questa settimana :)</string>
-    <string name="help_privacy_content">Tutti i dati sono memorizzati in una cartella locale, dove solo questa applicazione può accedervi. I dati dell'app non sono inclusi nel backup
+    <string name="help_privacy_content">Tutti i dati sono memorizzati in una cartella locale, dove solo questa applicazione può accedervi. I dati dell\'app non sono inclusi nel backup
         a meno che non sia attivata la crittografia lato client. </string>
     <string name="help_privacy_title">Privacy</string>
     <string name="expand">espandi</string>
@@ -65,13 +65,13 @@
         Con moreDays potete riflettere la vostra giornata in un diario personale, seguire i vostri obiettivi, definire le sfide, tutto è nelle vostre mani, basta farlo.
         Rendete ogni giorno un buon giorno :)
         <h1>Obiettivi</h1>
-        Cosa rende una buona giornata, una giornata equilibrata? Definite diversi obiettivi, come la forma fisica, la mente, l'alimentazione. Tuttavia, troppi obiettivi sono difficili da raggiungere. Pensate a
+        Cosa rende una buona giornata, una giornata equilibrata? Definite diversi obiettivi, come la forma fisica, la mente, l\'alimentazione. Tuttavia, troppi obiettivi sono difficili da raggiungere. Pensate a
         obiettivi su cui volete concentrarvi ogni giorno. Se un obiettivo non è più rilevante o non lo è in questo momento, perché siete in vacanza, impostatelo come inattivo.
         Per ogni obiettivo definite quanto è difficile per voi, iniziate con un numero basso di punti e aumentate nel tempo.
         <h1>Attività</h1>
-        Le attività sono le opzioni per raggiungere un obiettivo. Ricordate che c'è sempre più di un modo per farlo. Ad esempio, per il fitness si possono definire attività come lo sport, lo yoga o la camminata.
+        Le attività sono le opzioni per raggiungere un obiettivo. Ricordate che c\'è sempre più di un modo per farlo. Ad esempio, per il fitness si possono definire attività come lo sport, lo yoga o la camminata.
         o lo yoga o la camminata. I punti possono rispecchiare quanto è difficile per voi o quanto tempo richiede.
-        Prendetevi il tempo necessario per definire più di un'opzione per il vostro obiettivo. Questo è uno dei punti di forza di moreDays: c'è sempre più di un modo per avvicinarsi ai propri obiettivi.
+        Prendetevi il tempo necessario per definire più di un\'opzione per il vostro obiettivo. Questo è uno dei punti di forza di moreDays: c\'è sempre più di un modo per avvicinarsi ai propri obiettivi.
         obiettivi. Pensate a giornate faticose: cosa potreste fare in un giorno del genere? Forse lo sport non è alla portata di tutti, ma si potrebbe
         una bella passeggiata e andare a dormire presto.
         <h1>Bilancia</h1>
@@ -89,11 +89,7 @@
     <string name="help_tips_title">Suggerimenti &amp; trucchi</string>
     <string name="help_about_content">Per poter insegnare lo sviluppo di applicazioni con Android, ho sviluppato questa applicazione per sperimentare tutte le difficoltà.</string>
     <string name="help_about_title">Chi siamo</string>
-	
-	
     <string name="help_thanks_title">Grazie</string>
-
-
     <string name="help_credentials_title">Librerie</string>
     <string name="title_affirmation">Titolo/Affermazione</string>
     <string name="title_challenge">Sfida</string>
@@ -107,7 +103,7 @@
     <string name="date">data</string>
     <string name="label_min_value">valore minimo</string>
     <string name="label_max_value">valore massimo</string>
-    <string name="add_entry">Aggiungere il valore di scala o l'attività svolta</string>
+    <string name="add_entry">Aggiungere il valore di scala o l\'attività svolta</string>
     <string name="menu_import">Importa</string>
     <string name="export">Esporta</string>
     <string name="onboarding_title2">Obiettivi &amp; Attività</string>
@@ -119,25 +115,24 @@
     <string name="msg_tutorial_complete">Tutorial completato, inizia a usare moreDays :)</string>
     <string name="today">oggi</string>
     <string name="ini_circle_value">:)</string>
-
     <!-- tap help -->
     <string name="help_goal">Definite i vostri obiettivi. Come volete essere? Cosa fa parte di una giornata equilibrata? Con le attività si definiscono diversi modi per raggiungere questi obiettivi.</string>
     <string name="help_goal_points">Per gli obiettivi si definisce il numero di punti necessari per raggiungerli. I punti si ottengono attraverso le attività. I punti corrispondono al peso che gli obiettivi hanno per voi. Non iniziate con troppo entusiasmo…</string>
-    <string name="help_activities_short">Le attività sono il modo per raggiungere i vostri obiettivi, ogni giorno. C'è sempre più di un modo per raggiungere un obiettivo. Questo è il punto di forza di moreDays :) ad esempio, per il vostro obiettivo di forma fisica potete definire attività come
+    <string name="help_activities_short">Le attività sono il modo per raggiungere i vostri obiettivi, ogni giorno. C\'è sempre più di un modo per raggiungere un obiettivo. Questo è il punto di forza di moreDays :) ad esempio, per il vostro obiettivo di forma fisica potete definire attività come
         sport (quando vi sentite in forze) o una passeggiata, lo yoga (per una giornata faticosa), cioè diverse combinazioni di attività costituiscono il vostro obiettivo. Pensate alle vostre giornate e definite attività realistiche per ogni obiettivo.</string>
-    <string name="help_scale">Tutto ciò che è possibile misurare con i numeri può essere una scala, ad esempio il peso, la qualità del sonno o il tempo, … basta darle un nome e inserire i valori ogni volta che si vuole e dare un'occhiata ai grafici.</string>
-    <string name="help_home_fab">Aggiungi valori alla scala o tieni traccia dell'attività appena conclusa.</string>
+    <string name="help_scale">Tutto ciò che è possibile misurare con i numeri può essere una scala, ad esempio il peso, la qualità del sonno o il tempo, … basta darle un nome e inserire i valori ogni volta che si vuole e dare un\'occhiata ai grafici.</string>
+    <string name="help_home_fab">Aggiungi valori alla scala o tieni traccia dell\'attività appena conclusa.</string>
     <string name="help_home_goal">Toccando si visualizzano le attività correlate per gli obiettivi dati, inizia a raccogliere punti :)</string>
     <string name="help_home_challenges">Queste sono le vostre sfide in attivo. Scegliete gli strumenti per gestirle.</string>
-    <string name="help_nav_tools">Qui è possibile definire e personalizzare gli obiettivi, le scale e le impostazioni. Sono presenti diversi elenchi, come l'elenco delle voci e dei trofei: se si trascina una annotazione, questa viene eliminata. Si possono trovare altri suggerimenti e aiuti. Utilizzare le impostazioni per consentire all'applicazione di utilizzare il vostro nome o per definire la modalità di avvio dell'applicazione.</string>
+    <string name="help_nav_tools">Qui è possibile definire e personalizzare gli obiettivi, le scale e le impostazioni. Sono presenti diversi elenchi, come l\'elenco delle voci e dei trofei: se si trascina una annotazione, questa viene eliminata. Si possono trovare altri suggerimenti e aiuti. Utilizzare le impostazioni per consentire all\'applicazione di utilizzare il vostro nome o per definire la modalità di avvio dell\'applicazione.</string>
     <string name="help_nav_tools_first">Adattate gli obiettivi, le attività e le scale suggerite alle vostre esigenze, cioè eliminate alcuni obiettivi, più di 4 sono difficili da gestire ;) </string>
     <string name="help_nav_charts">Analizzate i vostri dati :)</string>
-    <string name="help_add_activity">Definite un'attività per raggiungere questo obiettivo, ad esempio per l'obiettivo di diventare in forma potreste definire attività come sport, passeggiate. Dovrebbe esserci più di un modo per raggiungere l'obiettivo: cosa si può fare nei giorni più facili e cosa in quelli più faticosi?</string>
+    <string name="help_add_activity">Definite un\'attività per raggiungere questo obiettivo, ad esempio per l\'obiettivo di diventare in forma potreste definire attività come sport, passeggiate. Dovrebbe esserci più di un modo per raggiungere l\'obiettivo: cosa si può fare nei giorni più facili e cosa in quelli più faticosi?</string>
     <string name="help_add_activity_points">I punti possono rispecchiare la difficoltà o il tempo impiegato.
         Alcune grandi attività, come una grande escursione, riempiranno la giornata e quindi dovrebbero ottenere la somma di tutti gli obiettivi come punti.</string>
     <string name="help_journal_intro">Il journaling fa parte della psicologia positiva, consultate internet per maggiori informazioni.</string>
-    <string name="help_journal_picture">Aggiungi o rimuovi un'immagine per questo giorno.</string>
-    <string name="help_journal_title">Inserire un titolo o un'affermazione per l'annotazione del diario.</string>
+    <string name="help_journal_picture">Aggiungi o rimuovi un\'immagine per questo giorno.</string>
+    <string name="help_journal_title">Inserire un titolo o un\'affermazione per l\'annotazione del diario.</string>
     <string name="help_journal_button_affirmation">Lasciatevi ispirare da un esempio di affermazione.</string>
     <string name="help_goal_isOld">Contrassegnate un obiettivo come vecchio, se volete conservare i dati, ma non volete più vederli nella schermata iniziale. È possibile riattivarlo in qualsiasi momento.</string>
     <string name="help_help">È sufficiente toccare Aiuto nel menu delle opzioni per ottenere una presentazione guidata.</string>
@@ -163,11 +158,11 @@
     <string name="settings_dark_mode">Modalità scura (richiede il riavvio)</string>
     <string name="settings_dark_mode_off">spento</string>
     <string name="settings_dark_mode_on">acceso</string>
-    <string name="settings_hide_confetti">mostra l'animazione dei coriandoli</string>
+    <string name="settings_hide_confetti">mostra l\'animazione dei coriandoli</string>
     <string name="settings_hide_confetti_off">si</string>
     <string name="settings_hide_confetti_on">no</string>
-    <string name="settings_hide_completed_animation">mostra l'animazione della tazza</string>
-    <string name="settings_hide_affirmation">mostra l'affermazione all'avvio dell'app</string>
+    <string name="settings_hide_completed_animation">mostra l\'animazione della tazza</string>
+    <string name="settings_hide_affirmation">mostra l\'affermazione all\'avvio dell\'app</string>
     <string name="settings_hide_completed_animation_off">si</string>
     <string name="settings_hide_completed_animation_on">no</string>
     <string name="settings_style_inner_circle">stile cerchio</string>
@@ -185,26 +180,26 @@
 
 
     <string name="no_mood">nessuno</string>
-    <string name="mood_chart">mostra/nasconde il grafico dell'umore</string>
+    <string name="mood_chart">mostra/nasconde il grafico dell\'umore</string>
     <string name="mood">Umore</string>
-    <string name="no_mood_data">Nessun dato sull'umore per ora, iniziate a tracciare il vostro umore nel diario :)</string>
+    <string name="no_mood_data">Nessun dato sull\'umore per ora, iniziate a tracciare il vostro umore nel diario :)</string>
     <string name="action_success">azione completata con successo</string>
-    <string name="create_export_file_error">errore nella creazione del file per l'esportazione</string>
+    <string name="create_export_file_error">errore nella creazione del file per l\'esportazione</string>
     <string name="title_journal_picture">Immagine del giorno</string>
     <string name="restore">ripristina</string>
     <string name="all_tables">tutte le tabelle</string>
     <string name="explain_export_excel">È possibile esportare i dati completi del database in Excel per ulteriori analisi. Le prime due tabelle che iniziano con 1- contengono tutti i dati delle vostre scale e attività. Tutte le altre tabelle seguono la struttura del database e potrebbero essere difficili da capire. Selezionare la casella di controllo tutte le tabelle se si desidera avere anche questi dati in Excel.</string>
-    <string name="explain_export_md">Markdown è un formato di testo molto utilizzato. Genera una sorta di diario leggibile con tutte le vostre attività, le vostre scale e il vostro diario (mi spiace, niente immagini). È possibile modificare e visualizzare il file md generato con un'altra applicazione, basta cercare markdown viewer nell'app store di vostra scelta o utilizzare un visualizzatore sul desktop. Seleziona la casella di controllo decrescente se vuoi iniziare da oggi e risalire al primo utilizzo dell'app -- l'impostazione predefinita è ascendente, es. inizia con la prima voce fino a oggi.</string>
-    <string name="explain_backup">Tutti i dati sono memorizzati in un database sql lite locale. È possibile creare una copia di questo database nella cartella dei download o sulla scheda SD come backup. Le immagini del diario non sono presenti nel database e quindi non fanno parte di questo backup. Tuttavia, dopo aver creato il file di backup, l'applicazione si riavvia automaticamente.</string>
+    <string name="explain_export_md">Markdown è un formato di testo molto utilizzato. Genera una sorta di diario leggibile con tutte le vostre attività, le vostre scale e il vostro diario (mi spiace, niente immagini). È possibile modificare e visualizzare il file md generato con un\'altra applicazione, basta cercare markdown viewer nell\'app store di vostra scelta o utilizzare un visualizzatore sul desktop. Seleziona la casella di controllo decrescente se vuoi iniziare da oggi e risalire al primo utilizzo dell\'app -- l\'impostazione predefinita è ascendente, es. inizia con la prima voce fino a oggi.</string>
+    <string name="explain_backup">Tutti i dati sono memorizzati in un database sql lite locale. È possibile creare una copia di questo database nella cartella dei download o sulla scheda SD come backup. Le immagini del diario non sono presenti nel database e quindi non fanno parte di questo backup. Tuttavia, dopo aver creato il file di backup, l\'applicazione si riavvia automaticamente.</string>
     <string name="explain_restore">È possibile ripristinare un backup (database) generato in precedenza. Tuttavia, tutti i dati di moredays come li vedete ora saranno completamente (!) sostituiti.</string>
     <string name="question_continue">Vuoi continuare?</string>
     <string-array name="sayings">
         <item>Credo di poter perdere peso.</item>
         <item>La mia salute è la cosa più importante per me.</item>
-        <item>Evito l'eccesso di carboidrati.</item>
-        <item>Non c'è bisogno di cibi grassi o zuccherati.</item>
+        <item>Evito l\'eccesso di carboidrati.</item>
+        <item>Non c\'è bisogno di cibi grassi o zuccherati.</item>
         <item>Quale cibo sarà buono per il mio corpo oggi?</item>
-        <item>Ho il potere di controllare il mio peso attraverso un'alimentazione sana e l'esercizio fisico.</item>
+        <item>Ho il potere di controllare il mio peso attraverso un\'alimentazione sana e l\'esercizio fisico.</item>
         <item>Il mio corpo è un tempio - manterrò il mio tempio pulito.</item>
         <item>Tutto si risolverà per me.</item>
         <item>Sono un vincitore.</item>
@@ -221,9 +216,9 @@
         <item>Non prenderò sul personale la negatività delle altre persone.</item>
         <item>Il mio impegno verso me stesso è reale.</item>
         <item>Sono un diamante.</item>
-        <item>E' tempo per me di brillare.La mia opinione conta.</item>
-        <item>Sono una calamita per l'amore.</item>
-        <item>L'amore per se stessi è uno stato naturale dell'essere. Sono amato e sono desiderato.</item>
+        <item>E\' tempo per me di brillare.La mia opinione conta.</item>
+        <item>Sono una calamita per l\'amore.</item>
+        <item>L\'amore per se stessi è uno stato naturale dell\'essere. Sono amato e sono desiderato.</item>
         <item>Smetterò di scusarmi per essere me stesso.</item>
         <item>Il discorso negativo su di sé non ha posto nella mia vita.</item>
         <item>Non mi piego alle mie paure. La mia mente, il mio corpo e la mia anima sono in forma e forti.</item>
@@ -234,7 +229,7 @@
         <item>Stabilisco obiettivi chiari e lavoro per portarli a termine ogni giorno.</item>
         <item>Quando il mio bisogno è abbastanza forte, troverò un modo.</item>
         <item>Mi impegno a diventare la persona che diventerò.</item>
-        <item>La mia mente è come l'acqua.</item>
+        <item>La mia mente è come l\'acqua.</item>
         <item>Cambierò e mi adatterò secondo le necessità. Il successo è nel mio futuro.</item>
         <item>Padroneggio le distrazioni e mantengo la concentrazione sui miei obiettivi.</item>
         <item>Sono in costante miglioramento.</item>
@@ -249,14 +244,14 @@
         <item>Mi piace essere circondato dagli altri.</item>
         <item>La mia paura diminuisce quando vivo la mia vita con coraggio.</item>
         <item>Sono in grado di seguire la corrente.</item>
-		<item>Sono felice, in salute e con i piedi per terra. Il cambiamento mi offre un'opportunità.</item>
+		<item>Sono felice, in salute e con i piedi per terra. Il cambiamento mi offre un\'opportunità.</item>
         <item>Sono calmo, paziente e ho il controllo delle mie emozioni.</item>
         <item>Quanto più do, tanto più riceverò.</item>
-        <item>I miei pensieri negativi e l'immagine di me stesso sono spariti.</item>
+        <item>I miei pensieri negativi e l\'immagine di me stesso sono spariti.</item>
         <item>I miei pensieri sono positivi e pieni di gioia.</item>
         <item>Sono al sicuro.</item>
         <item>Ho fiducia nella vita e in me stesso.</item>
-        <item>La mia vita è un'avventura.</item>
+        <item>La mia vita è un\'avventura.</item>
         <item>La sufficienza è sufficiente.</item>
         <item>I sentimenti non sono fatti.</item>
         <item>Ho energia in abbondanza.</item>
