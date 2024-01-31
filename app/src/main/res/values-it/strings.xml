@@ -170,6 +170,7 @@
     <string name="settings_frequency_journal_entries">Frequenza delle annotazioni sul diario</string>
     <string name="settings_style_inner_circle_off">Ad esempio, 8/10 -- significa che avete 8 dei 10 punti desiderati.</string>
     <string name="settings_style_inner_circle_on">es. 80%</string>
+    <string name="settings_notification_time_title">Se desideri ricevere notifiche, inserisci un orario valido come le 8:30. Vuoto significa nessuna notifica.</string>
 
     <string name="error_permssion_denied">autorizzazione negata</string>
     <string name="error_unknown">errore sconosciuto, si prega di segnalarlo allo sviluppatore</string>

@@ -43,6 +43,11 @@
             app:useSimpleSummaryProvider="true"
             android:entryValues="@array/valuesFrequencyJournal"
             />
+        <!--
+        <EditTextPreference
+            app:key="@string/preferences_name_key"
+            app:title="@string/settings_your_name_title"
+            app:useSimpleSummaryProvider="true" />-->
 
 
 </PreferenceScreen>

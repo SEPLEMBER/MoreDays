@@ -183,7 +183,7 @@
     <string name="preferences_hide_affirmation_key" translatable="false">hide_affirmation</string>
     <string name="preferences_show_percentage_key" translatable="false">show_percentage</string>
     <string name="preferences_frequency_journal_entries_key" translatable="false">frequency_journal_entries</string>
-
+    <string name="preferences_notification_time_key" translatable="false">notification_time</string>
     <!-- Preference Titles -->
     <string name="settings_personal_header">Personal</string>
     <string name="settings_start_header">Start</string>
@@ -204,6 +204,7 @@
     <string name="settings_frequency_journal_entries">Frequency of journal entries</string>
     <string name="settings_style_inner_circle_off">e.g. 8/10 -- meaning you have 8 of 10 desired points</string>
     <string name="settings_style_inner_circle_on">e.g. 80%</string>
+    <string name="settings_notification_time_title">If you like to have notifications, please enter a valid time like 8:30. Empty means no notifications.</string>
 
     <string name="error_permssion_denied">permission denied</string>
     <string name="error_unknown">unknown error, please report to developer</string>
