@@ -15,7 +15,7 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 ### Fixed
 ### Refactored
 
-## [1.0.21] - Unreleased
+## [1.0.21] - 2024-01-31 - 🏁-Release
 ### Added
 - add italian, feat #10, thanks to [RAMAR RAR](https://gitlab.com/RAMAR-RAR) for the translation
 - auto capitalize sentences in journal, feat #14
