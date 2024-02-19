@@ -121,7 +121,7 @@ class ImportExportFragment : Fragment(), ExportListener {
 
     private fun exportToMd(isDescOrder: Boolean) {
         if (!hasPermissions) {
-            actionFailed(getString(R.string.error_permssion_denied))
+            actionFailed(getString(R.string.error_permission_denied))
             return
         }
         requestedMimeType = "text/markdown"
@@ -279,7 +279,7 @@ class ImportExportFragment : Fragment(), ExportListener {
 
     private fun backup() {
         if (!hasPermissions) {
-            actionFailed(getString(R.string.error_permssion_denied))
+            actionFailed(getString(R.string.error_permission_denied))
             return
         }
         val alertDialog: AlertDialog.Builder =
@@ -325,7 +325,7 @@ class ImportExportFragment : Fragment(), ExportListener {
 
     private fun restore() {
         if (!hasPermissions) {
-            actionFailed(getString(R.string.error_permssion_denied))
+            actionFailed(getString(R.string.error_permission_denied))
             return
         }
         val alertDialog: AlertDialog.Builder =
@@ -365,7 +365,7 @@ class ImportExportFragment : Fragment(), ExportListener {
 
     private fun exportToExcel(allTables: Boolean) {
         if (!hasPermissions) {
-            actionFailed(getString(R.string.error_permssion_denied))
+            actionFailed(getString(R.string.error_permission_denied))
             return
         }
         requestedMimeType = "application/octet-stream"
