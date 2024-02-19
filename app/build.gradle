@@ -15,9 +15,9 @@ android {
     defaultConfig {
         applicationId "de.wuapps.moredays"
         minSdkVersion 26
-        targetSdkVersion 33
-        versionCode 21
-        versionName '1.0.21'
+        targetSdkVersion 34
+        versionCode 22
+        versionName '1.0.22'
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -30,6 +30,7 @@ android {
     //@see
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
 
     buildTypes {
@@ -125,18 +126,14 @@ dependencies {
     //flexbox for recyclerviews
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
-    // debugImplementation because LeakCanary should only run in debug builds.
-    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
-
     implementation "androidx.emoji2:emoji2:$emojiVersion"
     implementation "androidx.emoji2:emoji2-views:$emojiVersion"
 
     //import/export
-    //implementation 'org.apache.poi:poi.5.2.2'
-    //implementation 'org.apache.poi:poi-ooxml.5.2.2'
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.5'
 
     //animation
     implementation "com.airbnb.android:lottie:$lottieVersion"
+    implementation 'androidx.core:core-splashscreen:1.0.1'
 
 }
