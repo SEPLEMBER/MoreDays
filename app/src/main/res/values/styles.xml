@@ -1,8 +1,9 @@
 <resources>
 
+    <style name="Theme.MyApp" parent="Theme.MaterialComponents.Light">
 
+    </style>
     <style name="Widget.Theme.MoreDays.PercentageView" parent="">
-        <!--      <item name="android:background">@color/gray_400</item>
-          <item name="exampleColor">@color/light_blue_400</item>-->
+
     </style>
 </resources>
