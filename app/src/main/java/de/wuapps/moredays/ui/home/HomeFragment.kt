@@ -137,8 +137,10 @@ class HomeFragment : Fragment(), MenuProvider {
         super.onResume()
         showFab()
         val now = Calendar.getInstance()
-        if (viewModel.timeLatestActive != null && now.timeInMillis - viewModel.timeLatestActive!!.timeInMillis > 1000 * 60 * 1)
+        if (viewModel.timeLatestActive != null && now.timeInMillis - viewModel.timeLatestActive!!.timeInMillis > (1000 * 60 * 1))
             handleDateSelected(now)
+        else
+            formatDateTextField()
     }
 
     override fun onPause() {
@@ -172,13 +174,16 @@ class HomeFragment : Fragment(), MenuProvider {
 
     private fun handleDateSelected(calendar: Calendar) {
         viewModel.changeDate(calendar)
-        binding.textViewDate.text = getDateStringToDate(calendar)
-        if (calendar.isSameDay(Calendar.getInstance()))
+        formatDateTextField()
+    }
+
+    private fun formatDateTextField(){
+        binding.textViewDate.text = getDateStringToDate(viewModel.date)
+        if (viewModel.date.isSameDay(Calendar.getInstance()))
             binding.textViewDate.background = null
         else
             binding.textViewDate.setBackgroundColor(getColor(requireContext(), R.color.orange700))
     }
-
     private fun dayBack(){
         val dayBack = viewModel.date.clone() as Calendar
         dayBack.add(Calendar.DAY_OF_YEAR, -1)
