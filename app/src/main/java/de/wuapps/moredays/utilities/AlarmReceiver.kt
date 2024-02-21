@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import de.wuapps.moredays.MainActivity
+import de.wuapps.moredays.MoreDaysApplication.Companion.CHANNEL_ID
 import de.wuapps.moredays.R
 import de.wuapps.moredays.ui.tools.settings.SettingsFragment.Companion.NOTIFICATION_EXTRA
 
@@ -29,7 +30,7 @@ class AlarmReceiver : BroadcastReceiver() {
         }
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
-        val notification = NotificationCompat.Builder(context, "default")
+        val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentText(message)
             .setSmallIcon(R.drawable.splash_foreground)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

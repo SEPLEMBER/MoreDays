@@ -5,6 +5,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import de.wuapps.moredays.ui.tools.settings.SettingsFragment.Companion.ALARM_REQUEST_CODE
 import java.time.LocalDateTime
 import java.time.ZoneId
 
@@ -32,11 +33,11 @@ private val context: Context
         }
 
         alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
+            AlarmManager.RTC,
             item.time.atZone(ZoneId.systemDefault()).toEpochSecond() * 1000,
             PendingIntent.getBroadcast(
                 context,
-                item.hashCode(),
+                ALARM_REQUEST_CODE,
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )

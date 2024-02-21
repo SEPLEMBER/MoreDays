@@ -17,6 +17,7 @@ class MoreDaysApplication : Application() {
     companion object {
         var iconPack: IconPack? = null
         var loaded : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+        const val CHANNEL_ID = "reminder"
     }
     init {
         loaded.value = false
@@ -37,10 +38,10 @@ class MoreDaysApplication : Application() {
     }
 
     private fun createNotificationChannel() {
-        val name = "MyApp Channel"
-        val descriptionText = "MyApp Notifications"
+        val name = getString(R.string.app_name) + " Channel"
+        val descriptionText = getString(R.string.app_name) + " Notifications"
         val importance = NotificationManager.IMPORTANCE_HIGH
-        val channel = NotificationChannel("default", name, importance).apply {
+        val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
             description = descriptionText
         }
         val notificationManager: NotificationManager =

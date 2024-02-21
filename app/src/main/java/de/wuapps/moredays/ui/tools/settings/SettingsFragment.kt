@@ -1,37 +1,29 @@
 package de.wuapps.moredays.ui.tools.settings
 
+import android.Manifest
 import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Build
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import androidx.annotation.RequiresApi
-import android.Manifest
-import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
-import de.wuapps.moredays.MainActivity
-
 import de.wuapps.moredays.R
 import de.wuapps.moredays.utilities.AlarmItem
 import de.wuapps.moredays.utilities.AlarmReceiver
 import de.wuapps.moredays.utilities.AndroidAlarmScheduler
-import java.time.LocalDateTime
 import java.util.Calendar
 
 class SettingsFragment : PreferenceFragmentCompat(),
     SharedPreferences.OnSharedPreferenceChangeListener {
     companion object {
         const val defaultIsDarkMode = true
-        const val REQUEST_CODE = 8
+        const val ALARM_REQUEST_CODE = 8
         const val NOTIFICATION_EXTRA = "extra"
     }
 
@@ -100,13 +92,12 @@ class SettingsFragment : PreferenceFragmentCompat(),
 
     private fun setAlarm() {
         val scheduler = AndroidAlarmScheduler(requireContext())
-        alarmItem = AlarmItem(
-            time = LocalDateTime.now().plusSeconds(60),
-            message = "hello "
-        )
-        alarmItem?.let(scheduler::schedule)
-        return
-        Log.i("Alarm", "set alarm")
+//        alarmItem = AlarmItem(
+//            time = LocalDateTime.now().plusSeconds(60),
+//            message = "hello "
+//        )
+//        alarmItem?.let(scheduler::schedule)
+
         val calendar: Calendar = Calendar.getInstance()
         val notificationHour =
             sharedPrefs.getString(
@@ -126,11 +117,19 @@ class SettingsFragment : PreferenceFragmentCompat(),
         calendar.set(Calendar.MINUTE, notificationMinute)
         calendar.set(Calendar.SECOND, 0)
 
+        val currentTime = System.currentTimeMillis()
+        // If the desired time has already passed, add a day to the calendar
+        if (calendar.timeInMillis <= currentTime) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+        }
+        // Calculate the delay until the next alarm
+        val delay = calendar.timeInMillis - currentTime
+
         val (alarmManager, pendingIntent: PendingIntent) = getAlarmVars(text)
 
         alarmManager.setInexactRepeating(
             AlarmManager.RTC,
-            calendar.timeInMillis,
+            currentTime + delay,
             AlarmManager.INTERVAL_DAY,
             pendingIntent
         )
@@ -152,7 +151,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
          val pendingIntent: PendingIntent =
              PendingIntent.getBroadcast(
                  context,
-                 REQUEST_CODE,
+                 ALARM_REQUEST_CODE,
                  intent,
                  PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
              )
