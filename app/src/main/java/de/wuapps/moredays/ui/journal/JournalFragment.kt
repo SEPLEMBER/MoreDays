@@ -74,22 +74,28 @@ class JournalFragment : Fragment(), MenuProvider {
             viewModel.setDateFormatView(getString(R.string.date_ymd_day))
 
         _binding = FragmentJournalBinding.inflate(inflater, container, false)
-        val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-            // Callback is invoked after the user selects a media item or closes the
-            // photo picker.
-            if (uri != null) {
-                val mainActivity = requireActivity() as MainActivity
-                val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                mainActivity.contentResolver.takePersistableUriPermission(uri, flag)
-                mainActivity.setImagePickerCallback { uri -> onImagePick(uri) }
-            }
-        }
-        //configureImagePicker()
+//        val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+//            // Callback is invoked after the user selects a media item or closes the
+//            // photo picker.
+//            if (uri != null) {
+//                val mainActivity = requireActivity() as MainActivity
+//                val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
+//                mainActivity.contentResolver.takePersistableUriPermission(uri, flag)
+//                mainActivity.setImagePickerCallback { uri -> onImagePick(uri) }
+//            }
+//        }
+        checkPermission()
+        configureImagePicker()
         binding.imageButtonPickImage.setOnClickListener {
 
-            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-
+            imagePickerMain.open(PickerType.GALLERY)
         }
+
+//        binding.imageButtonPickImage.setOnClickListener {
+//
+//            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+//
+//        }
         handleFab(viewModel.hasFab)
         binding.imageButtonSuggestAffirmation.setOnClickListener { suggestAffirmation() }
         binding.imageButtonRemoveImage.setOnClickListener {
@@ -128,35 +134,35 @@ class JournalFragment : Fragment(), MenuProvider {
         return binding.root
     }
 
-//    private fun checkPermission(){
-//        val permissions =
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//                arrayOf(
-//                    Manifest.permission.READ_MEDIA_IMAGES
-//                )
-//            } else {
-//                arrayOf(
-//                    Manifest.permission.READ_EXTERNAL_STORAGE,
-//                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                    Manifest.permission.CAMERA
-//                )
-//            }
-//        permissions.forEach { perm -> checkPermission(perm) }
-//    }
-//    private fun checkPermission(permission: String) {
-//        if (ContextCompat.checkSelfPermission(
-//                requireContext(),
-//                permission
-//            ) == PackageManager.PERMISSION_GRANTED
-//        )
-//        else
-//                ActivityCompat.requestPermissions(
-//                    requireActivity(),
-//                    arrayOf(permission),
-//                    201
-//                )
-//
-//        }
+    private fun checkPermission(){
+        val permissions =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arrayOf(
+                    Manifest.permission.READ_MEDIA_IMAGES
+                )
+            } else {
+                arrayOf(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.CAMERA
+                )
+            }
+        permissions.forEach { perm -> checkPermission(perm) }
+    }
+    private fun checkPermission(permission: String) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                permission
+            ) == PackageManager.PERMISSION_GRANTED
+        )
+        else
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(permission),
+                    201
+                )
+
+        }
     private fun configureImagePicker() {
         val mainActivity = requireActivity() as MainActivity
         imagePickerMain = mainActivity.imagePicker
@@ -284,7 +290,12 @@ class JournalFragment : Fragment(), MenuProvider {
         optionsMenuDelete!!.isVisible = viewModel.hasDeleteOption
     }
 
-    private fun showDatePicker() {
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        viewModel.save()
+    }
+
+        private fun showDatePicker() {
         val iniDate = viewModel.journal.value!!.getDateAsCalendar()
         val newFragment = DatePickerFragment(iniDate, this::handleDateSelected)
         newFragment.show(childFragmentManager, "datePicker")
