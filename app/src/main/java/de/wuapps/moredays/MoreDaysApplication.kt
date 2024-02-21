@@ -37,15 +37,14 @@ class MoreDaysApplication : Application() {
     }
 
     private fun createNotificationChannel() {
-        val name = getString(R.string.app_name) + " channel"
-        val descriptionText = getString(R.string.app_name) + " notification"
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val name = "MyApp Channel"
+        val descriptionText = "MyApp Notifications"
+        val importance = NotificationManager.IMPORTANCE_HIGH
         val channel = NotificationChannel("default", name, importance).apply {
             description = descriptionText
         }
-        // Register the channel with the system.
         val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
 }

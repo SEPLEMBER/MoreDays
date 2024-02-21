@@ -33,7 +33,7 @@ class TimePickerPreference(context: Context?, attrs: AttributeSet?) : Preference
         super.onBindViewHolder(holder)
         binding = PreferenceTimePickerBinding.bind(holder.itemView)
 
-        binding.textViewTime.text = "$currentHour:$currentMinute"
+        binding.textViewTime.text = String.format("%02d:%02d", currentHour.toInt(), currentMinute.toInt())
 
         binding.root.setOnClickListener(this)
     }
@@ -60,7 +60,7 @@ class TimePickerPreference(context: Context?, attrs: AttributeSet?) : Preference
             editor.putString("notification_minute", "${picker.minute}")
             editor.apply()
 
-            binding.textViewTime.text = "$currentHour:$currentMinute"
+            binding.textViewTime.text = String.format("%02d:%02d", picker.hour, picker.minute)
         }
 
         picker.show(act.supportFragmentManager, "timepicker")

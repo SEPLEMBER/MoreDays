@@ -1,5 +1,6 @@
 package de.wuapps.moredays.utilities
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
@@ -24,6 +25,7 @@ private val context: Context
 
     private val alarmManager: AlarmManager = context.getSystemService(AlarmManager::class.java)
 
+    @SuppressLint("ScheduleExactAlarm")
     override fun schedule(item: AlarmItem) {
         val intent = Intent(context, AlarmReceiver::class.java).apply {
             putExtra("extra", item.message)

@@ -24,6 +24,7 @@ import de.wuapps.moredays.R
 import de.wuapps.moredays.utilities.AlarmItem
 import de.wuapps.moredays.utilities.AlarmReceiver
 import de.wuapps.moredays.utilities.AndroidAlarmScheduler
+import java.time.LocalDateTime
 import java.util.Calendar
 
 class SettingsFragment : PreferenceFragmentCompat(),
@@ -98,6 +99,13 @@ class SettingsFragment : PreferenceFragmentCompat(),
     }
 
     private fun setAlarm() {
+        val scheduler = AndroidAlarmScheduler(requireContext())
+        alarmItem = AlarmItem(
+            time = LocalDateTime.now().plusSeconds(60),
+            message = "hello "
+        )
+        alarmItem?.let(scheduler::schedule)
+        return
         Log.i("Alarm", "set alarm")
         val calendar: Calendar = Calendar.getInstance()
         val notificationHour =
