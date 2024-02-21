@@ -2,15 +2,12 @@ package de.wuapps.moredays.utilities
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Build
 import android.util.TypedValue
 import android.view.View
-import android.view.animation.DecelerateInterpolator
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
-import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap

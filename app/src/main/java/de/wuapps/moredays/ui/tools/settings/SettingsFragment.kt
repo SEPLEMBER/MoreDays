@@ -8,15 +8,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import de.wuapps.moredays.R
-import de.wuapps.moredays.utilities.AlarmItem
 import de.wuapps.moredays.utilities.AlarmReceiver
-import de.wuapps.moredays.utilities.AndroidAlarmScheduler
 import java.util.Calendar
 
 class SettingsFragment : PreferenceFragmentCompat(),
@@ -27,9 +24,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
         const val NOTIFICATION_EXTRA = "extra"
     }
 
-    private val hasNotificationPermission = false;
     private lateinit var sharedPrefs: SharedPreferences
-    private var alarmItem: AlarmItem? = null
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
         sharedPrefs =
@@ -70,14 +65,12 @@ class SettingsFragment : PreferenceFragmentCompat(),
     }
 
     private fun updateNotifications() {
-        Log.d("noti", "changed");
         val showNotification = sharedPrefs.getBoolean(
             requireContext().getString(R.string.preferences_notification_key),
             false
         )
         if (showNotification && askNotificationPermission()) {
             unsetAlarm()
-
             setAlarm()
         } else {
             unsetAlarm()
@@ -91,13 +84,6 @@ class SettingsFragment : PreferenceFragmentCompat(),
     }
 
     private fun setAlarm() {
-        val scheduler = AndroidAlarmScheduler(requireContext())
-//        alarmItem = AlarmItem(
-//            time = LocalDateTime.now().plusSeconds(60),
-//            message = "hello "
-//        )
-//        alarmItem?.let(scheduler::schedule)
-
         val calendar: Calendar = Calendar.getInstance()
         val notificationHour =
             sharedPrefs.getString(
@@ -147,7 +133,6 @@ class SettingsFragment : PreferenceFragmentCompat(),
         val intent = Intent(context, AlarmReceiver::class.java).apply {
             putExtra(NOTIFICATION_EXTRA, text)
         }
-           // flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
          val pendingIntent: PendingIntent =
              PendingIntent.getBroadcast(
                  context,

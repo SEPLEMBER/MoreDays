@@ -27,7 +27,7 @@ import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.getColorThemeRes
 import kotlinx.coroutines.InternalCoroutinesApi
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
 

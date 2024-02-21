@@ -1,6 +1,10 @@
 package de.wuapps.moredays.ui.customviews
 
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.ColorFilter
+import android.graphics.Paint
+import android.graphics.PixelFormat
+import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import kotlin.math.abs
 import kotlin.math.min

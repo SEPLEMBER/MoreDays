@@ -2,7 +2,11 @@ package de.wuapps.moredays.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import de.wuapps.moredays.database.dao.*
+import de.wuapps.moredays.database.dao.ActivityEntryDao
+import de.wuapps.moredays.database.dao.GoalDao
+import de.wuapps.moredays.database.dao.ScaleDao
+import de.wuapps.moredays.database.dao.ScaleEntryDao
+import de.wuapps.moredays.database.dao.TrophyDao
 
 class HomeViewModelFactory
     (

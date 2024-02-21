@@ -1,6 +1,12 @@
 package de.wuapps.moredays.database.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
 import de.wuapps.moredays.database.entity.Goal
 import de.wuapps.moredays.database.entity.GoalAndRelatedActivities
 import de.wuapps.moredays.database.entity.GoalAndRelatedData

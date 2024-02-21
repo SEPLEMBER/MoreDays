@@ -6,14 +6,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.MoreDaysApplication.Companion.CHANNEL_ID
 import de.wuapps.moredays.R
-import de.wuapps.moredays.ui.tools.settings.SettingsFragment.Companion.NOTIFICATION_EXTRA
 
 // thanks to https://medium.com/@arfinhosain/android-alarmmanager-scheduling-alarms-and-displaying-notifications-77f815e2638
 class AlarmReceiver : BroadcastReceiver() {
@@ -21,7 +19,7 @@ class AlarmReceiver : BroadcastReceiver() {
     private var notificationManager: NotificationManagerCompat? = null
 
     override fun onReceive(context: Context?, intent: Intent?) {
-//        if (intent == null || context == null) return
+        if (intent == null || context == null) return
 
         val message = intent?.getStringExtra("extra") ?: return
         notificationManager = NotificationManagerCompat.from(context!!)

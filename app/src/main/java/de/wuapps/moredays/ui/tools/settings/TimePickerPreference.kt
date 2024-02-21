@@ -13,7 +13,6 @@ import com.google.android.material.timepicker.TimeFormat
 import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.PreferenceTimePickerBinding
-import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
