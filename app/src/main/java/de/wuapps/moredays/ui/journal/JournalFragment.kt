@@ -1,8 +1,12 @@
 package de.wuapps.moredays.ui.journal
 
 
+import android.Manifest
 import android.app.AlertDialog
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -10,6 +14,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -66,11 +74,21 @@ class JournalFragment : Fragment(), MenuProvider {
             viewModel.setDateFormatView(getString(R.string.date_ymd_day))
 
         _binding = FragmentJournalBinding.inflate(inflater, container, false)
-
-        configureImagePicker()
+        val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            // Callback is invoked after the user selects a media item or closes the
+            // photo picker.
+            if (uri != null) {
+                val mainActivity = requireActivity() as MainActivity
+                val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                mainActivity.contentResolver.takePersistableUriPermission(uri, flag)
+                mainActivity.setImagePickerCallback { uri -> onImagePick(uri) }
+            }
+        }
+        //configureImagePicker()
         binding.imageButtonPickImage.setOnClickListener {
 
-            imagePickerMain.open(PickerType.GALLERY)
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+
         }
         handleFab(viewModel.hasFab)
         binding.imageButtonSuggestAffirmation.setOnClickListener { suggestAffirmation() }
@@ -110,6 +128,35 @@ class JournalFragment : Fragment(), MenuProvider {
         return binding.root
     }
 
+//    private fun checkPermission(){
+//        val permissions =
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//                arrayOf(
+//                    Manifest.permission.READ_MEDIA_IMAGES
+//                )
+//            } else {
+//                arrayOf(
+//                    Manifest.permission.READ_EXTERNAL_STORAGE,
+//                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                    Manifest.permission.CAMERA
+//                )
+//            }
+//        permissions.forEach { perm -> checkPermission(perm) }
+//    }
+//    private fun checkPermission(permission: String) {
+//        if (ContextCompat.checkSelfPermission(
+//                requireContext(),
+//                permission
+//            ) == PackageManager.PERMISSION_GRANTED
+//        )
+//        else
+//                ActivityCompat.requestPermissions(
+//                    requireActivity(),
+//                    arrayOf(permission),
+//                    201
+//                )
+//
+//        }
     private fun configureImagePicker() {
         val mainActivity = requireActivity() as MainActivity
         imagePickerMain = mainActivity.imagePicker
@@ -284,8 +331,6 @@ class JournalFragment : Fragment(), MenuProvider {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-//        val registry = registryOwner.savedStateRegistry
-//        registry.registerSavedStateProvider(PickerConfigManager.PICKER_CONFIG_MANAGER
         (requireActivity() as MainActivity).unsetImagePickerCallback()
     }
 

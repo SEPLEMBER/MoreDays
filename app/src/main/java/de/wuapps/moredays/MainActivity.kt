@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
         iconPackLoader = IconPackLoader(this)
         loadIconPack()
 
-        //handleOnBoarding()
+        handleOnBoarding()
 
         fab = findViewById(R.id.fabMain)
         bottomAppBar = findViewById(R.id.bottomAppBar)
