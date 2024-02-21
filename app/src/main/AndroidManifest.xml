@@ -6,7 +6,8 @@
         android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <application
         android:name=".MoreDaysApplication"
         android:allowBackup="true"
@@ -16,16 +17,13 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MoreDays">
+        android:theme="@style/Theme.App.Starting">
         <activity
-            android:name=".SplashActivity"
+            android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/SplashTheme">
+            >
             <intent-filter>
-                <action
-                    android:name="android.intent.action.MAIN"
-                    android:configChanges="uiMode" />
-
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -33,12 +31,10 @@
             android:name=".ui.onboarding.Onboarding"
             android:theme="@style/SplashTheme" />
         <activity
-            android:name=".MainActivity"
-            android:configChanges="uiMode" />
-        <activity
             android:name="com.app.imagepickerlibrary.ui.activity.ImagePickerActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/SSImagePicker" />
+        <receiver android:name=".utilities.AlarmReceiver"/>
     </application>
 
 </manifest>

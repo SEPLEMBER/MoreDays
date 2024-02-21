@@ -10,63 +10,93 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ################################################################################
 e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moredays/-/issues/600)
 -->
+
 ## [Unreleased]
+
 ### Added
+
 ### Fixed
+- change color of cancel button
+- after selecting a different date and navigating to a different screen, the label for the date was mixed up
+- it was not possible to change to light mode
+- counter intuitive labeling in settings
+
 ### Refactored
 
 ## [1.0.21] - 2024-01-31 - 🏁-Release
+
 ### Added
-- add italian, feat #10, thanks to [RAMAR RAR](https://gitlab.com/RAMAR-RAR) for the translation
-- auto capitalize sentences in journal, feat #14
-- add delete confirmation for journal entries, feat #13
+
+- add Italian, feat [#10](https://gitlab.com/wuapps/moredays/-/issues/10), thanks to [RAMAR RAR](https://gitlab.com/RAMAR-RAR) for the translation
+- auto capitalize sentences in journal, feat [#14](https://gitlab.com/wuapps/moredays/-/issues/14)
+- add delete confirmation for journal entries, feat [#13](https://gitlab.com/wuapps/moredays/-/issues/13)
+
 ### Fixed
+
 ### Refactored
+
 - update libs
 
-
 ## [1.0.20] - 2024-01-14 - 🏁-Release
+
 ### Added
+
 - add x to cancel an activity of a day directly in the home screen (issue # 5)
 - swipe through days (issue # 6)
+
 ### Fixed
+
 ### Refactored
+
 - updated to new libs
 
 ## [1.0.18] - 2023-08-30 - 🏁-Release
+
 ### Added
+
 - add option to show motivation at start or not
 - add export to markdown format
 - add more tables to excel export
 - backup/restore db-file
 
 ### Fixed
+
 - show confetti once
+
 ### Refactored
+
 - updated to new libs
 
 ## [1.0.17] - 2023-05-16 - 🏁-Release
+
 ### Fixed
+
 - journal: pick images up to 2mb only, removed restriction
 
 ### Refactored
+
 - updated to new libs
 
-
 ## [1.0.16] - 2023-03-23 - 🏁-Release
+
 ### Added
+
 - option to enter journal entries more than once a day, you may choose between day/hour/minute
 
 ### Refactored
+
 - updated to new libs
 
 ## [1.0.15] - 2023-02-01 - 🏁-Release
+
 ### Added
+
 - setting to choose if % or n/m (=n of m points) should be shown
 - add explanation to circles in analyse
 - add crop to image selection in journal
 
 ### Fixed
+
 - scroll did not work in bar chart (analyse)
 - circles in analyse showed 0 in row, although there were more, but simply the minimum was not reached
 - improve visibility of emoji in journal
@@ -74,25 +104,31 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 - goals with 0 points are not allowed
 
 ### Refactored
+
 - updated to new libs
 
 ## [1.0.12] - 2022-09-23 - 🏁-Release
+
 ### Added
+
 - make welcome screen skippable
 - add settings to switch off animations
 - export data (no journal images) to excel --> needs min sdk version 26 for the whole app!
 - support to install/move to sd card
 
 ### Refactored
+
 - updated to new libs
 
 ## [1.0.11] - 2022-07-18 - 🏁-Release
 
 ### Fixed
+
 - delete goal and answering the dialog with no deleted the goal anyhow, fixed.
 - bottom navigation showed wrong selection after going deeper into the app, see issue #3, fixed.
 
 ### Refactored
+
 - updated to new libs
 
 ## [1.0.10] - 2022-05-22 - 🏁-Release
@@ -105,7 +141,7 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 
 ### Fixed
 
-- 100% line after editing goal points or activate/inactivate a goal 
+- 100% line after editing goal points or activate/inactivate a goal
 - update libs and fix code inspection issues
 
 ### Added
@@ -117,7 +153,6 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 ### Added
 
 - Prepare release for FDROID
-
 
 ## [1.0.6] - 2021-12-15 - 🏁-Release
 

@@ -1,6 +1,9 @@
 package de.wuapps.moredays
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.MutableLiveData
@@ -21,10 +24,11 @@ class MoreDaysApplication : Application() {
 
     override fun onCreate() { //instantiation requires android:name=".MoreDaysApplication" in the manifest
         super.onCreate()
-        handlePreferedTheme()
+        handlePreferredTheme()
+        createNotificationChannel()
     }
 
-    private fun handlePreferedTheme(){ //see https://github.com/googlearchive/android-DarkTheme
+    private fun handlePreferredTheme(){ //see https://github.com/googlearchive/android-DarkTheme
         val preferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(this)
         if (preferences.getBoolean(getString(R.string.preferences_dark_mode_key), SettingsFragment.defaultIsDarkMode)) {
@@ -32,5 +36,16 @@ class MoreDaysApplication : Application() {
         }
     }
 
-
+    private fun createNotificationChannel() {
+        val name = getString(R.string.app_name) + " channel"
+        val descriptionText = getString(R.string.app_name) + " notification"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel("default", name, importance).apply {
+            description = descriptionText
+        }
+        // Register the channel with the system.
+        val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
 }

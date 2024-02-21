@@ -113,6 +113,7 @@
         <h3>Code Snippets</h3>
         <ul style="list-style-type: ' - '">
         <li>Export Excel: https://github.com/androidmads/SQLite2XL</li>
+        <li>TimePicker in preferences: https://github.com/m-i-n-a-r/birday</li>
         </ul>
         ]]>
     </string>
@@ -183,7 +184,10 @@
     <string name="preferences_hide_affirmation_key" translatable="false">hide_affirmation</string>
     <string name="preferences_show_percentage_key" translatable="false">show_percentage</string>
     <string name="preferences_frequency_journal_entries_key" translatable="false">frequency_journal_entries</string>
-    <string name="preferences_notification_time_key" translatable="false">notification_time</string>
+    <string name="preferences_notification_key" translatable="false">notification</string>
+    <string name="preferences_notification_hour_key" translatable="false">notification_hour</string>
+    <string name="preferences_notification_minute_key" translatable="false">notification_minute</string>
+    <string name="preferences_notification_text_key" translatable="false">notification_text</string>
     <!-- Preference Titles -->
     <string name="settings_personal_header">Personal</string>
     <string name="settings_start_header">Start</string>
@@ -193,20 +197,22 @@
     <string name="settings_dark_mode">Dark Mode (requires restart)</string>
     <string name="settings_dark_mode_off">off</string>
     <string name="settings_dark_mode_on">on</string>
-    <string name="settings_hide_confetti">show confetti animation</string>
+    <string name="settings_hide_confetti">hide confetti animation</string>
     <string name="settings_hide_confetti_off">yes</string>
     <string name="settings_hide_confetti_on">no</string>
-    <string name="settings_hide_completed_animation">show pocal animation</string>
-    <string name="settings_hide_affirmation">show affirmation on app start</string>
+    <string name="settings_hide_completed_animation">hide pocal animation</string>
+    <string name="settings_hide_affirmation">hide affirmation on app start</string>
     <string name="settings_hide_completed_animation_off">yes</string>
     <string name="settings_hide_completed_animation_on">no</string>
     <string name="settings_style_inner_circle">style circle</string>
     <string name="settings_frequency_journal_entries">Frequency of journal entries</string>
     <string name="settings_style_inner_circle_off">e.g. 8/10 -- meaning you have 8 of 10 desired points</string>
     <string name="settings_style_inner_circle_on">e.g. 80%</string>
-    <string name="settings_notification_time_title">If you like to have notifications, please enter a valid time like 8:30. Empty means no notifications.</string>
-
-    <string name="error_permssion_denied">permission denied</string>
+    <string name="settings_notification_title">Would you like to get daily notifications?</string>
+    <string name="settings_notification_time_title">Notification time</string>
+    <string name="settings_notification_text_title">Notification text</string>
+    <string name="settings_notification_text_default_value">tracking?</string>
+    <string name="error_permission_denied">permission denied</string>
     <string name="error_unknown">unknown error, please report to developer</string>
     <string name="mood_1">quivering in frustration or holding back tears, irritated, frustrated, disgusted, sad, furious, cramped</string>
     <string name="mood_2">droopy, thoughtful, pensive, solitary, furrowed eyebrows</string>

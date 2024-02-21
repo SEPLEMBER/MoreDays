@@ -1,8 +1,12 @@
 package de.wuapps.moredays
 
+import android.content.Intent
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -10,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.app.imagepickerlibrary.ImagePicker
 import com.app.imagepickerlibrary.ImagePicker.Companion.registerImagePicker
 import com.app.imagepickerlibrary.listener.ImagePickerResultListener
@@ -18,6 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.maltaisn.icondialog.pack.IconPackLoader
 import com.maltaisn.iconpack.defaultpack.createDefaultIconPack
+import de.wuapps.moredays.ui.onboarding.Onboarding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -36,12 +42,16 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
     }
     private var imagePickerCallback : ((Uri) -> Unit)? = null
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
 
         iconPackLoader = IconPackLoader(this)
         loadIconPack()
+
+        //handleOnBoarding()
 
         fab = findViewById(R.id.fabMain)
         bottomAppBar = findViewById(R.id.bottomAppBar)
@@ -50,9 +60,17 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
         fragmentContainerPaddingBottom = fragmentContainerView.paddingBottom
 
         wireUpNavigation()
-
     }
 
+    private fun handleOnBoarding(){
+        val sharedPref: SharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        if (!sharedPref.getBoolean(getString(R.string.preferences_onboarding), false)) {
+            val intentOnboarding = Intent(this, Onboarding::class.java)
+            startActivity(intentOnboarding)
+            finish()
+        }
+    }
 
     private fun wireUpNavigation() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
@@ -128,6 +146,4 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
     override fun onMultiImagePick(uris: List<Uri>?) {
         //not used
     }
-
-
 }

@@ -78,6 +78,10 @@ After playing with flows, repositories, livedata and reading about viewmodel lif
 - even if a device is rotated and ondestroy of an activity/fragment is called, a viewmodel remains, hence use livedata in viewmodels, let them be updated
 - most viewmodels of this app will need constructor parameters, therefore we need viewmodel factory classes, alternatively we could use hilt (still thinking about it). However looking at the changes https://github.com/android/sunflower/commit/cd57be5ad686aaad30b3e560d9cd858c952ff5bf it seems much more to do than to gain ...
 
+## Notifications
+First you need to set an Alarm. When the alarm is triggered, the BroadcastReceiver will receive the intent and can perform the desired action, such as showing a notification.
+To show a notification, we need to first create a NotificationChannel and ask for permission, see 
+[Android AlarmManager: Scheduling Alarms and Displaying Notifications](https://medium.com/@arfinhosain/android-alarmmanager-scheduling-alarms-and-displaying-notifications-77f815e2638).
 ## ToDos
 
 - bugs

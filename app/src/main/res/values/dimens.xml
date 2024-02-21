@@ -4,6 +4,7 @@
     <dimen name="activity_margin">8dp</dimen>
     <dimen name="layout_margin">8dp</dimen>
     <dimen name="layout_padding">8dp</dimen>
+    <dimen name="settings_padding">16dp</dimen>
     <dimen name="min_accesible_size">48dp</dimen>
     <dimen name="mood_button_size">56dp</dimen>
     <dimen name="mood_button_text_size">27sp</dimen>
@@ -21,4 +22,6 @@
     <dimen name="min_accesible_textsize">12sp</dimen>
     <dimen name="textsize_larger">14sp</dimen>
     <dimen name="textsize_percentage">32sp</dimen>
+    <dimen name="custom_preference_title_text_size">16sp</dimen>
+    <dimen name="custom_preference_subtitle_text_size">13.6sp</dimen>
 </resources>

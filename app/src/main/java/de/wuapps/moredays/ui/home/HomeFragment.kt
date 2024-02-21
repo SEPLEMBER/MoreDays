@@ -41,6 +41,7 @@ import de.wuapps.moredays.database.entity.Trophy
 import de.wuapps.moredays.databinding.FragmentHomeBinding
 import de.wuapps.moredays.utilities.DatePickerFragment
 import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.fadeOut
 import de.wuapps.moredays.utilities.getFlexboxLayoutManager
 import de.wuapps.moredays.utilities.isSameDay
 import de.wuapps.moredays.utilities.setFabOnClickListener
@@ -267,6 +268,7 @@ class HomeFragment : Fragment(), MenuProvider {
             subscribeUI()
         } else {
             binding.progressBarCyclic.visibility = View.VISIBLE
+            handleAffirmation()
             MoreDaysApplication.loaded.observe(viewLifecycleOwner) {
                 if (it) {
                     subscribeUI()
@@ -274,7 +276,20 @@ class HomeFragment : Fragment(), MenuProvider {
             }
         }
     }
-
+    private fun handleAffirmation(){
+        val txtSaying = binding.textViewAffirmation
+        val sharedPref: SharedPreferences =
+           PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
+        if (sharedPref.getBoolean(getString(R.string.preferences_hide_affirmation_key), false)) {
+            txtSaying.visibility = View.GONE
+        }
+        else {
+            val sayings = resources.getStringArray(R.array.sayings)
+            val random = Calendar.getInstance().timeInMillis % sayings.size
+            txtSaying.text = sayings[random.toInt()]
+            txtSaying.fadeOut(3000)
+        }
+    }
     private fun subscribeUI() {
         binding.progressBarCyclic.visibility = View.GONE
         viewModel.scales.observe(viewLifecycleOwner) {
