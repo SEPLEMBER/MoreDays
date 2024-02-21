@@ -11,17 +11,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moredays/-/issues/600)
 -->
 
-## [Unreleased]
+## [1.0.22] - 2024-02-21 - 🏁-Release
 
 ### Added
+- push notifications [#8](https://gitlab.com/wuapps/moredays/-/issues/8)
 
 ### Fixed
 - change color of cancel button
 - after selecting a different date and navigating to a different screen, the label for the date was mixed up
 - it was not possible to change to light mode
 - counter intuitive labeling in settings
+- fix image problem on android 13+ [#4](https://gitlab.com/wuapps/moredays/-/issues/4)
 
 ### Refactored
+- optimized code
+- updated libs
+- splash screen -- ready for android 13+
 
 ## [1.0.21] - 2024-01-31 - 🏁-Release
 

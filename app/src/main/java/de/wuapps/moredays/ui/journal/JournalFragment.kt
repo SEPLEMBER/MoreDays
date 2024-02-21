@@ -1,12 +1,8 @@
 package de.wuapps.moredays.ui.journal
 
 
-import android.Manifest
 import android.app.AlertDialog
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -14,10 +10,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -42,6 +34,7 @@ import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.handleFab
 import de.wuapps.moredays.utilities.isAtLeast11
 import java.util.Calendar
+
 
 @GlideModule
 class JournalFragment : Fragment(), MenuProvider {
@@ -74,28 +67,11 @@ class JournalFragment : Fragment(), MenuProvider {
             viewModel.setDateFormatView(getString(R.string.date_ymd_day))
 
         _binding = FragmentJournalBinding.inflate(inflater, container, false)
-//        val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-//            // Callback is invoked after the user selects a media item or closes the
-//            // photo picker.
-//            if (uri != null) {
-//                val mainActivity = requireActivity() as MainActivity
-//                val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
-//                mainActivity.contentResolver.takePersistableUriPermission(uri, flag)
-//                mainActivity.setImagePickerCallback { uri -> onImagePick(uri) }
-//            }
-//        }
-        checkPermission()
         configureImagePicker()
         binding.imageButtonPickImage.setOnClickListener {
 
             imagePickerMain.open(PickerType.GALLERY)
         }
-
-//        binding.imageButtonPickImage.setOnClickListener {
-//
-//            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-//
-//        }
         handleFab(viewModel.hasFab)
         binding.imageButtonSuggestAffirmation.setOnClickListener { suggestAffirmation() }
         binding.imageButtonRemoveImage.setOnClickListener {
@@ -133,36 +109,10 @@ class JournalFragment : Fragment(), MenuProvider {
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return binding.root
     }
-
-    private fun checkPermission(){
-        val permissions =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arrayOf(
-                    Manifest.permission.READ_MEDIA_IMAGES
-                )
-            } else {
-                arrayOf(
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.CAMERA
-                )
-            }
-        permissions.forEach { perm -> checkPermission(perm) }
+    override fun onPause() {
+        super.onPause()
+        viewModel.save()
     }
-    private fun checkPermission(permission: String) {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                permission
-            ) == PackageManager.PERMISSION_GRANTED
-        )
-        else
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(permission),
-                    201
-                )
-
-        }
     private fun configureImagePicker() {
         val mainActivity = requireActivity() as MainActivity
         imagePickerMain = mainActivity.imagePicker
@@ -229,9 +179,15 @@ class JournalFragment : Fragment(), MenuProvider {
         if (viewModel.journal.value!!.imageFilename.isBlank()) {
             binding.imageViewPictureOfTheDay.setImageDrawable(null)
         } else {
-            Glide.with(this)
-                .load(viewModel.journal.value!!.imageFilename)
-                .into(binding.imageViewPictureOfTheDay)
+            if (isAtLeast11()) {
+                Glide.with(this)
+                    .load(Uri.parse(viewModel.journal.value!!.imageFilename))
+                    .into(binding.imageViewPictureOfTheDay)
+            } else {
+                Glide.with(this)
+                    .load(viewModel.journal.value!!.imageFilename)
+                    .into(binding.imageViewPictureOfTheDay)
+            }
         }
     }
 
@@ -242,7 +198,7 @@ class JournalFragment : Fragment(), MenuProvider {
 
     private fun delete() {
         val alertDialog: AlertDialog.Builder =
-        AlertDialog.Builder(requireNotNull(this.activity))
+            AlertDialog.Builder(requireNotNull(this.activity))
         alertDialog.setTitle(getString(R.string.title_delete))
         alertDialog.setMessage(getString(R.string.question_delete_journal))
         alertDialog.setPositiveButton(
@@ -268,18 +224,22 @@ class JournalFragment : Fragment(), MenuProvider {
                 showHelp()
                 true
             }
+
             R.id.menu_delete -> {
                 delete()
                 true
             }
+
             R.id.menu_save -> {
                 save()
                 return true
             }
+
             R.id.menu_date -> {
                 showDatePicker()
                 return true
             }
+
             else -> false
         }
     }
@@ -290,12 +250,8 @@ class JournalFragment : Fragment(), MenuProvider {
         optionsMenuDelete!!.isVisible = viewModel.hasDeleteOption
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        viewModel.save()
-    }
 
-        private fun showDatePicker() {
+    private fun showDatePicker() {
         val iniDate = viewModel.journal.value!!.getDateAsCalendar()
         val newFragment = DatePickerFragment(iniDate, this::handleDateSelected)
         newFragment.show(childFragmentManager, "datePicker")
@@ -347,7 +303,11 @@ class JournalFragment : Fragment(), MenuProvider {
 
     private fun onImagePick(uri: Uri) {
         if (uri.path != null) {
-            viewModel.journal.value!!.imageFilename = uri.path!!
+            if (isAtLeast11()) {
+                viewModel.journal.value!!.imageFilename = uri.toString()
+            } else {
+                viewModel.journal.value!!.imageFilename = uri.path!!
+            }
             setImage()
         }
     }

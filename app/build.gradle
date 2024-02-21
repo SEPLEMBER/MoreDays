@@ -101,7 +101,7 @@ dependencies {
 
     // If you have a problem with Glide, please use the same Glide version or simply open an issue
     implementation 'com.github.bumptech.glide:glide:4.16.0'
-    //annotationProcessor 'com.github.bumptech.glide:compiler:4.15.1'
+
     // https://github.com/PhilJay/MPAndroidChart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     //Alternative: https://github.com/AnyChart/AnyChart-Android
@@ -135,5 +135,4 @@ dependencies {
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
     implementation 'androidx.core:core-splashscreen:1.0.1'
-
 }

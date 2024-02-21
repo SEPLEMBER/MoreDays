@@ -9,7 +9,13 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
 import com.maltaisn.icondialog.pack.IconPack
+import com.maltaisn.icondialog.pack.IconPackLoader
+import com.maltaisn.iconpack.defaultpack.createDefaultIconPack
 import de.wuapps.moredays.ui.tools.settings.SettingsFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MoreDaysApplication : Application() {
@@ -27,8 +33,24 @@ class MoreDaysApplication : Application() {
         super.onCreate()
         handlePreferredTheme()
         createNotificationChannel()
+        loadIconPack()
     }
 
+    private fun loadIconPack() {
+        if (iconPack != null) {
+            // Icon pack is already loaded.
+            return
+        }
+        val iconPackLoader = IconPackLoader(this)
+        CoroutineScope(Dispatchers.Default).launch(Dispatchers.IO) {
+            MoreDaysApplication.iconPack = withContext(Dispatchers.Default) {
+                val pack = createDefaultIconPack(iconPackLoader)
+                pack.loadDrawables(iconPackLoader.drawableLoader)
+                loaded.postValue(true)
+                pack
+            }
+        }
+    }
     private fun handlePreferredTheme(){ //see https://github.com/googlearchive/android-DarkTheme
         val preferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(this)

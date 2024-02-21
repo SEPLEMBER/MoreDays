@@ -7,7 +7,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.FragmentContainerView
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -20,12 +19,8 @@ import com.app.imagepickerlibrary.listener.ImagePickerResultListener
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.maltaisn.icondialog.pack.IconPackLoader
-import com.maltaisn.iconpack.defaultpack.createDefaultIconPack
 import de.wuapps.moredays.ui.onboarding.Onboarding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import de.wuapps.moredays.utilities.isAtLeast11
 
 class MainActivity : AppCompatActivity(), ImagePickerResultListener {
     private lateinit var fab: FloatingActionButton
@@ -33,10 +28,9 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
     private var fragmentContainerPaddingBottom = 0
     private lateinit var bottomAppBar: BottomAppBar
     private var bottomAppBarVerticalOffsetOrg = 0F
-    private lateinit var iconPackLoader: IconPackLoader
     // work around as instance of imagepicker is registered in its constructor ...
     // when I used the imagePicker in the fragment I got the error java.lang.IllegalArgumentException: SavedStateProvider with the given key is already registered
-    public val imagePicker: ImagePicker by lazy {
+    val imagePicker: ImagePicker by lazy {
         registerImagePicker(this@MainActivity)
     }
     private var imagePickerCallback : ((Uri) -> Unit)? = null
@@ -46,9 +40,6 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-
-        iconPackLoader = IconPackLoader(this)
-        loadIconPack()
 
         handleOnBoarding()
 
@@ -120,26 +111,14 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
         imagePickerCallback = null
     }
 
-    private fun loadIconPack() {
-        if (MoreDaysApplication.iconPack != null) {
-            // Icon pack is already loaded.
-            return
-        }
-        MoreDaysApplication.iconPack = null
-        // Start new job to load icon pack.
-        lifecycleScope.launch(Dispatchers.IO) {
-            MoreDaysApplication.iconPack = withContext(Dispatchers.Default) {
-                val pack = createDefaultIconPack(iconPackLoader)
-                pack.loadDrawables(iconPackLoader.drawableLoader)
-                MoreDaysApplication.loaded.postValue(true)
-                pack
-            }
-        }
-    }
-
     override fun onImagePick(uri: Uri?) {
-        if (uri != null)
+        if (uri != null) {
+            if (isAtLeast11()) {
+                val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                this.contentResolver.takePersistableUriPermission(uri, flag)
+            }
             imagePickerCallback?.let { it(uri) }
+        }
     }
 
     override fun onMultiImagePick(uris: List<Uri>?) {
