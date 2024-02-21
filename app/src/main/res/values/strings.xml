@@ -63,7 +63,7 @@
         <![CDATA[
         Make each day YOUR day, do what you really really want first and what you think you should do second.
         Take each day a picture and some notes to remember each day.
-        With moreDays you can reflect your day in a personal journal, follow your goals, define challenges, everything is in your hand, just do it.
+        With moreDays you can reflect your day in a personal journal, follow your goals. Everything is in your hand, just do it.
         Make every day a good day :)
         <h1>Goals</h1>
         What makes a good day, a balanced day? Define different goals, such as fitness, mindfull, nutrition. However, too many goals are difficult to reach. Think of
@@ -77,8 +77,6 @@
         could go for a nice walk and sleep early.
         <h1>Scales</h1>
         With scales you could track your weight, muscles, time for 5 km or any other number based meassure. Or you could rate your mood/sleep quality, whatever you like.
-        <h1>Challenges</h1>
-        What do you want to focus on, the next week, month, until X-mas? Define your challenges in a very flexibel manner. You may focus on goals, special acitivities or a scale.
         <h1>Diagrams</h1>
         You may enjoy looking at your last days and weeks. Did you reach 100%% mostly? Which goal works well? Which activity?
         <h1>Journal</h1>
@@ -119,8 +117,6 @@
     </string>
     <string name="help_credentials_title">Libraries</string>
     <string name="title_affirmation">Title/Affirmation</string>
-    <string name="title_challenge">Challenge</string>
-    <string name="title_challenges">Challenges</string>
     <string name="title_scale">Scale</string>
     <string name="title_scales">Scales</string>
     <string name="title_goal">Goal</string>
@@ -151,7 +147,6 @@
     <string name="help_scale">Everything possible to measure with numbers could be a scale, e.g. weight, sleep quality or time, … just give it a name and enter the values whenever you want and have a look at the charts.</string>
     <string name="help_home_fab">Add scale values or track the just finished activity.</string>
     <string name="help_home_goal">Tap shows you the related activities for the given goals, start collecting points :)</string>
-    <string name="help_home_challenges">These are your running challenges. Select tools to manage them.</string>
     <string name="help_nav_tools">Here you may define and adapt your goals, scales and settings. You will find several lists like the list of entries and trophies — swiping an entry will delete it. You may find additional tipps and help. Use the settings to let the app use your name or define how to start the app.</string>
     <string name="help_nav_tools_first">Adapt the suggested goals, activities and scales to your needs, i.e. delete some goals, more than 4 are difficult to manage ;) </string>
     <string name="help_nav_charts">Analyze your data :)</string>
@@ -164,7 +159,6 @@
     <string name="help_journal_button_affirmation">Be inpired by an affirmation example.</string>
     <string name="help_goal_isOld">Mark a goal as old, if you want to keep the data, but do not want to see it at the home screen any more. You may reactivate it any time.</string>
     <string name="help_help">Just tap help in the options menu and you get a guided tour.</string>
-    <string name="message_made_challenge">Congratulations %1$s! You just made challenge %2$s :)</string>
     <string name="label_journal_list_today">Start with your first journal entry :)</string>
     <string name="trophy_type_msg_made_goal">Super %1$s! you made %2$s for today</string>
     <string name="label_chk_is_integer">is integer</string>
@@ -195,15 +189,9 @@
     <!-- Personal Preferences -->
     <string name="settings_your_name_title">Your name</string>
     <string name="settings_dark_mode">Dark Mode (requires restart)</string>
-    <string name="settings_dark_mode_off">off</string>
-    <string name="settings_dark_mode_on">on</string>
     <string name="settings_hide_confetti">hide confetti animation</string>
-    <string name="settings_hide_confetti_off">yes</string>
-    <string name="settings_hide_confetti_on">no</string>
     <string name="settings_hide_completed_animation">hide pocal animation</string>
     <string name="settings_hide_affirmation">hide affirmation on app start</string>
-    <string name="settings_hide_completed_animation_off">yes</string>
-    <string name="settings_hide_completed_animation_on">no</string>
     <string name="settings_style_inner_circle">style circle</string>
     <string name="settings_frequency_journal_entries">Frequency of journal entries</string>
     <string name="settings_style_inner_circle_off">e.g. 8/10 -- meaning you have 8 of 10 desired points</string>

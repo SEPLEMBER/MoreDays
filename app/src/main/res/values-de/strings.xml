@@ -105,8 +105,6 @@
     <string name="help_thanks_title">Danke</string>
     <string name="help_credentials_title">Bibliotheken</string>
     <string name="title_affirmation">Titel/Affirmation</string>
-    <string name="title_challenge">Challenge</string>
-    <string name="title_challenges">Challenges</string>
     <string name="title_scale">Skala</string>
     <string name="title_scales">Skalen</string>
     <string name="title_goal">Ziel</string>
@@ -138,7 +136,6 @@
     <string name="help_scale">Mit Skalen kannst du alles quantitativ erfassen, Gewicht, Schlafqualität, Bauchumfang oder was auch immer du messen möchtest und dir im Diagramm anschauen möchtest. Vergib einen aussagekräftigen Titel und dann kannst du immer den Wert eintragen.</string>
     <string name="help_home_fab">Füge Skalenwerte hinzu oder markiere eine Aktivität als absolviert.</string>
     <string name="help_home_goal">Tapp zeigt dir mit dem jeweiligen Ziel verknüpfte Aktivitäten, los geht\'s, sammel Punkte :)</string>
-    <string name="help_home_challenges">Das sind deine laufenden Challenges. Unter Werkzeuge kannst du sie verwalten.</string>
     <string name="help_nav_tools">Hier kannst du deine Ziele und andere Stammdaten verwalten, deine bisherigen Einträge einsehen, findest weitere Tipps und vieles mehr. Swipe löscht meist einen Eintrag. In den Einstellungen kannst du auch deinen Namen zur persönlichen Anrede angeben.</string>
     <string name="help_nav_tools_first">Passe zunächst die vorgeschlagenen Ziele an, d.h. lösche die, die für dich nicht in jeden Tag reinpassen. Mehr als vier werden schwer ;) </string>
     <string name="help_nav_charts">Analysiere deine Daten :)</string>
@@ -150,7 +147,6 @@
     <string name="help_goal_isOld">Markiere ein Ziel als alt, wenn du es nicht mehr täglich sehen möchtest, die Daten aber noch behalten möchtest.</string>
     <string name="help_help">Wähle das Fragezeichen in den Optionen, um eine Tour durch den jeweiligen Teil der Anwendung zu bekommen.</string>
     <string name="lbl_scales_question">Was möchtest du messen?</string>
-    <string name="message_made_challenge">Super %1$s! Du hast gerade deine Challenge %2$s geschafft :)</string>
     <string name="label_journal_list_today">Starte mit deinem ersten Eintrag :)</string>
     <string name="help_journal_title">Gib deinem Eintrag einen schönen Titel oder eine Affirmation.</string>
     <string name="help_journal_button_affirmation">Lass dich von Beispielaffirmationen inspirieren.</string>
@@ -158,15 +154,9 @@
         visualisiert das Verhältnis der Summe der Punkte zur erwünschten Punktzahl, d.h. summePunkte / (TageMitEintragungen * gewünschtePunktZahlDiesesZiels) in Prozent.</string>
     <string name="notes">Notizen/Emojis</string>
     <string name="settings_dark_mode">Dark-Mode (erfordert Neustart) </string>
-    <string name="settings_dark_mode_off">aus</string>
-    <string name="settings_dark_mode_on">an</string>
     <string name="settings_hide_confetti">Konfetti nicht anzeigen</string>
-    <string name="settings_hide_confetti_off">Ja</string>
-    <string name="settings_hide_confetti_on">Nein</string>
     <string name="settings_hide_completed_animation">Pokal-Animation nicht anzeigen</string>
     <string name="settings_hide_affirmation">Affirmation bei Start der App nicht anzeigen</string>
-    <string name="settings_hide_completed_animation_off">Ja</string>
-    <string name="settings_hide_completed_animation_on">Nein</string>
     <string name="settings_style_inner_circle">Darstellung im Kreis</string>
     <string name="settings_style_inner_circle_off">z.B.  8/10 -- d.h. 8 der 10 erwünschten Punkte erreicht</string>
     <string name="settings_style_inner_circle_on">z.B. 80%</string>

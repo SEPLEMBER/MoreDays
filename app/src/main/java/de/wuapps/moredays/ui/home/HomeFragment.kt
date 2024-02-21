@@ -44,6 +44,7 @@ import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.fadeOut
 import de.wuapps.moredays.utilities.getFlexboxLayoutManager
 import de.wuapps.moredays.utilities.isSameDay
+import de.wuapps.moredays.utilities.isToday
 import de.wuapps.moredays.utilities.setFabOnClickListener
 import de.wuapps.moredays.utilities.showFab
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -341,13 +342,14 @@ class HomeFragment : Fragment(), MenuProvider {
 
                         }
                     } else {
+                        if(trophy.timestamp.isToday()){
                         showTrophyDialog(
                             getTrophyMessage(
                                 trophy.type,
                                 trophy.value,
                                 viewModel.latestGoal!!.name
-                            )
-                        )
+                            ))
+                        }
                     }
                 }
             }

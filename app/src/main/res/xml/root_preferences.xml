@@ -8,8 +8,9 @@
 
     <SwitchPreferenceCompat
         app:key="@string/preferences_dark_mode_key"
-        app:summaryOff="@string/settings_dark_mode_off"
-        app:summaryOn="@string/settings_dark_mode_on"
+        app:summaryOff="@string/no"
+        app:summaryOn="@string/yes"
+        android:defaultValue="true"
         app:title="@string/settings_dark_mode" />
 
     <SwitchPreferenceCompat
@@ -20,9 +21,11 @@
 
     <SwitchPreferenceCompat
         app:key="@string/preferences_hide_completed_animation_key"
-        app:summaryOff="@string/settings_hide_completed_animation_off"
-        app:summaryOn="@string/settings_hide_completed_animation_on"
+        app:summaryOff="@string/no"
+        app:summaryOn="@string/yes"
+        android:defaultValue="false"
         app:title="@string/settings_hide_completed_animation" />
+
     <SwitchPreferenceCompat
         app:key="@string/preferences_hide_affirmation_key"
         app:summaryOff="@string/no"
@@ -32,9 +35,11 @@
     <SwitchPreferenceCompat
         app:defaultValue="true"
         app:key="@string/preferences_show_percentage_key"
+        android:defaultValue="true"
         app:summaryOff="@string/settings_style_inner_circle_off"
         app:summaryOn="@string/settings_style_inner_circle_on"
         app:title="@string/settings_style_inner_circle" />
+
     <DropDownPreference
         android:entries="@array/entriesFrequencyJournal"
         android:entryValues="@array/valuesFrequencyJournal"
@@ -55,6 +60,7 @@
         android:selectable="true" />
     <EditTextPreference
         app:dependency="@string/preferences_notification_key"
+        app:defaultValue="@string/settings_notification_text_default_value"
         app:key="@string/preferences_notification_text_key"
         app:title="@string/settings_notification_text_title"
         app:useSimpleSummaryProvider="true" />

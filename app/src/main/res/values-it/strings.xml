@@ -77,8 +77,6 @@
         una bella passeggiata e andare a dormire presto.
         <h1>Bilancia</h1>
         Con le bilance si può tenere traccia del peso, dei muscoli, del tempo impiegato per percorrere 5 km o di qualsiasi altra misurazione basata sui numeri. Oppure si potrebbe valutare il proprio umore/la qualità del sonno, come si preferisce.
-        <h1>Sfide</h1>
-        Su cosa volete concentrarvi la prossima settimana, il prossimo mese, fino a Natale? Definite le vostre sfide in modo molto flessibile. Potete concentrarvi su obiettivi, attività speciali o una scala.
         <h1>Diagrammi</h1>
         Potreste divertirvi a guardare i vostri ultimi giorni e settimane. Avete raggiunto soprattutto il 100%? Quale obiettivo funziona bene? Quale attività?
         <h1>Diario</h1>
@@ -93,8 +91,6 @@
     <string name="help_thanks_title">Grazie</string>
     <string name="help_credentials_title">Librerie</string>
     <string name="title_affirmation">Titolo/Affermazione</string>
-    <string name="title_challenge">Sfida</string>
-    <string name="title_challenges">Sfide</string>
     <string name="title_scale">Scala</string>
     <string name="title_scales">Scale</string>
     <string name="title_goal">Obiettivo</string>
@@ -124,7 +120,6 @@
     <string name="help_scale">Tutto ciò che è possibile misurare con i numeri può essere una scala, ad esempio il peso, la qualità del sonno o il tempo, … basta darle un nome e inserire i valori ogni volta che si vuole e dare un\'occhiata ai grafici.</string>
     <string name="help_home_fab">Aggiungi valori alla scala o tieni traccia dell\'attività appena conclusa.</string>
     <string name="help_home_goal">Toccando si visualizzano le attività correlate per gli obiettivi dati, inizia a raccogliere punti :)</string>
-    <string name="help_home_challenges">Queste sono le vostre sfide in attivo. Scegliete gli strumenti per gestirle.</string>
     <string name="help_nav_tools">Qui è possibile definire e personalizzare gli obiettivi, le scale e le impostazioni. Sono presenti diversi elenchi, come l\'elenco delle voci e dei trofei: se si trascina una annotazione, questa viene eliminata. Si possono trovare altri suggerimenti e aiuti. Utilizzare le impostazioni per consentire all\'applicazione di utilizzare il vostro nome o per definire la modalità di avvio dell\'applicazione.</string>
     <string name="help_nav_tools_first">Adattate gli obiettivi, le attività e le scale suggerite alle vostre esigenze, cioè eliminate alcuni obiettivi, più di 4 sono difficili da gestire ;) </string>
     <string name="help_nav_charts">Analizzate i vostri dati :)</string>
@@ -137,7 +132,6 @@
     <string name="help_journal_button_affirmation">Lasciatevi ispirare da un esempio di affermazione.</string>
     <string name="help_goal_isOld">Contrassegnate un obiettivo come vecchio, se volete conservare i dati, ma non volete più vederli nella schermata iniziale. È possibile riattivarlo in qualsiasi momento.</string>
     <string name="help_help">È sufficiente toccare Aiuto nel menu delle opzioni per ottenere una presentazione guidata.</string>
-    <string name="message_made_challenge">Congratulazioni %1$s! Hai appena vinto la sfida %2$s :)</string>
     <string name="label_journal_list_today">Inizia con la tua prima annotazione sul diario :)</string>
     <string name="trophy_type_msg_made_goal">Super %1$s! hai fatto %2$s per oggi</string>
     <string name="label_chk_is_integer">è un numero intero</string>
@@ -157,15 +151,9 @@
     <!-- Personal Preferences -->
     <string name="settings_your_name_title">Il tuo nome</string>
     <string name="settings_dark_mode">Modalità scura (richiede il riavvio)</string>
-    <string name="settings_dark_mode_off">spento</string>
-    <string name="settings_dark_mode_on">acceso</string>
     <string name="settings_hide_confetti">nascondere l\'animazione dei coriandoli</string>
-    <string name="settings_hide_confetti_off">si</string>
-    <string name="settings_hide_confetti_on">no</string>
     <string name="settings_hide_completed_animation">nascondere l\'animazione della tazza</string>
     <string name="settings_hide_affirmation">nascondere l\'affermazione all\'avvio dell\'app</string>
-    <string name="settings_hide_completed_animation_off">si</string>
-    <string name="settings_hide_completed_animation_on">no</string>
     <string name="settings_style_inner_circle">stile cerchio</string>
     <string name="settings_frequency_journal_entries">Frequenza delle annotazioni sul diario</string>
     <string name="settings_style_inner_circle_off">Ad esempio, 8/10 -- significa che avete 8 dei 10 punti desiderati.</string>

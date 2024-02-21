@@ -57,6 +57,10 @@ fun Calendar.isSameWeek(date: Calendar):Boolean{
     return date.get(Calendar.YEAR) == this.get(Calendar.YEAR) && date.get(Calendar.WEEK_OF_YEAR) == this.get(Calendar.WEEK_OF_YEAR)
 }
 
+fun Calendar.isToday(): Boolean {
+    val today = Calendar.getInstance()
+    return today.get(Calendar.DAY_OF_YEAR) == this.get(Calendar.DAY_OF_YEAR)
+}
 fun Calendar.setDate(year: Int, month: Int, day: Int): Calendar {
     this.set(Calendar.YEAR, year)
     this.set(Calendar.MONTH, month)
