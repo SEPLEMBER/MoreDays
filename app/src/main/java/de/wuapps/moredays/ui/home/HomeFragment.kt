@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -32,6 +31,7 @@ import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import de.wuapps.moredays.BuildConfig
 import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
@@ -120,13 +120,16 @@ class HomeFragment : Fragment(), MenuProvider {
         viewModel.name = preferences.getString(getString(R.string.preferences_name_key), null) ?: ""
         if (!preferences.getBoolean(getString(R.string.preferences_showed_first_help), false))
             showFirstHelp()
-        viewModel.hideConfetti = preferences.getBoolean(
-            getString(R.string.preferences_hide_confetti_key),
-            viewModel.hideConfetti
+        // handle new logic for hide/show stuff
+        //val versionCode = BuildConfig.VERSION_CODE
+        viewModel.showConfetti = preferences.getBoolean(
+            getString(R.string.preferences_show_confetti_key),
+            !preferences.getBoolean(
+                getString(R.string.preferences_hide_confetti_key), !viewModel.showConfetti)
         )
-        viewModel.hidePocalAnimation = preferences.getBoolean(
-            getString(R.string.preferences_hide_completed_animation_key),
-            viewModel.hidePocalAnimation
+        viewModel.showPocalAnimation = preferences.getBoolean(
+            getString(R.string.preferences_show_completed_animation_key),
+            !preferences.getBoolean(getString(R.string.preferences_hide_completed_animation_key),!viewModel.showPocalAnimation)
         )
         viewModel.showProgressAsPercentInCircle = preferences.getBoolean(
             getString(R.string.preferences_show_percentage_key),
@@ -281,14 +284,15 @@ class HomeFragment : Fragment(), MenuProvider {
         val txtSaying = binding.textViewAffirmation
         val sharedPref: SharedPreferences =
            PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
-        if (sharedPref.getBoolean(getString(R.string.preferences_hide_affirmation_key), false)) {
-            txtSaying.visibility = View.GONE
-        }
-        else {
+        // handle new logic
+        if (sharedPref.getBoolean(getString(R.string.preferences_show_affirmation_key), sharedPref.getBoolean(getString(R.string.preferences_hide_affirmation_key), false))) {
             val sayings = resources.getStringArray(R.array.sayings)
             val random = Calendar.getInstance().timeInMillis % sayings.size
             txtSaying.text = sayings[random.toInt()]
             txtSaying.fadeOut(3000)
+        }
+        else {
+            txtSaying.visibility = View.GONE
         }
     }
     private fun subscribeUI() {
@@ -326,9 +330,8 @@ class HomeFragment : Fragment(), MenuProvider {
                 if (it.isNotEmpty()) {
                     val trophy = it.last()
                     if (trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL) {
-                        Log.d("prefs", viewModel.hideConfetti.toString())
-                        if (!viewModel.hideConfetti && viewModel.confettiShownFor != trophy.uid) {
-                            viewModel.confettiShownFor = trophy.uid
+                        if (viewModel.showConfetti && viewModel.confettiShownFor != trophy.goalId) {
+                            viewModel.confettiShownFor = trophy.goalId
                             binding.viewKonfetti.build()
                                 .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
                                 .setDirection(0.0, 359.0)
@@ -356,19 +359,19 @@ class HomeFragment : Fragment(), MenuProvider {
         }
         viewModel.justReached100Percent.observe(viewLifecycleOwner) {
             if (it) {
-                if (viewModel.hidePocalAnimation) {
-                    Snackbar.make(
-                        requireActivity().findViewById(R.id.container),
-                        getString(R.string.trophy_msg_hundred_percent),
-                        Snackbar.LENGTH_LONG
-                    ).show()
-                } else {
+                if (viewModel.showPocalAnimation) {
                     binding.lottieTrophy.visibility = View.VISIBLE
                     binding.lottieTrophy.playAnimation()
                     Handler(Looper.getMainLooper()).postDelayed(({
                         binding.lottieTrophy.visibility = View.GONE
 
                     }), 3000)
+                } else {
+                    Snackbar.make(
+                        requireActivity().findViewById(R.id.container),
+                        getString(R.string.trophy_msg_hundred_percent),
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
             }
             viewModel.justReached100Percent.postValue(false)
@@ -406,7 +409,7 @@ class HomeFragment : Fragment(), MenuProvider {
 
     private fun showTrophyDialog(message: String) {
         val dialogBuilder = AlertDialog.Builder(requireContext())
-        if (viewModel.hidePocalAnimation) {
+        if (viewModel.showPocalAnimation) {
             Snackbar.make(
                 requireActivity().findViewById(R.id.container),
                 message,

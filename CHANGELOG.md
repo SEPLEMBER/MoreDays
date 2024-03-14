@@ -11,6 +11,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moredays/-/issues/600)
 -->
 
+## [1.0.23] - 2024-03-14 - 🏁-Release
+
+### Fixed
+- delete diary entry [#16](https://gitlab.com/wuapps/moredays/-/issues/16)
+- confetti was not shown for the second goal made
+
+### Refactored
+- updated libs
+- made hide/show settings more intuitive
+
 ## [1.0.22] - 2024-02-21 - 🏁-Release
 
 ### Added

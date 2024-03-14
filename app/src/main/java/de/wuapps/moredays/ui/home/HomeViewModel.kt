@@ -32,9 +32,9 @@ class HomeViewModel(
 ) : ViewModel() {
 
     val hasFab = true
-    var hideConfetti = false
-    var confettiShownFor = -1L
-    var hidePocalAnimation = false
+    var showConfetti = true
+    var confettiShownFor = -1L // goalId, the last confetti was shown for
+    var showPocalAnimation = true
     var showProgressAsPercentInCircle = true
     var name = ""
     val newTrophies = MutableLiveData<MutableList<Trophy>>()
@@ -107,7 +107,7 @@ class HomeViewModel(
             analysis.checkForNewTrophies(goal, entryId, date, trophyList, activityEntriesList)
         if (newTrophies.isNotEmpty()) {
             this.newTrophies.value!!.clear()
-            this.newTrophies.postValue(newTrophies as MutableList<Trophy>)
+            this.newTrophies.postValue(newTrophies as MutableList<Trophy>) //uid not set!!!, uid is available after insert!
         }
         viewModelScope.launch(Dispatchers.IO) { trophyDao.insert(newTrophies) }
     }

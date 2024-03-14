@@ -155,8 +155,11 @@
     <string name="notes">Notizen/Emojis</string>
     <string name="settings_dark_mode">Dark-Mode (erfordert Neustart) </string>
     <string name="settings_hide_confetti">Konfetti nicht anzeigen</string>
+    <string name="settings_show_confetti">Konfetti anzeigen</string>
     <string name="settings_hide_completed_animation">Pokal-Animation nicht anzeigen</string>
+    <string name="settings_show_completed_animation">Pokal-Animation anzeigen</string>
     <string name="settings_hide_affirmation">Affirmation bei Start der App nicht anzeigen</string>
+    <string name="settings_show_affirmation">Affirmation bei Start der App anzeigen</string>
     <string name="settings_style_inner_circle">Darstellung im Kreis</string>
     <string name="settings_style_inner_circle_off">z.B.  8/10 -- d.h. 8 der 10 erwünschten Punkte erreicht</string>
     <string name="settings_style_inner_circle_on">z.B. 80%</string>

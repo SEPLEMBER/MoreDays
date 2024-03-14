@@ -14,23 +14,23 @@
         app:title="@string/settings_dark_mode" />
 
     <SwitchPreferenceCompat
-        app:key="@string/preferences_hide_confetti_key"
+        app:key="@string/preferences_show_confetti_key"
         app:summaryOff="@string/no"
         app:summaryOn="@string/yes"
-        app:title="@string/settings_hide_confetti" />
+        app:title="@string/settings_show_confetti" />
 
     <SwitchPreferenceCompat
-        app:key="@string/preferences_hide_completed_animation_key"
+        app:key="@string/preferences_show_completed_animation_key"
         app:summaryOff="@string/no"
         app:summaryOn="@string/yes"
         android:defaultValue="false"
-        app:title="@string/settings_hide_completed_animation" />
+        app:title="@string/settings_show_completed_animation" />
 
     <SwitchPreferenceCompat
-        app:key="@string/preferences_hide_affirmation_key"
+        app:key="@string/preferences_show_affirmation_key"
         app:summaryOff="@string/no"
         app:summaryOn="@string/yes"
-        app:title="@string/settings_hide_affirmation" />
+        app:title="@string/settings_show_affirmation" />
 
     <SwitchPreferenceCompat
         app:defaultValue="true"

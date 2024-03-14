@@ -52,9 +52,7 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
     fun delete() = viewModelScope.launch {
         if (!_isNew && _journal.value != null) {
             journalDao.delete(_journal.value!!)
-            _journal.value = Journal()
         }
-        _isNew = true
     }
 
     fun changeDate(calendarDate: Calendar){

@@ -152,8 +152,11 @@
     <string name="settings_your_name_title">Il tuo nome</string>
     <string name="settings_dark_mode">Modalità scura (richiede il riavvio)</string>
     <string name="settings_hide_confetti">nascondere l\'animazione dei coriandoli</string>
+    <string name="settings_show_confetti">mostra l\'animazione dei coriandoli</string>
     <string name="settings_hide_completed_animation">nascondere l\'animazione della tazza</string>
+    <string name="settings_show_completed_animation">mostra l\'animazione della tazza</string>
     <string name="settings_hide_affirmation">nascondere l\'affermazione all\'avvio dell\'app</string>
+    <string name="settings_show_affirmation">mostra l\'affermazione all\'avvio dell\'app</string>
     <string name="settings_style_inner_circle">stile cerchio</string>
     <string name="settings_frequency_journal_entries">Frequenza delle annotazioni sul diario</string>
     <string name="settings_style_inner_circle_off">Ad esempio, 8/10 -- significa che avete 8 dei 10 punti desiderati.</string>

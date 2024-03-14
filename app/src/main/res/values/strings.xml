@@ -173,9 +173,12 @@
     <string name="preferences_file_key" translatable="false">de.wuapps.moredays.PREFERENCE_FILE_KEY</string>
     <string name="preferences_name_key" translatable="false">name</string>
     <string name="preferences_dark_mode_key" translatable="false">dark_mode</string>
-    <string name="preferences_hide_confetti_key" translatable="false">hide_confetti</string>
-    <string name="preferences_hide_completed_animation_key" translatable="false">hide_completed_animation</string>
-    <string name="preferences_hide_affirmation_key" translatable="false">hide_affirmation</string>
+    <string name="preferences_hide_confetti_key" translatable="false">hide_confetti</string><!-- deprecated from version 23 on -->
+    <string name="preferences_show_confetti_key" translatable="false">show_confetti</string>
+    <string name="preferences_hide_completed_animation_key" translatable="false">hide_completed_animation</string><!-- deprecated from version 23 on -->
+    <string name="preferences_show_completed_animation_key" translatable="false">show_completed_animation</string>
+    <string name="preferences_hide_affirmation_key" translatable="false">hide_affirmation</string><!-- deprecated from version 23 on -->
+    <string name="preferences_show_affirmation_key" translatable="false">show_affirmation</string>
     <string name="preferences_show_percentage_key" translatable="false">show_percentage</string>
     <string name="preferences_frequency_journal_entries_key" translatable="false">frequency_journal_entries</string>
     <string name="preferences_notification_key" translatable="false">notification</string>
@@ -190,8 +193,11 @@
     <string name="settings_your_name_title">Your name</string>
     <string name="settings_dark_mode">Dark Mode (requires restart)</string>
     <string name="settings_hide_confetti">hide confetti animation</string>
+    <string name="settings_show_confetti">show confetti animation</string>
     <string name="settings_hide_completed_animation">hide pocal animation</string>
+    <string name="settings_show_completed_animation">show pocal animation</string>
     <string name="settings_hide_affirmation">hide affirmation on app start</string>
+    <string name="settings_show_affirmation">show affirmation on app start</string>
     <string name="settings_style_inner_circle">style circle</string>
     <string name="settings_frequency_journal_entries">Frequency of journal entries</string>
     <string name="settings_style_inner_circle_off">e.g. 8/10 -- meaning you have 8 of 10 desired points</string>
