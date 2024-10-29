@@ -9,4 +9,81 @@
         <item>yyMMddHH</item>
         <item>yyMMddHHmm</item>
     </string-array>
+    <string-array name="sayings">
+        <item>I believe I can lose weight.</item>
+        <item>My health is the most important thing to me.</item>
+        <item>I am avoiding excessive carbs.</item>
+        <item>There is no need for rich or sugary foods.</item>
+        <item>Which food will be good for my body today?</item>
+        <item>I have the power to control my weight through healthy eating and exercise.</item>
+        <item>My body is a temple - I will keep my temple clean.</item>
+        <item>Everything will work out for me.</item>
+        <item>I am a winner.</item>
+        <item>I have confidence in my skills.</item>
+        <item>I am not afraid to be wrong.</item>
+        <item>Happiness is within my grasp.</item>
+        <item>I am confident in the presence of others.</item>
+        <item>My every desire is achievable.</item>
+        <item>Even outside my comfort zone, I will be comfortable in my own skin.</item>
+        <item>If I fail, I will fail forward.My confidence knows no limits.</item>
+        <item>I do not need other people for happiness.</item>
+        <item>I choose hope over fear.</item>
+        <item>Positivity is a choice that I choose to make.</item>
+        <item>I will not take other people\'s negativity personally.</item>
+        <item>My commitment to myself is real.</item>
+        <item>I am a diamond.</item>
+        <item>It is time for me to shine.My opinion matters.</item>
+        <item>I am a magnet for love.</item>
+        <item>Self-love is a natural state of being.I am loved, and I am wanted.</item>
+        <item>I will stop apologizing for being myself.</item>
+        <item>Negative self-talk has no place in my life.</item>
+        <item>I do not bow to my fears.My mind, body, and soul are fit and strong.</item>
+        <item>I am grateful for the things I have.</item>
+        <item>I will achieve all of my goals.</item>
+        <item>My goals are simple and uncomplicated.</item>
+        <item>My goals are getting closer to completion every day.</item>
+        <item>I set clear goals and work to complete them every day.</item>
+        <item>When my need is strong enough, I will find a way.</item>
+        <item>I am committed to becoming the person I will become.M</item>
+        <item>My mind is like water.</item>
+        <item>I will change and adjust as needed.Success is in my future.</item>
+        <item>I will master distractions and keep my focus on my goals.</item>
+        <item>I am constantly improving.</item>
+        <item>I desire to learn new things.</item>
+        <item>Where others see a challenge, I see new opportunities.</item>
+        <item>I have a growth mindset.</item>
+        <item>Time is my friend.</item>
+        <item>I finish all the tasks I need to finish.</item>
+        <item>Mindfulness will help me get the most from my time.</item>
+        <item>I follow my dreams with vigor.</item>
+        <item>The little things in life make all the difference.</item>
+        <item>I enjoy being surrounded by others.</item>
+        <item>My fear diminishes as I live my life with courage.</item>
+        <item>I can go with the flow.</item>
+        <item>I am happy, healthy, and centered.Change provides me an opportunity.</item>
+        <item>I am calm, patient, and in control of my emotions.</item>
+        <item>The more I give, the more I will receive.</item>
+        <item>My negative thoughts and self-images are gone.</item>
+        <item>My thoughts are positive and full of joy.</item>
+        <item>I am safe.</item>
+        <item>I trust life, and I trust in myself.</item>
+        <item>My life is an adventure.</item>
+        <item>Good enough is good enough.</item>
+        <item>Feelings are not facts.</item>
+        <item>I have abundant energy.</item>
+        <item>My inner child is happy and healthy.</item>
+        <item>Let go of \'what if\'.</item>
+    </string-array>
+    <string-array name="journal_prompts">
+        <item>What went well today? \n What made me happy today? \n What surprised me today?</item>
+        <item>Two things I am grateful for today:</item>
+        <item>What small steps can I take today to move closer to my dreams?</item>
+        <item>What did I learn today that will help me grow?</item>
+        <item>How do I feel right now, and what can I do to improve my well-being?</item>
+        <item>What is a goal I want to achieve in the next six months, and what steps can I take to get there?</item>
+        <item>What made me smile today?</item>
+        <item>What challenges did I overcome today, and what did I learn from them?</item>
+        <item>What decisions did I make today that are leading me in the right direction?</item>
+        <item>What inspired me today, and how can I use that inspiration?</item>
+    </string-array>
 </resources>

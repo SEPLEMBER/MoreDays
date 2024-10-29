@@ -95,11 +95,24 @@
                 android:hint="@string/notes"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine|textCapSentences"
+                android:minLines="3"
                 android:minHeight="48dp"
                 android:text="@={journalViewModel.journal.note}"
                 android:textSize="@dimen/min_accesible_textsize"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/imageButtonSuggestJournalPrompt"
                 app:layout_constraintTop_toBottomOf="@id/editTextAffirmation" />
+            <ImageButton
+                android:id="@+id/imageButtonSuggestJournalPrompt"
+                android:layout_width="@dimen/min_accesible_size"
+                android:layout_height="@dimen/min_accesible_size"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:background="@drawable/circle_in_secondary"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_lookup"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/editTextNote"
+                app:layout_constraintBottom_toBottomOf="@id/editTextNote"/>
 
             <androidx.emoji2.widget.EmojiButton
                 android:id="@+id/buttonMood1"

@@ -1,5 +1,6 @@
 package de.wuapps.moredays.ui.journal
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +15,8 @@ import java.util.Calendar
 import java.util.Date
 
 
-class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
+class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?,
+                       private val sharedPreferences: SharedPreferences) :
     ViewModel() {
     private var _isNew = pJournal == null
     private val _journal = MutableLiveData<Journal>()
@@ -27,7 +29,7 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
         get() = !_isNew
     init {
         if (_isNew) {
-            iniJournalWithGivenDate(Date())
+            iniJournal(Date())
         }
         else {
             _journal.value = pJournal!!
@@ -58,19 +60,21 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
     fun changeDate(calendarDate: Calendar){
         val date = DateTypeConverter.convertDateToString(Date(calendarDate.timeInMillis))
         if (date!=journal.value!!.date){
-                iniJournalWithGivenDate(Date(calendarDate.timeInMillis))
+                iniJournal(Date(calendarDate.timeInMillis))
         }
     }
 
     fun changeMood(mood: Int){
         journal.value!!.mood = mood
     }
-    private fun iniJournalWithGivenDate(date: Date){
+    private fun iniJournal(date: Date){
         viewModelScope.launch {
             val dateAsString = DateTypeConverter.convertDateToString(date, _dateFormatDb)
             val tmp = journalDao.getLatestForGivenDate(dateAsString)
             if (tmp==null) {
-                _journal.postValue(Journal(date, dateAsString))
+                val journal = Journal(date, dateAsString)
+                journal.note = sharedPreferences.getString("journal_template", "")?:""
+                _journal.postValue(journal)
                 _isNew = true
             }
             else {
@@ -83,7 +87,7 @@ class JournalViewModel(private val journalDao: JournalDao, pJournal: Journal?) :
     fun setDateFormatView(dateFormat: String){
         _dateFormatterView = SimpleDateFormat(dateFormat)
         if (_isNew)
-            iniJournalWithGivenDate(Date())
+            iniJournal(Date())
     }
 
     fun setDateFormatDb(dateFormat: String){

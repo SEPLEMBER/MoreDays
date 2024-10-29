@@ -1,6 +1,7 @@
 package de.wuapps.moredays.utilities
 
 import android.content.Context
+import androidx.preference.PreferenceManager
 import de.wuapps.moredays.database.MoreDaysDatabase
 import de.wuapps.moredays.database.entity.Activity
 import de.wuapps.moredays.database.entity.Goal
@@ -29,7 +30,11 @@ object InjectorUtils {
         goal: Goal?,
         activity: Activity?
     ): ActivityViewModelFactory {
-        return ActivityViewModelFactory(MoreDaysDatabase.getInstance(context.applicationContext).activityDao, goal, activity)
+        return ActivityViewModelFactory(
+            MoreDaysDatabase.getInstance(context.applicationContext).activityDao,
+            goal,
+            activity
+        )
     }
 
     fun provideGoalListViewModelFactory(
@@ -50,7 +55,13 @@ object InjectorUtils {
         context: Context
     ): HomeViewModelFactory {
         val db = MoreDaysDatabase.getInstance(context.applicationContext)
-        return HomeViewModelFactory(db.goalDao, db.scaleDao, db.activityEntryDao, db.scaleEntryDao, db.trophyDao)
+        return HomeViewModelFactory(
+            db.goalDao,
+            db.scaleDao,
+            db.activityEntryDao,
+            db.scaleEntryDao,
+            db.trophyDao
+        )
     }
 
     fun provideJournalListViewModelFactory(
@@ -63,7 +74,11 @@ object InjectorUtils {
         context: Context,
         journal: Journal?
     ): JournalViewModelFactory {
-        return JournalViewModelFactory(MoreDaysDatabase.getInstance(context.applicationContext).journalDao, journal)
+        return JournalViewModelFactory(
+            MoreDaysDatabase.getInstance(context.applicationContext).journalDao,
+            journal,
+            PreferenceManager.getDefaultSharedPreferences(context)
+        )
     }
 
     fun provideScaleListViewModelFactory(
@@ -76,7 +91,10 @@ object InjectorUtils {
         context: Context,
         scale: Scale?
     ): ScaleViewModelFactory {
-        return ScaleViewModelFactory(MoreDaysDatabase.getInstance(context.applicationContext).scaleDao, scale)
+        return ScaleViewModelFactory(
+            MoreDaysDatabase.getInstance(context.applicationContext).scaleDao,
+            scale
+        )
     }
 
     fun provideActivityEntryListViewModelFactory(
@@ -95,7 +113,12 @@ object InjectorUtils {
         context: Context
     ): GoalsChartsViewModelFactory {
         val db = MoreDaysDatabase.getInstance(context.applicationContext)
-        return GoalsChartsViewModelFactory(db.goalDao, db.activityEntryDao, db.trophyDao, db.hundredPercentValueDao)
+        return GoalsChartsViewModelFactory(
+            db.goalDao,
+            db.activityEntryDao,
+            db.trophyDao,
+            db.hundredPercentValueDao
+        )
     }
 
     fun provideScalesChartViewModelFactory(

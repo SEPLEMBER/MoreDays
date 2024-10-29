@@ -63,7 +63,7 @@ class GoalEntry(private val goalData: GoalAndRelatedData) {
     }
 
     fun getActivities(): List<Activity>{
-        return goalData.activities
+        return goalData.activities.filter { !it.isOld }
     }
 
     fun getId(): String {

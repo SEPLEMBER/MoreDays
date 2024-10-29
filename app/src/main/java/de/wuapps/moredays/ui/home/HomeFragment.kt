@@ -31,7 +31,6 @@ import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import de.wuapps.moredays.BuildConfig
 import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.MoreDaysApplication
 import de.wuapps.moredays.R
@@ -50,12 +49,17 @@ import de.wuapps.moredays.utilities.showFab
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import nl.dionsegijn.konfetti.models.Shape
-import nl.dionsegijn.konfetti.models.Size
+import nl.dionsegijn.konfetti.core.Angle
+import nl.dionsegijn.konfetti.core.Party
+import nl.dionsegijn.konfetti.core.Position
+import nl.dionsegijn.konfetti.core.Spread
+import nl.dionsegijn.konfetti.core.emitter.Emitter
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.concurrent.TimeUnit
 import kotlin.math.floor
-
+//import nl.dionsegijn.konfetti.emitters.StreamEmitter
+//import nl.dionsegijn.konfetti.core.Party
 
 @InternalCoroutinesApi
 class HomeFragment : Fragment(), MenuProvider {
@@ -332,17 +336,16 @@ class HomeFragment : Fragment(), MenuProvider {
                     if (trophy.type == Trophy.TROPHY_TYPE_MADE_GOAL) {
                         if (viewModel.showConfetti && viewModel.confettiShownFor != trophy.goalId) {
                             viewModel.confettiShownFor = trophy.goalId
-                            binding.viewKonfetti.build()
-                                .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
-                                .setDirection(0.0, 359.0)
-                                .setSpeed(1f, 5f)
-                                .setFadeOutEnabled(true)
-                                .setTimeToLive(1000L)
-                                .addShapes(Shape.Square, Shape.Circle)
-                                .addSizes(Size(12))
-                                .setPosition(-50f, binding.viewKonfetti.width + 50f, -50f, -50f)
-                                .streamFor(300, 2000L)
-
+                            val party = Party(
+                                speed = 0f,
+                                maxSpeed = 30f,
+                                damping = 0.9f,
+                                spread = 360,
+                                colors = listOf(0xfce18a, 0xff726d, 0xf4306d, 0xb48def),
+                                emitter = Emitter(duration = 100, TimeUnit.MILLISECONDS).max(100),
+                                position = Position.Relative(0.5, 0.3)
+                            )
+                            binding.viewKonfetti.start(party)
                         }
                     } else {
                         if(trophy.timestamp.isToday()){

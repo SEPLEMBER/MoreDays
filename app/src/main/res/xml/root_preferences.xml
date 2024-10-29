@@ -40,6 +40,10 @@
         app:summaryOn="@string/settings_style_inner_circle_on"
         app:title="@string/settings_style_inner_circle" />
 
+    <EditTextPreference
+        app:key="@string/preferences_journal_template_key"
+        app:title="@string/settings_journal_template"
+        app:useSimpleSummaryProvider="true" />
     <DropDownPreference
         android:entries="@array/entriesFrequencyJournal"
         android:entryValues="@array/valuesFrequencyJournal"

@@ -113,10 +113,6 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
 
     override fun onImagePick(uri: Uri?) {
         if (uri != null) {
-            if (isAtLeast11()) {
-                val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                this.contentResolver.takePersistableUriPermission(uri, flag)
-            }
             imagePickerCallback?.let { it(uri) }
         }
     }

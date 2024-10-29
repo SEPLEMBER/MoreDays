@@ -46,6 +46,7 @@ class JournalFragment : Fragment(), MenuProvider {
         InjectorUtils.provideJournalViewModelFactory(requireActivity(), args.journal)
     }
     private lateinit var exampleAffirmations: Array<String>
+    private lateinit var journalPrompts: Array<String>
     private var optionsMenuDelete: MenuItem? = null
     private var selectedMood = -1
     private lateinit var imagePickerMain: ImagePicker
@@ -74,11 +75,13 @@ class JournalFragment : Fragment(), MenuProvider {
         }
         handleFab(viewModel.hasFab)
         binding.imageButtonSuggestAffirmation.setOnClickListener { suggestAffirmation() }
+        binding.imageButtonSuggestJournalPrompt.setOnClickListener { suggestJournalPrompt() }
         binding.imageButtonRemoveImage.setOnClickListener {
             binding.imageViewPictureOfTheDay.setImageDrawable(null)
             viewModel.journal.value!!.imageFilename = ""
         }
         exampleAffirmations = resources.getStringArray(R.array.sayings)
+        journalPrompts = resources.getStringArray(R.array.journal_prompts)
 
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
@@ -125,10 +128,6 @@ class JournalFragment : Fragment(), MenuProvider {
             .doneIcon(true)
             .allowCropping(true)
             .compressImage(false)
-
-        if (isAtLeast11()) {
-            imagePickerMain.systemPicker(true)
-        }
         mainActivity.setImagePickerCallback { uri -> onImagePick(uri) }
     }
 
@@ -175,19 +174,24 @@ class JournalFragment : Fragment(), MenuProvider {
         builder.create().show()
     }
 
+    private fun suggestJournalPrompt() {
+        val builder = AlertDialog.Builder(this.activity)
+        builder.setTitle(R.string.title_journal)
+            .setItems(
+                journalPrompts
+            ) { _, which ->
+                binding.editTextNote.setText(journalPrompts[which])
+            }
+        builder.create().show()
+    }
+
     private fun setImage() {
         if (viewModel.journal.value!!.imageFilename.isBlank()) {
             binding.imageViewPictureOfTheDay.setImageDrawable(null)
         } else {
-            if (isAtLeast11()) {
-                Glide.with(this)
-                    .load(Uri.parse(viewModel.journal.value!!.imageFilename))
-                    .into(binding.imageViewPictureOfTheDay)
-            } else {
                 Glide.with(this)
                     .load(viewModel.journal.value!!.imageFilename)
                     .into(binding.imageViewPictureOfTheDay)
-            }
         }
     }
 
@@ -303,11 +307,7 @@ class JournalFragment : Fragment(), MenuProvider {
 
     private fun onImagePick(uri: Uri) {
         if (uri.path != null) {
-            if (isAtLeast11()) {
-                viewModel.journal.value!!.imageFilename = uri.toString()
-            } else {
-                viewModel.journal.value!!.imageFilename = uri.path!!
-            }
+            viewModel.journal.value!!.imageFilename = uri.path!!
             setImage()
         }
     }

@@ -16,8 +16,8 @@ android {
         applicationId "de.wuapps.moredays"
         minSdkVersion 26
         targetSdkVersion 34
-        versionCode 23
-        versionName '1.0.23'
+        versionCode 24
+        versionName '1.0.24'
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -67,8 +67,8 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.2.1'
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 
     // Room components
     implementation "androidx.room:room-ktx:$roomVersion"
@@ -106,7 +106,7 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     //Alternative: https://github.com/AnyChart/AnyChart-Android
 
-    implementation 'com.github.SimformSolutionsPvtLtd:SSImagePicker:2.1'
+    implementation 'com.github.SimformSolutionsPvtLtd:SSImagePicker:2.3'
 
     //for help
     implementation 'com.github.florent37:expansionpanel:1.2.4'
@@ -114,13 +114,13 @@ dependencies {
     // for credentials
     implementation "com.mikepenz:aboutlibraries:$aboutVersion"
 
-    implementation 'nl.dionsegijn:konfetti:1.3.2'
+    implementation 'nl.dionsegijn:konfetti-xml:2.0.4'
 
     //onboarding
-    implementation 'com.github.AppIntro:AppIntro:6.2.0'
+    implementation 'com.github.AppIntro:AppIntro:6.3.1'
 
     //tap help
-    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.15.0'
 
     //flexbox for recyclerviews
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
@@ -129,7 +129,7 @@ dependencies {
     implementation "androidx.emoji2:emoji2-views:$emojiVersion"
 
     //import/export
-    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.5'
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.3.0'
 
     //animation
     implementation "com.airbnb.android:lottie:$lottieVersion"

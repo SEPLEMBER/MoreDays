@@ -161,6 +161,7 @@
     <string name="settings_frequency_journal_entries">Frequenza delle annotazioni sul diario</string>
     <string name="settings_style_inner_circle_off">Ad esempio, 8/10 -- significa che avete 8 dei 10 punti desiderati.</string>
     <string name="settings_style_inner_circle_on">es. 80%</string>
+    <string name="settings_journal_template">Imposta domande predefinite per un journaling guidato.</string>
     <string name="settings_notification_title">Ti piacerebbe ricevere notifiche giornaliere?</string>
     <string name="settings_notification_time_title">Ore</string>
     <string name="settings_notification_text_title">Testo motivazionale</string>

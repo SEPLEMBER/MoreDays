@@ -18,6 +18,9 @@ import de.wuapps.moredays.database.entity.Scale
 import de.wuapps.moredays.database.entity.ScaleEntry
 import de.wuapps.moredays.database.entity.Trophy
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -87,9 +90,9 @@ class HomeViewModel(
             scaleList.clear()
             scaleList.addAll(it)
         }.launchIn(viewModelScope)
-        _goalData.onEach {
-            mapGoalDataToGoalEntries(it)
-        }.launchIn(viewModelScope)
+        _goalData
+            .onEach { mapGoalDataToGoalEntries(it.filter { it.goal != null && !it.goal!!.isOld  }) }
+        .launchIn(viewModelScope)
     }
 
     private fun mapGoalDataToGoalEntries(goalData: List<GoalAndRelatedData>) {

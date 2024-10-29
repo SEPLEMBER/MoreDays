@@ -11,6 +11,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moredays/-/issues/600)
 -->
 
+## [1.0.24] - 2024-10-29 - 🏁-Release 
+
+### Added
+- home widget
+- better journaling [#19](https://gitlab.com/wuapps/moredays/-/issues/19)
+  - configurable journaling questions, guided journal 
+  - suggestions for journaling notes 
+
+### Fixed
+- do not show inactive activities [#17](https://gitlab.com/wuapps/moredays/-/issues/17)
+- update 100% line in charts correctly [#18](https://gitlab.com/wuapps/moredays/-/issues/18)
+
+### Refactored
+- updated libs
+- version 2.0.4 of konfetti did not work
+
 ## [1.0.23] - 2024-03-14 - 🏁-Release
 
 ### Fixed

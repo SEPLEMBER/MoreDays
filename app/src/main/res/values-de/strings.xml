@@ -163,6 +163,7 @@
     <string name="settings_style_inner_circle">Darstellung im Kreis</string>
     <string name="settings_style_inner_circle_off">z.B.  8/10 -- d.h. 8 der 10 erwünschten Punkte erreicht</string>
     <string name="settings_style_inner_circle_on">z.B. 80%</string>
+    <string name="settings_journal_template">Vordefinierte Fragen für geführtes Journaling</string>
     <string name="settings_frequency_journal_entries">Häufigkeit von Journal-Einträgen</string>
     <string name="settings_notification_title">Möchten Sie tägliche Erinnerungen?</string>
     <string name="settings_notification_time_title">Uhrzeit</string>
