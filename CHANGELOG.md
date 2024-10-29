@@ -25,7 +25,6 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 
 ### Refactored
 - updated libs
-- version 2.0.4 of konfetti did not work
 
 ## [1.0.23] - 2024-03-14 - 🏁-Release
 
