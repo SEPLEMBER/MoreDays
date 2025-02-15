@@ -9,6 +9,10 @@ import com.github.appintro.AppIntro
 import com.github.appintro.AppIntroFragment
 import de.wuapps.moredays.MainActivity
 import de.wuapps.moredays.R
+import android.view.View
+import androidx.appcompat.widget.AppCompatButton
+import android.graphics.Color
+
 
 class Onboarding : AppIntro() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +51,9 @@ class Onboarding : AppIntro() {
         this.setColorDoneText(getColor(R.color.gray900))
         this.setIndicatorColor(getColor(R.color.gray900), getColor(R.color.white))
         this.setNextArrowColor(getColor(R.color.gray900))
+		
+		val skipButton = findViewById<View>(com.github.appintro.R.id.skip)
+        (skipButton as? AppCompatButton)?.setTextColor(Color.parseColor("#272727"))
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
