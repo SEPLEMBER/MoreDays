@@ -11,10 +11,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moredays/-/issues/600)
 -->
 
+## [1.0.25] - 2026-03-07 - 🏁-Release 
+
+### Fixed
+- Clicking a goal with activities worth 0 points no longer fails to update the view correctly
+
+### Refactored
+- updated libs
+
 ## [1.0.24] - 2024-10-29 - 🏁-Release 
 
 ### Added
-- home widget
 - better journaling [#19](https://gitlab.com/wuapps/moredays/-/issues/19)
   - configurable journaling questions, guided journal 
   - suggestions for journaling notes 
