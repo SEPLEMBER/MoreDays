@@ -18,34 +18,41 @@ class GoalEntry(private val goalData: GoalAndRelatedData) {
             activityEntriesToday.clear()
             currentValue = -1
         }
-    private var year = -1
-    private var day = -1
+    private var year = date.get(YEAR)
+    private var day = date.get(DAY_OF_YEAR)
     private var currentValue = -1
     private var activityEntriesToday = mutableListOf<ActivityEntry>()
     private val goal: Goal = goalData.goal!!
-    constructor(goalData: GoalAndRelatedData, date: Calendar) : this(goalData){
+
+    constructor(goalData: GoalAndRelatedData, date: Calendar) : this(goalData) {
         this.date = date
     }
 
     fun getCopy(copyDate: Calendar): GoalEntry {
         return GoalEntry(goalData, copyDate)
     }
+
     fun getCurrentValue(): Int {
-        if (activityEntriesToday.isEmpty() ) {
+        if (currentValue == -1) {
+            activityEntriesToday.clear()
             activityEntriesToday.addAll(goalData.entries.filter { entry ->
                 entry.timestamp.get(YEAR) == year && entry.timestamp.get(DAY_OF_YEAR) == day
             })
-            currentValue = activityEntriesToday.sumOf{it.points}
+            currentValue = activityEntriesToday.sumOf { it.points }
         }
         return currentValue
     }
 
-    fun countActivityDoneToday(activityId: Long):Int{
-        return activityEntriesToday.filter{entry -> entry.activityId == activityId}.size
+    fun countActivityDoneToday(activityId: Long): Int {
+        // Ensure activityEntriesToday is populated
+        getCurrentValue()
+        return activityEntriesToday.filter { entry -> entry.activityId == activityId }.size
     }
+
     fun getGoal(): Goal {
         return goal
     }
+
     fun getDesiredValue(): Int {
         return goal.points
     }
@@ -62,7 +69,7 @@ class GoalEntry(private val goalData: GoalAndRelatedData) {
         return goal.symbol
     }
 
-    fun getActivities(): List<Activity>{
+    fun getActivities(): List<Activity> {
         return goalData.activities.filter { !it.isOld }
     }
 
@@ -75,20 +82,27 @@ class GoalEntry(private val goalData: GoalAndRelatedData) {
     }
 
     override fun equals(other: Any?): Boolean {
-        if (other == null)
-            return false
-        if (other !is GoalEntry)
-            return false
-        val result = other.goal == goal && other.getCurrentValue() == getCurrentValue()
-        val x = other.date.get(DAY_OF_YEAR) == date.get(DAY_OF_YEAR)
-        val y = other.date == date
-        return result && x && y //other.goal == goal && other.getCurrentValue() == getCurrentValue()
+        if (this === other) return true
+        if (other !is GoalEntry) return false
+
+        if (goal != other.goal) return false
+        if (year != other.year) return false
+        if (day != other.day) return false
+
+        // Important: Compare both the sum and the count of activities
+        // to detect changes in 0-point activities.
+        if (getCurrentValue() != other.getCurrentValue()) return false
+        if (this.activityEntriesToday.size != other.activityEntriesToday.size) return false
+
+        return true
     }
 
     override fun hashCode(): Int {
-        var result = date.hashCode()
+        var result = goal.hashCode()
+        result = 31 * result + year
+        result = 31 * result + day
         result = 31 * result + getCurrentValue()
-        result = 31 * result + goal.hashCode()
+        result = 31 * result + activityEntriesToday.size
         return result
     }
 }
