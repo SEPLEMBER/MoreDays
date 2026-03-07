@@ -20,7 +20,7 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.wuapps.moredays.ui.onboarding.Onboarding
-import de.wuapps.moredays.utilities.isAtLeast11
+import androidx.core.view.get
 
 class MainActivity : AppCompatActivity(), ImagePickerResultListener {
     private lateinit var fab: FloatingActionButton
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
         val navController = navHostFragment.navController
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        navView.menu.getItem(4).isEnabled = false
+        navView.menu[4].isEnabled = false
         navView.background = null
     }
 
@@ -103,11 +103,11 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
         return findNavController(R.id.nav_host_fragment).navigateUp()
     }
 
-    public fun setImagePickerCallback(callback: (Uri) -> Unit){
+     fun setImagePickerCallback(callback: (Uri) -> Unit){
         imagePickerCallback = callback
     }
 
-    public fun unsetImagePickerCallback(){
+     fun unsetImagePickerCallback(){
         imagePickerCallback = null
     }
 

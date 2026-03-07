@@ -29,7 +29,6 @@ class GoalViewModel(
             val points = if (goal.isOld) pointsOther else pointsOther + goal.points
             val hundredPercentValue = HundredPercentValue(points)
             hundredPercentValueDao.insert(hundredPercentValue)
-            Log.d("oki", "oki1")
             if (isNew) {
                 isNew = false
                 goal.uid = goalDao.insert(goal)
@@ -37,9 +36,6 @@ class GoalViewModel(
             } else {
                 goalDao.update(goal)
             }
-            Log.d("oki", "oki2")
-
-
         }
     }
 
