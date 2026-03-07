@@ -8,16 +8,16 @@ plugins {
 }
 
 android {
-    compileSdk 34
+    compileSdk 36
     buildFeatures {
         dataBinding = true
     }
     defaultConfig {
         applicationId "de.wuapps.moredays"
         minSdkVersion 26
-        targetSdkVersion 34
-        versionCode 24
-        versionName '1.0.24'
+        targetSdkVersion 36
+        versionCode 25
+        versionName '1.0.25'
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -63,12 +63,12 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.viewpager:viewpager:1.0.0'
+    implementation 'androidx.viewpager:viewpager:1.1.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
 
     // Room components
     implementation "androidx.room:room-ktx:$roomVersion"
@@ -93,14 +93,14 @@ dependencies {
     // UI
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "com.google.android.material:material:$materialVersion"
-    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
 
     implementation "com.maltaisn:icondialog:$iconPickerVersion"
     implementation "com.maltaisn:iconpack-default:1.1.0"
     implementation "com.github.skydoves:colorpickerview:$colorPickerVersion"
 
     // If you have a problem with Glide, please use the same Glide version or simply open an issue
-    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    implementation 'com.github.bumptech.glide:glide:5.0.5'
 
     // https://github.com/PhilJay/MPAndroidChart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
@@ -114,7 +114,7 @@ dependencies {
     // for credentials
     implementation "com.mikepenz:aboutlibraries:$aboutVersion"
 
-    implementation 'nl.dionsegijn:konfetti-xml:2.0.4'
+    implementation 'nl.dionsegijn:konfetti-xml:2.0.5'
 
     //onboarding
     implementation 'com.github.AppIntro:AppIntro:6.3.1'
@@ -129,10 +129,10 @@ dependencies {
     implementation "androidx.emoji2:emoji2-views:$emojiVersion"
 
     //import/export
-    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.3.0'
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.5.1'
 
     //animation
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
-    implementation 'androidx.core:core-splashscreen:1.0.1'
+    implementation 'androidx.core:core-splashscreen:1.2.0'
 }
