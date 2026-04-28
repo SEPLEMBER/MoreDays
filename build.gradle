@@ -1,9 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        gradleVersion = '9.1.0'
-        kotlinVersion = '2.3.10'
-        coreVersion = '1.17.0'
+        gradleVersion = '9.2.0'
+        kotlinVersion = '2.3.21'
+        coreVersion = '1.18.0'
         materialVersion = '1.13.0'
         constraintLayoutVersion = '2.2.1'
         gridLayoutVersion = '1.1.0'
@@ -11,12 +11,12 @@ buildscript {
         roomVersion = '2.8.4'
         iconPickerVersion = '3.3.0'
         colorPickerVersion = '2.4.0'
-        aboutVersion = '13.2.1'
+        aboutVersion = '14.0.1'
         emojiVersion = '1.6.0'
         coroutinesVersion = '1.10.2'
         archLifecycleVersion = '2.10.0'
         archVersion = '2.1.0'
-        navigationVersion = '2.9.7'
+        navigationVersion = '2.9.8'
         //stick to 2.6, as 2.7 caused compile problems, see https://developer.android.com/jetpack/androidx/releases/navigation#groovy
         lottieVersion = '6.7.1'
         dataBindingCompilerVersion = gradleVersion // Always need to be the same.

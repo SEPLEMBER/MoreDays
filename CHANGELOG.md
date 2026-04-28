@@ -11,6 +11,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moredays/-/issues/600)
 -->
 
+## [1.0.26] - 2026-05-02 - 🏁-Release 
+
+### Added
+- Setting for duration of showing the affirmation, issue
+- Setting for timing, when to show the affirmation, issue 
+
+### Fixed
+- Creating a new goal on a Pixel 8a scales usable.
+
+### Refactored
+- update libs
+
 ## [1.0.25] - 2026-03-07 - 🏁-Release 
 
 ### Fixed

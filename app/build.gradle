@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    compileSdk 36
+    compileSdk 37
     buildFeatures {
         dataBinding = true
     }
@@ -47,6 +47,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+    compileSdkMinor 0
 
 }
 
@@ -100,7 +101,7 @@ dependencies {
     implementation "com.github.skydoves:colorpickerview:$colorPickerVersion"
 
     // If you have a problem with Glide, please use the same Glide version or simply open an issue
-    implementation 'com.github.bumptech.glide:glide:5.0.5'
+    implementation 'com.github.bumptech.glide:glide:5.0.7'
 
     // https://github.com/PhilJay/MPAndroidChart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
