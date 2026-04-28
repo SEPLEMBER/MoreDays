@@ -1,4 +1,48 @@
 <resources>
+    <string-array name="entriesAffirmationDuration">
+        <item>1 second</item>
+        <item>2 seconds</item>
+        <item>3 seconds</item>
+        <item>4 seconds</item>
+        <item>5 seconds</item>
+        <item>6 seconds</item>
+        <item>7 seconds</item>
+        <item>8 seconds</item>
+        <item>9 seconds</item>
+        <item>10 seconds</item>
+        <item>11 seconds</item>
+        <item>12 seconds</item>
+        <item>13 seconds</item>
+        <item>14 seconds</item>
+        <item>15 seconds</item>
+        <item>16 seconds</item>
+        <item>17 seconds</item>
+        <item>18 seconds</item>
+        <item>19 seconds</item>
+        <item>20 seconds</item>
+    </string-array>
+    <string-array name="valuesAffirmationDuration" translatable="false">
+        <item>1000</item>
+        <item>2000</item>
+        <item>3000</item>
+        <item>4000</item>
+        <item>5000</item>
+        <item>6000</item>
+        <item>7000</item>
+        <item>8000</item>
+        <item>9000</item>
+        <item>10000</item>
+        <item>11000</item>
+        <item>12000</item>
+        <item>13000</item>
+        <item>14000</item>
+        <item>15000</item>
+        <item>16000</item>
+        <item>17000</item>
+        <item>18000</item>
+        <item>19000</item>
+        <item>20000</item>
+    </string-array>
     <string-array name="entriesFrequencyJournal">
         <item>daily</item>
         <item>hourly</item>

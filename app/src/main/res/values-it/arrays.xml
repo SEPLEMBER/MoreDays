@@ -1,4 +1,26 @@
 <resources>
+    <string-array name="entriesAffirmationDuration">
+        <item>1 secondo</item>
+        <item>2 secondi</item>
+        <item>3 secondi</item>
+        <item>4 secondi</item>
+        <item>5 secondi</item>
+        <item>6 secondi</item>
+        <item>7 secondi</item>
+        <item>8 secondi</item>
+        <item>9 secondi</item>
+        <item>10 secondi</item>
+        <item>11 secondi</item>
+        <item>12 secondi</item>
+        <item>13 secondi</item>
+        <item>14 secondi</item>
+        <item>15 secondi</item>
+        <item>16 secondi</item>
+        <item>17 secondi</item>
+        <item>18 secondi</item>
+        <item>19 secondi</item>
+        <item>20 secondi</item>
+    </string-array>
     <string-array name="entriesFrequencyJournal">
         <item>giornalmente</item>
         <item>ogni ora</item>

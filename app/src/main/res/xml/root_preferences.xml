@@ -32,6 +32,15 @@
         app:summaryOn="@string/yes"
         app:title="@string/settings_show_affirmation" />
 
+    <DropDownPreference
+        app:dependency="@string/preferences_show_affirmation_key"
+        android:entries="@array/entriesAffirmationDuration"
+        android:entryValues="@array/valuesAffirmationDuration"
+        android:defaultValue="3000"
+        app:key="@string/preferences_affirmation_duration_key"
+        app:title="@string/settings_affirmation_duration"
+        app:useSimpleSummaryProvider="true" />
+
     <SwitchPreferenceCompat
         app:defaultValue="true"
         app:key="@string/preferences_show_percentage_key"

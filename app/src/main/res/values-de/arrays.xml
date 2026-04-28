@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="entriesAffirmationDuration">
+        <item>1 Sekunde</item>
+        <item>2 Sekunden</item>
+        <item>3 Sekunden</item>
+        <item>4 Sekunden</item>
+        <item>5 Sekunden</item>
+        <item>6 Sekunden</item>
+        <item>7 Sekunden</item>
+        <item>8 Sekunden</item>
+        <item>9 Sekunden</item>
+        <item>10 Sekunden</item>
+        <item>11 Sekunden</item>
+        <item>12 Sekunden</item>
+        <item>13 Sekunden</item>
+        <item>14 Sekunden</item>
+        <item>15 Sekunden</item>
+        <item>16 Sekunden</item>
+        <item>17 Sekunden</item>
+        <item>18 Sekunden</item>
+        <item>19 Sekunden</item>
+        <item>20 Sekunden</item>
+    </string-array>
     <string-array name="entriesFrequencyJournal">
         <item>täglich</item>
         <item>stündlich</item>

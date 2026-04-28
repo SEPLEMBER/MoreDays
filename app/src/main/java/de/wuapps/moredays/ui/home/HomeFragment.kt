@@ -293,7 +293,8 @@ class HomeFragment : Fragment(), MenuProvider {
             val sayings = resources.getStringArray(R.array.sayings)
             val random = Calendar.getInstance().timeInMillis % sayings.size
             txtSaying.text = sayings[random.toInt()]
-            txtSaying.fadeOut(3000)
+            val duration = sharedPref.getString(getString(R.string.preferences_affirmation_duration_key), "3000")?.toLongOrNull() ?: 3000L
+            txtSaying.fadeOut(duration)
         }
         else {
             txtSaying.visibility = View.GONE
