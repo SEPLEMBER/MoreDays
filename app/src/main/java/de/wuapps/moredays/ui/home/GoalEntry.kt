@@ -62,7 +62,8 @@ class GoalEntry(private val goalData: GoalAndRelatedData) {
     }
 
     fun getInfo(): String {
-        return "${getCurrentValue()} / ${goal.points}"
+        return if (goal.points == 0) "${getCurrentValue()}"
+        else "${getCurrentValue()} / ${goal.points}"
     }
 
     fun getSymbol(): Int {

@@ -214,10 +214,10 @@ class PercentageView @JvmOverloads constructor(
     private fun calcPercentage() {
         sum = goalEntries.sumOf { goalEntry -> goalEntry.getCurrentValue() }
         desiredTotal = goalEntries.sumOf { goalEntry -> goalEntry.getDesiredValue() }
-        percentage = sum * 100F / desiredTotal
+        percentage = if (desiredTotal > 0) sum * 100F / desiredTotal else 0F
         //if (desiredTotal < sum)
         //    desiredTotal = sum //do not make the circle bigger than full
-        if (sum > 0) {
+        if (sum > 0 && desiredTotal > 0) {
             if (_usePercentageStyle)
                 _label = String.format("%.1f %%", percentage)
             else

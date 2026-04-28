@@ -49,8 +49,8 @@ class GoalSummaryAdapter :
             else {
                 binding.lblInfo.text = ""
             }
-            val percent: Float =
-                item.sumPoints.toFloat() / (item.daysTotal * item.goal.points) * 100.0f
+            val percent: Float = if (item.goal.points == 0) 0f
+                else item.sumPoints.toFloat() / (item.daysTotal * item.goal.points) * 100.0f
             binding.layout.background = CircleDrawable(
                 item.goal.color,
                 percent,

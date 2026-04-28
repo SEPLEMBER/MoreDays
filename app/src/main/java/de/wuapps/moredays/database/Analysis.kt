@@ -35,7 +35,11 @@ class Analysis {
         }
         val relevantActivityEntries = activityEntries.filter { activityEntry ->  activityEntry.goalId == goal.uid && activityEntry.timestamp.isSameDay(date)}
         val sum: Int = relevantActivityEntries.sumOf{ it.points }
-        if (sum >= goal.points) {
+        val achieved = if (goal.points == 0)
+            relevantActivityEntries.any { it.points > 0 }
+        else
+            sum >= goal.points
+        if (achieved) {
             trophy = Trophy(
                 Trophy.TROPHY_TYPE_MADE_GOAL, goal.uid, 1,
                 entryId
