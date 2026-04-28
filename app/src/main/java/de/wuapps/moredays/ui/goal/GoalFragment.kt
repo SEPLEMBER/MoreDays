@@ -35,6 +35,8 @@ import de.wuapps.moredays.databinding.FragmentGoalBinding
 import de.wuapps.moredays.ui.activity.ActivityAdapter
 import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.handleFab
+import de.wuapps.moredays.utilities.hideBottomBar
+import de.wuapps.moredays.utilities.showBottomBar
 import kotlinx.coroutines.InternalCoroutinesApi
 import java.lang.Integer.parseInt
 
@@ -105,6 +107,7 @@ class GoalFragment : Fragment(), MenuProvider, IconDialog.Callback {
             subscribeUi(adapter)
         }
         handleFab(viewModel.hasFab)
+        hideBottomBar()
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return view
@@ -278,6 +281,7 @@ class GoalFragment : Fragment(), MenuProvider, IconDialog.Callback {
     }
 
     override fun onDestroyView() {
+        showBottomBar()
         super.onDestroyView()
         _binding = null
     }

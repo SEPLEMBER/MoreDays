@@ -28,6 +28,14 @@ fun Fragment.hideFab() {
     (activity as MainActivity).hideFab()
 }
 
+fun Fragment.hideBottomBar() {
+    (activity as MainActivity).hideBottomBar()
+}
+
+fun Fragment.showBottomBar() {
+    (activity as MainActivity).showBottomBar()
+}
+
 fun Fragment.setFabOnClickListener(l: View.OnClickListener?) {
     (activity as MainActivity).let {
         it.getFab().setOnLongClickListener(null)

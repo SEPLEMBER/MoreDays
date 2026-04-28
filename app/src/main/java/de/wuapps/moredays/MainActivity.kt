@@ -1,6 +1,7 @@
 package de.wuapps.moredays
 
 import android.content.Intent
+import android.view.View
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
@@ -85,6 +86,14 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
 
     fun getFab(): FloatingActionButton {
         return fab
+    }
+
+    fun hideBottomBar() {
+        bottomAppBar.visibility = View.GONE
+    }
+
+    fun showBottomBar() {
+        bottomAppBar.visibility = View.VISIBLE
     }
 
     fun hideFab() {
