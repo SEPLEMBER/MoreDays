@@ -276,6 +276,11 @@ class GoalFragment : Fragment(), MenuProvider, IconDialog.Callback {
             ).start()
     }
 
+    override fun onResume() {
+        super.onResume()
+        hideBottomBar()
+    }
+
     override fun onDestroyView() {
         showBottomBar()
         super.onDestroyView()

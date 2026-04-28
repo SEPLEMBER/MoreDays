@@ -147,6 +147,11 @@ class ActivityFragment : Fragment(), MenuProvider  {
             ).start()
     }
 
+    override fun onResume() {
+        super.onResume()
+        hideBottomBar()
+    }
+
     override fun onDestroyView() {
         showBottomBar()
         super.onDestroyView()
