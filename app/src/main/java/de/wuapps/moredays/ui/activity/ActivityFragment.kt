@@ -17,6 +17,8 @@ import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.FragmentActivityBinding
 import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.handleFab
+import de.wuapps.moredays.utilities.hideBottomBar
+import de.wuapps.moredays.utilities.showBottomBar
 import java.lang.Integer.parseInt
 
 class ActivityFragment : Fragment(), MenuProvider  {
@@ -36,6 +38,7 @@ class ActivityFragment : Fragment(), MenuProvider  {
         val view = binding.root
         binding.activityViewModel = viewModel
         handleFab(viewModel.hasFab)
+        hideBottomBar()
         return view
 
     }
@@ -145,6 +148,7 @@ class ActivityFragment : Fragment(), MenuProvider  {
     }
 
     override fun onDestroyView() {
+        showBottomBar()
         super.onDestroyView()
         _binding = null
     }
