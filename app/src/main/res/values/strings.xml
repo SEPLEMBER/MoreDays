@@ -179,6 +179,8 @@
     <string name="preferences_show_completed_animation_key" translatable="false">show_completed_animation</string>
     <string name="preferences_hide_affirmation_key" translatable="false">hide_affirmation</string><!-- deprecated from version 23 on -->
     <string name="preferences_show_affirmation_key" translatable="false">show_affirmation</string>
+    <string name="preferences_affirmation_trigger_key" translatable="false">affirmation_trigger</string>
+    <string name="preferences_affirmation_threshold_key" translatable="false">affirmation_threshold</string>
     <string name="preferences_affirmation_duration_key" translatable="false">affirmation_duration</string>
     <string name="preferences_show_percentage_key" translatable="false">show_percentage</string>
     <string name="preferences_frequency_journal_entries_key" translatable="false">frequency_journal_entries</string>
@@ -200,6 +202,8 @@
     <string name="settings_show_completed_animation">show pocal animation</string>
     <string name="settings_hide_affirmation">hide affirmation on app start</string>
     <string name="settings_show_affirmation">show affirmation on app start</string>
+    <string name="settings_affirmation_trigger">Show affirmation</string>
+    <string name="settings_affirmation_threshold">Percentage threshold</string>
     <string name="settings_affirmation_duration">Affirmation duration</string>
     <string name="settings_style_inner_circle">style circle</string>
     <string name="settings_frequency_journal_entries">Frequency of journal entries</string>

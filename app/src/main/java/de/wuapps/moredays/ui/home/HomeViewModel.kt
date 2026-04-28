@@ -1,5 +1,6 @@
 package de.wuapps.moredays.ui.home
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -42,7 +43,8 @@ class HomeViewModel(
     var name = ""
     val newTrophies = MutableLiveData<MutableList<Trophy>>()
     val justReached100Percent = MutableLiveData<Boolean>()
-    private val percent = MutableLiveData<Float>()
+    private val _percent = MutableLiveData<Float>()
+    val percent: LiveData<Float> = _percent
     var date: Calendar = Calendar.getInstance()
     private val _scales = scaleDao.getAll()
     val scales = _scales.asLiveData()
@@ -65,7 +67,7 @@ class HomeViewModel(
     init {
         newTrophies.value = ArrayList()
         justReached100Percent.value = false
-        percent.value = 0F
+        _percent.value = 0F
         //goalEntryList.value = ArrayList<GoalEntry>()
         viewModelScope.launch(Dispatchers.IO) {
             observeData()
@@ -116,7 +118,7 @@ class HomeViewModel(
     }
 
     fun addGoalEntry(goal: Goal, activity: Activity) {
-        was100Percent = (percent.value!! >= 100F)
+        was100Percent = (_percent.value!! >= 100F)
         viewModelScope.launch(Dispatchers.IO) {
             val activityEntry = ActivityEntry(activity)
             activityEntry.timestamp = date
@@ -150,7 +152,7 @@ class HomeViewModel(
         if (sum > 0 && desired > 0) {
             if (sum >= desired && !was100Percent && latestActivity != null)
                 justReached100Percent.value = true
-            percent.value = sum * 100F / desired
+            _percent.value = sum * 100F / desired
         }
     }
 

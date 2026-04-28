@@ -15,9 +15,9 @@ android {
     defaultConfig {
         applicationId "de.wuapps.moredays"
         minSdkVersion 26
-        targetSdkVersion 36
-        versionCode 25
-        versionName '1.0.25'
+        targetSdk 36
+        versionCode 26
+        versionName '1.0.26'
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true

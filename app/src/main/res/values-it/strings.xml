@@ -157,6 +157,8 @@
     <string name="settings_show_completed_animation">mostra l\'animazione della tazza</string>
     <string name="settings_hide_affirmation">nascondere l\'affermazione all\'avvio dell\'app</string>
     <string name="settings_show_affirmation">mostra l\'affermazione all\'avvio dell\'app</string>
+    <string name="settings_affirmation_trigger">Mostra affermazione</string>
+    <string name="settings_affirmation_threshold">Soglia percentuale</string>
     <string name="settings_affirmation_duration">Durata visualizzazione affermazione</string>
     <string name="settings_style_inner_circle">stile cerchio</string>
     <string name="settings_frequency_journal_entries">Frequenza delle annotazioni sul diario</string>

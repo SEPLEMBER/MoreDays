@@ -160,6 +160,8 @@
     <string name="settings_show_completed_animation">Pokal-Animation anzeigen</string>
     <string name="settings_hide_affirmation">Affirmation bei Start der App nicht anzeigen</string>
     <string name="settings_show_affirmation">Affirmation bei Start der App anzeigen</string>
+    <string name="settings_affirmation_trigger">Affirmation anzeigen</string>
+    <string name="settings_affirmation_threshold">Prozentueller Schwellenwert</string>
     <string name="settings_affirmation_duration">Anzeigedauer der Affirmation</string>
     <string name="settings_style_inner_circle">Darstellung im Kreis</string>
     <string name="settings_style_inner_circle_off">z.B.  8/10 -- d.h. 8 der 10 erwünschten Punkte erreicht</string>

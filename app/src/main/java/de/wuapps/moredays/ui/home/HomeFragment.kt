@@ -71,6 +71,7 @@ class HomeFragment : Fragment(), MenuProvider {
     private val binding get() = _binding!!
     private var _goalAdapter: GoalAdapter? = null
     private val goalAdapter get() = _goalAdapter!!
+    private var wasAboveThreshold = false
     private val scales = ArrayList<Scale>()
     private val activityData = ArrayList<Pair<Goal, de.wuapps.moredays.database.entity.Activity>>()
     private var preferencesListener =
@@ -284,21 +285,23 @@ class HomeFragment : Fragment(), MenuProvider {
             }
         }
     }
-    private fun handleAffirmation(){
-        val txtSaying = binding.textViewAffirmation
-        val sharedPref: SharedPreferences =
-           PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
-        // handle new logic
-        if (sharedPref.getBoolean(getString(R.string.preferences_show_affirmation_key), sharedPref.getBoolean(getString(R.string.preferences_hide_affirmation_key), false))) {
-            val sayings = resources.getStringArray(R.array.sayings)
-            val random = Calendar.getInstance().timeInMillis % sayings.size
-            txtSaying.text = sayings[random.toInt()]
-            val duration = sharedPref.getString(getString(R.string.preferences_affirmation_duration_key), "3000")?.toLongOrNull() ?: 3000L
-            txtSaying.fadeOut(duration)
+    private fun handleAffirmation() {
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
+        val trigger = sharedPref.getString(getString(R.string.preferences_affirmation_trigger_key), "never") ?: "never"
+        if (trigger == "start" || trigger == "both") {
+            showAffirmation()
+        } else {
+            binding.textViewAffirmation.visibility = View.GONE
         }
-        else {
-            txtSaying.visibility = View.GONE
-        }
+    }
+
+    private fun showAffirmation() {
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
+        val sayings = resources.getStringArray(R.array.sayings)
+        val random = Calendar.getInstance().timeInMillis % sayings.size
+        binding.textViewAffirmation.text = sayings[random.toInt()]
+        val duration = sharedPref.getString(getString(R.string.preferences_affirmation_duration_key), "3000")?.toLongOrNull() ?: 3000L
+        binding.textViewAffirmation.fadeOut(duration)
     }
     private fun subscribeUI() {
         binding.progressBarCyclic.visibility = View.GONE
@@ -327,6 +330,18 @@ class HomeFragment : Fragment(), MenuProvider {
                     }
                 }
                 activityData.toList().sortedBy { (_, activity) -> activity.points }
+            }
+        }
+
+        viewModel.percent.observe(viewLifecycleOwner) { currentPercent ->
+            val sharedPref = PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
+            val trigger = sharedPref.getString(getString(R.string.preferences_affirmation_trigger_key), "never") ?: "never"
+            if (trigger == "threshold" || trigger == "both") {
+                val threshold = sharedPref.getInt(getString(R.string.preferences_affirmation_threshold_key), 80).toFloat()
+                if (currentPercent >= threshold && !wasAboveThreshold) {
+                    wasAboveThreshold = true
+                    showAffirmation()
+                }
             }
         }
 

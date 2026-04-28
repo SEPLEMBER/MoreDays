@@ -1,4 +1,16 @@
 <resources>
+    <string-array name="entriesAffirmationTrigger">
+        <item>Never</item>
+        <item>On app start</item>
+        <item>On percentage threshold</item>
+        <item>Both</item>
+    </string-array>
+    <string-array name="valuesAffirmationTrigger" translatable="false">
+        <item>never</item>
+        <item>start</item>
+        <item>threshold</item>
+        <item>both</item>
+    </string-array>
     <string-array name="entriesAffirmationDuration">
         <item>1 second</item>
         <item>2 seconds</item>

@@ -10,6 +10,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import de.wuapps.moredays.R
@@ -28,7 +29,16 @@ class SettingsFragment : PreferenceFragmentCompat(),
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
         sharedPrefs =
-            PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext);
+            PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
+        val trigger = sharedPrefs.getString(getString(R.string.preferences_affirmation_trigger_key), "never") ?: "never"
+        updateAffirmationPrefsVisibility(trigger)
+    }
+
+    private fun updateAffirmationPrefsVisibility(trigger: String) {
+        findPreference<Preference>(getString(R.string.preferences_affirmation_threshold_key))?.isVisible =
+            trigger == "threshold" || trigger == "both"
+        findPreference<Preference>(getString(R.string.preferences_affirmation_duration_key))?.isVisible =
+            trigger != "never"
     }
 
     override fun onResume() {
@@ -60,6 +70,9 @@ class SettingsFragment : PreferenceFragmentCompat(),
 
             getString(R.string.preferences_notification_key) -> {
                 updateNotifications()
+            }
+            getString(R.string.preferences_affirmation_trigger_key) -> {
+                updateAffirmationPrefsVisibility(sharedPreferences?.getString(key, "never") ?: "never")
             }
         }
     }

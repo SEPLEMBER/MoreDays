@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="entriesAffirmationTrigger">
+        <item>Nie</item>
+        <item>Beim App-Start</item>
+        <item>Bei Prozentschwellenwert</item>
+        <item>Beides</item>
+    </string-array>
     <string-array name="entriesAffirmationDuration">
         <item>1 Sekunde</item>
         <item>2 Sekunden</item>

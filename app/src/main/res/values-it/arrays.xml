@@ -1,4 +1,10 @@
 <resources>
+    <string-array name="entriesAffirmationTrigger">
+        <item>Mai</item>
+        <item>All\'avvio dell\'app</item>
+        <item>Al raggiungimento della soglia</item>
+        <item>Entrambi</item>
+    </string-array>
     <string-array name="entriesAffirmationDuration">
         <item>1 secondo</item>
         <item>2 secondi</item>
