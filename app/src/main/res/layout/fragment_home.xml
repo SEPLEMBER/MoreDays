@@ -35,16 +35,6 @@
                 app:layout_constraintRight_toRightOf="parent"
                 />
             <TextView
-                android:layout_margin="16dp"
-                android:id="@+id/textViewAffirmation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textAlignment="center"
-                android:textSize="@dimen/_18sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <TextView
                 android:id="@+id/textViewDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,6 +74,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textViewAffirmation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_margin="16dp"
+            android:background="@drawable/background_affirmation"
+            android:padding="12dp"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18sdp" />
 
         <nl.dionsegijn.konfetti.xml.KonfettiView
             android:id="@+id/viewKonfetti"
