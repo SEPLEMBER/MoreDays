@@ -11,16 +11,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moredays/-/issues/600)
 -->
 
-## [1.0.26] - 2026-05-02 - 🏁-Release 
+## [1.0.26] - 2026-04-30 - 🏁-Release 
 
 ### Added
-- Setting for duration of showing the affirmation, issue
-- Setting for timing, when to show the affirmation, issue 
+- Setting for duration of showing the affirmation, issue [#22](https://gitlab.com/wuapps/moredays/-/work_items/22)
+- Setting for timing, when to show the affirmation, issue [#23](https://gitlab.com/wuapps/moredays/-/work_items/23)
+- Allow goals with 0 points, issue [#25](https://gitlab.com/wuapps/moredays/-/work_items/25)
+- Dark background on affirmation overlay for better readability
+- Tips & tricks: explain 0-point goals (not part of daily 100%) and 0-point activities (tracking only) as additional use cases
 
 ### Fixed
-- Creating a new goal on a Pixel 8a scales usable.
+- Keyboard hiding input fields when editing or creating a scale/activity or goal
+- Affirmation overlay hidden behind the progress circle
+- Images not shown in journal list view (were visible in detail view only)
 
 ### Refactored
+- Upgraded target SDK to Android 17 (API 37)
+- Charts: legend for goal history chart now readable with many goals
+- Charts: goal summary cards show goal title below the circle with a thinner ring
 - update libs
 
 ## [1.0.25] - 2026-03-07 - 🏁-Release 
