@@ -1,6 +1,5 @@
 package de.wuapps.moredays.ui.journal
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -13,7 +12,6 @@ import de.wuapps.moredays.R
 import de.wuapps.moredays.database.converter.DateTypeConverter
 import de.wuapps.moredays.database.entity.Journal
 import de.wuapps.moredays.databinding.ListItemJournalBinding
-import de.wuapps.moredays.utilities.isAtLeast11
 import java.text.SimpleDateFormat
 
 
@@ -47,16 +45,9 @@ class JournalAdapter :
             binding.textViewDate.text =
                 formatter.format(DateTypeConverter.convertStringToDate(item.date).time)
             if (item.imageFilename.isNotBlank()) {
-                if (isAtLeast11()) {
-                    Glide.with(itemView.context)
-                        .load(Uri.parse(item.imageFilename))
-                        .into(binding.imageViewPictureOfTheDay)
-                } else {
-
-                    Glide.with(itemView.context)
-                        .load(item.imageFilename)
-                        .into(binding.imageViewPictureOfTheDay)
-                }
+                Glide.with(itemView.context)
+                    .load(item.imageFilename)
+                    .into(binding.imageViewPictureOfTheDay)
             }
             binding.apply {
                 journal = item
