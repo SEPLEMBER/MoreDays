@@ -17,6 +17,8 @@ import de.wuapps.moredays.R
 import de.wuapps.moredays.databinding.FragmentScaleBinding
 import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.handleFab
+import de.wuapps.moredays.utilities.hideBottomBar
+import de.wuapps.moredays.utilities.showBottomBar
 import java.lang.Integer.parseInt
 
 class ScaleFragment : Fragment(), MenuProvider {
@@ -34,6 +36,7 @@ class ScaleFragment : Fragment(), MenuProvider {
         val view = binding.root
         binding.scaleViewModel = viewModel
         handleFab(viewModel.hasFab)
+        hideBottomBar()
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return view
@@ -146,7 +149,13 @@ class ScaleFragment : Fragment(), MenuProvider {
                     .cancelable(false).transparentTarget(true).targetRadius(30)
             ).start()
     }
+    override fun onResume() {
+        super.onResume()
+        hideBottomBar()
+    }
+
     override fun onDestroyView() {
+        showBottomBar()
         super.onDestroyView()
         _binding = null
     }
