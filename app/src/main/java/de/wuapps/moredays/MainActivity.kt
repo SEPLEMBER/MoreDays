@@ -7,6 +7,10 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.get
+import androidx.core.view.updatePadding
 import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -21,7 +25,6 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.wuapps.moredays.ui.onboarding.Onboarding
-import androidx.core.view.get
 
 class MainActivity : AppCompatActivity(), ImagePickerResultListener {
     private lateinit var fab: FloatingActionButton
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
     private var fragmentContainerPaddingBottom = 0
     private lateinit var bottomAppBar: BottomAppBar
     private var bottomAppBarVerticalOffsetOrg = 0F
+    private var navBarHeight = 0
     // work around as instance of imagepicker is registered in its constructor ...
     // when I used the imagePicker in the fragment I got the error java.lang.IllegalArgumentException: SavedStateProvider with the given key is already registered
     val imagePicker: ImagePicker by lazy {
@@ -44,6 +48,7 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
 
         handleOnBoarding()
 
+        val container: androidx.coordinatorlayout.widget.CoordinatorLayout = findViewById(R.id.container)
         fab = findViewById(R.id.fabMain)
         bottomAppBar = findViewById(R.id.bottomAppBar)
         bottomAppBarVerticalOffsetOrg = bottomAppBar.cradleVerticalOffset
@@ -51,6 +56,20 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
         fragmentContainerPaddingBottom = fragmentContainerView.paddingBottom
 
         wireUpNavigation()
+
+        ViewCompat.setOnApplyWindowInsetsListener(container) { view, windowInsets ->
+            val statusInsets = windowInsets.getInsets(WindowInsetsCompat.Type.statusBars())
+            view.updatePadding(top = statusInsets.top)
+            windowInsets
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(bottomAppBar) { view, windowInsets ->
+            val navInsets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
+            navBarHeight = navInsets.bottom
+            view.updatePadding(bottom = navInsets.bottom)
+            fragmentContainerView.updatePadding(bottom = fragmentContainerPaddingBottom + navInsets.bottom)
+            windowInsets
+        }
     }
 
     private fun handleOnBoarding(){
@@ -99,13 +118,13 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
     fun hideFab() {
         fab.hide()
         bottomAppBar.cradleVerticalOffset = 0F
-        fragmentContainerView.setPadding(fragmentContainerView.paddingLeft, fragmentContainerView.paddingTop, fragmentContainerView.paddingRight, 0)
+        fragmentContainerView.updatePadding(bottom = navBarHeight)
     }
 
     fun showFab() {
         fab.show()
         bottomAppBar.cradleVerticalOffset = bottomAppBarVerticalOffsetOrg
-        fragmentContainerView.setPadding(fragmentContainerView.paddingLeft, fragmentContainerView.paddingTop, fragmentContainerView.paddingRight, fragmentContainerPaddingBottom)
+        fragmentContainerView.updatePadding(bottom = fragmentContainerPaddingBottom + navBarHeight)
     }
 
     override fun onSupportNavigateUp(): Boolean {
