@@ -40,6 +40,7 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val adapter get() = _adapter!!
     private var selectedScale: Scale? = null
     private val data = ArrayList<ScaleData>()
+    private val allScales = ArrayList<Scale>()
     private val scaleNames = ArrayList<String>()
     private var textColorPrimary = DEFAULT_COLOR
 
@@ -62,54 +63,61 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun subscribeUi() {
-        viewModel.scaleData.observe(viewLifecycleOwner) {
-            it?.let {
-                if (it.isNotEmpty()) {
-                    data.clear()
-                    data.addAll(it)
-                    prepareSpinner()
-                }
-            }
+        viewModel.scales.observe(viewLifecycleOwner) { scales ->
+            allScales.clear()
+            allScales.addAll(scales ?: emptyList())
+            prepareSpinner()
+        }
+        viewModel.scaleData.observe(viewLifecycleOwner) { entries ->
+            data.clear()
+            data.addAll(entries ?: emptyList())
+            selectedScale?.let { fillChart() }
         }
     }
 
     private fun prepareSpinner() {
         scaleNames.clear()
-        for (item in data)
-            if (!scaleNames.contains(item.scale.name))
-                scaleNames.add(item.scale.name)
-        if (scaleNames.size > 1) {
-            binding.spinnerScale.visibility = View.VISIBLE
-            val adapter = ArrayAdapter(
-                this.requireContext(),
-                R.layout.spinner_item, scaleNames
-            )
-            binding.spinnerScale.adapter = adapter
-            binding.spinnerScale.onItemSelectedListener = this
-        } else {
-            binding.spinnerScale.visibility = View.GONE
-            if (scaleNames.size == 1) {
-                selectedScale = getScaleToName(scaleNames[0])
-                fillChart()
-            }
-        }
-    }
+        allScales.forEach { scaleNames.add(it.name) }
 
-    private fun getScaleToName(name: String): Scale? {
-        return data.find { it.scale.name == name }?.scale
+        if (allScales.isEmpty()) {
+            binding.spinnerScale.visibility = View.GONE
+            return
+        }
+
+        if (allScales.size == 1) {
+            binding.spinnerScale.visibility = View.GONE
+            selectedScale = allScales[0]
+            fillChart()
+        } else {
+            binding.spinnerScale.visibility = View.VISIBLE
+            val spinnerAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item, scaleNames)
+            binding.spinnerScale.adapter = spinnerAdapter
+            binding.spinnerScale.onItemSelectedListener = this
+        }
     }
 
     private fun fillChart() {
         if (selectedScale == null) return
-        var scaleEntries = data.filter { it.scale.uid == selectedScale!!.uid }.map { it.scaleEntry }
+        val scaleEntries = data.filter { it.scale.uid == selectedScale!!.uid }
+            .map { it.scaleEntry }
         adapter.submitList(scaleEntries)
 
+        if (scaleEntries.isEmpty()) {
+            binding.lineChartScale.visibility = View.GONE
+            binding.recyclerview.visibility = View.GONE
+            binding.textNoEntries.visibility = View.VISIBLE
+            return
+        }
+
+        binding.textNoEntries.visibility = View.GONE
+        binding.recyclerview.visibility = View.VISIBLE
+
         val chart = binding.lineChartScale
-        scaleEntries = scaleEntries.sortedBy { it.timestamp }
+        val sorted = scaleEntries.sortedBy { it.timestamp }
         val mFormat = SimpleDateFormat(getString(R.string.date_md))
         chart.clear()
         chart.visibility = View.VISIBLE
-        val listEntries = scaleEntries.map { entry -> Entry(entry.timestamp.time.time.toFloat(), entry.value) }
+        val listEntries = sorted.map { entry -> Entry(entry.timestamp.time.time.toFloat(), entry.value) }
         val xAxis: XAxis = chart.xAxis
         val lineDataSet = LineDataSet(listEntries, selectedScale!!.name)
         val lineData = LineData(lineDataSet)
@@ -123,7 +131,6 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
         chart.axisRight.isEnabled = false
         if (!selectedScale!!.isIntValue)
             yAxis.enableGridDashedLine(10f, 10f, 0f)
-        // axis range
         yAxis.axisMaximum = selectedScale!!.maxValue.toFloat()
         yAxis.axisMinimum = selectedScale!!.minValue.toFloat()
         chart.data = lineData
@@ -135,7 +142,6 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
         chart.description = description
         chart.invalidate()
     }
-
 
     @InternalCoroutinesApi
     private fun getItemTouchHelper(adapter: ScaleEntryAdapter): ItemTouchHelper {
@@ -168,10 +174,11 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
         _binding = null
     }
 
-    //AdapterView.OnItemSelectedListener
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        selectedScale = getScaleToName(scaleNames[position])
-        fillChart()
+        if (position < allScales.size) {
+            selectedScale = allScales[position]
+            fillChart()
+        }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

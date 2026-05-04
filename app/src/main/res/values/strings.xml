@@ -121,6 +121,7 @@
     <string name="title_affirmation">Title/Affirmation</string>
     <string name="title_scale">Scale</string>
     <string name="title_scales">Scales</string>
+    <string name="no_entries">No entries</string>
     <string name="title_goal">Goal</string>
     <string name="title_goals">Goals</string>
     <string name="title_activity">Activity</string>

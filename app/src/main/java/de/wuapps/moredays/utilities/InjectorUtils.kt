@@ -125,7 +125,7 @@ object InjectorUtils {
         context: Context
     ): ScalesChartViewModelFactory {
         val db = MoreDaysDatabase.getInstance(context.applicationContext)
-        return ScalesChartViewModelFactory(db.scaleEntryDao)
+        return ScalesChartViewModelFactory(db.scaleEntryDao, db.scaleDao)
     }
 
 }
