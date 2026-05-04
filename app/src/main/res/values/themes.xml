@@ -42,6 +42,8 @@
         <item name="postSplashScreenTheme">@style/Theme.MoreDays</item>
     </style>
 
+    <style name="Theme.MoreDays.ImagePicker" parent="SSImagePicker" />
+
 
 
 </resources>

@@ -108,6 +108,7 @@ dependencies {
     //Alternative: https://github.com/AnyChart/AnyChart-Android
 
     implementation 'com.github.SimformSolutionsPvtLtd:SSImagePicker:2.3'
+    implementation 'com.github.yalantis:ucrop:2.2.8'
 
     //for help
     implementation 'com.github.florent37:expansionpanel:1.2.4'

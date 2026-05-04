@@ -2,6 +2,7 @@ package de.wuapps.moredays.ui.journal
 
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -19,20 +22,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.imagepickerlibrary.ImagePicker
-import com.app.imagepickerlibrary.model.PickerType
 import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
-import de.wuapps.moredays.MainActivity
+import com.yalantis.ucrop.UCrop
 import de.wuapps.moredays.R
 import de.wuapps.moredays.database.entity.Journal
 import de.wuapps.moredays.databinding.FragmentJournalBinding
 import de.wuapps.moredays.utilities.DatePickerFragment
 import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.getColorThemeRes
 import de.wuapps.moredays.utilities.handleFab
-import de.wuapps.moredays.utilities.isAtLeast11
+import java.io.File
+import java.util.UUID
 import java.util.Calendar
 
 
@@ -49,7 +52,28 @@ class JournalFragment : Fragment(), MenuProvider {
     private lateinit var journalPrompts: Array<String>
     private var optionsMenuDelete: MenuItem? = null
     private var selectedMood = -1
-    private lateinit var imagePickerMain: ImagePicker
+    private var cameraTempFile: File? = null
+    private var pendingImportedImageFile: File? = null
+    private val openImageDocument = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        uri?.let { startCrop(it) }
+    }
+    private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+        val cameraUri = cameraTempFile?.let { fileToUri(it) }
+        if (success && cameraUri != null) {
+            startCrop(cameraUri)
+        } else {
+            cleanupPendingSelectionFiles()
+        }
+    }
+    private val cropImage = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == android.app.Activity.RESULT_OK) {
+            finalizeCroppedImage()
+        } else {
+            pendingImportedImageFile?.delete()
+            pendingImportedImageFile = null
+        }
+        cleanupCameraTempFile()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,15 +92,14 @@ class JournalFragment : Fragment(), MenuProvider {
             viewModel.setDateFormatView(getString(R.string.date_ymd_day))
 
         _binding = FragmentJournalBinding.inflate(inflater, container, false)
-        configureImagePicker()
         binding.imageButtonPickImage.setOnClickListener {
-
-            imagePickerMain.open(PickerType.GALLERY)
+            showImageSourceChooser()
         }
         handleFab(viewModel.hasFab)
         binding.imageButtonSuggestAffirmation.setOnClickListener { suggestAffirmation() }
         binding.imageButtonSuggestJournalPrompt.setOnClickListener { suggestJournalPrompt() }
         binding.imageButtonRemoveImage.setOnClickListener {
+            deleteImportedImage(viewModel.journal.value!!.imageFilename)
             binding.imageViewPictureOfTheDay.setImageDrawable(null)
             viewModel.journal.value!!.imageFilename = ""
         }
@@ -116,19 +139,28 @@ class JournalFragment : Fragment(), MenuProvider {
         super.onPause()
         viewModel.save()
     }
-    private fun configureImagePicker() {
-        val mainActivity = requireActivity() as MainActivity
-        imagePickerMain = mainActivity.imagePicker
 
-        imagePickerMain
-            .title(getString(R.string.title_journal))
-            .multipleSelection(enable = false)
-            .showFolder(true)
-            .cameraIcon(true)
-            .doneIcon(true)
-            .allowCropping(true)
-            .compressImage(false)
-        mainActivity.setImagePickerCallback { uri -> onImagePick(uri) }
+    private fun showImageSourceChooser() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.title_select_image_source)
+            .setItems(
+                arrayOf(
+                    getString(R.string.label_select_image_gallery),
+                    getString(R.string.label_select_image_camera)
+                )
+            ) { _, which ->
+                when (which) {
+                    0 -> openImageDocument.launch(arrayOf("image/*"))
+                    1 -> openCamera()
+                }
+            }
+            .show()
+    }
+
+    private fun openCamera() {
+        val tempFile = createTempSelectionFile("camera_${viewModel.journal.value!!.date}")
+        cameraTempFile = tempFile
+        takePicture.launch(fileToUri(tempFile))
     }
 
     private fun unselectAllMoodButtons() {
@@ -208,6 +240,7 @@ class JournalFragment : Fragment(), MenuProvider {
         alertDialog.setPositiveButton(
             getString(R.string.yes)
         ) { _, _ ->
+            deleteImportedImage(viewModel.journal.value!!.imageFilename)
             viewModel.delete()
             view?.post {
                 findNavController().popBackStack()
@@ -302,13 +335,90 @@ class JournalFragment : Fragment(), MenuProvider {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        (requireActivity() as MainActivity).unsetImagePickerCallback()
     }
 
-    private fun onImagePick(uri: Uri) {
-        if (uri.path != null) {
-            viewModel.journal.value!!.imageFilename = uri.path!!
-            setImage()
+    private fun startCrop(uri: Uri) {
+        try {
+            requireContext().contentResolver.takePersistableUriPermission(
+                uri,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION
+            )
+        } catch (_: SecurityException) {
+            // This is expected for camera captures and some providers. The temporary grant is
+            // enough for the crop step and the final image is imported into app storage.
+        }
+
+        pendingImportedImageFile?.delete()
+        pendingImportedImageFile = createImportedImageFile()
+        val destinationUri = fileToUri(pendingImportedImageFile!!)
+        val options = UCrop.Options().apply {
+            setCompressionQuality(95)
+            setHideBottomControls(false)
+            setFreeStyleCropEnabled(true)
+            setToolbarColor(requireContext().getColorThemeRes(R.attr.colorPrimary))
+            setStatusBarColor(requireContext().getColorThemeRes(R.attr.colorPrimary))
+            setToolbarWidgetColor(requireContext().getColorThemeRes(R.attr.colorOnPrimary))
+        }
+        val cropIntent = UCrop.of(uri, destinationUri)
+            .useSourceImageAspectRatio()
+            .withOptions(options)
+            .getIntent(requireContext())
+        cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+        cropImage.launch(cropIntent)
+    }
+
+    private fun finalizeCroppedImage() {
+        val importedImage = pendingImportedImageFile ?: return
+        deleteImportedImage(viewModel.journal.value!!.imageFilename)
+        viewModel.journal.value!!.imageFilename = importedImage.absolutePath
+        pendingImportedImageFile = null
+        setImage()
+    }
+
+    private fun createImportedImageFile(): File {
+        val imageDirectory = File(requireContext().filesDir, "journal-images")
+        if (!imageDirectory.exists()) {
+            imageDirectory.mkdirs()
+        }
+        return File(imageDirectory, "journal_${viewModel.journal.value!!.date}_${UUID.randomUUID()}.jpg")
+    }
+
+    private fun createTempSelectionFile(prefix: String): File {
+        val tempDirectory = File(requireContext().cacheDir, "journal-image-selection")
+        if (!tempDirectory.exists()) {
+            tempDirectory.mkdirs()
+        }
+        return File.createTempFile(prefix, ".jpg", tempDirectory)
+    }
+
+    private fun fileToUri(file: File): Uri {
+        return FileProvider.getUriForFile(
+            requireContext(),
+            "${requireContext().packageName}.fileprovider",
+            file
+        )
+    }
+
+    private fun cleanupPendingSelectionFiles() {
+        pendingImportedImageFile?.delete()
+        pendingImportedImageFile = null
+        cleanupCameraTempFile()
+    }
+
+    private fun cleanupCameraTempFile() {
+        cameraTempFile?.delete()
+        cameraTempFile = null
+    }
+
+    private fun deleteImportedImage(path: String) {
+        if (path.isBlank()) {
+            return
+        }
+
+        val imageDirectory = File(requireContext().filesDir, "journal-images")
+        val imageFile = File(path)
+        if (imageFile.parentFile == imageDirectory) {
+            imageFile.delete()
         }
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto">
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -32,7 +33,23 @@
         <activity
             android:name="com.app.imagepickerlibrary.ui.activity.ImagePickerActivity"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/SSImagePicker" />
+            android:theme="@style/Theme.MoreDays.ImagePicker" />
+        <!-- Android 15/16: keep the third-party picker stack on an app-owned theme while
+             runtime insets handling in MoreDaysApplication prevents system-bar overlap. -->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MoreDays.ImagePicker"
+            tools:replace="android:screenOrientation,android:theme" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
         <receiver android:name=".utilities.AlarmReceiver"/>
     </application>
 

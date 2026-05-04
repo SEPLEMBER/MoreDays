@@ -130,6 +130,9 @@
         Alcune grandi attività, come una grande escursione, riempiranno la giornata e quindi dovrebbero ottenere la somma di tutti gli obiettivi come punti.</string>
     <string name="help_journal_intro">Il journaling fa parte della psicologia positiva, consultate internet per maggiori informazioni.</string>
     <string name="help_journal_picture">Aggiungi o rimuovi un\'immagine per questo giorno.</string>
+    <string name="title_select_image_source">Seleziona origine immagine</string>
+    <string name="label_select_image_gallery">Scegli immagine</string>
+    <string name="label_select_image_camera">Scatta foto</string>
     <string name="help_journal_title">Inserire un titolo o un\'affermazione per l\'annotazione del diario.</string>
     <string name="help_journal_button_affirmation">Lasciatevi ispirare da un esempio di affermazione.</string>
     <string name="help_goal_isOld">Contrassegnate un obiettivo come vecchio, se volete conservare i dati, ma non volete più vederli nella schermata iniziale. È possibile riattivarlo in qualsiasi momento.</string>

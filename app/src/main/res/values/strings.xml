@@ -158,6 +158,9 @@
         Some great activities like a great hiking tour will fill the day and hence should get the sum of all goals as points.</string>
     <string name="help_journal_intro">Journaling is part of the positive psychology, check the internet for more information.</string>
     <string name="help_journal_picture">Add or remove a picture for this day.</string>
+    <string name="title_select_image_source">Select image source</string>
+    <string name="label_select_image_gallery">Choose image</string>
+    <string name="label_select_image_camera">Take photo</string>
     <string name="help_journal_title">Enter a title or an affirmation for your journal entry.</string>
     <string name="help_journal_button_affirmation">Be inpired by an affirmation example.</string>
     <string name="help_goal_isOld">Mark a goal as old, if you want to keep the data, but do not want to see it at the home screen any more. You may reactivate it any time.</string>
