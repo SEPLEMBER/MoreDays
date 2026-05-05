@@ -17,6 +17,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -34,6 +35,9 @@ import de.wuapps.moredays.utilities.DatePickerFragment
 import de.wuapps.moredays.utilities.InjectorUtils
 import de.wuapps.moredays.utilities.getColorThemeRes
 import de.wuapps.moredays.utilities.handleFab
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.UUID
 import java.util.Calendar
@@ -54,6 +58,7 @@ class JournalFragment : Fragment(), MenuProvider {
     private var selectedMood = -1
     private var cameraTempFile: File? = null
     private var pendingImportedImageFile: File? = null
+    private var legacyMigrationInProgressFor: String? = null
     private val openImageDocument = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         uri?.let { startCrop(it) }
     }
@@ -175,6 +180,7 @@ class JournalFragment : Fragment(), MenuProvider {
     private fun updateUI() {
         binding.textViewDate.text = viewModel.getCurrentDate()
         setImage()
+        migrateLegacyImageIfNeeded()
         binding.editTextAffirmation.setText(viewModel.journal.value!!.affirmation)
         binding.editTextNote.setText(viewModel.journal.value!!.note)
         if (optionsMenuDelete != null) optionsMenuDelete!!.isVisible = viewModel.hasDeleteOption
@@ -222,7 +228,7 @@ class JournalFragment : Fragment(), MenuProvider {
             binding.imageViewPictureOfTheDay.setImageDrawable(null)
         } else {
                 Glide.with(this)
-                    .load(viewModel.journal.value!!.imageFilename)
+                    .load(JournalImageCompat.glideModel(viewModel.journal.value!!.imageFilename))
                     .into(binding.imageViewPictureOfTheDay)
         }
     }
@@ -376,7 +382,7 @@ class JournalFragment : Fragment(), MenuProvider {
     }
 
     private fun createImportedImageFile(): File {
-        val imageDirectory = File(requireContext().filesDir, "journal-images")
+        val imageDirectory = JournalImageCompat.importedImageDirectory(requireContext())
         if (!imageDirectory.exists()) {
             imageDirectory.mkdirs()
         }
@@ -411,15 +417,62 @@ class JournalFragment : Fragment(), MenuProvider {
     }
 
     private fun deleteImportedImage(path: String) {
-        if (path.isBlank()) {
+        if (!JournalImageCompat.isImportedImage(requireContext(), path)) {
             return
         }
 
-        val imageDirectory = File(requireContext().filesDir, "journal-images")
         val imageFile = File(path)
-        if (imageFile.parentFile == imageDirectory) {
-            imageFile.delete()
+        imageFile.delete()
+    }
+
+    private fun migrateLegacyImageIfNeeded() {
+        val path = viewModel.journal.value?.imageFilename ?: return
+        if (path.isBlank() || JournalImageCompat.isImportedImage(requireContext(), path)) {
+            legacyMigrationInProgressFor = null
+            return
         }
+        if (legacyMigrationInProgressFor == path) {
+            return
+        }
+
+        legacyMigrationInProgressFor = path
+        viewLifecycleOwner.lifecycleScope.launch {
+            val migratedPath = withContext(Dispatchers.IO) {
+                importLegacyImage(path)
+            }
+
+            if (!isAdded || viewModel.journal.value?.imageFilename != path) {
+                if (legacyMigrationInProgressFor == path) {
+                    legacyMigrationInProgressFor = null
+                }
+                return@launch
+            }
+
+            if (migratedPath != null) {
+                viewModel.journal.value!!.imageFilename = migratedPath
+                viewModel.save()
+                setImage()
+            }
+            legacyMigrationInProgressFor = null
+        }
+    }
+
+    private fun importLegacyImage(path: String): String? {
+        val sourceUri = JournalImageCompat.toImportUri(path) ?: return null
+        val destinationFile = createImportedImageFile()
+        val imported = runCatching {
+            requireContext().contentResolver.openInputStream(sourceUri)?.use { input ->
+                destinationFile.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            } ?: return null
+            destinationFile.absolutePath
+        }.getOrNull()
+
+        if (imported == null) {
+            destinationFile.delete()
+        }
+        return imported
     }
 
 }

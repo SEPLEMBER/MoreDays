@@ -23,7 +23,8 @@
         app:fabAlignmentMode="end"
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="12dp"
-        app:fabCradleVerticalOffset="4dp">
+        app:fabCradleVerticalOffset="4dp"
+        app:paddingBottomSystemWindowInsets="false">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"

@@ -18,8 +18,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
-import com.app.imagepickerlibrary.ImagePicker
-import com.app.imagepickerlibrary.ImagePicker.Companion.registerImagePicker
 import com.app.imagepickerlibrary.listener.ImagePickerResultListener
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -32,12 +30,8 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
     private var fragmentContainerPaddingBottom = 0
     private lateinit var bottomAppBar: BottomAppBar
     private var bottomAppBarVerticalOffsetOrg = 0F
-    private var navBarHeight = 0
     // work around as instance of imagepicker is registered in its constructor ...
     // when I used the imagePicker in the fragment I got the error java.lang.IllegalArgumentException: SavedStateProvider with the given key is already registered
-    val imagePicker: ImagePicker by lazy {
-        registerImagePicker(this@MainActivity)
-    }
     private var imagePickerCallback : ((Uri) -> Unit)? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -60,14 +54,6 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
         ViewCompat.setOnApplyWindowInsetsListener(container) { view, windowInsets ->
             val statusInsets = windowInsets.getInsets(WindowInsetsCompat.Type.statusBars())
             view.updatePadding(top = statusInsets.top)
-            windowInsets
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(bottomAppBar) { view, windowInsets ->
-            val navInsets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
-            navBarHeight = navInsets.bottom
-            view.updatePadding(bottom = navInsets.bottom)
-            fragmentContainerView.updatePadding(bottom = fragmentContainerPaddingBottom + navInsets.bottom)
             windowInsets
         }
     }
@@ -118,26 +104,19 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
     fun hideFab() {
         fab.hide()
         bottomAppBar.cradleVerticalOffset = 0F
-        fragmentContainerView.updatePadding(bottom = navBarHeight)
+        fragmentContainerView.updatePadding(bottom = 0)
     }
 
     fun showFab() {
         fab.show()
         bottomAppBar.cradleVerticalOffset = bottomAppBarVerticalOffsetOrg
-        fragmentContainerView.updatePadding(bottom = fragmentContainerPaddingBottom + navBarHeight)
+        fragmentContainerView.updatePadding(bottom = fragmentContainerPaddingBottom)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.nav_host_fragment).navigateUp()
     }
-
-     fun setImagePickerCallback(callback: (Uri) -> Unit){
-        imagePickerCallback = callback
-    }
-
-     fun unsetImagePickerCallback(){
-        imagePickerCallback = null
-    }
+    
 
     override fun onImagePick(uri: Uri?) {
         if (uri != null) {

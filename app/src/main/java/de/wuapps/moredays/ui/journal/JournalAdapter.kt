@@ -46,7 +46,7 @@ class JournalAdapter :
                 formatter.format(DateTypeConverter.convertStringToDate(item.date).time)
             if (item.imageFilename.isNotBlank()) {
                 Glide.with(itemView.context)
-                    .load(item.imageFilename)
+                    .load(JournalImageCompat.glideModel(item.imageFilename))
                     .into(binding.imageViewPictureOfTheDay)
             }
             binding.apply {
