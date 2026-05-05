@@ -3,7 +3,6 @@ package de.wuapps.moredays
 import android.content.Intent
 import android.view.View
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -18,21 +17,17 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
-import com.app.imagepickerlibrary.listener.ImagePickerResultListener
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.wuapps.moredays.ui.onboarding.Onboarding
 
-class MainActivity : AppCompatActivity(), ImagePickerResultListener {
+class MainActivity : AppCompatActivity() {
     private lateinit var fab: FloatingActionButton
     private lateinit var fragmentContainerView : FragmentContainerView
     private var fragmentContainerPaddingBottom = 0
     private lateinit var bottomAppBar: BottomAppBar
     private var bottomAppBarVerticalOffsetOrg = 0F
-    // work around as instance of imagepicker is registered in its constructor ...
-    // when I used the imagePicker in the fragment I got the error java.lang.IllegalArgumentException: SavedStateProvider with the given key is already registered
-    private var imagePickerCallback : ((Uri) -> Unit)? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
 
@@ -115,16 +110,5 @@ class MainActivity : AppCompatActivity(), ImagePickerResultListener {
 
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.nav_host_fragment).navigateUp()
-    }
-    
-
-    override fun onImagePick(uri: Uri?) {
-        if (uri != null) {
-            imagePickerCallback?.let { it(uri) }
-        }
-    }
-
-    override fun onMultiImagePick(uris: List<Uri>?) {
-        //not used
     }
 }

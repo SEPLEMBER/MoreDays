@@ -42,7 +42,7 @@
         <item name="postSplashScreenTheme">@style/Theme.MoreDays</item>
     </style>
 
-    <style name="Theme.MoreDays.ImagePicker" parent="SSImagePicker" />
+    <style name="Theme.MoreDays.ImagePicker" parent="Theme.MoreDays" />
 
 
 

@@ -107,7 +107,6 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     //Alternative: https://github.com/AnyChart/AnyChart-Android
 
-    implementation 'com.github.SimformSolutionsPvtLtd:SSImagePicker:2.3'
     implementation 'com.github.yalantis:ucrop:2.2.8'
 
     //for help

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto">
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -30,17 +29,12 @@
         <activity
             android:name=".ui.onboarding.Onboarding"
             android:theme="@style/SplashTheme" />
-        <activity
-            android:name="com.app.imagepickerlibrary.ui.activity.ImagePickerActivity"
-            android:configChanges="orientation|screenSize"
-            android:theme="@style/Theme.MoreDays.ImagePicker" />
-        <!-- Android 15/16: keep the third-party picker stack on an app-owned theme while
-             runtime insets handling in MoreDaysApplication prevents system-bar overlap. -->
+        <!-- Android 15/16: keep uCrop on an app-owned theme while runtime insets handling
+             in MoreDaysApplication prevents system-bar overlap. -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.MoreDays.ImagePicker"
-            tools:replace="android:screenOrientation,android:theme" />
+            android:theme="@style/Theme.MoreDays.ImagePicker" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

@@ -106,7 +106,7 @@
                 android:id="@+id/imageButtonSuggestJournalPrompt"
                 android:layout_width="@dimen/min_accesible_size"
                 android:layout_height="@dimen/min_accesible_size"
-                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/circle_in_secondary"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_lookup"

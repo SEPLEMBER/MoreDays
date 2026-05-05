@@ -14,7 +14,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
-import com.app.imagepickerlibrary.ui.activity.ImagePickerActivity
 import com.maltaisn.icondialog.pack.IconPack
 import com.maltaisn.icondialog.pack.IconPackLoader
 import com.maltaisn.iconpack.defaultpack.createDefaultIconPack
@@ -48,13 +47,11 @@ class MoreDaysApplication : Application() {
     private fun registerPickerInsetsHandling() {
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-                if (activity is ImagePickerActivity || activity.javaClass.name == "com.yalantis.ucrop.UCropActivity") {
+                if (activity is UCropActivity) {
                     // Android 15/16 can force third-party activities edge-to-edge. The picker
                     // library does not consume insets itself, so keep these screens in the
                     // classic system-window mode to avoid overlap with status/navigation bars.
                     WindowCompat.setDecorFitsSystemWindows(activity.window, true)
-                }
-                if (activity is UCropActivity) {
                     installUCropInsetsHandling(activity)
                 }
             }

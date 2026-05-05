@@ -86,7 +86,7 @@
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
             android:textColor="@color/white"
-            android:textSize="@dimen/_18sdp" />
+            android:textSize="18sp" />
 
         <nl.dionsegijn.konfetti.xml.KonfettiView
             android:id="@+id/viewKonfetti"
