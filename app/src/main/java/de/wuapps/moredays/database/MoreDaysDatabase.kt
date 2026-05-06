@@ -52,20 +52,20 @@ abstract class MoreDaysDatabase : RoomDatabase() {
         private var INSTANCE: MoreDaysDatabase? = null
 
         private val MIGRATION_21_22 = object : Migration(21, 22) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE Journal ADD COLUMN mood INTEGER NOT NULL DEFAULT -1")
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE Journal ADD COLUMN mood INTEGER NOT NULL DEFAULT -1")
             }
         }
 
         private val MIGRATION_22_23 = object : Migration(22, 23) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("Drop table if exists Challenge")
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("Drop table if exists Challenge")
             }
         }
         private val MIGRATION_23_24 = object : Migration(23, 24) {
-            override fun migrate(database: SupportSQLiteDatabase) {
+            override fun migrate(db: SupportSQLiteDatabase) {
                 val today = SimpleDateFormat(Journal.DATE_FORMAT).format(Date())
-                database.execSQL("insert into HundredPercentValue (date, points) select '$today' as date, sum(points) as points from goal where is_old = 0")
+                db.execSQL("insert into HundredPercentValue (date, points) select '$today' as date, sum(points) as points from goal where is_old = 0")
             }
         }
 

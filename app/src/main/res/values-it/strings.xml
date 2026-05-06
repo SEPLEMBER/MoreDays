@@ -59,7 +59,7 @@
         a meno che non sia attivata la crittografia lato client. </string>
     <string name="help_privacy_title">Privacy</string>
     <string name="expand">espandi</string>
-    <string name="help_tips_content" tools:ignore="Typos">
+    <string name="help_tips_content" formatted="false" tools:ignore="Typos">
         <![CDATA[
         Fate in modo che ogni giorno sia il VOSTRO giorno, fate prima quello che volete veramente e poi quello che pensate di dover fare.
         Scattate ogni giorno una foto e qualche nota per ricordare ogni giorno.

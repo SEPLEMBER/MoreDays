@@ -111,7 +111,7 @@ class PercentageView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        if (canvas == null || goalEntries.isEmpty())
+        if (goalEntries.isEmpty())
             return
         Log.d(TAG, "start onDraw")
         val centerX = (width / 2).toFloat()

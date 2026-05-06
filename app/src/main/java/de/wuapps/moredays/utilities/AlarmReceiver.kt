@@ -21,12 +21,12 @@ class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent == null || context == null) return
 
-        val message = intent?.getStringExtra("extra") ?: return
-        notificationManager = NotificationManagerCompat.from(context!!)
-        val intent = Intent(context, MainActivity::class.java).apply {
+        val message = intent.getStringExtra("extra") ?: return
+        notificationManager = NotificationManagerCompat.from(context)
+        val launchIntent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, launchIntent, PendingIntent.FLAG_IMMUTABLE)
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentText(message)

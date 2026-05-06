@@ -72,7 +72,7 @@
         Sofern du ein automatisches Backup für dein Handy aktiviert hast, werden die Daten dieser App nur gesichert, wenn du auch die Verschlüsselung beim Backup aktiviert hast.
     </string>
     <string name="help_privacy_title">Datenschutz</string>
-    <string name="help_tips_content" tools:ignore="Typos"><![CDATA[
+    <string name="help_tips_content" formatted="false" tools:ignore="Typos"><![CDATA[
 
         Mache jeden Tag zu DEINEM Tag, mache das, was du wirklich wirklich willst zuerst und das, was du meinst tun zu müssen später. Mache jeden Tag ein Foto, um dich
         an diesen Tag zu erinnern.

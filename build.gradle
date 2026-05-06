@@ -25,13 +25,14 @@ buildscript {
         google()
         mavenCentral()
         // for apache poi
-        maven { url 'https://jitpack.io' }
+        maven { url = uri('https://jitpack.io') }
         //for aboutlibrary
-        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url = uri("https://plugins.gradle.org/m2/") }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.10'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "com.google.devtools.ksp:symbol-processing-gradle-plugin:2.3.6"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
         classpath "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin:$aboutVersion"
         // NOTE: Do not place your application dependencies here; they belong
@@ -44,7 +45,7 @@ allprojects {
         google()
         mavenCentral()
         //for chart lib and aboutlibraries
-        maven { url 'https://www.jitpack.io' }
+        maven { url = uri('https://www.jitpack.io') }
     }
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile).tap {

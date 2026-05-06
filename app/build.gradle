@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.mikepenz.aboutlibraries.plugin'
@@ -18,37 +17,38 @@ android {
         targetSdk 37
         versionCode 26
         versionName '1.0.26'
-        multiDexEnabled true
+        multiDexEnabled = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        kapt {
-            arguments {
-                arg("room.schemaLocation", "$projectDir/schemas")
-            }
-        }
     }
-    //@see
     buildFeatures {
-        viewBinding true
-        buildConfig true
+        viewBinding = true
+        buildConfig = true
     }
 
     buildTypes {
         release {
-            multiDexEnabled true
+            multiDexEnabled = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    kotlinOptions {
-        jvmTarget = '17'
-    }
-    namespace 'de.wuapps.moredays'
+    namespace = 'de.wuapps.moredays'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    compileSdkMinor 0
+    compileSdkMinor = 0
 
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    }
+}
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
 }
 
 dependencies {
@@ -73,7 +73,7 @@ dependencies {
 
     // Room components
     implementation "androidx.room:room-ktx:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
+    ksp "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-runtime:$roomVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
@@ -130,7 +130,7 @@ dependencies {
     implementation "androidx.emoji2:emoji2-views:$emojiVersion"
 
     //import/export
-    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.5.1'
+    implementation 'org.apache.poi:poi-ooxml:5.5.1'
 
     //animation
     implementation "com.airbnb.android:lottie:$lottieVersion"

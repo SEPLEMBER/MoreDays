@@ -14,31 +14,31 @@ class Onboarding : AppIntro() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addSlide(
-            AppIntroFragment.newInstance(
+            AppIntroFragment.createInstance(
 
-                backgroundColor = getColor(R.color.orange500),
-                titleColor = getColor(R.color.gray900),
-                descriptionColor = getColor(R.color.gray900),
+                backgroundColorRes = R.color.orange500,
+                titleColorRes = R.color.gray900,
+                descriptionColorRes = R.color.gray900,
                 title = getString(R.string.onboarding_title1),
                 description = getString(R.string.onboarding_desc1),
                 imageDrawable = R.drawable.ic_privacy
             )
         )
         addSlide(
-            AppIntroFragment.newInstance(
-                backgroundColor = getColor(R.color.lime500),
-                titleColor = getColor(R.color.gray600),
-                descriptionColor = getColor(R.color.gray600),
+            AppIntroFragment.createInstance(
+                backgroundColorRes = R.color.lime500,
+                titleColorRes = R.color.gray600,
+                descriptionColorRes = R.color.gray600,
                 title = getString(R.string.onboarding_title2),
                 description = getString(R.string.onboarding_desc2),
                 imageDrawable = R.drawable.ic_intro_2
             )
         )
         addSlide(
-            AppIntroFragment.newInstance(
-                backgroundColor = getColor(R.color.orange100),
-                titleColor = getColor(R.color.gray900),
-                descriptionColor = getColor(R.color.gray900),
+            AppIntroFragment.createInstance(
+                backgroundColorRes = R.color.orange100,
+                titleColorRes = R.color.gray900,
+                descriptionColorRes = R.color.gray900,
                 title = getString(R.string.onboarding_title3),
                 description = getString(R.string.onboarding_desc3),
                 imageDrawable = R.drawable.ic_intro_3
