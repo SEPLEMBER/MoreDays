@@ -2,9 +2,13 @@ package de.wuapps.moredays.ui.journal
 
 
 import android.app.AlertDialog
+import android.content.ActivityNotFoundException
+import android.content.ContentResolver
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Toast
 import android.view.LayoutInflater
 import android.view.Menu
@@ -66,7 +70,7 @@ class JournalFragment : Fragment(), MenuProvider {
     private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
         val cameraFile = cameraTempFile
         if (success && cameraFile != null) {
-            startCrop(Uri.fromFile(cameraFile))
+            startCrop(fileToUri(cameraFile))
         } else {
             cleanupPendingSelectionFiles()
         }
@@ -98,6 +102,7 @@ class JournalFragment : Fragment(), MenuProvider {
             viewModel.setDateFormatView(getString(R.string.date_ymd_day))
 
         _binding = FragmentJournalBinding.inflate(inflater, container, false)
+        binding.imageButtonPickImage.isEnabled = viewModel.journal.value != null
         binding.imageButtonPickImage.setOnClickListener {
             showImageSourceChooser()
         }
@@ -115,6 +120,7 @@ class JournalFragment : Fragment(), MenuProvider {
         val layoutManager = LinearLayoutManager(this.context)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         viewModel.journal.observe(viewLifecycleOwner) {
+            binding.imageButtonPickImage.isEnabled = true
             updateUI()
         }
         //mood bar
@@ -164,9 +170,25 @@ class JournalFragment : Fragment(), MenuProvider {
     }
 
     private fun openCamera() {
-        val tempFile = createTempSelectionFile("camera_${viewModel.journal.value!!.date}")
-        cameraTempFile = tempFile
-        takePicture.launch(fileToUri(tempFile))
+        val journal = viewModel.journal.value
+        if (journal == null) {
+            Toast.makeText(requireContext(), R.string.error_open_image, Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        try {
+            val tempFile = createTempSelectionFile("camera_${journal.date}")
+            val tempUri = fileToUri(tempFile)
+            cameraTempFile = tempFile
+            grantCameraUriPermissions(tempUri)
+            takePicture.launch(tempUri)
+        } catch (_: ActivityNotFoundException) {
+            cleanupCameraTempFile()
+            Toast.makeText(requireContext(), R.string.error_open_image, Toast.LENGTH_SHORT).show()
+        } catch (_: IllegalArgumentException) {
+            cleanupCameraTempFile()
+            Toast.makeText(requireContext(), R.string.error_open_image, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun unselectAllMoodButtons() {
@@ -345,14 +367,18 @@ class JournalFragment : Fragment(), MenuProvider {
     }
 
     private fun startCrop(uri: Uri) {
-        try {
-            requireContext().contentResolver.takePersistableUriPermission(
-                uri,
-                Intent.FLAG_GRANT_READ_URI_PERMISSION
-            )
-        } catch (_: SecurityException) {
-            // This is expected for camera captures and some providers. The temporary grant is
-            // enough for the crop step and the final image is imported into app storage.
+        if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
+            try {
+                requireContext().contentResolver.takePersistableUriPermission(
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            } catch (_: SecurityException) {
+                // This is expected for camera captures and some providers. The temporary grant is
+                // enough for the crop step and the final image is imported into app storage.
+            } catch (_: IllegalArgumentException) {
+                // FileProvider and many picker providers do not offer persistable grants.
+            }
         }
 
         pendingImportedImageFile?.delete()
@@ -411,6 +437,18 @@ class JournalFragment : Fragment(), MenuProvider {
             "${requireContext().packageName}.fileprovider",
             file
         )
+    }
+
+    private fun grantCameraUriPermissions(uri: Uri) {
+        val flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        val cameraActivities = requireContext().packageManager.queryIntentActivities(
+            cameraIntent,
+            PackageManager.MATCH_DEFAULT_ONLY
+        )
+        cameraActivities.forEach { resolveInfo ->
+            requireContext().grantUriPermission(resolveInfo.activityInfo.packageName, uri, flags)
+        }
     }
 
     private fun cleanupPendingSelectionFiles() {

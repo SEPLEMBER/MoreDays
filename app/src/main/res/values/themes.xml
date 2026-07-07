@@ -42,7 +42,12 @@
         <item name="postSplashScreenTheme">@style/Theme.MoreDays</item>
     </style>
 
-    <style name="Theme.MoreDays.ImagePicker" parent="Theme.MoreDays" />
+    <style name="Theme.MoreDays.ImagePicker" parent="Theme.MoreDays">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 
 
 
