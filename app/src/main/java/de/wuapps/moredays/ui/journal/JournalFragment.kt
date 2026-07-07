@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -63,9 +64,9 @@ class JournalFragment : Fragment(), MenuProvider {
         uri?.let { startCrop(it) }
     }
     private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
-        val cameraUri = cameraTempFile?.let { fileToUri(it) }
-        if (success && cameraUri != null) {
-            startCrop(cameraUri)
+        val cameraFile = cameraTempFile
+        if (success && cameraFile != null) {
+            startCrop(Uri.fromFile(cameraFile))
         } else {
             cleanupPendingSelectionFiles()
         }
@@ -356,21 +357,28 @@ class JournalFragment : Fragment(), MenuProvider {
 
         pendingImportedImageFile?.delete()
         pendingImportedImageFile = createImportedImageFile()
-        val destinationUri = fileToUri(pendingImportedImageFile!!)
-        val options = UCrop.Options().apply {
-            setCompressionQuality(95)
-            setHideBottomControls(false)
-            setFreeStyleCropEnabled(true)
-            setToolbarColor(requireContext().getColorThemeRes(R.attr.colorPrimary))
-            setStatusBarColor(requireContext().getColorThemeRes(R.attr.colorPrimary))
-            setToolbarWidgetColor(requireContext().getColorThemeRes(R.attr.colorOnPrimary))
+        val destinationUri = Uri.fromFile(pendingImportedImageFile!!)
+        try {
+            val options = UCrop.Options().apply {
+                setCompressionQuality(95)
+                setHideBottomControls(false)
+                setFreeStyleCropEnabled(true)
+                setToolbarColor(requireContext().getColorThemeRes(R.attr.colorPrimary))
+                setStatusBarColor(requireContext().getColorThemeRes(R.attr.colorPrimary))
+                setToolbarWidgetColor(requireContext().getColorThemeRes(R.attr.colorOnPrimary))
+            }
+            val cropIntent = UCrop.of(uri, destinationUri)
+                .useSourceImageAspectRatio()
+                .withOptions(options)
+                .getIntent(requireContext())
+            cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+            cropImage.launch(cropIntent)
+        } catch (_: Exception) {
+            pendingImportedImageFile?.delete()
+            pendingImportedImageFile = null
+            cleanupCameraTempFile()
+            Toast.makeText(requireContext(), R.string.error_open_image, Toast.LENGTH_SHORT).show()
         }
-        val cropIntent = UCrop.of(uri, destinationUri)
-            .useSourceImageAspectRatio()
-            .withOptions(options)
-            .getIntent(requireContext())
-        cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-        cropImage.launch(cropIntent)
     }
 
     private fun finalizeCroppedImage() {
