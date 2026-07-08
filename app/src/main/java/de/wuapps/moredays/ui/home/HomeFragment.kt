@@ -75,8 +75,10 @@ class HomeFragment : Fragment(), MenuProvider {
     private val scales = ArrayList<Scale>()
     private val activityData = ArrayList<Pair<Goal, de.wuapps.moredays.database.entity.Activity>>()
     private var preferencesListener =
-        SharedPreferences.OnSharedPreferenceChangeListener() { sharedPreferences: SharedPreferences, _: String? -> handlePreferences(sharedPreferences) }
-        override fun onCreateView(
+        SharedPreferences.OnSharedPreferenceChangeListener() { sharedPreferences: SharedPreferences, key: String? ->
+            handlePreferences(sharedPreferences, key)
+        }
+    override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -89,7 +91,7 @@ class HomeFragment : Fragment(), MenuProvider {
             getFlexboxLayoutManager(requireContext()) //layoutManagerGoals
         val preferences =
             PreferenceManager.getDefaultSharedPreferences(requireContext())
-        handlePreferences(preferences)
+        handlePreferences(preferences, null)
 
         preferences.registerOnSharedPreferenceChangeListener(preferencesListener)
         _goalAdapter = GoalAdapter(viewModel::addGoalEntry, viewModel::deleteLatestGoalEntry)
@@ -121,7 +123,7 @@ class HomeFragment : Fragment(), MenuProvider {
         return binding.root
     }
 
-    private fun handlePreferences(preferences: SharedPreferences) {
+    private fun handlePreferences(preferences: SharedPreferences, key: String?) {
         viewModel.name = preferences.getString(getString(R.string.preferences_name_key), null) ?: ""
         if (!preferences.getBoolean(getString(R.string.preferences_showed_first_help), false))
             showFirstHelp()
@@ -140,6 +142,11 @@ class HomeFragment : Fragment(), MenuProvider {
             getString(R.string.preferences_show_percentage_key),
             viewModel.showProgressAsPercentInCircle
         )
+        if (key == getString(R.string.preferences_affirmation_trigger_key) ||
+            key == getString(R.string.preferences_affirmation_threshold_key)
+        ) {
+            reevaluateThresholdAffirmation()
+        }
     }
 
 
@@ -303,6 +310,28 @@ class HomeFragment : Fragment(), MenuProvider {
         val duration = sharedPref.getString(getString(R.string.preferences_affirmation_duration_key), "3000")?.toLongOrNull() ?: 3000L
         binding.textViewAffirmation.fadeOut(duration)
     }
+
+    private fun reevaluateThresholdAffirmation() {
+        val currentPercent = viewModel.percent.value ?: return
+        handleThresholdAffirmation(currentPercent, forceReevaluate = true)
+    }
+
+    private fun handleThresholdAffirmation(currentPercent: Float, forceReevaluate: Boolean = false) {
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
+        val trigger = sharedPref.getString(getString(R.string.preferences_affirmation_trigger_key), "never") ?: "never"
+        if (trigger != "threshold" && trigger != "both") {
+            wasAboveThreshold = false
+            return
+        }
+
+        val threshold = sharedPref.getInt(getString(R.string.preferences_affirmation_threshold_key), 80).toFloat()
+        val isAboveThreshold = currentPercent >= threshold
+        if (isAboveThreshold && (!wasAboveThreshold || forceReevaluate)) {
+            showAffirmation()
+        }
+        wasAboveThreshold = isAboveThreshold
+    }
+
     private fun subscribeUI() {
         binding.progressBarCyclic.visibility = View.GONE
         viewModel.scales.observe(viewLifecycleOwner) {
@@ -334,15 +363,7 @@ class HomeFragment : Fragment(), MenuProvider {
         }
 
         viewModel.percent.observe(viewLifecycleOwner) { currentPercent ->
-            val sharedPref = PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
-            val trigger = sharedPref.getString(getString(R.string.preferences_affirmation_trigger_key), "never") ?: "never"
-            if (trigger == "threshold" || trigger == "both") {
-                val threshold = sharedPref.getInt(getString(R.string.preferences_affirmation_threshold_key), 80).toFloat()
-                if (currentPercent >= threshold && !wasAboveThreshold) {
-                    wasAboveThreshold = true
-                    showAffirmation()
-                }
-            }
+            handleThresholdAffirmation(currentPercent)
         }
 
         viewModel.newTrophies.observe(viewLifecycleOwner) {
