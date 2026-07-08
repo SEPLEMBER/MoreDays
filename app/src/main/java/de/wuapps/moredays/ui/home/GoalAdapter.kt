@@ -70,7 +70,14 @@ class GoalAdapter(
                 onDeleteActivityClickHandler,
                 goalEntryDialog
             )
+            layoutView.alpha = 0f
+            layoutView.translationY = 12f
             goalEntryDialog.show()
+            layoutView.animate()
+                .alpha(1f)
+                .translationY(0f)
+                .setDuration(180L)
+                .start()
         }
 
     }

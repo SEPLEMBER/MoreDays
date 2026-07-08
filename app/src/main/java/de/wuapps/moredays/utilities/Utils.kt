@@ -100,14 +100,25 @@ fun isAtLeast11() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
 
 fun View.fadeOut(durationMillis: Long = 500L) {
     this.apply {
-        alpha = 0.9f
+        animate().cancel()
+        alpha = 0f
         visibility = View.VISIBLE
         animate()
-            .alpha(0f)
-            .setDuration(durationMillis)
+            .alpha(1f)
+            .translationY(0f)
+            .setDuration(180L)
             .setListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
-                    visibility = View.GONE
+                    animate()
+                        .alpha(0f)
+                        .setStartDelay(durationMillis)
+                        .setDuration(220L)
+                        .setListener(object : AnimatorListenerAdapter() {
+                            override fun onAnimationEnd(animation: Animator) {
+                                visibility = View.GONE
+                                animate().setListener(null)
+                            }
+                        })
                 }
             })
     }

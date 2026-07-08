@@ -11,7 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moredays/-/issues/600)
 -->
 
-## [1.0.26] - 2026-04-30 - 🏁-Release 
+## [1.0.26] - 2026-07-08 - 🏁-Release 
 
 ### Added
 - Setting for duration of showing the affirmation, issue [#22](https://gitlab.com/wuapps/moredays/-/work_items/22)
@@ -19,11 +19,13 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 - Allow goals with 0 points, issue [#25](https://gitlab.com/wuapps/moredays/-/work_items/25)
 - Dark background on affirmation overlay for better readability
 - Tips & tricks: explain 0-point goals (not part of daily 100%) and 0-point activities (tracking only) as additional use cases
+- Add some animations
 
 ### Fixed
 - Keyboard hiding input fields when editing or creating a scale/activity or goal
 - Affirmation overlay hidden behind the progress circle
 - Images not shown in journal list view (were visible in detail view only)
+- layout problems
 
 ### Refactored
 - Upgraded target SDK to Android 17 (API 37)

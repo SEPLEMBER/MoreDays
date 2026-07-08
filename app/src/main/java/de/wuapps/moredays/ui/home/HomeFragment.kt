@@ -71,6 +71,7 @@ class HomeFragment : Fragment(), MenuProvider {
     private var _goalAdapter: GoalAdapter? = null
     private val goalAdapter get() = _goalAdapter!!
     private var wasAboveThreshold = false
+    private var animateGoalListOnNextUpdate = true
     private val scales = ArrayList<Scale>()
     private val activityData = ArrayList<Pair<Goal, de.wuapps.moredays.database.entity.Activity>>()
     private var preferencesListener =
@@ -88,6 +89,8 @@ class HomeFragment : Fragment(), MenuProvider {
         layoutManagerGoals.orientation = LinearLayoutManager.HORIZONTAL
         binding.recyclerViewGoals.layoutManager =
             getFlexboxLayoutManager(requireContext()) //layoutManagerGoals
+        binding.recyclerViewGoals.layoutAnimation =
+            AnimationUtils.loadLayoutAnimation(requireContext(), R.anim.layout_animation_goal_cards)
         val preferences =
             PreferenceManager.getDefaultSharedPreferences(requireContext())
         handlePreferences(preferences, null)
@@ -189,6 +192,7 @@ class HomeFragment : Fragment(), MenuProvider {
     }
 
     private fun handleDateSelected(calendar: Calendar) {
+        animateGoalListOnNextUpdate = true
         viewModel.changeDate(calendar)
         formatDateTextField()
     }
@@ -341,7 +345,12 @@ class HomeFragment : Fragment(), MenuProvider {
         }
         viewModel.goalEntryList.observe(viewLifecycleOwner) {
             it?.let {
-                goalAdapter.submitList(it)
+                goalAdapter.submitList(it) {
+                    if (animateGoalListOnNextUpdate) {
+                        binding.recyclerViewGoals.scheduleLayoutAnimation()
+                        animateGoalListOnNextUpdate = false
+                    }
+                }
                 binding.percentageView.label =
                     String.format(getString(R.string.ini_circle_value), viewModel.name)
                 binding.percentageView.setCirclesData(it, viewModel.showProgressAsPercentInCircle)

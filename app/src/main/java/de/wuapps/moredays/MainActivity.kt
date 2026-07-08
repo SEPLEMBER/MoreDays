@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.get
 import androidx.core.view.updatePadding
 import androidx.fragment.app.FragmentContainerView
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -78,6 +79,27 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        navView.setOnItemSelectedListener { item ->
+            if (navController.currentDestination?.id == item.itemId) {
+                true
+            } else {
+                val navOptions = NavOptions.Builder()
+                    .setLaunchSingleTop(true)
+                    .setEnterAnim(R.anim.nav_enter)
+                    .setExitAnim(R.anim.nav_exit)
+                    .setPopEnterAnim(R.anim.nav_enter)
+                    .setPopExitAnim(R.anim.nav_exit)
+                    .setPopUpTo(navController.graph.startDestinationId, false, true)
+                    .build()
+                try {
+                    navController.navigate(item.itemId, null, navOptions)
+                    true
+                } catch (_: IllegalArgumentException) {
+                    false
+                }
+            }
+        }
+        navView.setOnItemReselectedListener { }
         navView.menu[4].isEnabled = false
         navView.background = null
     }
