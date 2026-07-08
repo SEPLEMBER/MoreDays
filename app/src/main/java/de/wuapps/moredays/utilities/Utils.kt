@@ -102,10 +102,12 @@ fun View.fadeOut(durationMillis: Long = 500L) {
     this.apply {
         animate().cancel()
         alpha = 0f
+        translationY = -8f
         visibility = View.VISIBLE
         animate()
             .alpha(1f)
             .translationY(0f)
+            .setStartDelay(0L)
             .setDuration(180L)
             .setListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
@@ -116,10 +118,18 @@ fun View.fadeOut(durationMillis: Long = 500L) {
                         .setListener(object : AnimatorListenerAdapter() {
                             override fun onAnimationEnd(animation: Animator) {
                                 visibility = View.GONE
-                                animate().setListener(null)
+                                animate().setStartDelay(0L).setListener(null)
                             }
                         })
                 }
             })
     }
+}
+
+fun View.cancelFadeOut() {
+    animate().cancel()
+    animate().setStartDelay(0L).setListener(null)
+    alpha = 0f
+    translationY = 0f
+    visibility = View.GONE
 }

@@ -39,6 +39,7 @@ import de.wuapps.moredays.database.entity.Trophy
 import de.wuapps.moredays.databinding.FragmentHomeBinding
 import de.wuapps.moredays.utilities.DatePickerFragment
 import de.wuapps.moredays.utilities.InjectorUtils
+import de.wuapps.moredays.utilities.cancelFadeOut
 import de.wuapps.moredays.utilities.fadeOut
 import de.wuapps.moredays.utilities.getFlexboxLayoutManager
 import de.wuapps.moredays.utilities.isSameDay
@@ -301,7 +302,7 @@ class HomeFragment : Fragment(), MenuProvider {
         if (trigger == "start" || trigger == "both") {
             showAffirmation()
         } else {
-            binding.textViewAffirmation.visibility = View.GONE
+            binding.textViewAffirmation.cancelFadeOut()
         }
     }
 
@@ -561,6 +562,7 @@ class HomeFragment : Fragment(), MenuProvider {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.textViewAffirmation.cancelFadeOut()
         binding.lottieTrophy.cancelAnimation()
         _goalAdapter = null
         _binding = null

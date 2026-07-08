@@ -62,12 +62,15 @@
                 android:id="@+id/percentageView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_margin="@dimen/min_accesible_size"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="48dp"
+                android:layout_marginBottom="40dp"
                 app:centerColor="?colorSurface"
                 app:layout_constraintBottom_toTopOf="@id/recyclerViewGoals"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewDate"
                 app:percentageWidth="60"
                 app:progressBackgroundColor="@color/gray400"
                 app:textColor="?colorOnSurface"
@@ -95,7 +98,8 @@
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone" />
 
         <nl.dionsegijn.konfetti.xml.KonfettiView
             android:id="@+id/viewKonfetti"
