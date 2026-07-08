@@ -18,7 +18,6 @@ import android.view.animation.AnimationUtils
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -199,7 +198,7 @@ class HomeFragment : Fragment(), MenuProvider {
         if (viewModel.date.isSameDay(Calendar.getInstance()))
             binding.textViewDate.background = null
         else
-            binding.textViewDate.setBackgroundColor(getColor(requireContext(), R.color.orange700))
+            binding.textViewDate.setBackgroundResource(R.drawable.background_date_badge)
     }
     private fun dayBack(){
         val dayBack = viewModel.date.clone() as Calendar
