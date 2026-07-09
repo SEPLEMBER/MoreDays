@@ -32,4 +32,16 @@
         <item>ogni ora</item>
         <item>ogni minuto</item>
     </string-array>
+    <string-array name="journal_prompts">
+        <item>Cosa e\' andato bene oggi? \n Cosa mi ha reso felice oggi? \n Cosa mi ha sorpreso oggi?</item>
+        <item>Due cose per cui oggi sono grato:</item>
+        <item>Quali piccoli passi posso fare oggi per avvicinarmi ai miei sogni?</item>
+        <item>Cosa ho imparato oggi che mi aiutera\' a crescere?</item>
+        <item>Come mi sento in questo momento, e cosa posso fare per stare meglio?</item>
+        <item>Quale obiettivo voglio raggiungere nei prossimi sei mesi, e quali passi posso fare per arrivarci?</item>
+        <item>Cosa mi ha fatto sorridere oggi?</item>
+        <item>Quali sfide ho superato oggi, e cosa ho imparato da esse?</item>
+        <item>Quali decisioni ho preso oggi che mi stanno portando nella direzione giusta?</item>
+        <item>Cosa mi ha ispirato oggi, e come posso usare questa ispirazione?</item>
+    </string-array>
 </resources>

@@ -33,4 +33,16 @@
         <item>stündlich</item>
         <item>minütlich</item>
     </string-array>
+    <string-array name="journal_prompts">
+        <item>Was ist heute gut gelaufen? \n Was hat mich heute glücklich gemacht? \n Was hat mich heute überrascht?</item>
+        <item>Zwei Dinge, für die ich heute dankbar bin:</item>
+        <item>Welche kleinen Schritte kann ich heute machen, um meinen Träumen näherzukommen?</item>
+        <item>Was habe ich heute gelernt, das mir hilft zu wachsen?</item>
+        <item>Wie fühle ich mich gerade, und was kann ich tun, damit es mir besser geht?</item>
+        <item>Welches Ziel möchte ich in den nächsten sechs Monaten erreichen, und welche Schritte bringen mich dorthin?</item>
+        <item>Was hat mich heute zum Lächeln gebracht?</item>
+        <item>Welche Herausforderungen habe ich heute gemeistert, und was habe ich daraus gelernt?</item>
+        <item>Welche Entscheidungen habe ich heute getroffen, die mich in die richtige Richtung führen?</item>
+        <item>Was hat mich heute inspiriert, und wie kann ich diese Inspiration nutzen?</item>
+    </string-array>
 </resources>
