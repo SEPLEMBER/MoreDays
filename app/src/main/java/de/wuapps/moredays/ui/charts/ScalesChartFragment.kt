@@ -28,6 +28,7 @@ import de.wuapps.moredays.utilities.getColorThemeRes
 import kotlinx.coroutines.InternalCoroutinesApi
 import java.text.SimpleDateFormat
 import java.util.Date
+import kotlin.math.roundToInt
 
 class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -100,6 +101,7 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
         if (selectedScale == null) return
         val scaleEntries = data.filter { it.scale.uid == selectedScale!!.uid }
             .map { it.scaleEntry }
+        adapter.showIntegerValues = selectedScale!!.isIntValue
         adapter.submitList(scaleEntries)
 
         if (scaleEntries.isEmpty()) {
@@ -121,6 +123,13 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val xAxis: XAxis = chart.xAxis
         val lineDataSet = LineDataSet(listEntries, selectedScale!!.name)
         val lineData = LineData(lineDataSet)
+        if (selectedScale!!.isIntValue) {
+            lineData.setValueFormatter(object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    return value.roundToInt().toString()
+                }
+            })
+        }
         xAxis.valueFormatter = (object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String? {
                 return mFormat.format(Date(value.toLong()))
@@ -129,8 +138,19 @@ class ScalesChartFragment : Fragment(), AdapterView.OnItemSelectedListener {
         xAxis.textColor = textColorPrimary
         val yAxis = chart.axisLeft
         chart.axisRight.isEnabled = false
-        if (!selectedScale!!.isIntValue)
+        if (selectedScale!!.isIntValue) {
+            yAxis.granularity = 1f
+            yAxis.isGranularityEnabled = true
+            yAxis.valueFormatter = object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    return value.roundToInt().toString()
+                }
+            }
+        } else {
             yAxis.enableGridDashedLine(10f, 10f, 0f)
+            yAxis.isGranularityEnabled = false
+            yAxis.valueFormatter = null
+        }
         yAxis.axisMaximum = selectedScale!!.maxValue.toFloat()
         yAxis.axisMinimum = selectedScale!!.minValue.toFloat()
         chart.data = lineData
