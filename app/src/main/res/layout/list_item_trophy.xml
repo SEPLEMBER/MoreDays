@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -11,12 +12,13 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/min_accesible_size"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:clickable="true"
         android:elevation="6dp"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        android:minHeight="@dimen/min_accesible_size"
         app:cardCornerRadius="8dp">
 
         <LinearLayout
@@ -29,12 +31,13 @@
 
             <TextView
                 android:id="@+id/textViewDate"
-                android:layout_width="88dp"
+                android:layout_width="112dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:singleLine="true"
-                android:text="10.01.21"
-                android:textSize="14sp" />
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="14sp"
+                tools:text="10.01.21" />
 
             <ImageView
                 android:id="@+id/imageViewTrophy"
@@ -55,10 +58,12 @@
 
             <TextView
                 android:id="@+id/textViewTitle"
-                android:layout_width="100dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="title"
-                android:textAlignment="textEnd" />
+                android:layout_gravity="center_vertical"
+                android:layout_weight="4"
+                android:gravity="end|center_vertical"
+                tools:text="title" />
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

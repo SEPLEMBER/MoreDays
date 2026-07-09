@@ -113,6 +113,7 @@
     <string name="title_affirmation">Titel/Affirmation</string>
     <string name="title_scale">Skala</string>
     <string name="title_scales">Skalen</string>
+    <string name="no_entries">Keine Einträge</string>
     <string name="title_goal">Ziel</string>
     <string name="title_goals">Ziele</string>
     <string name="title_activity">Aktivität</string>
@@ -153,6 +154,13 @@
     <string name="title_select_image_source">Bildquelle wählen</string>
     <string name="label_select_image_gallery">Bild auswählen</string>
     <string name="label_select_image_camera">Foto aufnehmen</string>
+    <string name="error_open_image">Bild konnte nicht geöffnet werden.</string>
+    <string name="a11y_add_or_change_journal_picture">Journal-Bild hinzufügen oder ändern</string>
+    <string name="a11y_remove_journal_picture">Journal-Bild entfernen</string>
+    <string name="a11y_suggest_affirmation">Affirmation vorschlagen</string>
+    <string name="a11y_suggest_journal_prompt">Journal-Anregung vorschlagen</string>
+    <string name="a11y_choose_goal_color">Zielfarbe wählen</string>
+    <string name="a11y_choose_goal_icon">Ziel-Icon wählen</string>
     <string name="help_goal_isOld">Markiere ein Ziel als alt, wenn du es nicht mehr täglich sehen möchtest, die Daten aber noch behalten möchtest.</string>
     <string name="help_help">Wähle das Fragezeichen in den Optionen, um eine Tour durch den jeweiligen Teil der Anwendung zu bekommen.</string>
     <string name="lbl_scales_question">Was möchtest du messen?</string>

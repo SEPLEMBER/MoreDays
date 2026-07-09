@@ -10,12 +10,13 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/min_accesible_size"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:clickable="true"
         android:elevation="6dp"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        android:minHeight="@dimen/min_accesible_size"
         app:cardCornerRadius="8dp">
 
         <LinearLayout
@@ -29,9 +30,9 @@
                 android:id="@+id/textViewDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="viewStart"
-                android:layout_gravity="start"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:gravity="start|center_vertical"
                 android:textSize="14sp" />
 
             <ImageView
@@ -46,10 +47,10 @@
                 android:id="@+id/textViewName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="@{activityEntry.activity.name}"
-                android:textAlignment="viewEnd" />
+                android:gravity="end|center_vertical"
+                android:text="@{activityEntry.activity.name}" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

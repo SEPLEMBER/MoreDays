@@ -352,8 +352,7 @@ class HomeFragment : Fragment(), MenuProvider {
                         animateGoalListOnNextUpdate = false
                     }
                 }
-                binding.percentageView.label =
-                    String.format(getString(R.string.ini_circle_value), viewModel.name)
+                binding.percentageView.label = getString(R.string.ini_circle_value)
                 binding.percentageView.setCirclesData(it, viewModel.showProgressAsPercentInCircle)
 
                 activityData.clear()

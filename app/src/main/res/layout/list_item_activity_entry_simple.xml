@@ -18,8 +18,9 @@
     <TextView
         android:id="@+id/textViewActivityName"
         android:layout_width="0dp"
-        android:layout_height="@dimen/min_accesible_size"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:minHeight="@dimen/min_accesible_size"
         android:paddingStart="4dp"
         android:paddingEnd="8dp"
         android:layout_weight="1"

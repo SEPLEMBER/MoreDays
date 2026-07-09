@@ -24,8 +24,9 @@
             <EditText
                 android:id="@+id/editTextName"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/min_accesible_size"
+                android:layout_height="wrap_content"
                 android:inputType="text"
+                android:minHeight="@dimen/min_accesible_size"
                 android:text="@={goalViewModel.goal.name}"
                 app:layout_constraintBottom_toTopOf="@id/lblPoints"
                 app:layout_constraintEnd_toEndOf="@id/guideline"
@@ -36,8 +37,9 @@
             <EditText
                 android:id="@+id/editTextPoints"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/min_accesible_size"
+                android:layout_height="wrap_content"
                 android:digits="0123456789"
+                android:minHeight="@dimen/min_accesible_size"
                 android:text="@={`` + goalViewModel.goal.points}"
                 android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="@id/guideline"
@@ -50,7 +52,7 @@
                 android:layout_width="@dimen/min_accesible_size"
                 android:layout_height="@dimen/min_accesible_size"
                 android:background="@drawable/circle_in_secondary"
-                android:importantForAccessibility="no"
+                android:contentDescription="@string/a11y_choose_goal_color"
                 android:src="@drawable/ic_palette"
                 app:layout_constraintBottom_toBottomOf="@id/editTextName"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -59,7 +61,7 @@
                 android:layout_width="@dimen/min_accesible_size"
                 android:layout_height="@dimen/min_accesible_size"
                 android:background="@drawable/circle_in_secondary"
-                android:importantForAccessibility="no"
+                android:contentDescription="@string/a11y_choose_goal_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/editTextPoints" />
 

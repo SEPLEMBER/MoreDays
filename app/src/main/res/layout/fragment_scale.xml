@@ -32,8 +32,9 @@
             <EditText
                 android:id="@+id/editTextName"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/min_accesible_size"
+                android:layout_height="wrap_content"
                 android:inputType="text"
+                android:minHeight="@dimen/min_accesible_size"
                 android:text="@={scaleViewModel.scale.name}"
                 android:importantForAutofill="no" />
 
@@ -48,8 +49,9 @@
             <EditText
                 android:id="@+id/editTextMinValue"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/min_accesible_size"
+                android:layout_height="wrap_content"
                 android:inputType="number"
+                android:minHeight="@dimen/min_accesible_size"
                 android:text="@={`` + scaleViewModel.scale.minValue}"
                 android:importantForAutofill="no" />
 
@@ -64,8 +66,9 @@
             <EditText
                 android:id="@+id/editTextMaxValue"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/min_accesible_size"
+                android:layout_height="wrap_content"
                 android:inputType="number"
+                android:minHeight="@dimen/min_accesible_size"
                 android:text="@={`` + scaleViewModel.scale.maxValue}"
                 android:importantForAutofill="no" />
 

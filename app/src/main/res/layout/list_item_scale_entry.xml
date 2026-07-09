@@ -10,12 +10,13 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/min_accesible_size"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:clickable="true"
         android:elevation="6dp"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        android:minHeight="@dimen/min_accesible_size"
         app:cardCornerRadius="8dp">
 
         <LinearLayout

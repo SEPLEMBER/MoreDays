@@ -99,6 +99,7 @@
     <string name="title_affirmation">Titolo/Affermazione</string>
     <string name="title_scale">Scala</string>
     <string name="title_scales">Scale</string>
+    <string name="no_entries">Nessuna voce</string>
     <string name="title_goal">Obiettivo</string>
     <string name="title_goals">Obiettivi</string>
     <string name="title_activity">Attività</string>
@@ -137,6 +138,13 @@
     <string name="title_select_image_source">Seleziona origine immagine</string>
     <string name="label_select_image_gallery">Scegli immagine</string>
     <string name="label_select_image_camera">Scatta foto</string>
+    <string name="error_open_image">Impossibile aprire l\'immagine.</string>
+    <string name="a11y_add_or_change_journal_picture">Aggiungi o cambia immagine del diario</string>
+    <string name="a11y_remove_journal_picture">Rimuovi immagine del diario</string>
+    <string name="a11y_suggest_affirmation">Suggerisci affermazione</string>
+    <string name="a11y_suggest_journal_prompt">Suggerisci spunto per il diario</string>
+    <string name="a11y_choose_goal_color">Scegli colore obiettivo</string>
+    <string name="a11y_choose_goal_icon">Scegli icona obiettivo</string>
     <string name="help_journal_title">Inserire un titolo o un\'affermazione per l\'annotazione del diario.</string>
     <string name="help_journal_button_affirmation">Lasciatevi ispirare da un esempio di affermazione.</string>
     <string name="help_goal_isOld">Contrassegnate un obiettivo come vecchio, se volete conservare i dati, ma non volete più vederli nella schermata iniziale. È possibile riattivarlo in qualsiasi momento.</string>

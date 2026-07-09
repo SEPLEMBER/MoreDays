@@ -165,6 +165,12 @@
     <string name="title_select_image_source">Select image source</string>
     <string name="label_select_image_gallery">Choose image</string>
     <string name="label_select_image_camera">Take photo</string>
+    <string name="a11y_add_or_change_journal_picture">Add or change journal picture</string>
+    <string name="a11y_remove_journal_picture">Remove journal picture</string>
+    <string name="a11y_suggest_affirmation">Suggest affirmation</string>
+    <string name="a11y_suggest_journal_prompt">Suggest journal prompt</string>
+    <string name="a11y_choose_goal_color">Choose goal color</string>
+    <string name="a11y_choose_goal_icon">Choose goal icon</string>
     <string name="error_open_image">Could not open image.</string>
     <string name="help_journal_title">Enter a title or an affirmation for your journal entry.</string>
     <string name="help_journal_button_affirmation">Be inpired by an affirmation example.</string>
