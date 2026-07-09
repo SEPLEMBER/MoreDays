@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.get
 import androidx.core.view.updatePadding
@@ -26,13 +27,15 @@ import de.wuapps.moredays.ui.onboarding.Onboarding
 class MainActivity : AppCompatActivity() {
     private lateinit var fab: FloatingActionButton
     private lateinit var fragmentContainerView : FragmentContainerView
-    private var fragmentContainerPaddingBottom = 0
     private lateinit var bottomAppBar: BottomAppBar
     private var bottomAppBarVerticalOffsetOrg = 0F
+    private var bottomAppBarPaddingBottom = 0
+    private var systemBarInsetBottom = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
 
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContentView(R.layout.activity_main)
 
@@ -42,16 +45,21 @@ class MainActivity : AppCompatActivity() {
         fab = findViewById(R.id.fabMain)
         bottomAppBar = findViewById(R.id.bottomAppBar)
         bottomAppBarVerticalOffsetOrg = bottomAppBar.cradleVerticalOffset
+        bottomAppBarPaddingBottom = bottomAppBar.paddingBottom
         fragmentContainerView = findViewById(R.id.nav_host_fragment)
-        fragmentContainerPaddingBottom = fragmentContainerView.paddingBottom
 
         wireUpNavigation()
 
         ViewCompat.setOnApplyWindowInsetsListener(container) { view, windowInsets ->
             val statusInsets = windowInsets.getInsets(WindowInsetsCompat.Type.statusBars())
+            val navInsets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
+            systemBarInsetBottom = navInsets.bottom
             view.updatePadding(top = statusInsets.top)
+            bottomAppBar.updatePadding(bottom = bottomAppBarPaddingBottom + systemBarInsetBottom)
+            bottomAppBar.post { updateFragmentContainerBottomPadding() }
             windowInsets
         }
+        ViewCompat.requestApplyInsets(container)
     }
 
     private fun handleOnBoarding(){
@@ -112,22 +120,31 @@ class MainActivity : AppCompatActivity() {
 
     fun hideBottomBar() {
         bottomAppBar.visibility = View.GONE
+        updateFragmentContainerBottomPadding()
     }
 
     fun showBottomBar() {
         bottomAppBar.visibility = View.VISIBLE
+        bottomAppBar.post { updateFragmentContainerBottomPadding() }
     }
 
     fun hideFab() {
         fab.hide()
         bottomAppBar.cradleVerticalOffset = 0F
-        fragmentContainerView.updatePadding(bottom = 0)
     }
 
     fun showFab() {
         fab.show()
         bottomAppBar.cradleVerticalOffset = bottomAppBarVerticalOffsetOrg
-        fragmentContainerView.updatePadding(bottom = fragmentContainerPaddingBottom)
+    }
+
+    private fun updateFragmentContainerBottomPadding() {
+        val bottomBarPadding = if (bottomAppBar.visibility == View.VISIBLE) {
+            bottomAppBar.height
+        } else {
+            systemBarInsetBottom
+        }
+        fragmentContainerView.updatePadding(bottom = bottomBarPadding)
     }
 
     override fun onSupportNavigateUp(): Boolean {
