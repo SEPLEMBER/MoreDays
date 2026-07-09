@@ -127,9 +127,7 @@
         tools:layout="@layout/fragment_journal_list" >
         <action
             android:id="@+id/navigation_journalList_journal"
-            app:destination="@id/journalFragment"
-            app:popUpTo="@id/navigation_journalList"
-            app:popUpToInclusive="true"/>
+            app:destination="@id/journalFragment" />
     </fragment>
     <fragment
         android:id="@+id/journalFragment"
