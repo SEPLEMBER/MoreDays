@@ -130,10 +130,17 @@ class PercentageView @JvmOverloads constructor(
         // Percentage bar
         var startAngle = START_ANGLE_OF_PERCENTAGE_BAR
         var isStart = true
-        val pointsFullCircle = if (sum < desiredTotal) desiredTotal else sum
-        for (item in goalEntries) {
-            if (item.getDesiredValue() > 0 && item.getCurrentValue() > 0) {
-                val angle = getAngleToPercentage(item.getCurrentValue() * 100F / pointsFullCircle)
+        val drawableGoalEntries = goalEntries.filter {
+            it.getDesiredValue() > 0 && it.getCurrentValue() > 0
+        }
+        val drawableSum = drawableGoalEntries.sumOf { it.getCurrentValue() }
+        val pointsFullCircle = if (drawableSum < desiredTotal) desiredTotal else drawableSum
+        for ((index, item) in drawableGoalEntries.withIndex()) {
+            var angle = getAngleToPercentage(item.getCurrentValue() * 100F / pointsFullCircle)
+            if (percentage >= 100 && index == drawableGoalEntries.lastIndex) {
+                angle = START_ANGLE_OF_PERCENTAGE_BAR + PERCENTAGE_TOTAL_ANGLE - startAngle
+            }
+            if (angle > 0) {
                 progressPaint.color = item.getColor()
                 canvas.drawArc(
                     rectF,
@@ -142,14 +149,14 @@ class PercentageView @JvmOverloads constructor(
                     true,
                     progressPaint
                 )
-                startAngle += angle
-                if (isStart && angle > 0) { //first entry
-                    startCirclePaint.color = item.getColor()
-                    isStart = false
-                }
-                if (angle > 0 && percentage >= 100) //100% reached
-                    endCirclePaint.color = item.getColor()
             }
+            startAngle += angle
+            if (isStart && angle > 0) { //first entry
+                startCirclePaint.color = item.getColor()
+                isStart = false
+            }
+            if (angle > 0 && percentage >= 100) //100% reached
+                endCirclePaint.color = item.getColor()
         }
 
         if (hasRoundEnds){
