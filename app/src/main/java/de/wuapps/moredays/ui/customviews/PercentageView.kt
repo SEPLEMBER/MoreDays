@@ -131,7 +131,7 @@ class PercentageView @JvmOverloads constructor(
         var startAngle = START_ANGLE_OF_PERCENTAGE_BAR
         var isStart = true
         val drawableGoalEntries = goalEntries.filter {
-            it.getDesiredValue() > 0 && it.getCurrentValue() > 0
+            it.getCurrentValue() > 0
         }
         val drawableSum = drawableGoalEntries.sumOf { it.getCurrentValue() }
         val pointsFullCircle = if (drawableSum < desiredTotal) desiredTotal else drawableSum
