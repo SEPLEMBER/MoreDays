@@ -193,6 +193,7 @@
     <string name="preferences_affirmation_trigger_key" translatable="false">affirmation_trigger</string>
     <string name="preferences_affirmation_threshold_key" translatable="false">affirmation_threshold</string>
     <string name="preferences_affirmation_duration_key" translatable="false">affirmation_duration</string>
+    <string name="preferences_language_key" translatable="false">language</string>
     <string name="preferences_show_percentage_key" translatable="false">show_percentage</string>
     <string name="preferences_frequency_journal_entries_key" translatable="false">frequency_journal_entries</string>
     <string name="preferences_notification_key" translatable="false">notification</string>
@@ -216,6 +217,7 @@
     <string name="settings_affirmation_trigger">Show affirmation</string>
     <string name="settings_affirmation_threshold">Percentage threshold</string>
     <string name="settings_affirmation_duration">Affirmation duration</string>
+    <string name="settings_language">Language</string>
     <string name="settings_style_inner_circle">style circle</string>
     <string name="settings_frequency_journal_entries">Frequency of journal entries</string>
     <string name="settings_style_inner_circle_off">e.g. 8/10 -- meaning you have 8 of 10 desired points</string>

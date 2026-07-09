@@ -172,6 +172,7 @@
     <string name="settings_affirmation_trigger">Affirmation anzeigen</string>
     <string name="settings_affirmation_threshold">Prozentueller Schwellenwert</string>
     <string name="settings_affirmation_duration">Anzeigedauer der Affirmation</string>
+    <string name="settings_language">Sprache</string>
     <string name="settings_style_inner_circle">Darstellung im Kreis</string>
     <string name="settings_style_inner_circle_off">z.B.  8/10 -- d.h. 8 der 10 erwünschten Punkte erreicht</string>
     <string name="settings_style_inner_circle_on">z.B. 80%</string>

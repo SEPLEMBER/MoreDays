@@ -20,12 +20,14 @@ e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moreda
 - Dark background on affirmation overlay for better readability
 - Tips & tricks: explain 0-point goals (not part of daily 100%) and 0-point activities (tracking only) as additional use cases
 - Add some animations
+- Add settings for supported languages
 
 ### Fixed
 - Keyboard hiding input fields when editing or creating a scale/activity or goal
 - Affirmation overlay hidden behind the progress circle
 - Images not shown in journal list view (were visible in detail view only)
 - layout problems
+- app crash after switching light/dark mode
 
 ### Refactored
 - Upgraded target SDK to Android 17 (API 37)

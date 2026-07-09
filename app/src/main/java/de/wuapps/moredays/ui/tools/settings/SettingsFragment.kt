@@ -8,8 +8,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.LocaleListCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -67,6 +69,9 @@ class SettingsFragment : PreferenceFragmentCompat(),
             getString(R.string.preferences_dark_mode_key) -> {
                 hotReloadActivity()
             }
+            getString(R.string.preferences_language_key) -> {
+                updateLanguage(sharedPreferences?.getString(key, "") ?: "")
+            }
 
             getString(R.string.preferences_notification_key) -> {
                 updateNotifications()
@@ -94,6 +99,11 @@ class SettingsFragment : PreferenceFragmentCompat(),
         // Recreate doesn't support an animation, but any workaround is buggy
         val activity = requireActivity()
         ActivityCompat.recreate(activity)
+    }
+
+    private fun updateLanguage(languageTag: String) {
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(languageTag))
+        hotReloadActivity()
     }
 
     private fun setAlarm() {
@@ -173,4 +183,3 @@ class SettingsFragment : PreferenceFragmentCompat(),
         } else return true
     }
 }
-

@@ -169,6 +169,7 @@
     <string name="settings_affirmation_trigger">Mostra affermazione</string>
     <string name="settings_affirmation_threshold">Soglia percentuale</string>
     <string name="settings_affirmation_duration">Durata visualizzazione affermazione</string>
+    <string name="settings_language">Lingua</string>
     <string name="settings_style_inner_circle">stile cerchio</string>
     <string name="settings_frequency_journal_entries">Frequenza delle annotazioni sul diario</string>
     <string name="settings_style_inner_circle_off">Ad esempio, 8/10 -- significa che avete 8 dei 10 punti desiderati.</string>

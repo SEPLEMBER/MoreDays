@@ -27,6 +27,12 @@
         <item>19 secondi</item>
         <item>20 secondi</item>
     </string-array>
+    <string-array name="entriesLanguage">
+        <item>Lingua di sistema</item>
+        <item>Deutsch</item>
+        <item>English</item>
+        <item>Italiano</item>
+    </string-array>
     <string-array name="entriesFrequencyJournal">
         <item>giornalmente</item>
         <item>ogni ora</item>

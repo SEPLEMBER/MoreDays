@@ -6,6 +6,14 @@
         app:title="@string/settings_your_name_title"
         app:useSimpleSummaryProvider="true" />
 
+    <DropDownPreference
+        android:defaultValue=""
+        android:entries="@array/entriesLanguage"
+        android:entryValues="@array/valuesLanguage"
+        app:key="@string/preferences_language_key"
+        app:title="@string/settings_language"
+        app:useSimpleSummaryProvider="true" />
+
     <SwitchPreferenceCompat
         app:key="@string/preferences_dark_mode_key"
         app:summaryOff="@string/no"

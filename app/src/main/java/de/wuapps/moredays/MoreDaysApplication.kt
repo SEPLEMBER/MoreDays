@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -38,6 +39,7 @@ class MoreDaysApplication : Application() {
 
     override fun onCreate() { //instantiation requires android:name=".MoreDaysApplication" in the manifest
         super.onCreate()
+        handlePreferredLanguage()
         handlePreferredTheme()
         registerPickerInsetsHandling()
         createNotificationChannel()
@@ -99,6 +101,13 @@ class MoreDaysApplication : Application() {
             }
         }
     }
+    private fun handlePreferredLanguage() {
+        val preferences: SharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(this)
+        val language = preferences.getString(getString(R.string.preferences_language_key), "") ?: ""
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(language))
+    }
+
     private fun handlePreferredTheme(){ //see https://github.com/googlearchive/android-DarkTheme
         val preferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(this)

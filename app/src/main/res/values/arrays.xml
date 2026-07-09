@@ -55,6 +55,18 @@
         <item>19000</item>
         <item>20000</item>
     </string-array>
+    <string-array name="entriesLanguage">
+        <item>System default</item>
+        <item>Deutsch</item>
+        <item>English</item>
+        <item>Italiano</item>
+    </string-array>
+    <string-array name="valuesLanguage" translatable="false">
+        <item></item>
+        <item>de</item>
+        <item>en</item>
+        <item>it</item>
+    </string-array>
     <string-array name="entriesFrequencyJournal">
         <item>daily</item>
         <item>hourly</item>
