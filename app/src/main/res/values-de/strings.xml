@@ -32,6 +32,10 @@
     <string name="hint_update_points_activity">Anpassungen beziehen sich auch auf Daten in der Vergangenheit.</string>
     <string name="lbl_name">Name</string>
     <string name="lbl_points">Punkte</string>
+    <plurals name="points_count">
+        <item quantity="one">%d Punkt</item>
+        <item quantity="other">%d Punkte</item>
+    </plurals>
     <string name="lbl_add_activity">Füge Aktivität(en) dazu</string>
     <string name="label_goals_question">Wie möchtest du sein?</string>
     <string name="lbl_is_inactive">inaktiv</string>

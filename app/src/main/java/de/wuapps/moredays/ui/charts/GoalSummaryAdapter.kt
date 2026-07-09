@@ -32,9 +32,12 @@ class GoalSummaryAdapter :
             )
             binding.lblPoints.text = HtmlCompat.fromHtml(
                 String.format(
-                    "&sum; %d %s",
-                    item.sumPoints,
-                    itemView.context.getString(R.string.lbl_points)
+                    "&sum; %s",
+                    itemView.context.resources.getQuantityString(
+                        R.plurals.points_count,
+                        item.sumPoints,
+                        item.sumPoints
+                    )
                 ), HtmlCompat.FROM_HTML_MODE_LEGACY
             )
             if ( item.countDaysInRow > 0) {

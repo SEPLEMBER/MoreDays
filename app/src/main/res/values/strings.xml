@@ -18,6 +18,10 @@
     <string name="hint_update_points_activity">Change will effect all data, including past entries.</string>
     <string name="lbl_name">Name</string>
     <string name="lbl_points">Points</string>
+    <plurals name="points_count">
+        <item quantity="one">%d point</item>
+        <item quantity="other">%d points</item>
+    </plurals>
     <string name="lbl_add_activity">add activity</string>
     <string name="label_goals_question">How do you want to be?</string>
     <string name="lbl_is_inactive">is inactive</string>
