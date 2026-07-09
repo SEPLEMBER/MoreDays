@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import de.wuapps.moredays.database.entity.TrophyAndRelatedGoal
 import de.wuapps.moredays.databinding.FragmentTrophyListBinding
 import de.wuapps.moredays.utilities.InjectorUtils
@@ -35,8 +33,6 @@ class TrophyListFragment : Fragment() {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.recyclerviewTrophies.layoutManager = layoutManager
         _adapter = TrophyAdapter()
-        val touchHelper = getItemTouchHelper()
-        touchHelper.attachToRecyclerView(binding.recyclerviewTrophies)
         binding.recyclerviewTrophies.adapter = adapter
         subscribeUi()
         handleFab(viewModel.hasFab)
@@ -52,29 +48,6 @@ class TrophyListFragment : Fragment() {
         }
     }
 
-    @InternalCoroutinesApi
-    private fun getItemTouchHelper(): ItemTouchHelper {
-        return ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
-            0,
-            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-        ) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
-
-            override fun onSwiped(
-                viewHolder: RecyclerView.ViewHolder,
-                direction: Int
-            ) {
-                val id = adapter.getTrophyId(viewHolder.absoluteAdapterPosition)
-                viewModel.removeTrophy(id)
-            }
-        })
-    }
     override fun onDestroyView() {
         super.onDestroyView()
         _adapter = null
