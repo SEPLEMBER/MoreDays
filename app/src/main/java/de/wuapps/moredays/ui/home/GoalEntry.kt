@@ -49,12 +49,29 @@ class GoalEntry(private val goalData: GoalAndRelatedData) {
         return activityEntriesToday.filter { entry -> entry.activityId == activityId }.size
     }
 
+    fun hasActivityDoneToday(): Boolean {
+        // getCurrentValue initializes the lazy activityEntriesToday cache.
+        getCurrentValue()
+        return activityEntriesToday.isNotEmpty()
+    }
+
     fun getGoal(): Goal {
         return goal
     }
 
     fun getDesiredValue(): Int {
         return goal.points
+    }
+
+    fun getProgressMax(): Int {
+        return if (goal.points == 0) 1 else goal.points
+    }
+
+    fun getProgressValue(): Int {
+        if (goal.points > 0) {
+            return getCurrentValue()
+        }
+        return if (hasActivityDoneToday()) 1 else 0
     }
 
     fun getName(): String {

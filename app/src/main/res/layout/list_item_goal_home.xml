@@ -60,10 +60,10 @@
                 android:layout_height="5dp"
                 android:layout_margin="0dp"
                 android:layout_gravity="bottom"
-                android:max="@{goalEntry.desiredValue}"
+                android:max="@{goalEntry.progressMax}"
                 android:min="0"
                 android:padding="0dp"
-                android:progress="@{goalEntry.currentValue}"
+                android:progress="@{goalEntry.progressValue}"
                 android:progressTint="@color/lime500"
                 android:visibility="visible"
                  />
