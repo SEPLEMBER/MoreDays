@@ -67,7 +67,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
             }
 
             getString(R.string.preferences_dark_mode_key) -> {
-                hotReloadActivity()
+                updateDarkMode(sharedPreferences?.getBoolean(key, defaultIsDarkMode) ?: defaultIsDarkMode)
             }
             getString(R.string.preferences_language_key) -> {
                 updateLanguage(sharedPreferences?.getString(key, "") ?: "")
@@ -99,6 +99,12 @@ class SettingsFragment : PreferenceFragmentCompat(),
         // Recreate doesn't support an animation, but any workaround is buggy
         val activity = requireActivity()
         ActivityCompat.recreate(activity)
+    }
+
+    private fun updateDarkMode(isDarkMode: Boolean) {
+        AppCompatDelegate.setDefaultNightMode(
+            if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        )
     }
 
     private fun updateLanguage(languageTag: String) {

@@ -73,6 +73,7 @@ class HomeFragment : Fragment(), MenuProvider {
     private val goalAdapter get() = _goalAdapter!!
     private var wasAboveThreshold = false
     private var animateGoalListOnNextUpdate = true
+    private var preferences: SharedPreferences? = null
     private val scales = ArrayList<Scale>()
     private val activityData = ArrayList<Pair<Goal, de.wuapps.moredays.database.entity.Activity>>()
     private var preferencesListener =
@@ -92,11 +93,10 @@ class HomeFragment : Fragment(), MenuProvider {
             getFlexboxLayoutManager(requireContext()) //layoutManagerGoals
         binding.recyclerViewGoals.layoutAnimation =
             AnimationUtils.loadLayoutAnimation(requireContext(), R.anim.layout_animation_goal_cards)
-        val preferences =
-            PreferenceManager.getDefaultSharedPreferences(requireContext())
-        handlePreferences(preferences, null)
+        preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        handlePreferences(preferences!!, null)
 
-        preferences.registerOnSharedPreferenceChangeListener(preferencesListener)
+        preferences?.registerOnSharedPreferenceChangeListener(preferencesListener)
         _goalAdapter = GoalAdapter(viewModel::addGoalEntry, viewModel::deleteLatestGoalEntry)
         binding.recyclerViewGoals.adapter = goalAdapter
         handleLoading()
@@ -562,6 +562,8 @@ class HomeFragment : Fragment(), MenuProvider {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        preferences?.unregisterOnSharedPreferenceChangeListener(preferencesListener)
+        preferences = null
         binding.textViewAffirmation.cancelFadeOut()
         binding.lottieTrophy.cancelAnimation()
         _goalAdapter = null
