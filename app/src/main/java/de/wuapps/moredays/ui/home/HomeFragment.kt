@@ -71,7 +71,6 @@ class HomeFragment : Fragment(), MenuProvider {
     private val binding get() = _binding!!
     private var _goalAdapter: GoalAdapter? = null
     private val goalAdapter get() = _goalAdapter!!
-    private var wasAboveThreshold = false
     private var animateGoalListOnNextUpdate = true
     private var preferences: SharedPreferences? = null
     private val scales = ArrayList<Scale>()
@@ -145,11 +144,6 @@ class HomeFragment : Fragment(), MenuProvider {
             getString(R.string.preferences_show_percentage_key),
             viewModel.showProgressAsPercentInCircle
         )
-        if (key == getString(R.string.preferences_affirmation_trigger_key) ||
-            key == getString(R.string.preferences_affirmation_threshold_key)
-        ) {
-            reevaluateThresholdAffirmation()
-        }
     }
 
 
@@ -315,25 +309,17 @@ class HomeFragment : Fragment(), MenuProvider {
         binding.textViewAffirmation.fadeOut(duration)
     }
 
-    private fun reevaluateThresholdAffirmation() {
-        val currentPercent = viewModel.percent.value ?: return
-        handleThresholdAffirmation(currentPercent, forceReevaluate = true)
-    }
-
-    private fun handleThresholdAffirmation(currentPercent: Float, forceReevaluate: Boolean = false) {
+    private fun handleThresholdAffirmation(transition: HomeViewModel.PercentTransition) {
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
         val trigger = sharedPref.getString(getString(R.string.preferences_affirmation_trigger_key), "never") ?: "never"
         if (trigger != "threshold" && trigger != "both") {
-            wasAboveThreshold = false
             return
         }
 
         val threshold = sharedPref.getInt(getString(R.string.preferences_affirmation_threshold_key), 80).toFloat()
-        val isAboveThreshold = currentPercent >= threshold
-        if (isAboveThreshold && (!wasAboveThreshold || forceReevaluate)) {
+        if (transition.previousPercent < threshold && transition.currentPercent >= threshold) {
             showAffirmation()
         }
-        wasAboveThreshold = isAboveThreshold
     }
 
     private fun subscribeUI() {
@@ -370,8 +356,11 @@ class HomeFragment : Fragment(), MenuProvider {
             }
         }
 
-        viewModel.percent.observe(viewLifecycleOwner) { currentPercent ->
-            handleThresholdAffirmation(currentPercent)
+        viewModel.percentReachedAfterActivity.observe(viewLifecycleOwner) { transition ->
+            transition?.let {
+                handleThresholdAffirmation(it)
+                viewModel.percentReachedAfterActivity.value = null
+            }
         }
 
         viewModel.newTrophies.observe(viewLifecycleOwner) {

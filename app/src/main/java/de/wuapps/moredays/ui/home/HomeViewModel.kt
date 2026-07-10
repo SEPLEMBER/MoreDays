@@ -43,6 +43,7 @@ class HomeViewModel(
     var name = ""
     val newTrophies = MutableLiveData<MutableList<Trophy>>()
     val justReached100Percent = MutableLiveData<Boolean>()
+    val percentReachedAfterActivity = MutableLiveData<PercentTransition?>()
     private val _percent = MutableLiveData<Float>()
     val percent: LiveData<Float> = _percent
     var date: Calendar = Calendar.getInstance()
@@ -53,6 +54,7 @@ class HomeViewModel(
     val goalEntryList = MutableLiveData<MutableList<GoalEntry>>()
     private var was100Percent =
         false //before an activity is inserted this is set to true/false, hence with an update of goalData reached100Percent may be set accordingly
+    private var percentBeforeLatestActivity: Float? = null
     private val analysis = Analysis()
     private var latestActivity: Activity? = null
     var latestGoal: Goal? = null
@@ -67,6 +69,7 @@ class HomeViewModel(
     init {
         newTrophies.value = ArrayList()
         justReached100Percent.value = false
+        percentReachedAfterActivity.value = null
         _percent.value = 0F
         //goalEntryList.value = ArrayList<GoalEntry>()
         viewModelScope.launch(Dispatchers.IO) {
@@ -119,6 +122,7 @@ class HomeViewModel(
 
     fun addGoalEntry(goal: Goal, activity: Activity) {
         was100Percent = (_percent.value!! >= 100F)
+        percentBeforeLatestActivity = _percent.value ?: 0F
         viewModelScope.launch(Dispatchers.IO) {
             val activityEntry = ActivityEntry(activity)
             activityEntry.timestamp = date
@@ -152,7 +156,14 @@ class HomeViewModel(
         if (sum > 0 && desired > 0) {
             if (sum >= desired && !was100Percent && latestActivity != null)
                 justReached100Percent.value = true
-            _percent.value = sum * 100F / desired
+            val newPercent = sum * 100F / desired
+            percentBeforeLatestActivity?.let { previousPercent ->
+                percentReachedAfterActivity.value = PercentTransition(previousPercent, newPercent)
+                percentBeforeLatestActivity = null
+            }
+            _percent.value = newPercent
+        } else {
+            percentBeforeLatestActivity = null
         }
     }
 
@@ -172,5 +183,6 @@ class HomeViewModel(
         return scaleEntriesList.lastOrNull { it.scaleId == scale.uid }?.value
             ?: (scale.maxValue - scale.minValue) / 2.0F
     }
-}
 
+    data class PercentTransition(val previousPercent: Float, val currentPercent: Float)
+}
