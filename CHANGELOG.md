@@ -11,7 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 e.g. - - Add new unit type `Assignment`. [#600](https://gitlab.com/wuapps/moredays/-/issues/600)
 -->
 
-## [1.0.26] - 2026-07-08 - 🏁-Release 
+## [1.0.26] - 2026-07-13 - 🏁-Release 
 
 ### Added
 - Setting for duration of showing the affirmation, issue [#22](https://gitlab.com/wuapps/moredays/-/work_items/22)

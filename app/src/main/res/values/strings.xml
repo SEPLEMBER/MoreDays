@@ -232,7 +232,7 @@
     <string name="settings_notification_title">Would you like to get daily notifications?</string>
     <string name="settings_notification_time_title">Notification time</string>
     <string name="settings_notification_text_title">Notification text</string>
-    <string name="settings_notification_text_default_value">tracking?</string>
+    <string name="settings_notification_text_default_value">Have you already made the most of your day?</string>
     <string name="error_permission_denied">permission denied</string>
     <string name="error_unknown">unknown error, please report to developer</string>
     <string name="mood_1">quivering in frustration or holding back tears, irritated, frustrated, disgusted, sad, furious, cramped</string>

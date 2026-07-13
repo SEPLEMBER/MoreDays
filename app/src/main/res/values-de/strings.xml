@@ -189,7 +189,7 @@
     <string name="settings_notification_title">Möchten Sie tägliche Erinnerungen?</string>
     <string name="settings_notification_time_title">Uhrzeit</string>
     <string name="settings_notification_text_title">Motivierender Text</string>
-    <string name="settings_notification_text_default_value">hast du deinen Tag schon gut gestaltet?</string>
+    <string name="settings_notification_text_default_value">Hast du deinen Tag schon gut gestaltet?</string>
     <string name="goal_charts_web_days_made">Radardiagramm Tage geschafft</string>
     <string name="expand">ausklappen</string>
     <string name="error_permission_denied">Erlaubnis nicht erteilt</string>
