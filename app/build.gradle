@@ -8,9 +8,8 @@ plugins {
 
 android {
     compileSdk 37
-    buildFeatures {
-        dataBinding = true
-    }
+    namespace = 'de.wuapps.moredays'
+
     defaultConfig {
         applicationId "de.wuapps.moredays"
         minSdkVersion 26
@@ -21,24 +20,48 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+
+    // Объединил buildFeatures в один блок для чистоты кода
     buildFeatures {
+        dataBinding = true
         viewBinding = true
         buildConfig = true
     }
 
+    // Настройка разделения APK по архитектурам (ABI)
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'armeabi-v7a', 'arm64-v8a'
+            universalApk false // Запрещаем создание одного большого "fat" APK
+        }
+    }
+
     buildTypes {
         release {
-            multiDexEnabled = true
+            // Явное указание отсутствия подписи для релизной сборки
+            signingConfig null
+            
+            // multiDexEnabled здесь был удален, так как это свойство уровня defaultConfig, 
+            // а не buildType (Gradle мог игнорировать его или выдавать предупреждение)
+            
+            minifyEnabled true // Включает сжатие кода (R8/ProGuard), логично для релиза
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    namespace = 'de.wuapps.moredays'
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    compileSdkMinor = 0
 
+    // Полезная настройка из вашего примера (переведена на синтаксис Groovy)
+    // Отключает внедрение метаданных о зависимостях в итоговый APK
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
 }
 
 kotlin {
@@ -52,9 +75,7 @@ ksp {
 }
 
 dependencies {
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-
     implementation "androidx.core:core-ktx:$coreVersion"
 
     // support libraries
@@ -86,7 +107,6 @@ dependencies {
     // Annotation processor
     implementation "androidx.lifecycle:lifecycle-common-java8:$archLifecycleVersion"
 
-
     // coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
@@ -100,16 +120,15 @@ dependencies {
     implementation "com.maltaisn:iconpack-default:1.1.0"
     implementation "com.github.skydoves:colorpickerview:$colorPickerVersion"
 
-    // If you have a problem with Glide, please use the same Glide version or simply open an issue
+    // Glide
     implementation 'com.github.bumptech.glide:glide:5.0.7'
 
-    // https://github.com/PhilJay/MPAndroidChart
+    // Charts
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-    //Alternative: https://github.com/AnyChart/AnyChart-Android
 
     implementation 'com.github.yalantis:ucrop:2.2.8'
 
-    //for help
+    // for help
     implementation 'com.github.florent37:expansionpanel:1.2.4'
 
     // for credentials
@@ -117,22 +136,22 @@ dependencies {
 
     implementation 'nl.dionsegijn:konfetti-xml:2.0.5'
 
-    //onboarding
+    // onboarding
     implementation 'com.github.AppIntro:AppIntro:6.3.1'
 
-    //tap help
+    // tap help
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.15.0'
 
-    //flexbox for recyclerviews
+    // flexbox for recyclerviews
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
     implementation "androidx.emoji2:emoji2:$emojiVersion"
     implementation "androidx.emoji2:emoji2-views:$emojiVersion"
 
-    //import/export
+    // import/export
     implementation 'org.apache.poi:poi-ooxml:5.5.1'
 
-    //animation
+    // animation
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
     implementation 'androidx.core:core-splashscreen:1.2.0'
