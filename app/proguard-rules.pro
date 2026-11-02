@@ -19,3 +19,19 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# ==========================================
+# Правила для Apache POI и его зависимостей
+# Игнорируем отсутствующие в Android десктопные классы (java.awt, osgi и т.д.)
+# ==========================================
+-dontwarn java.awt.**
+-dontwarn org.osgi.**
+-dontwarn aQute.bnd.**
+-dontwarn edu.umd.cs.findbugs.**
+-dontwarn org.apache.logging.log4j.**
+
+# Сохраняем основные классы POI и связанные схемы, чтобы они не были удалены при минификации
+-keep class org.apache.poi.** { *; }
+-keep class org.openxmlformats.schemas.** { *; }
+-keep class schemasMicrosoftComVml.** { *; }
+-keep class schemasMicrosoftComOfficeExcel.** { *; }
